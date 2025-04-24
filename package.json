@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/PROYECTO-SANTACLOTILDE/Generador-de-FUA#readme",
   "dependencies": {
+    "@types/fhir": "^0.0.41",
     "express": "^5.1.0",
     "fhir": "^4.12.0",
     "pg": "^8.15.5",
