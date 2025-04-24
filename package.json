@@ -1,0 +1,34 @@
+{
+  "name": "generador-de-fua",
+  "version": "1.0.0",
+  "description": "Modulo encargado de generar FUA a partir de la version de referencia de OpenMRS para SIH SALUS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PROYECTO-SANTACLOTILDE/Generador-de-FUA.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PROYECTO-SANTACLOTILDE/Generador-de-FUA/issues"
+  },
+  "homepage": "https://github.com/PROYECTO-SANTACLOTILDE/Generador-de-FUA#readme",
+  "dependencies": {
+    "express": "^5.1.0",
+    "fhir": "^4.12.0",
+    "pg": "^8.15.5",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.7"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.1",
+    "@types/node": "^22.15.0",
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}
