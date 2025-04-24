@@ -4,7 +4,7 @@ import { getPatient } from './services/fhirService';
 const app = express();
 const port = 3000;
 
-// Ruta para la raíz
+// Comentario para marcelo: Ya funciona el getter del patients a través de la API de OpenMRS, faltarian ajustar algunas cosas como el cors y la seguridad.
 app.get('/', (req, res) => {
   res.send('¡Servidor Express en funcionamiento!');
 });
