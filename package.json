@@ -15,7 +15,9 @@
     "type": "git",
     "url": "git+https://github.com/PROYECTO-SANTACLOTILDE/Generador-de-FUA.git"
   },
-  "keywords": [],
+  "keywords": [
+    "PeruHCE"
+  ],
   "author": "",
   "license": "ISC",
   "bugs": {
