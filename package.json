@@ -2,8 +2,13 @@
   "name": "generador-de-fua",
   "version": "1.0.0",
   "description": "Modulo encargado de generar FUA a partir de la version de referencia de OpenMRS para SIH SALUS",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
+    "start": "ts-node src/index.ts",
+    "dev": "nodemon src/index.ts",
+    "build": "tsc",
+    "migrate": "sequelize-cli db:migrate",
+    "seed": "sequelize-cli db:seed:all",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -31,6 +36,7 @@
     "@types/node": "^22.15.0",
     "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "sequelize-cli": "^6.3.0"
   }
 }
