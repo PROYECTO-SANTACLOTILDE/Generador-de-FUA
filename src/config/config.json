@@ -1,0 +1,26 @@
+{
+    "development": {
+        "username": "postgres",
+        "password": "tu_password",
+        "database": "fua_db",
+        "host": "localhost",
+        "dialect": "postgres",
+        "logging": false
+    },
+    "test": {
+        "username": "postgres",
+        "password": "tu_password",
+        "database": "fua_test_db",
+        "host": "localhost",
+        "dialect": "postgres",
+        "logging": false
+    },
+    "production": {
+        "username": "postgres",
+        "password": "tu_password",
+        "database": "fua_prod_db",
+        "host": "localhost",
+        "dialect": "postgres",
+        "logging": false
+    }
+}
