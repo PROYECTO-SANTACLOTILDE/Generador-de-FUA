@@ -3,9 +3,9 @@ import Client from 'fhir-kit-client';
 
 
 const client = new Client({
-    baseUrl: 'http://hii1sc-dev.inf.pucp.edu.pe/openmrs/ws/fhir2/R4',
+    baseUrl: 'IP SORRY UWU',
     customHeaders: {
-      Authorization: 'Basic ' + Buffer.from('admin:Admin123').toString('base64'),
+      Authorization: 'Basic ' + Buffer.from('CREDENCIALES UWU').toString('base64'),
     },
   });
 
