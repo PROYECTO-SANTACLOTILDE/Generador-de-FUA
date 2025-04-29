@@ -3,6 +3,7 @@ import { getPatient } from './services/fhirService';
 
 const app = express();
 const port = 3000;
+const { Sequelize } = require('sequelize');
 
 // Comentario para marcelo: Ya funciona el getter del patients a través de la API de OpenMRS, faltarian ajustar algunas cosas como el cors y la seguridad.
 app.get('/', (req, res) => {
