@@ -1,11 +1,12 @@
-const { Sequelize, DataTypes, Model } = require('sequelize');
+const { DataTypes, Model } = require('sequelize');
+import { sequelize } from './database';
 
-class User extends Model {}
 /*
-  User entity is a 'primal' entity, so it doesnt derived from the Base Enity because its need froaudit purpouses.
+  User entity is a 'primal' entity, so it doesnt derived from the Base Entity because its need for audit purpouses.
 */
 
-User.init(
+export const User = sequelize.define(
+  "User",
   // Atributes
   {
     // Id attributes 
@@ -17,7 +18,7 @@ User.init(
     },
     uuid: {
       type: DataTypes.UUID,
-      defaultVlaue: DataTypes.UUIDV1,
+      defaultValue: DataTypes.UUIDV1,
       allowNull: false
     },
     // User Atributes
@@ -41,42 +42,32 @@ User.init(
       type: DataTypes.STRING,
       allowNull: false
     },
-    // Audit attributes
-    creatorId: {
-      type: DataTypes.INTEGER
-    },
-    changedById: {
-      type: DataTypes.INTEGER
-    },
     // Audit Attributes
     active: { // Consider if its necesaary to put default as true for this 
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: true
     },
-    deactivatedBy: {
-      type: DataTypes.INTEGER,
-      defaultValue: true
-    },
-    deactivationReason: {
-      type: DataTypes.STRING
-    },
-    deactivationDate: {
-      type: DataTypes.DATE
-    },
-    changedBy: {
+    createdBy: {
       type: DataTypes.INTEGER
     },
-    changedDate: {
+    inactiveBy: {
+      type: DataTypes.INTEGER
+    },
+    inactiveReason: {
+      type: DataTypes.STRING
+    },
+    inactiveAt: {
       type: DataTypes.DATE
+    },
+    updatedBy: {
+      type: DataTypes.INTEGER
     }
   },
   {
     // Other model options go here
-    sequelize, // We need to pass the connection instance
-    modelName: 'User', // We need to choose the model name
+    sequelize,          // We need to pass the connection instance
+    timestamps: true,   // Adds createdAt/updatedAt
   },
 );
 
-// the defined model is the class itself
-console.log(User === sequelize.models.User); // true

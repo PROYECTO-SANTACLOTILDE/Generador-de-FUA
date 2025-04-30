@@ -15,10 +15,6 @@ class BaseEntity extends Model {
         defaultVlaue: DataTypes.UUIDV1,
         allowNull: false
       },
-      dateCreated: {
-        type: DataTypes.DATE,
-        allowNull: false
-      },
       createdBy: {
         type: DataTypes.INTEGER,
         allowNull: false
@@ -26,6 +22,20 @@ class BaseEntity extends Model {
       updatedBy: {
         type: DataTypes.INTEGER,
         allowNull: false
+      },
+      active: { // Consider if its necesaary to put default as true for this 
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: true
+      },
+      inactiveBy: {
+        type: DataTypes.INTEGER
+      },
+      inactiveAt: {
+        type: DataTypes.DATE
+      },
+      inactiveReason: {
+        type: DataTypes.STRING
       }
     }    
   }

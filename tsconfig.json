@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+      "allowJs": true,                      // Allow to import model from js declaration
       "target": "ES6",                     // Establece la versión de salida del código compilado
       "module": "commonjs",                // Usa el sistema de módulos de Node.js
       "strict": true,                      // Habilita las comprobaciones estrictas de TypeScript

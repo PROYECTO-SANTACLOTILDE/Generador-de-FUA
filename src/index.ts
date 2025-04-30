@@ -1,9 +1,33 @@
 import express from 'express';
 import { getPatient } from './services/fhirService';
 
+import { sequelize } from './models/database';
+import './models/User.js';
+import './models/FUAFormat.js';
+
+
 const app = express();
 const port = 3000;
-const { Sequelize } = require('sequelize');
+
+// Testing database connection
+sequelize.authenticate()
+.then((): void => {
+  console.log('Connection has been established successfully.');
+
+  // Syncronize models
+  console.log('Syncronizing models ...');
+  sequelize.sync();
+  console.log('Ended syncronizing models ...');
+
+})
+.catch((error: unknown): void => {
+  if (error instanceof Error) {
+    console.error('Unable to connect to the database:', error.message);
+  } else {
+    console.error('An unknown error occurred during connection.');
+  }
+});
+
 
 // Comentario para marcelo: Ya funciona el getter del patients a través de la API de OpenMRS, faltarian ajustar algunas cosas como el cors y la seguridad, revisar servicios de getPatient.
 app.get('/', (req, res) => {

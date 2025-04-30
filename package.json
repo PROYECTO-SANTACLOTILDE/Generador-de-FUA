@@ -26,6 +26,7 @@
   "homepage": "https://github.com/PROYECTO-SANTACLOTILDE/Generador-de-FUA#readme",
   "dependencies": {
     "@types/fhir": "^0.0.41",
+    "clean": "^4.0.2",
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "fhir": "^4.12.0",
