@@ -18,6 +18,9 @@ export const FUAFormat = sequelize.define(
         body: {
             type: DataTypes.TEXT,
         },
+        codeName: {
+            type: DataTypes.STRING
+        },
         version: {
             type: DataTypes.STRING
         }

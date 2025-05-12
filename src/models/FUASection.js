@@ -1,5 +1,6 @@
 const { DataTypes, Model } = require('sequelize');
 import { sequelize } from './database';
+import { FUAPage } from './FUAPage';
 
 // Base Enity Inheritance
 const BaseEntity = require('./BaseEntity');
@@ -8,14 +9,18 @@ const BaseEntity = require('./BaseEntity');
   Fua Format entity derived from the Base Entity for audit purpouses.
 */
 
-export const FUAPage = sequelize.define(
-    "FUAPage",
+export const FUASection = sequelize.define(
+    "FUASection",
     {
         //Extending BaseEntity
         ...BaseEntity.commonAttributes(),
         
         // Define FuaFormat atributes
         title: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        showTitle: {
             type: DataTypes.STRING,
             allowNull: false
         },
@@ -27,10 +32,7 @@ export const FUAPage = sequelize.define(
             type: DataTypes.STRING,
             allowNull: false
         },
-        pageNumber: {
-            type: DataTypes.INTEGER,
-            allowNull: false
-        },
+        
     },
     {
         sequelize,                  // We need to pass the connection instance,
@@ -39,15 +41,11 @@ export const FUAPage = sequelize.define(
 );
 
 // Foreign Keys
-FUAPage.hasOne(FUAPage,  {
+FUASection.belongsTo(FUAPage,  {
     foreignKey: {
-      name: 'nextPage',
+      name: 'PageOwner',
     }
 });
 
 
-FUAPage.hasOne(FUAPage,  {
-    foreignKey: {
-      name: 'previousPage',
-    }
-});
+
