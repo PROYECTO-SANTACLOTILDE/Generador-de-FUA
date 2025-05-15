@@ -1,6 +1,6 @@
 const { DataTypes, Model } = require('sequelize');
 import { sequelize } from './database';
-import { FUAPage } from './FUAPage';
+import { FUAField } from './FUAField';
 
 // Base Enity Inheritance
 const BaseEntity = require('./BaseEntity');
@@ -24,7 +24,7 @@ export const FUAFieldCell = sequelize.define(
             type: DataTypes.BOOLEAN,
             allowNull: false
         },
-        valueType: {        // SHows what type of field is
+        valueType: {        // Shows what type of field is
             type: DataTypes.STRING,
             allowNull: false
         },
@@ -45,7 +45,3 @@ export const FUAFieldCell = sequelize.define(
 );
 
 // Foreign Keys
-
-
-
-

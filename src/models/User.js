@@ -30,7 +30,8 @@ export const User = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false
     },
-    salt: {               // To prevent rainbow attack, its used in the hash of the password                
+    salt: {               
+      // To prevent rainbow attack, its used in the hash of the password                
       type: DataTypes.STRING,
       allowNull: false
     },

@@ -8,29 +8,21 @@ const BaseEntity = require('./BaseEntity');
   Fua Format entity derived from the Base Entity for audit purpouses.
 */
 
-export const FUAPage = sequelize.define(
-    "FUAPage",
+export const Visit = sequelize.define(
+    "Visit",
     {
         //Extending BaseEntity
         ...BaseEntity.commonAttributes(),
         
         // Define FuaFormat atributes
-        title: {
+        externalUUID: {
             type: DataTypes.STRING,
             allowNull: false
-        },
-        codeName: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
+        },  
         version: {
             type: DataTypes.STRING,
             allowNull: false
-        },
-        pageNumber: {
-            type: DataTypes.INTEGER,
-            allowNull: false
-        },
+        },        
     },
     {
         sequelize,                  // We need to pass the connection instance,
@@ -39,17 +31,7 @@ export const FUAPage = sequelize.define(
 );
 
 // Foreign Keys
-FUAPage.hasOne(FUAPage,  {
-    foreignKey: {
-      name: 'nextPage',
-    }
-});
 
 
-FUAPage.hasOne(FUAPage,  {
-    foreignKey: {
-      name: 'previousPage',
-    }
-});
 
 

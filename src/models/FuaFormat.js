@@ -15,15 +15,13 @@ export const FUAFormat = sequelize.define(
         ...BaseEntity.commonAttributes(),
         
         // Define FuaFormat atributes
-        body: {
-            type: DataTypes.TEXT,
-        },
         codeName: {
             type: DataTypes.STRING
         },
         version: {
             type: DataTypes.STRING
-        }
+        },
+
     },
     {
         sequelize,                  // We need to pass the connection instance,

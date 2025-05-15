@@ -2,12 +2,21 @@ import express from 'express';
 const path = require('path');
 import { getPatient } from './services/fhirService';
 
+// Sequelize
 import { sequelize } from './models/database';
 import './models/User.js';
 import './models/FUAFormat.js';
 import './models/FUAPage.js';
 import './models/FUASection.js';
+import './models/FUAField.js';
+import './models/FUAFieldColumn.js';
+import './models/FUAFieldRow.js';
+import './models/FUAFieldCell.js';
 
+// Services
+import './services/FUAFormatService';
+import FUAFormatService from './services/FUAFormatService';
+import UserService from './services/UserService';
 
 const app = express();
 const port = 3000;
@@ -62,4 +71,41 @@ app.listen(port, () => {
 // Serve index.html
 app.get('/FUA', (req, res) => {
   res.sendFile(path.resolve(__dirname, './public/FUA_Modeled.html'));
+});
+
+//TESTING ENTITIES
+
+//TESTING ENTITIES
+app.post('/UserTest', async (req, res) => {
+  try {
+    const newUser = await UserService.createUserTest(
+      {
+        username: "admin",
+        realPassword: "admin",
+        secretQuestion: "question",
+        secretAnswer: "answer",
+      }
+    );
+    res.status(201).json(newUser);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to create User.' });
+  }
+});
+
+// Create test FUA Format
+app.post('/FUAFormatTest', async (req, res) => {
+  try {
+    const newFUAFormat = await FUAFormatService.createFUAFormat(
+      {
+        codeName: "test",
+        version: "version",
+        createdBy: 1
+      }
+    );
+    res.status(201).json(newFUAFormat);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to create FUA Format', info: err });
+  }
 });

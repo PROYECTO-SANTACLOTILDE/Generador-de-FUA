@@ -1,5 +1,6 @@
 const { DataTypes, Model } = require('sequelize');
 import { sequelize } from './database';
+import { FUAFieldCell } from './FUAFieldCell';
 import { FUAFieldColumn } from './FUAFieldColumn';
 
 // Base Enity Inheritance
@@ -52,7 +53,7 @@ export const FUAFieldRow = sequelize.define(
 );
 
 // Foreign Keys
-FUAFieldRow.belongsTo(FUAFieldColumn);
+FUAFieldRow.hasMany(FUAFieldCell);
 
 
 

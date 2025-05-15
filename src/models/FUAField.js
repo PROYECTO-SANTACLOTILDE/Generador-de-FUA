@@ -1,8 +1,8 @@
 const { DataTypes, Model } = require('sequelize');
 import { sequelize } from './database';
+import { FUAFieldCell } from './FUAFieldCell';
 import { FUAFieldColumn } from './FUAFieldColumn';
-import { FUAFieldRow } from './FUAFieldRow';
-import { FUAPage } from './FUAPage';
+import { FUASection } from './FUASection';
 
 // Base Enity Inheritance
 const BaseEntity = require('./BaseEntity');
@@ -58,17 +58,7 @@ export const FUAField = sequelize.define(
 );
 
 // Foreign Keys
-FUAField.belongsTo(FUAPage,  {
-    foreignKey: {
-      name: 'PageOwner',
-    }
-});
-
+FUAField.belongsTo(FUASection);
 FUAField.hasMany(FUAFieldColumn);
-
-
-
-
-
-
+FUAField.belongsTo(FUAFieldCell);
 
