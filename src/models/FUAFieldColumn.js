@@ -52,6 +52,7 @@ export const FUAFieldColumn = sequelize.define(
 );
 
 // Foreign Keys
+FUAFieldColumn.belongsTo(FUAField);
 FUAFieldColumn.hasMany(FUAFieldRow);
 
 

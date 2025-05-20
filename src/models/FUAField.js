@@ -1,6 +1,5 @@
 const { DataTypes, Model } = require('sequelize');
 import { sequelize } from './database';
-import { FUAFieldCell } from './FUAFieldCell';
 import { FUAFieldColumn } from './FUAFieldColumn';
 import { FUASection } from './FUASection';
 
@@ -60,5 +59,4 @@ export const FUAField = sequelize.define(
 // Foreign Keys
 FUAField.belongsTo(FUASection);
 FUAField.hasMany(FUAFieldColumn);
-FUAField.belongsTo(FUAFieldCell);
 
