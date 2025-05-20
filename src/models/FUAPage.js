@@ -1,5 +1,7 @@
 const { DataTypes, Model } = require('sequelize');
 import { sequelize } from './database';
+import { FUAFormat } from './FuaFormat';
+import { FUASection } from './FUASection';
 
 // Base Enity Inheritance
 const BaseEntity = require('./BaseEntity');
@@ -39,6 +41,8 @@ export const FUAPage = sequelize.define(
 );
 
 // Foreign Keys
+FUAPage.belongsTo(FUAFormat);
+FUAPage.hasMany(FUASection);
 FUAPage.hasOne(FUAPage,  {
     foreignKey: {
       name: 'nextPage',

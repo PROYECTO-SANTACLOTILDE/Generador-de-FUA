@@ -1,5 +1,6 @@
 const { DataTypes, Model } = require('sequelize');
 import { sequelize } from './database';
+import { FUAPage } from './FUAPage';
 
 // Base Enity Inheritance
 const BaseEntity = require('./BaseEntity');
@@ -28,3 +29,6 @@ export const FUAFormat = sequelize.define(
         timestamps: true,           // updateAt tinmestamp field
     },
 );
+
+// Foreign Keys
+FUAFormat.hasMany(FUAPage);

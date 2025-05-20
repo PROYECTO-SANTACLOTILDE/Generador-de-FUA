@@ -1,6 +1,7 @@
 const { DataTypes, Model } = require('sequelize');
 import { sequelize } from './database';
 import { FUAPage } from './FUAPage';
+import { FUAField } from './FUAField';
 
 // Base Enity Inheritance
 const BaseEntity = require('./BaseEntity');
@@ -46,6 +47,8 @@ FUASection.belongsTo(FUAPage,  {
       name: 'PageOwner',
     }
 });
+
+FUASection.hasMany(FUAField);
 
 
 
