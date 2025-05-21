@@ -1,63 +1,49 @@
-import {FUAFormat} from '../models/FUAFormat.js';
-import { User } from '../models/User.js';
+import { FUAFormat } from '../models/FUAFormat.js';
 
 class FUAFormatService {
 
     // Creation of FUA Format
     async createFUAFormat(data: { 
+        // Format Data
         codeName: string; 
         version: string; 
-        createdBy: number;
+        // Audit Data
+        createdBy: string;
     }) {
+        // Check if ID or at least
         let returnedFUAFormat = null;
         try {
             returnedFUAFormat = await FUAFormat.create(data);
-        } catch (error){
-            console.error(' Couldnt create FUA Format in database', error);
+        } catch (err: unknown){
+            console.error('Error in FUAFormat Service: Couldnt create FUA Format in database. ', err);
+            (err as Error).message =  'Error in FUAFormat Service - Couldnt create FUA Format in database: ' + (err as Error).message;
+            throw err;
         }
         
-
-        //Return uuid of the creator user
-        const userId = returnedFUAFormat.createdBy;
-
-        try {
-            const userFound = await User.findAll({
-                attributes: [
-                    'uuid'
-                ],
-                where: {
-                    id: userId,
-                    active: true
-                }
-            });
-
-            if (userFound == null) {
-                throw new Error("Result is null or undefined");
-            }
-
-            if (!Array.isArray(userFound)) {
-                throw new Error("Result is not an array");
-            }
-
-            if (userFound.length === 0) {
-                throw new Error("Result is an empty array");
-            }
-
-            if (userFound.length > 1) {
-                throw new Error("Result contains more than one object");
-            }
-
-        } catch (error) {
-            console.error('',error);
-        }
-        
-
-        console.log(userFound);
 
         return {
-            uuid: returnedFUAFormat.uuid,
-            creatorUUID: "xd"
+            uuid: returnedFUAFormat.uuid
         };
+    };
+
+    // List FUA Formats
+    // Pending to paginate results
+    async listAllFUAFormats( ) {
+        let returnedFUAFormats = [];
+        try {
+            returnedFUAFormats = await FUAFormat.findAll({
+                where: {
+                    active: true,
+                }
+            });
+            console.log(returnedFUAFormats);
+        } catch (err: unknown){
+            console.error('Error in FUAFormat Service: Couldnt list all FUA Formats in database. xdd', err);
+            (err as Error).message +=  'Error in FUAFormat Service: Couldnt list all FUA Formats in database. xdd';
+            throw err;
+        }        
+
+        return returnedFUAFormats;
     };
 };
 

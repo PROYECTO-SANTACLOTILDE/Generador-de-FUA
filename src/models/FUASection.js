@@ -41,11 +41,10 @@ export const FUASection = sequelize.define(
 );
 
 // Foreign Keys
-FUASection.belongsTo(FUAPage,  {
-    foreignKey: {
-      name: 'PageOwner',
-    }
-});
+
+
+
+
 
 
 

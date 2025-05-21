@@ -1,7 +1,9 @@
 const { DataTypes, Model } = require('sequelize');
 import { sequelize } from './database';
+import { FUASection } from './FUASection';
 
-// Base Enity Inheritance
+
+// Base Entity Inheritance
 const BaseEntity = require('./BaseEntity');
 
 /*
@@ -29,7 +31,10 @@ export const FUAPage = sequelize.define(
         },
         pageNumber: {
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: false,
+            validate: {
+                min: 1
+            }
         },
     },
     {
@@ -51,5 +56,12 @@ FUAPage.hasOne(FUAPage,  {
       name: 'previousPage',
     }
 });
+
+FUAPage.hasMany(FUASection, {
+    foreignKey: {
+        name: 'FuaPageId'
+    }
+});
+FUASection.belongsTo(FUAPage);
 
 

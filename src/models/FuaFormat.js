@@ -1,5 +1,6 @@
 const { DataTypes, Model } = require('sequelize');
 import { sequelize } from './database';
+import { FUAPage } from './FUAPage';
 
 // Base Enity Inheritance
 const BaseEntity = require('./BaseEntity');
@@ -16,15 +17,25 @@ export const FUAFormat = sequelize.define(
         
         // Define FuaFormat atributes
         codeName: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+            allowNull: false
         },
         version: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+            allowNull: false
         },
 
     },
     {
         sequelize,                  // We need to pass the connection instance,
-        timestamps: true,           // updateAt tinmestamp field
+        timestamps: true,           // updateAt timestamp field
     },
 );
+
+// Foreign Keys
+FUAFormat.hasMany(FUAPage, {
+    foreignKey: 'FUAFormatId',
+});
+FUAPage.belongsTo(FUAFormat);
+
+

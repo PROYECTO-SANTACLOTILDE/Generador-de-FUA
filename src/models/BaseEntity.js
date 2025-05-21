@@ -1,5 +1,4 @@
 const {  DataTypes, Model } = require('sequelize');
-const { User } = require('./User');
 
 class BaseEntity extends Model {
   static commonAttributes() {
@@ -17,19 +16,12 @@ class BaseEntity extends Model {
         allowNull: false
       },
       createdBy: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-          model: User, 
-          key: 'id',
-        },
+        // UUID from Open-MRS user or other platform
+        type: DataTypes.STRING,
+        allowNull: false
       },
       updatedBy: {
-        type: DataTypes.INTEGER,
-        references: {
-          model: User, 
-          key: 'id',
-        },
+        type: DataTypes.STRING,
       },
       active: { // Consider if its necessWary to put default as true for this 
         type: DataTypes.BOOLEAN,
@@ -37,11 +29,7 @@ class BaseEntity extends Model {
         defaultValue: true
       },
       inactiveBy: {
-        type: DataTypes.INTEGER,
-        references: {
-          model: User, 
-          key: 'id',
-        },
+        type: DataTypes.STRING,
       },
       inactiveAt: {
         type: DataTypes.DATE,        
