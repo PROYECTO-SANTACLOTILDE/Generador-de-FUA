@@ -16,29 +16,32 @@ import './models/FUAFieldRow.js';
 import './models/FUAFieldCell.js';
 
 // Services
-import './services/FUAFormatService';
-import FUAFormatService from './services/FUAFormatService';
 import UserService from './services/UserService';
 import FUAPageService from './services/FUAPageService';
 import { getPatient } from './services/fhirService';
 
-// Parameters
+// Import Routes
+import globalRouter from './routes/indexRoutes';
+
+// Parameters and other options
 const app = express();
 const port = 3000;
 
 // Testing database connection
 // Consider to envelope main in a async function
+console.log(`\nTesting connection with database ...\n`);
 sequelize.authenticate()
 .then((): void => {
-  console.log('Connection has been established successfully.\n');
+  console.log(`\nConnection has been established with database successfully.\n`);
 
-  // Syncronize models
-  console.log('Syncronizing models ...');
+  
+  /* // Syncronize models
+  console.log('\n Syncronizing models ... \n');
   sequelize.sync({ force: true })
   //sequelize.sync()
   .then( () : void => {
-    console.log('Ended syncronizing models ...\n');
-  } );
+    console.log('\nEnded syncronizing models ...\n');
+  } ); */
   
 
 })
@@ -50,9 +53,12 @@ sequelize.authenticate()
   }
 });
 
-// Save static files
+// Importing utilities for Express
 app.use(express.static(path.resolve(__dirname, './public')));
 app.use(express.json());
+
+// Importing Routes
+app.use('/ws', globalRouter);
 
 
 // Comentario para marcelo: Ya funciona el getter del patients a través de la API de OpenMRS, faltarian ajustar algunas cosas como el cors y la seguridad, revisar servicios de getPatient.
@@ -72,7 +78,7 @@ app.get('/patient/:id', async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Servidor corriendo en http://localhost:${port}`);
+  console.log(`\nServidor corriendo en http://localhost:${port} \n`);
 });
 
 // Serve index.html
@@ -100,36 +106,8 @@ app.post('/UserTest', async (req, res) => {
   }
 });
 
+// FUAFortmat Routes
 
-// Create FUA Format
-app.post('/FUAFormat', async (req: Request, res: Response) => {
-  const payload = req.body;
-  
-  try {    
-    const newFUAFormat = await FUAFormatService.createFUAFormat( payload );
-    res.status(201).json(newFUAFormat);
-  } catch (err: unknown) {
-    res.status(500).json( JSON.parse(JSON.stringify({ 
-      error: 'Failed to create FUA Format.', 
-      detail: (err as (Error)).message,
-    })) );
-  }
-});
-
-
-// List FUA Formats
-app.get('/FUAFormat', async (req, res) => {
-  try {
-    let listFUAFormats = await FUAFormatService.listAllFUAFormats();
-    res.status(201).json(listFUAFormats);
-  } catch (err: unknown) {
-    console.error(err);
-    res.status(500).json({ 
-      error: 'Failed to list FUA Formats',
-      info: (err as Error).message 
-    });
-  }
-});
 
 // create FUA Page
 app.post('/FUAPage', async (req: Request, res: Response) => {

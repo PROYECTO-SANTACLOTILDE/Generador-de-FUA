@@ -1,4 +1,4 @@
-import { FUAFormat } from '../models/FUAFormat.js';
+import FUAFormatImplementation from '../implementation/sequelize/FUAFormatImplementation';
 
 class FUAFormatService {
 
@@ -13,13 +13,12 @@ class FUAFormatService {
         // Check if ID or at least
         let returnedFUAFormat = null;
         try {
-            returnedFUAFormat = await FUAFormat.create(data);
+            returnedFUAFormat = await FUAFormatImplementation.createFUAFormatSequelize(data);
         } catch (err: unknown){
-            console.error('Error in FUAFormat Service: Couldnt create FUA Format in database. ', err);
-            (err as Error).message =  'Error in FUAFormat Service - Couldnt create FUA Format in database: ' + (err as Error).message;
+            console.error('Error in FUAFormat Service: ', err);
+            (err as Error).message =  'Error in FUAFormat Service: ' + (err as Error).message;
             throw err;
         }
-        
 
         return {
             uuid: returnedFUAFormat.uuid
@@ -31,15 +30,11 @@ class FUAFormatService {
     async listAllFUAFormats( ) {
         let returnedFUAFormats = [];
         try {
-            returnedFUAFormats = await FUAFormat.findAll({
-                where: {
-                    active: true,
-                }
-            });
-            console.log(returnedFUAFormats);
+            returnedFUAFormats = await FUAFormatImplementation.listAllFUAFormatsSequelize();
+
         } catch (err: unknown){
-            console.error('Error in FUAFormat Service: Couldnt list all FUA Formats in database. xdd', err);
-            (err as Error).message +=  'Error in FUAFormat Service: Couldnt list all FUA Formats in database. xdd';
+            console.error('Error in FUAFormat Service: ', err);
+            (err as Error).message +=  'Error in FUAFormat Service: ' + (err as Error).message;
             throw err;
         }        
 
