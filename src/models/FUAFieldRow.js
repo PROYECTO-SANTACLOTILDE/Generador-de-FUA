@@ -3,14 +3,14 @@ import { sequelize } from './database';
 import { FUAFieldCell } from './FUAFieldCell';
 import { FUAFieldColumn } from './FUAFieldColumn';
 
-// Base Enity Inheritance
+// Base Entity Inheritance
 const BaseEntity = require('./BaseEntity');
 
 /*
   FUA Field Row entity derived from the Base Entity for audit purpouses.
 */
 
-export const FUAFieldRow = sequelize.define(
+const FUAFieldRow = sequelize.define(
     "FUAFieldRow",
     {
         //Extending BaseEntity
@@ -52,8 +52,6 @@ export const FUAFieldRow = sequelize.define(
     },
 );
 
-// Foreign Keys
-FUAFieldRow.hasMany(FUAFieldCell);
-
+export default FUAFieldRow;
 
 

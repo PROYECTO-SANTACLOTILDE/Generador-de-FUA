@@ -12,7 +12,7 @@ class BaseEntity extends Model {
       },
       uuid: {
         type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV1,
+        defaultValue: DataTypes.UUIDV4,
         allowNull: false
       },
       createdBy: {

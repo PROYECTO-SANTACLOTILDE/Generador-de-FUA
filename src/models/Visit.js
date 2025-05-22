@@ -1,14 +1,14 @@
 const { DataTypes, Model } = require('sequelize');
 import { sequelize } from './database';
 
-// Base Enity Inheritance
+// Base Entity Inheritance
 const BaseEntity = require('./BaseEntity');
 
 /*
   Fua Format entity derived from the Base Entity for audit purpouses.
 */
 
-export const Visit = sequelize.define(
+const Visit = sequelize.define(
     "Visit",
     {
         //Extending BaseEntity
@@ -30,8 +30,7 @@ export const Visit = sequelize.define(
     },
 );
 
-// Foreign Keys
-
+export default Visit;
 
 
 

@@ -1,6 +1,6 @@
 import { FUAFormat } from "../../models";
 
-class FUAFormatImplementation {
+class FUAFormatSection {
 
     // Creation of FUA Format
     async createFUAFormatSequelize(data: {

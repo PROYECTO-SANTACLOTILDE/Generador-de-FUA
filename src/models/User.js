@@ -5,7 +5,7 @@ import { sequelize } from './database';
   User entity is a 'primal' entity, so it doesnt derived from the Base Entity because its need for audit purpouses.
 */
 
-export const User = sequelize.define(
+const User = sequelize.define(
   "User",
   // Atributes
   {
@@ -18,7 +18,7 @@ export const User = sequelize.define(
     },
     uuid: {
       type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV1,
+      defaultValue: DataTypes.UUIDV4,
       allowNull: false
     },
     // User Atributes
@@ -71,4 +71,6 @@ export const User = sequelize.define(
     timestamps: true,   // Adds createdAt/updatedAt
   },
 );
+
+export default User;
 

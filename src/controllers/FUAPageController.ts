@@ -1,18 +1,20 @@
 import { Request, Response} from 'express';
+import FUAPageService from '../services/FUAPageService';
 import FUAFormatService from '../services/FUAFormatService';
 
 
-const FUAFormatController = {
 
-    async createFUAFormat  (req: Request, res: Response): Promise<void>  {
+const FUAPageController = {
+
+    async createFUAPage  (req: Request, res: Response): Promise<void>  {
         const payload = req.body;
-        let newFUAFormat = null;
+        let newFUAPage = null;
         try {
-            newFUAFormat = await FUAFormatService.create(payload);
-            res.status(201).json(newFUAFormat);    
+            newFUAPage = await FUAPageService.create(payload);
+            res.status(201).json(newFUAPage);    
         } catch (err: any) {
             res.status(500).json({
-                error: 'Failed to create FUA Format. (Controller)', 
+                error: 'Failed to create FUA Page. (Controller)', 
                 message: (err as (Error)).message,
                 details: (err as any).details ?? null, 
             });
@@ -21,9 +23,9 @@ const FUAFormatController = {
     },
 
     // Pending pagination
-    async listAllFUAFormats (req: Request, res: Response): Promise<void>  {
+    async listAllFUAPages (req: Request, res: Response): Promise<void>  {
         try {
-            const listFUAFormats = await FUAFormatService.listAll();
+            const listFUAFormats = await FUAPageService.listAll();
             res.status(200).json(listFUAFormats);
         } catch (err: any) {
             res.status(500).json({
@@ -34,7 +36,7 @@ const FUAFormatController = {
         }    
     },
 
-    async getFUAFormatById (req: Request, res: Response): Promise<void>  {
+    async getFUAPageById (req: Request, res: Response): Promise<void>  {
         const payload = req.params.id;
 
         let searchedFUAFormat = null;
@@ -45,7 +47,7 @@ const FUAFormatController = {
             // In case nothing was found 
             if(searchedFUAFormat === null){
                 res.status(404).json({
-                    error: `FUA Format by Id or UUID '${payload}' couldnt be found. `,
+                    error: `FUA Page by Id or UUID '${payload}' couldnt be found. `,
                 });
                 return;
             }
@@ -53,7 +55,7 @@ const FUAFormatController = {
             res.status(200).json(searchedFUAFormat);    
         } catch (err: any) {
             res.status(500).json({
-                error: 'Failed to get FUA Format. (Controller)', 
+                error: 'Failed to get FUA Page. (Controller)', 
                 message: (err as (Error)).message,
                 details: (err as any).details ?? null, 
             });
@@ -62,5 +64,5 @@ const FUAFormatController = {
     },
 };
 
-export default FUAFormatController;
+export default FUAPageController;
 

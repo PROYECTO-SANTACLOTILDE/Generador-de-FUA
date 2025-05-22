@@ -6,18 +6,8 @@ const path = require('path');
 
 // Sequelize and models
 import { sequelize } from './models/database';
-import './models/User.js';
-import './models/FUAFormat.js';
-import './models/FUAPage.js';
-import './models/FUASection.js';
-import './models/FUAField.js';
-import './models/FUAFieldColumn.js';
-import './models/FUAFieldRow.js';
-import './models/FUAFieldCell.js';
 
 // Services
-import UserService from './services/UserService';
-import FUAPageService from './services/FUAPageService';
 import { getPatient } from './services/fhirService';
 
 // Import Routes
@@ -32,16 +22,14 @@ const port = 3000;
 console.log(`\nTesting connection with database ...\n`);
 sequelize.authenticate()
 .then((): void => {
-  console.log(`\nConnection has been established with database successfully.\n`);
-
-  
-  /* // Syncronize models
+  console.log(`\nConnection has been established with database successfully.\n`);  
+  // Syncronize models
   console.log('\n Syncronizing models ... \n');
   sequelize.sync({ force: true })
-  //sequelize.sync()
+  //sequelize.sync({ alter: true })
   .then( () : void => {
     console.log('\nEnded syncronizing models ...\n');
-  } ); */
+  } );
   
 
 })
@@ -89,7 +77,7 @@ app.get('/FUA', (req, res) => {
 //TESTING ENTITIES
 
 //TESTING ENTITIES
-app.post('/UserTest', async (req, res) => {
+/* app.post('/UserTest', async (req, res) => {
   try {
     const newUser = await UserService.createUserTest(
       {
@@ -104,13 +92,11 @@ app.post('/UserTest', async (req, res) => {
     console.error(err);
     res.status(500).json({ error: 'Failed to create User.' });
   }
-});
-
-// FUAFortmat Routes
+}); */
 
 
 // create FUA Page
-app.post('/FUAPage', async (req: Request, res: Response) => {
+/* app.post('/FUAPage', async (req: Request, res: Response) => {
   try {
     const data = req.body;
     const newFUAPage = await FUAPageService.createFUAPage( data );
@@ -122,4 +108,4 @@ app.post('/FUAPage', async (req: Request, res: Response) => {
       info: (err as Error).message 
     });
   }
-});
+}); */
