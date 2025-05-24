@@ -1,8 +1,6 @@
 // Import Libraries
-import express, { Request, Response} from 'express';
+import express from 'express';
 const path = require('path');
-
-
 
 // Sequelize and models
 import { sequelize } from './models/database';
@@ -25,8 +23,8 @@ sequelize.authenticate()
   console.log(`\nConnection has been established with database successfully.\n`);  
   // Syncronize models
   console.log('\n Syncronizing models ... \n');
-  sequelize.sync({ force: true })
-  //sequelize.sync({ alter: true })
+  //sequelize.sync({ force: true })
+  sequelize.sync({ alter: true })
   .then( () : void => {
     console.log('\nEnded syncronizing models ...\n');
   } );
@@ -95,17 +93,4 @@ app.get('/FUA', (req, res) => {
 }); */
 
 
-// create FUA Page
-/* app.post('/FUAPage', async (req: Request, res: Response) => {
-  try {
-    const data = req.body;
-    const newFUAPage = await FUAPageService.createFUAPage( data );
-    res.status(201).json(newFUAPage);
-  } catch (err: unknown) {
-    console.error("ERROR: ", err);
-    res.status(500).json({
-      error: 'Failed to create FUA Format', 
-      info: (err as Error).message 
-    });
-  }
-}); */
+

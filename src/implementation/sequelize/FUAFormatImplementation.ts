@@ -34,8 +34,8 @@ class FUAFormatImplementation {
             });
 
         } catch (err: unknown){
-            console.error('Error in FUAFormat Implementation: Couldnt list all FUA Formats in database using Sequelize. ', err);
-            (err as Error).message =  'Error in FUAFormat Implementation: Couldnt list all FUA Formats in database using Sequelize. ' + (err as Error).message;
+            console.error('Error in FUAFormat Sequelize Implementation: Couldnt list all FUA Formats in database using Sequelize. ', err);
+            (err as Error).message =  'Error in FUAFormat Sequelize Implementation: Couldnt list all FUA Formats in database using Sequelize. ' + (err as Error).message;
             throw err;
         }        
 

@@ -1,13 +1,11 @@
-const { DataTypes, Model } = require('sequelize');
+const { DataTypes } = require('sequelize');
 import { sequelize } from './database';
-import { FUAField } from './FUAField';
-import { FUAFieldRow } from './FUAFieldRow';
 
 // Base Entity Inheritance
 const BaseEntity = require('./BaseEntity');
 
 /*
-  Fua Format entity derived from the Base Entity for audit purpouses.
+  Fua Field Coolumn entity derived from the Base Entity for audit purpouses.
 */
 
 const FUAFieldColumn = sequelize.define(

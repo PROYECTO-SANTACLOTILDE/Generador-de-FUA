@@ -28,6 +28,7 @@ const FUAField = sequelize.define(
         },
         labelOrientation: {        // Vertical or Horizontal
             type: DataTypes.STRING,
+            allowNull: false
         },
         labelPosition: {        // Up, Down, Left or Right
             type: DataTypes.STRING,

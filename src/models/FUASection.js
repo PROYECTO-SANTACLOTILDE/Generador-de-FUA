@@ -21,7 +21,7 @@ const FUASection = sequelize.define(
             allowNull: false
         },
         showTitle: {
-            type: DataTypes.STRING,
+            type: DataTypes.BOOLEAN,
             allowNull: false
         },
         codeName: {
