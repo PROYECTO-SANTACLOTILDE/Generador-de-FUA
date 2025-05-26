@@ -27,16 +27,12 @@ sequelize.authenticate()
   sequelize.sync({ alter: true })
   .then( () : void => {
     console.log('\nEnded syncronizing models ...\n');
-  } );
-  
+  } );  
 
 })
 .catch((error: unknown): void => {
-  if (error instanceof Error) {
-    console.error('Unable to connect to the database:', error.message);
-  } else {
-    console.error('An unknown error occurred during connection.');
-  }
+  console.error('Unable to connect to the database: ');
+  console.error(error);
 });
 
 // Importing utilities for Express
