@@ -1,7 +1,5 @@
 const { DataTypes, Model } = require('sequelize');
 import { sequelize } from './database';
-import { FUAFieldCell } from './FUAFieldCell';
-import { FUAFieldColumn } from './FUAFieldColumn';
 
 // Base Entity Inheritance
 const BaseEntity = require('./BaseEntity');
