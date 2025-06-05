@@ -16,4 +16,7 @@ FUAFormatRouter.get('/:id', FUAFormatController.getFUAFormatById);
 // Read All FUA Formats
 FUAFormatRouter.get('/', FUAFormatController.listAllFUAFormats);
 
+// ReNnder a FUA Format
+FUAFormatRouter.get('/:id/render', FUAFormatController.render);
+
 export default FUAFormatRouter;

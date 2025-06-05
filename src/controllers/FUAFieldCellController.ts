@@ -1,21 +1,21 @@
 import { Request, Response} from 'express';
-import FUASectionService from '../services/FUASectionService';
-import FUAFieldService from '../services/FUAFieldService';
-import { FUAField } from '../models';
+import FUAFieldColumnService from '../services/FUAFieldColumnService';
+import FUAFieldRowService from '../services/FUAFieldRowService';
+import FUAFieldCellService from '../services/FUAFieldCellService';
 
 
 
-const FUAFieldController = {
+const FUAFieldCellController = {
 
     async create  (req: Request, res: Response): Promise<void>  {
         const payload = req.body;
-        let newFUAField = null;
+        let newFUAFieldCell = null;
         try {
-            newFUAField = await FUAFieldService.create(payload);
-            res.status(201).json(newFUAField);    
+            newFUAFieldCell = await FUAFieldRowService.create(payload);
+            res.status(201).json(newFUAFieldCell);    
         } catch (err: any) {
             res.status(500).json({
-                error: 'Failed to create FUA Field. (Controller)', 
+                error: 'Failed to create FUA Field Cell. (Controller - create)', 
                 message: (err as (Error)).message,
                 details: (err as any).details ?? null, 
             });
@@ -26,11 +26,11 @@ const FUAFieldController = {
     // Pending pagination
     async listAll (req: Request, res: Response): Promise<void>  {
         try {
-            const listFUAFIelds = await FUAFieldService.listAll();
-            res.status(200).json(listFUAFIelds);
+            const listFUAFieldCells = await FUAFieldCellService.listAll();
+            res.status(200).json(listFUAFieldCells);
         } catch (err: any) {
             res.status(500).json({
-                error: 'Failed to list FUA Fields. (Controller)', 
+                error: 'Failed to list FUA Field Cells. (Controller - listAll)', 
                 message: (err as (Error)).message,
                 details: (err as any).details ?? null, 
             });
@@ -40,23 +40,23 @@ const FUAFieldController = {
     async getById (req: Request, res: Response): Promise<void>  {
         const payload = req.params.id;
 
-        let searchedFUAFormat = null;
+        let searchedFUAFieldCell = null;
 
         try {
-            searchedFUAFormat = await FUAFieldService.getByIdOrUUID(payload);
+            searchedFUAFieldCell = await FUAFieldCellService.getByIdOrUUID(payload);
             
             // In case nothing was found 
-            if(searchedFUAFormat === null){
+            if(searchedFUAFieldCell === null){
                 res.status(404).json({
-                    error: `FUA Field by Id or UUID '${payload}' couldnt be found. `,
+                    error: `FUA Field Cell by Id or UUID '${payload}' couldnt be found. `,
                 });
                 return;
             }
 
-            res.status(200).json(searchedFUAFormat);    
+            res.status(200).json(searchedFUAFieldCell);    
         } catch (err: any) {
             res.status(500).json({
-                error: 'Failed to get FUA Field. (Controller)', 
+                error: 'Failed to get FUA Field Cell. (Controller - getById)', 
                 message: (err as (Error)).message,
                 details: (err as any).details ?? null, 
             });
@@ -65,5 +65,5 @@ const FUAFieldController = {
     },
 };
 
-export default FUAFieldController;
+export default FUAFieldCellController;
 

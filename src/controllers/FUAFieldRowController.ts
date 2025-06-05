@@ -1,21 +1,20 @@
 import { Request, Response} from 'express';
-import FUASectionService from '../services/FUASectionService';
-import FUAFieldService from '../services/FUAFieldService';
-import { FUAField } from '../models';
+import FUAFieldColumnService from '../services/FUAFieldColumnService';
+import FUAFieldRowService from '../services/FUAFieldRowService';
 
 
 
-const FUAFieldController = {
+const FUAFieldRowController = {
 
     async create  (req: Request, res: Response): Promise<void>  {
         const payload = req.body;
-        let newFUAField = null;
+        let newFUAFieldRow = null;
         try {
-            newFUAField = await FUAFieldService.create(payload);
-            res.status(201).json(newFUAField);    
+            newFUAFieldRow = await FUAFieldRowService.create(payload);
+            res.status(201).json(newFUAFieldRow);    
         } catch (err: any) {
             res.status(500).json({
-                error: 'Failed to create FUA Field. (Controller)', 
+                error: 'Failed to create FUA Field Row. (Controller - create)', 
                 message: (err as (Error)).message,
                 details: (err as any).details ?? null, 
             });
@@ -26,11 +25,11 @@ const FUAFieldController = {
     // Pending pagination
     async listAll (req: Request, res: Response): Promise<void>  {
         try {
-            const listFUAFIelds = await FUAFieldService.listAll();
-            res.status(200).json(listFUAFIelds);
+            const listFUAFieldRows = await FUAFieldRowService.listAll();
+            res.status(200).json(listFUAFieldRows);
         } catch (err: any) {
             res.status(500).json({
-                error: 'Failed to list FUA Fields. (Controller)', 
+                error: 'Failed to list FUA Field Rowss. (Controller - listAll)', 
                 message: (err as (Error)).message,
                 details: (err as any).details ?? null, 
             });
@@ -40,23 +39,23 @@ const FUAFieldController = {
     async getById (req: Request, res: Response): Promise<void>  {
         const payload = req.params.id;
 
-        let searchedFUAFormat = null;
+        let searchedFUAFieldRow = null;
 
         try {
-            searchedFUAFormat = await FUAFieldService.getByIdOrUUID(payload);
+            searchedFUAFieldRow = await FUAFieldColumnService.getByIdOrUUID(payload);
             
             // In case nothing was found 
-            if(searchedFUAFormat === null){
+            if(searchedFUAFieldRow === null){
                 res.status(404).json({
-                    error: `FUA Field by Id or UUID '${payload}' couldnt be found. `,
+                    error: `FUA Field Row by Id or UUID '${payload}' couldnt be found. `,
                 });
                 return;
             }
 
-            res.status(200).json(searchedFUAFormat);    
+            res.status(200).json(searchedFUAFieldRow);    
         } catch (err: any) {
             res.status(500).json({
-                error: 'Failed to get FUA Field. (Controller)', 
+                error: 'Failed to get FUA Field Row. (Controller - getById)', 
                 message: (err as (Error)).message,
                 details: (err as any).details ?? null, 
             });
@@ -65,5 +64,5 @@ const FUAFieldController = {
     },
 };
 
-export default FUAFieldController;
+export default FUAFieldRowController;
 

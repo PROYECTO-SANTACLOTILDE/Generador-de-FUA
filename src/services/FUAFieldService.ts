@@ -6,18 +6,20 @@ import FUASectionService from "./FUASectionService";
 
 
 // Schemas
-const newFUASFieldSchema = z.object({
+const newFUAFieldSchema = z.object({
     // Field Data
     label: z.string(), 
-    showLabel: z.string(),
+    showLabel: z.boolean(),
     labelOrientation: z.string(),
     labelPosition: z.string(),
     valueType: z.string(),
     orientation: z.string(),
     codeName: z.string(),
     version: z.string(),    
+    height: z.number().positive(),
+    width: z.number().positive(),
     // Section Data
-    FUASection: z.string().or(z.number().int().positive() ),
+    FUASectionId: z.string().or(z.number().int().positive() ),
     // Audit Data
     createdBy: z.string(),
 });
@@ -29,7 +31,7 @@ class FUAFieldService {
     async create(data: any) {
         
         // Object validation
-        const result = newFUASFieldSchema.safeParse(data);
+        const result = newFUAFieldSchema.safeParse(data);
         if( !result.success ){
             console.error('Error in FUAField Service - createFUAField: ZOD validation. \n', result.error);
             const newError = new Error('Error in FUAField Service - createFUAField: ZOD validation. ');
@@ -41,7 +43,7 @@ class FUAFieldService {
         let auxFUASection = null;
 
         try {
-            auxFUASection = await FUASectionService.getByIdOrUUID( data.FUASection.toString() );
+            auxFUASection = await FUASectionService.getByIdOrUUID( data.FUASectionId.toString() );
         } catch (error: unknown) {
             console.error(`Error in FUA Field Service: Couldnt search FUA Field by Id or UUID '${data.FUAFormat}' sent in database using Sequelize. `, error);
             (error as Error).message =  `Error in FUA Field Service: Couldnt search FUA Field by Id or UUID  '${data.FUAFormat}' sent in database using Sequelize. ` + (error as Error).message;
@@ -71,6 +73,8 @@ class FUAFieldService {
                 orientation: data.orientation,
                 codeName: data.codeName,
                 version: data.version,
+                height: data.height,
+                width: data.width,
                 FUASectionId: FUASectionId,
                 createdBy: data.createdBy,
             });

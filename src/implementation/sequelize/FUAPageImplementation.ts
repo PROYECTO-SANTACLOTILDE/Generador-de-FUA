@@ -1,4 +1,4 @@
-import { FUAPage } from "../../models";
+import { FUAPage, FUASection } from "../../models";
 import FUAFormatService from "../../services/FUAFormatService";
 
 class FUAPageImplementation {
@@ -95,6 +95,28 @@ class FUAPageImplementation {
         }        
 
         return returnFUAPage;
+    };
+
+    // Get FUA Sections by Id
+    async getFUASectionsByIdSequelize(idReceived: number){
+        let returnedFUASections = [];
+        // Get FUA PAges
+        try {
+            returnedFUASections = await FUASection.findAll({
+                where: {
+                    FUAPageId: idReceived,
+                    active: true,
+                }
+            });
+
+        } catch (err: unknown){
+            console.error(`Error in FUA Page Sequelize Implementation - getFUASectionsByIdSequelize: Couldnt retrieve FUA Sections with FUA Page Id identified by Id "${idReceived}". `, err);
+            (err as Error).message =  `Error in FUA Page Sequelize Implementation - getFUASectionsByIdSequelize: Couldnt retrieve FUA Sections with FUA Page Id identified by Id "${idReceived}" . ` + (err as Error).message;
+            throw err;
+        }
+        
+        // If nothing was found, it will return a []
+        return returnedFUASections;
     };
 };
 

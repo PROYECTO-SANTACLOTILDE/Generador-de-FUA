@@ -1,9 +1,10 @@
-import { FUAFormat } from "../../models";
+import { raw } from "express";
+import { FUAFormat, FUAPage } from "../../models";
 
 class FUAFormatImplementation {
 
     // Creation of FUA Format
-    async createFUAFormatSequelize(data: {
+    async createSequelize(data: {
         // Format Data
         codeName: string; 
         version: string;
@@ -24,7 +25,7 @@ class FUAFormatImplementation {
 
     // List FUA Formats
     // Pending to paginate results
-    async listAllFUAFormatsSequelize( ) {
+    async listAllSequelize( ) {
         let returnedFUAFormats = [];
         try {
             returnedFUAFormats = await FUAFormat.findAll({
@@ -43,7 +44,7 @@ class FUAFormatImplementation {
     };
 
     // Get FUA Format Id by UUID
-    async getFUAFormatByUUIDSequelize(uuidSent: string){
+    async getByIdOrUUIDSequelize(uuidSent: string){
         let returnFUAFormat = null;
         try {
             returnFUAFormat = await FUAFormat.findAll({
@@ -63,7 +64,7 @@ class FUAFormatImplementation {
     };
 
     // Get FUA Format by id 
-    async getFUAFormatByIdSequelize(id: number ) {
+    async getByIdSequelize(id: number ) {
 
         let returnedFUAFormat = null;
         try {
@@ -71,13 +72,14 @@ class FUAFormatImplementation {
                 where: {
                     id: id,
                     active: true,
-                }
+                },
+                raw: true, // Return raw data
             });
 
 
         } catch (err: unknown){
-            console.error(`Error in FUAFormat Sequelize Implementation: Couldnt retrieve FUA Format identified by Id "${id}". `, err);
-            (err as Error).message =  `Error in FUAFormat Sequelize Implementation: Couldnt retrieve FUA Format identified by Id "${id}" . ` + (err as Error).message;
+            console.error(`Error in FUA Format Sequelize Implementation: Couldnt retrieve FUA Format identified by Id "${id}". `, err);
+            (err as Error).message =  `Error in FUA Format Sequelize Implementation: Couldnt retrieve FUA Format identified by Id "${id}" . ` + (err as Error).message;
             throw err;
         }
      
@@ -86,7 +88,7 @@ class FUAFormatImplementation {
     };
 
     // Get FUA Format Id by UUID
-    async getFUAFormatIdbyUUIDSequelize(uuid: string ) {
+    async getByUUIDSequelize(uuid: string ) {
 
         let returnedFUAFormatId = null;
         try {
@@ -109,6 +111,30 @@ class FUAFormatImplementation {
         
         return returnedFUAFormatId;
     };
+
+    // Get FUA Pages by Id
+    async getFUAPagesByIdSequelize(id: number) {
+        let returnedFUAPages = null;
+        // Get FUA PAges
+        try {
+            returnedFUAPages = await FUAPage.findAll({
+                where: {
+                    FUAFormatId: id,
+                    active: true,
+                }
+            });
+
+        } catch (err: unknown){
+            console.error(`Error in FUA Format Sequelize Implementation - getFUAPagesByIdSequelize: Couldnt retrieve FUA Pages with FUAFormatId identified by Id "${id}". `, err);
+            (err as Error).message =  `Error in FUA Format Sequelize Implementation - getFUAPagesByIdSequelize: Couldnt retrieve FUA Pages with FUAFormatId identified by Id "${id}" . ` + (err as Error).message;
+            throw err;
+        }
+        
+        // If nothing was found, it will return a []
+        return returnedFUAPages;
+    }
+
+
 };
 
 export default new FUAFormatImplementation();

@@ -60,6 +60,31 @@ const FUAFormatController = {
         }
             
     },
+
+    // Render FUA Format by Id or UUID
+    async render (req: Request, res: Response): Promise<void>  {
+        const payload = req.params.id;
+
+        let htmlContent = null;
+
+        try {
+            htmlContent = await FUAFormatService.renderById(payload);
+            if(htmlContent === null){
+                res.status(404).json({
+                    error: `FUA Format by Id or UUID '${payload}' couldnt be found. `, 
+                });
+                return;
+            }                
+            res.status(200).send(htmlContent);    
+        } catch (err: any) {
+            res.status(500).json({
+                error: 'Failed to render FUA Format. (Controller)', 
+                message: (err as (Error)).message,
+                details: (err as any).details ?? null, 
+            });
+        }
+            
+    },
 };
 
 export default FUAFormatController;

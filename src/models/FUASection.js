@@ -32,6 +32,10 @@ const FUASection = sequelize.define(
             type: DataTypes.STRING,
             allowNull: false
         },
+        height: {   // If its null, it will wrap its elements
+            type: DataTypes.FLOAT,       
+            allowNull: false      
+        }
         
     },
     {

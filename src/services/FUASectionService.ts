@@ -9,12 +9,12 @@ import FUAPageService from "./FUAPageService";
 const newFUASectionSchema = z.object({
     // Page Data
     title: z.string(), 
-    showTitle: z.string(),
+    showTitle: z.boolean(),
     codeName: z.string(),
     version: z.string(),    
-    pageNumber: z.number().int().positive(),
+    height: z.number().positive(),
     //Page Data
-    FUAPage: z.string().or(z.number().int().positive() ),
+    FUAPageId: z.string().or(z.number().int().positive() ),
     // Audit Data
     createdBy: z.string(),
 });
@@ -28,8 +28,8 @@ class FUASectionService {
         // Object validation
         const result = newFUASectionSchema.safeParse(data);
         if( !result.success ){
-            console.error('Error in FUAPAge Service - createFUAPage: ZOD validation. \n', result.error);
-            const newError = new Error('Error in FUAPAge Service - createFUAPage: ZOD validation. ');
+            console.error('Error in FUA Section Service - create: ZOD validation. \n', result.error);
+            const newError = new Error('Error in FUA Section Service - create: ZOD validation. ');
             (newError as any).details = result.error;
             throw newError;
         }
@@ -38,10 +38,10 @@ class FUASectionService {
         let auxFUAPage = null;
 
         try {
-            auxFUAPage = await FUAPageService.getByIdOrUUID( data.FUAPAge.toString() );
+            auxFUAPage = await FUAPageService.getByIdOrUUID( data.FUAPageId.toString() );
         } catch (error: unknown) {
-            console.error(`Error in FUA Page Service: Couldnt search FUA Format by Id or UUID '${data.FUAFormat}' sent in database using Sequelize. `, error);
-            (error as Error).message =  `Error in FUA Page Service: Couldnt search FUA Format by Id or UUID  '${data.FUAFormat}' sent in database using Sequelize. ` + (error as Error).message;
+            console.error(`Error in FUA Section Service - create: Couldnt search FUA Page by Id or UUID '${data.FUAFormat}' sent in database using Sequelize. `, error);
+            (error as Error).message =  `Error in FUA Section Service - create: Couldnt search FUA Format by Id or UUID  '${data.FUAFormat}' sent in database using Sequelize. ` + (error as Error).message;
             throw error;
         }
         // Check if a FUA Format wanst found
@@ -64,6 +64,7 @@ class FUASectionService {
                 showTitle: data.showTitle,
                 codeName: data.codeName,
                 version: data.version,
+                height: data.height,
                 FUAPageId: FUAPageId,
                 createdBy: data.createdBy,
             });
@@ -136,6 +137,22 @@ class FUASectionService {
         } 
 
         return returnedFUASection;
+    };
+
+    // Get FUA Fields by Id 
+    async getFUAFieldsById( idReceived: number ) {
+
+        let returnedFUASections = [];
+        
+        try {
+            returnedFUASections = await FUASectionImplementation.getFUAFieldsByIdSequelize(idReceived);
+        } catch (err: unknown){
+            console.error('Error in FUA Fields Service - getFUAFieldsById: ', err);
+            (err as Error).message =  'Error in FUA Fields Service - getFUAFieldsById: ' + (err as Error).message;
+            throw err;
+        }
+
+        return returnedFUASections;
     };
 };
 

@@ -2,6 +2,7 @@ import {z} from "zod";
 
 import FUAFormatImplementation from '../implementation/sequelize/FUAFormatImplementation';
 import { isValidUUIDv4 } from "../utils/utils";
+import FUARenderingUtils from "../utils/FUARendering";
 
 // Schemas
 
@@ -35,7 +36,7 @@ class FUAFormatService {
         // FUAFormat creation
         let returnedFUAFormat = null;
         try {
-            returnedFUAFormat = await FUAFormatImplementation.createFUAFormatSequelize(data);
+            returnedFUAFormat = await FUAFormatImplementation.createSequelize(data);
         } catch (err: unknown){
             console.error('Error in FUAFormat Service: ', err);
             (err as Error).message =  'Error in FUAFormat Service: \n' + (err as Error).message;
@@ -52,7 +53,7 @@ class FUAFormatService {
     async listAll( ) {
         let returnedFUAFormats = [];
         try {
-            returnedFUAFormats = await FUAFormatImplementation.listAllFUAFormatsSequelize();
+            returnedFUAFormats = await FUAFormatImplementation.listAllSequelize();
 
         } catch (err: unknown){
             console.error('Error in FUAFormat Service: ', err);
@@ -74,7 +75,7 @@ class FUAFormatService {
             id = nuNumber;
 
             try {
-                returnedFUAFormats = await FUAFormatImplementation.getFUAFormatByIdSequelize(id);
+                returnedFUAFormats = await FUAFormatImplementation.getByIdSequelize(id);
 
             } catch (err: unknown){
                 console.error('Error in FUAFormat Service: ', err);
@@ -91,7 +92,7 @@ class FUAFormatService {
             }
             try {
 
-                returnedFUAFormats = await FUAFormatImplementation.getFUAFormatByUUIDSequelize(idReceived);
+                returnedFUAFormats = await FUAFormatImplementation.getByUUIDSequelize(idReceived);
 
             } catch (err: unknown){
                 console.error('Error in FUAFormat Service: ', err);
@@ -110,20 +111,20 @@ class FUAFormatService {
     };
 
     // Get FUA Format Id by UUID
-    async getIdbyUUID( uuidReceived: string){
+    async getIdByUUID( uuidReceived: string){
         let returnedFUAFormats = null;
 
         //Validate UUID Format        
         if (!isValidUUIDv4(uuidReceived) ) {
-            throw new Error("Invalid UUID format. ");
+            throw new Error("Error in FUA Format Service - getIdByUUID: Invalid UUID format. ");
         }
 
         try {
-            returnedFUAFormats = await FUAFormatImplementation.getFUAFormatIdbyUUIDSequelize(uuidReceived);
+            returnedFUAFormats = await FUAFormatImplementation.getByUUIDSequelize(uuidReceived);
 
         } catch (err: unknown){
-            console.error('Error in FUAFormat Service: ', err);
-            (err as Error).message =  'Error in FUAFormat Service: ' + (err as Error).message;
+            console.error('Error in FUA Format Service - getIdByUUID: ', err);
+            (err as Error).message =  'Error in FUA Format Service- getIdByUUID: ' + (err as Error).message;
             throw err;
         }
 
@@ -131,6 +132,83 @@ class FUAFormatService {
         if( Array.isArray(returnedFUAFormats) && returnedFUAFormats.length === 0){
             return null;
         } 
+    }
+
+    // Get FUA Pages by Id or UUID
+    async getFUAPagesByIdOrUUID( idReceived: string ) {
+        // Get FUA Format Id or UUID
+        let auxFUAFormat = null;
+        try {
+            auxFUAFormat = await this.getByIdOrUUID(idReceived);
+        } catch (err: unknown){
+            console.error('Error in FUA Format Service - getFUAPagesByIdOrUUID: ', err);    
+            (err as Error).message =  'Error in FUA Format Service - getFUAPagesByIdOrUUID: ' + (err as Error).message;
+            throw err;  
+        }
+
+        // If nothing was found, it will return a []
+        if( Array.isArray(auxFUAFormat) && auxFUAFormat.length === 0){
+            console.error(`Error in FUA Format Service - getFUAPagesByIdOrUUID: Couldnt found FUA Format identified by Id "${idReceived}". `);
+            throw new Error(`Error in FUA Format Service - getFUAPagesByIdOrUUID: Couldnt found FUA Format identified by Id "${idReceived}". `);
+        }
+
+        auxFUAFormat = auxFUAFormat[0]; // Get the first element, since it is an array
+
+        let returnedFUAFormatPages = [];
+        
+        try {
+            returnedFUAFormatPages = await FUAFormatImplementation.getFUAPagesByIdSequelize(auxFUAFormat.id);
+        } catch (err: unknown){
+            console.error('Error in FUA Format Service - getFUAPagesByIdOrUUID: ', err);
+            (err as Error).message =  'Error in FUA Format Service - getFUAPagesByIdOrUUID: ' + (err as Error).message;
+            throw err;
+        }
+
+        return returnedFUAFormatPages;
+    }
+
+    // Render FUA Format by Id
+    async renderById( idReceived: string ) {
+        // Get Format by Id or UUID
+        let auxFuaFormat = null;
+        try {
+            auxFuaFormat = await this.getByIdOrUUID(idReceived);
+        } catch (err: unknown){
+            console.error('Error in FUAFormat Service - renderById: ', err);
+            (err as Error).message =  'Error in FUAFormat Service - renderById: ' + (err as Error).message;
+            throw err;
+        }
+        // If nothing was found, it will return a []
+        if( auxFuaFormat === null){
+            return null;
+        } 
+
+        auxFuaFormat = auxFuaFormat[0]; // Get the first element, since it is an array
+
+        // Get FUA Pages
+        auxFuaFormat.pages = [];
+        try {
+            auxFuaFormat.pages = await this.getFUAPagesByIdOrUUID(auxFuaFormat.id);
+        } catch (err: unknown){
+            console.error('Error in FUA Format Service - renderById: ', err);
+            (err as Error).message =  'Error in FUA Format Service - renderById: ' + (err as Error).message;
+            throw err;
+        }
+
+        // Render FUA Pages of FUA Format
+        let htmlContent = null;
+
+        try{
+            htmlContent = await FUARenderingUtils.renderFUAFormat(auxFuaFormat);
+        } catch(error: any){
+            console.error('Error in FUA Format Service - renderById: ', error);
+            (error as Error).message =  'Error in FUA Format Service - renderById: ' + (error as Error).message;
+            throw error;
+        }
+        
+        
+        return htmlContent;
+         
     }
 };
 

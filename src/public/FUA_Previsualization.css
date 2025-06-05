@@ -1,9 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 2rem;
-    display: flex;
-    justify-content: center;
+
     background: #fff;
 }
 

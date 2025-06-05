@@ -50,6 +50,14 @@ const FUAField = sequelize.define(
             type: DataTypes.STRING,
             allowNull: false
         },
+        height: {   // In mm
+            type: DataTypes.FLOAT,       
+            allowNull: false      
+        },
+        width: {   // In mm
+            type: DataTypes.FLOAT,       
+            allowNull: false      
+        }
         
     },
     {

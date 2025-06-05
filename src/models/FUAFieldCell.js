@@ -35,6 +35,20 @@ const FUAFieldCell = sequelize.define(
             type: DataTypes.STRING,
             allowNull: false
         },
+        colSpan: { // validate to always be greater than 0
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            validate: {
+                min: 0
+            }
+        },
+        rowSpan: { // validate to always be greater than 0
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            validate: {
+                min: 0
+            }
+        }     
         
     },
     {

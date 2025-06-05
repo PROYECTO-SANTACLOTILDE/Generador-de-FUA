@@ -13,6 +13,8 @@ class FUAFieldImplementation {
         orientation: string;
         codeName: string;
         version: string;
+        height: number;
+        width: number;
         // Section data
         FUASectionId: number;
         // Audit Data
@@ -22,8 +24,8 @@ class FUAFieldImplementation {
         try {
             returnedFUAField = await FUAField.create(data);
         } catch (err: unknown){
-            console.error('Error in FUAField Sequelize Implementation: Couldnt create FUA Field in database using Sequelize. ', err);
-            (err as Error).message =  'Error in FUAField Sequelize Implementation: Couldnt create FUA Field in database using Sequelize: ' + (err as Error).message;
+            console.error('Error in FUA Field Sequelize Implementation: Couldnt create FUA Field in database using Sequelize. ', err);
+            (err as Error).message =  'Error in FUA Field Sequelize Implementation: Couldnt create FUA Field in database using Sequelize: ' + (err as Error).message;
             throw err;
         }        
 

@@ -1,4 +1,4 @@
-import { FUAFormat, FUASection } from "../../models";
+import { FUAField, FUAFormat, FUASection } from "../../models";
 
 class FUASectionImplementation {
 
@@ -9,6 +9,7 @@ class FUASectionImplementation {
         showTitle: boolean;
         codeName: string;
         version: string;
+        height: number;
         // Page data
         FUAPageId: number;
         // Audit Data
@@ -38,8 +39,8 @@ class FUASectionImplementation {
             });
 
         } catch (err: unknown){
-            console.error('Error in FUASection Implementation: Couldnt list all FUA Srctions in database using Sequelize. ', err);
-            (err as Error).message =  'Error in FUASection Implementation: Couldnt list all FUA Srctions in database using Sequelize. ' + (err as Error).message;
+            console.error('Error in FUA Section Implementation: Couldnt list all FUA Sections in database using Sequelize. ', err);
+            (err as Error).message =  'Error in FUA Section Implementation: Couldnt list all FUA Sections in database using Sequelize. ' + (err as Error).message;
             throw err;
         }        
 
@@ -87,6 +88,28 @@ class FUASectionImplementation {
      
 
         return returnedFUAFormat;
+    };
+
+    // Get FUA Fields by Id
+    async getFUAFieldsByIdSequelize(idReceived: number){
+        let returnedFUAFields = [];
+        // Get FUA PAges
+        try {
+            returnedFUAFields = await FUAField.findAll({
+                where: {
+                    FUASectionId: idReceived,
+                    active: true,
+                }
+            });
+
+        } catch (err: unknown){
+            console.error(`Error in FUA Section Sequelize Implementation - getFUAFieldsByIdSequelize: Couldnt retrieve FUA Fields with FUA Section Id identified by Id "${idReceived}". `, err);
+            (err as Error).message =  `Error in FUA Section Sequelize Implementation - getFUAFieldsByIdSequelize: Couldnt retrieve FUA Fields with FUA Section Id identified by Id "${idReceived}" . ` + (err as Error).message;
+            throw err;
+        }
+        
+        // If nothing was found, it will return a []
+        return returnedFUAFields;
     };
 
 };
