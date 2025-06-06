@@ -13,11 +13,12 @@ table tr th td{
 
 /* General Styles */
 
-.auxTable {
-    width: 100%;
-    border-collapse: collapse;
-    border: 1px solid black;
-    border-spacing: 0px;
+.fua-page {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 20px;
+    border: 1px solid #000;
+    box-sizing: border-box;
 }
 
 .table-section {
@@ -28,19 +29,38 @@ table tr th td{
     table-layout: fixed;
 }
 
+.section-header {
+    width: 100%;
+    background-color: lightgray;
+    border: 2px solid black;
+}
+
+.section-content {
+    padding: 0;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.table-field {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
 .table-data {
     border: 1px solid black; /* inner borders */
     width: 100%;
     text-align: center;
 }
 
-.fua-container {
-    width: 210mm;
-    min-height: 297mm;
-    padding: 20px;
-    border: 1px solid #000;
-    box-sizing: border-box;
+.auxTable {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid black;
+    border-spacing: 0px;
 }
+
+
 
 .blank-space {
     font-weight: bold;
@@ -59,21 +79,20 @@ table tr th td{
     background-color: gray;
 }
 
-.section-header {
-    width: 100%;
-    background-color: lightgray;
-}
+
+
+
   
 /* Unique Styles */
 
-#section-1 {
+#section-1-1 {
     width: 100%;
-    height: 20mm;
+    height: 7.6mm;
 }
 
-#section-2 {
+#section-1-2 {
     width: 100%;
-    height: 45mm;
+    height: 51.3mm;
 }
 
 #section-3 {

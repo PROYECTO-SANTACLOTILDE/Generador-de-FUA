@@ -18,6 +18,8 @@ const newFUAFieldSchema = z.object({
     version: z.string(),    
     height: z.number().positive(),
     width: z.number().positive(),
+    top: z.number().positive(),
+    left: z.number().positive(),
     // Section Data
     FUASectionId: z.string().or(z.number().int().positive() ),
     // Audit Data
@@ -75,6 +77,8 @@ class FUAFieldService {
                 version: data.version,
                 height: data.height,
                 width: data.width,
+                top: data.top,
+                left: data.left,
                 FUASectionId: FUASectionId,
                 createdBy: data.createdBy,
             });

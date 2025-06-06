@@ -42,7 +42,7 @@ class FUARenderingUtils {
             
 
             formatContent = ( htmlPages ? htmlPages.map( page => `
-                <div class="fua-container">
+                <div class="fua-page">
                     ${ page }
                 </div>
             `).join('') : '' );
@@ -55,7 +55,7 @@ class FUARenderingUtils {
                     <meta charset="UTF-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <title>Previsualizacion de FUA</title>
-                    <link rel="stylesheet" href="/FUA_Previsualization.css">
+                    <link rel="stylesheet" href="/FUA_Previsualization.css">                
                 </head>
                 <body>
                     ${ formatContent }
@@ -98,15 +98,7 @@ class FUARenderingUtils {
                 throw error;
             }
 
-            htmlContent = ( sectionsContent ? sectionsContent.map( section => `
-                <table class="table-section">
-                    <tr class="table-row">
-                        <td class="table-data">
-                            ${ section }
-                        </td>
-                    </tr>                    
-                </table>
-            `).join('') : '' );    
+            htmlContent = ( sectionsContent ? sectionsContent.join('') : '' );    
            
         }
 
@@ -127,6 +119,14 @@ class FUARenderingUtils {
 
         FUASection.fields = auxSectionFields;
         
+        let fieldsContent: string[] = [];
+        try {
+            fieldsContent = await Promise.all( FUASection.fields.map( (field: any, index: number) => this.renderFUAField(field, index) ) );  
+        }catch(error: any){
+            console.error('Error in FUA Rendering Utils - getFUASectionsByIdOrUUID: ', error);
+            (error as Error).message =  'Error in FUA Rendering Utils - getFUASectionsByIdOrUUID: ' + (error as Error).message;
+            throw error;
+        }
         
         // title, showTitle
         let title = '';
@@ -137,17 +137,17 @@ class FUARenderingUtils {
                 </tr>
             `;            
         }
-        
+
+        let fieldsHtmlContent = fieldsContent.length == 0 ? `<p> No hay campos en esta seccion <p>` : fieldsContent.join('');
+
         let htmlContent = `
-            <table class="auxTable" style="height: ${FUASection.height.toString()}mm;">
+            <table id="section-${index.toString()}" class="table-section" style="height: ${FUASection.height.toString()}mm;">
                   
                 ${title}
 
                 <tr>                    
-                    <td>
-                        <p> Fields </p>
-                        <p> Fields </p>
-                        <p> Fields </p>
+                    <td class="section-content">
+                        ${fieldsHtmlContent}
                     </td>
                 </tr>                    
             </table>
@@ -156,14 +156,52 @@ class FUARenderingUtils {
         return htmlContent;
     }
 
-    public static renderFUAField( FUAField : any, index: number ): string {
-        let content = `
-            <div class="fua-container">
-                <p>This is a field</p>
-            </div>
+    public static async renderFUAField( auxFUAField : any, index: number ): Promise<string> {
+        
+        // Get columns with row and cells
+        let columns = [];
+        /* try {
+
+        }catch(error: any){
+
+        } */
+        
+        let fieldContent = '';
+        /* try {
+
+        }catch(error: any){
+
+        } */
+
+        let label = '';
+        if(auxFUAField.showLabel){
+            label = `
+                <tr>
+                    <th class="table-data"> ${auxFUAField.label} </th>
+                </tr>
+            `;
+        }
+
+        let htmlContent = `
+            <style>
+                #field-${index}-${auxFUAField.codeName} {
+                    height: ${auxFUAField.height.toFixed(1)}mm;
+                    width: ${auxFUAField.width.toFixed(1)}mm;
+                    top: ${auxFUAField.top.toFixed(1)}mm;
+                    left: ${auxFUAField.left.toFixed(1)}mm;
+                    position: absolute;
+                }
+            </style>
+
+            <table id="field-${index}-${auxFUAField.codeName}" class="table-field">
+                ${label}
+                <tr>
+                    <td> <p>FUA Field Body</p> </td>
+                </tr>
+            </table>
         `;
 
-        return content;
+        return htmlContent;
     }
 
 

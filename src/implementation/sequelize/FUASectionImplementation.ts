@@ -9,7 +9,8 @@ class FUASectionImplementation {
         showTitle: boolean;
         codeName: string;
         version: string;
-        height: number;
+        titleHeight: number;
+        bodyHeight: number;
         // Page data
         FUAPageId: number;
         // Audit Data

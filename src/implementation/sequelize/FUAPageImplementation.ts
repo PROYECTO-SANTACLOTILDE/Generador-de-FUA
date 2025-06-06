@@ -106,7 +106,10 @@ class FUAPageImplementation {
                 where: {
                     FUAPageId: idReceived,
                     active: true,
-                }
+                },
+                order: [
+                    ['id','ASC'],
+                ]
             });
 
         } catch (err: unknown){

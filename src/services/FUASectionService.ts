@@ -12,7 +12,8 @@ const newFUASectionSchema = z.object({
     showTitle: z.boolean(),
     codeName: z.string(),
     version: z.string(),    
-    height: z.number().positive(),
+    titleHeight: z.number().positive(),
+    bodyHeight: z.number().positive(),
     //Page Data
     FUAPageId: z.string().or(z.number().int().positive() ),
     // Audit Data
@@ -64,7 +65,8 @@ class FUASectionService {
                 showTitle: data.showTitle,
                 codeName: data.codeName,
                 version: data.version,
-                height: data.height,
+                titleHeight: data.titleHeight,
+                bodyHeight: data.bodyHeight,
                 FUAPageId: FUAPageId,
                 createdBy: data.createdBy,
             });

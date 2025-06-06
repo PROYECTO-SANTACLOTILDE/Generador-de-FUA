@@ -15,6 +15,8 @@ class FUAFieldImplementation {
         version: string;
         height: number;
         width: number;
+        top: number;
+        left: number;
         // Section data
         FUASectionId: number;
         // Audit Data

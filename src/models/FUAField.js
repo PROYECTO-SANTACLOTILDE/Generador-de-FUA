@@ -1,8 +1,5 @@
 const { DataTypes, Model } = require('sequelize');
 import { sequelize } from './database';
-import { FUAFieldCell } from './FUAFieldCell';
-import { FUAFieldColumn } from './FUAFieldColumn';
-import { FUASection } from './FUASection';
 
 // Base Entity Inheritance
 const BaseEntity = require('./BaseEntity');
@@ -34,7 +31,7 @@ const FUAField = sequelize.define(
             type: DataTypes.STRING,
             allowNull: false
         },
-        valueType: {        // SHows what type of field is
+        valueType: {        // Shows what type of field is
             type: DataTypes.STRING,
             allowNull: false
         },
@@ -55,6 +52,14 @@ const FUAField = sequelize.define(
             allowNull: false      
         },
         width: {   // In mm
+            type: DataTypes.FLOAT,       
+            allowNull: false      
+        },
+        top: {   // In mm
+            type: DataTypes.FLOAT,       
+            allowNull: false      
+        },
+        left: {   // In mm
             type: DataTypes.FLOAT,       
             allowNull: false      
         }
