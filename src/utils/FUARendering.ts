@@ -3,16 +3,6 @@
 import FUAPageService from "../services/FUAPageService";
 import FUASectionService from "../services/FUASectionService";
 
-interface FUAFormat {
-    id: number; 
-    uuid: string;
-    pages: Array<any>; // Array of FUAPages
-}
-
-interface FUAPage {
-    id: number;
-    uuid: string;
-}
 
 
 class FUARenderingUtils {
@@ -133,7 +123,7 @@ class FUARenderingUtils {
         if(FUASection.showTitle == true){
             title = `
                 <tr>
-                    <th class="section-header"> ${FUASection.title ?? ''} </th>
+                    <th class="section-header" style="height: ${FUASection.titleHeight.toFixed(1)}mm;"> ${FUASection.title ?? ''} </th>
                 </tr>
             `;            
         }
@@ -141,7 +131,7 @@ class FUARenderingUtils {
         let fieldsHtmlContent = fieldsContent.length == 0 ? `<p> No hay campos en esta seccion <p>` : fieldsContent.join('');
 
         let htmlContent = `
-            <table id="section-${index.toString()}" class="table-section" style="height: ${FUASection.height.toString()}mm;">
+            <table id="section-${index.toString()}" class="table-section" style="height: ${FUASection.bodyHeight.toFixed(1)}mm;">
                   
                 ${title}
 

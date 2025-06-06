@@ -18,8 +18,8 @@ const newFUAFieldSchema = z.object({
     version: z.string(),    
     height: z.number().positive(),
     width: z.number().positive(),
-    top: z.number().positive(),
-    left: z.number().positive(),
+    top: z.number().nonnegative(),
+    left: z.number().nonnegative(),
     // Section Data
     FUASectionId: z.string().or(z.number().int().positive() ),
     // Audit Data
@@ -30,13 +30,31 @@ const newFUAFieldSchema = z.object({
 class FUAFieldService {
 
     // Creation of FUA Page
-    async create(data: any) {
+    async create(data: {
+        // Field Data
+        label: string;
+        showLabel: boolean;
+        labelOrientation: string;
+        labelPosition: string;
+        valueType: string;
+        orientation: string;
+        codeName: string;
+        version: string;
+        height: number;
+        width: number;
+        top: number;
+        left: number;
+        // Section Data
+        FUASectionId: string | number;
+        // Audit Data
+        createdBy: string;
+    }) {
         
         // Object validation
         const result = newFUAFieldSchema.safeParse(data);
         if( !result.success ){
-            console.error('Error in FUAField Service - createFUAField: ZOD validation. \n', result.error);
-            const newError = new Error('Error in FUAField Service - createFUAField: ZOD validation. ');
+            console.error('Error in FUAField Service - create: ZOD validation. \n', result.error);
+            const newError = new Error('Error in FUAField Service - create: ZOD validation. ');
             (newError as any).details = result.error;
             throw newError;
         }
@@ -47,15 +65,15 @@ class FUAFieldService {
         try {
             auxFUASection = await FUASectionService.getByIdOrUUID( data.FUASectionId.toString() );
         } catch (error: unknown) {
-            console.error(`Error in FUA Field Service: Couldnt search FUA Field by Id or UUID '${data.FUAFormat}' sent in database using Sequelize. `, error);
-            (error as Error).message =  `Error in FUA Field Service: Couldnt search FUA Field by Id or UUID  '${data.FUAFormat}' sent in database using Sequelize. ` + (error as Error).message;
+            console.error(`Error in FUA Field Service - create: Couldnt search FUA Section by Id or UUID '${data.FUASectionId.toString()}' sent in database using Sequelize. `, error);
+            (error as Error).message =  `Error in FUA Field Service - create: Couldnt search FUA Section by Id or UUID  '${data.FUASectionId.toString()}' sent in database using Sequelize. ` + (error as Error).message;
             throw error;
         }
         // Check if a FUA Format wanst found
         if(auxFUASection === null){
             // In case a FUA Format wasnt found
-            console.error(`Error in FUA Field Service: Couldnt found FUA Field by Id or UUID '${data.FUAFormat}' sent in database using Sequelize. `);
-            throw new Error(`Error in FUA Field Service: Couldnt found FUA Field by Id or UUID '${data.FUAFormat}' sent in database using Sequelize. `);
+            console.error(`Error in FUA Field Service - create: Couldnt found FUA Section by Id or UUID '${data.FUASectionId.toString()}' sent in database using Sequelize. `);
+            throw new Error(`Error in FUA Field Service - create: Couldnt found FUA Section by Id or UUID '${data.FUASectionId.toString()}' sent in database using Sequelize. `);
         }
 
         // Pending to check nextPage and previousPage
@@ -83,8 +101,8 @@ class FUAFieldService {
                 createdBy: data.createdBy,
             });
         } catch (err: unknown){
-            console.error(`Error in FUA Field service:  `, err);
-            throw new Error(`Error in FUA Field service:  ` + (err as Error).message);
+            console.error(`Error in FUA Field service - create:  `, err);
+            throw new Error(`Error in FUA Field service - create:  ` + (err as Error).message);
         }        
 
         return {
@@ -121,8 +139,8 @@ class FUAFieldService {
                 returnedFUAField = await FUAFieldImplementation.getByIdSequelize(id);
 
             } catch (err: unknown){
-                console.error('Error in FUA Field Service: ', err);
-                (err as Error).message =  'Error in FUA Field Service: ' + (err as Error).message;
+                console.error('Error in FUA Field Service - getByIdOrUUID: ', err);
+                (err as Error).message =  'Error in FUA Field Service - getByIdOrUUID: ' + (err as Error).message;
                 throw err;
             }     
         }else{

@@ -10,6 +10,7 @@ import { getPatient } from './services/fhirService';
 
 // Import Routes
 import globalRouter from './routes/indexRoutes';
+import { createDemoFormat } from './utils/utils';
 
 // Parameters and other options
 const app = express();
@@ -23,8 +24,8 @@ sequelize.authenticate()
   console.log(`\nConnection has been established with database successfully.\n`);  
   // Syncronize models
   console.log('\n Syncronizing models ... \n');
-  //sequelize.sync({ force: true })
-  sequelize.sync({ alter: true })
+  sequelize.sync({ force: true })
+  //sequelize.sync({ alter: true })
   .then( () : void => {
     console.log('\nEnded syncronizing models ...\n');
   } );  
@@ -71,22 +72,15 @@ app.get('/FUA', (req, res) => {
 //TESTING ENTITIES
 
 //TESTING ENTITIES
-/* app.post('/UserTest', async (req, res) => {
+app.post('/demo', async (req, res) => {
   try {
-    const newUser = await UserService.createUserTest(
-      {
-        username: "admin",
-        realPassword: "admin",
-        secretQuestion: "question",
-        secretAnswer: "answer",
-      }
-    );
-    res.status(201).json(newUser);
+    const demoAnswer = await createDemoFormat();
+    res.status(201).json(demoAnswer);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'Failed to create User.' });
+    res.status(500).json({ error: 'Failed to create Demo.' });
   }
-}); */
+});
 
 
 

@@ -5,7 +5,6 @@ import { isValidUUIDv4 } from "../utils/utils";
 import FUAFormatService from "./FUAFormatService";
 
 // Schemas
-
 const newFUAPageFormatSchema = z.object({
     // Page Data
     title: z.string(), 
@@ -20,11 +19,22 @@ const newFUAPageFormatSchema = z.object({
     createdBy: z.string(),
 });
 
-
 class FUAPageService {
 
     // Creation of FUA Page
-    async create(data: any) {
+    async create(data: {
+                    // Page Data
+                    title: string;
+                    codeName: string;
+                    version: string;
+                    pageNumber: number;
+                    nextPage?: string | number;
+                    previousPage?: string | number;
+                    // Format Data
+                    FUAFormatId: string | number;
+                    // Audit Data
+                    createdBy: string;
+                    }) {
         
         // Object validation
         const result = newFUAPageFormatSchema.safeParse(data);
@@ -41,15 +51,15 @@ class FUAPageService {
         try {
             auxFUAFormat = await FUAFormatService.getByIdOrUUID( data.FUAFormatId.toString() );
         } catch (error: unknown) {
-            console.error(`Error in FUA Page Service: Couldnt search FUA Format by Id or UUID '${data.FUAFormat.FUAFormatId}' sent in database using Sequelize. `, error);
-            (error as Error).message =  `Error in FUA Page Service: Couldnt search FUA Format by Id or UUID  '${data.FUAFormat.FUAFormatId}' sent in database using Sequelize. ` + (error as Error).message;
+            console.error(`Error in FUA Page Service: Couldnt search FUA Format by Id or UUID '${data.FUAFormatId}' sent in database using Sequelize. `, error);
+            (error as Error).message =  `Error in FUA Page Service: Couldnt search FUA Format by Id or UUID  '${data.FUAFormatId}' sent in database using Sequelize. ` + (error as Error).message;
             throw error;
         }
         // Check if a FUA Format wanst found
         if(auxFUAFormat === null){
             // In case a FUA Format wasnt found
-            console.error(`Error in FUA Page Service: Couldnt found FUA Format by Id or UUID '${data.FUAFormat}' sent in database using Sequelize. `);
-            throw new Error(`Error in FUA Page Service: Couldnt found FUA Format by Id or UUID '${data.FUAFormat}' sent in database using Sequelize. `);
+            console.error(`Error in FUA Page Service: Couldnt found FUA Format by Id or UUID '${data.FUAFormatId}' sent in database using Sequelize. `);
+            throw new Error(`Error in FUA Page Service: Couldnt found FUA Format by Id or UUID '${data.FUAFormatId}' sent in database using Sequelize. `);
         }
 
         // Pending to check nextPage and previousPage
@@ -58,15 +68,15 @@ class FUAPageService {
 
         // Send data to create  
         let returnedFUAPage = null;
-        console.log("ID OF FORMAT: ",auxFUAFormat)
+
         try {
             returnedFUAPage = await FUAPageImplementation.createFUAPageSequelize({
                 title: data.title,
                 codeName: data.codeName,
                 version: data.version,
                 pageNumber: data.pageNumber,
-                nextPage: data.nextPage,
-                previousPage: data.previousPage,
+                nextPage: undefined ,
+                previousPage: undefined,
                 FUAFormatId: FUAFormatId,
                 createdBy: data.createdBy,
             });

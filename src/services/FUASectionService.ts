@@ -23,8 +23,20 @@ const newFUASectionSchema = z.object({
 
 class FUASectionService {
 
-    // Creation of FUA Page
-    async create(data: any) {
+    // Creation of FUA Section
+    async create(data: {
+            // Page Data
+            title: string;
+            showTitle: boolean;
+            codeName: string;
+            version: string;
+            titleHeight: number;
+            bodyHeight: number;
+            // Page ID
+            FUAPageId: string | number;
+            // Audit Data
+            createdBy: string;
+        }) {
         
         // Object validation
         const result = newFUASectionSchema.safeParse(data);
@@ -35,21 +47,21 @@ class FUASectionService {
             throw newError;
         }
 
-        // Check if FUA Page exists
+        // Check if FUA Section exists
         let auxFUAPage = null;
 
         try {
             auxFUAPage = await FUAPageService.getByIdOrUUID( data.FUAPageId.toString() );
         } catch (error: unknown) {
-            console.error(`Error in FUA Section Service - create: Couldnt search FUA Page by Id or UUID '${data.FUAFormat}' sent in database using Sequelize. `, error);
-            (error as Error).message =  `Error in FUA Section Service - create: Couldnt search FUA Format by Id or UUID  '${data.FUAFormat}' sent in database using Sequelize. ` + (error as Error).message;
+            console.error(`Error in FUA Section Service - create: Couldnt search FUA Page by Id or UUID '${data.FUAPageId}' sent in database using Sequelize. `, error);
+            (error as Error).message =  `Error in FUA Section Service - create: Couldnt search FUA Format by Id or UUID  '${data.FUAPageId}' sent in database using Sequelize. ` + (error as Error).message;
             throw error;
         }
         // Check if a FUA Format wanst found
         if(auxFUAPage === null){
             // In case a FUA Format wasnt found
-            console.error(`Error in FUA Page Service: Couldnt found FUA Format by Id or UUID '${data.FUAFormat}' sent in database using Sequelize. `);
-            throw new Error(`Error in FUA Page Service: Couldnt found FUA Format by Id or UUID '${data.FUAFormat}' sent in database using Sequelize. `);
+            console.error(`Error in FUA Section Service: Couldnt found FUA Page by Id or UUID '${data.FUAPageId.toString()}' sent in database using Sequelize. `);
+            throw new Error(`Error in FUA Section Service: Couldnt found FUA Page by Id or UUID '${data.FUAPageId.toString()}' sent in database using Sequelize. `);
         }
 
         // Pending to check nextPage and previousPage
@@ -109,8 +121,8 @@ class FUASectionService {
                 returnedFUASection = await FUASectionImplementation.getByIdSequelize(id);
 
             } catch (err: unknown){
-                console.error('Error in FUASection Service: ', err);
-                (err as Error).message =  'Error in FUASection Service: ' + (err as Error).message;
+                console.error('Error in FUA Section Service - getByIdOrUUID: ', err);
+                (err as Error).message =  'Error in FUASection Service - getByIdOrUUID: ' + (err as Error).message;
                 throw err;
             }     
         }else{
@@ -118,16 +130,16 @@ class FUASectionService {
 
             //Validate UUID Format        
             if (!isValidUUIDv4(idReceived) ) {
-                console.error('Error in FUASection Service: Invalid UUID format. ');
-                throw new Error("Error in FUASection Service: Invalid UUID format. ");
+                console.error('Error in FUASection Service - getByIdOrUUID: Invalid UUID format. ');
+                throw new Error("Error in FUASection Service - getByIdOrUUID: Invalid UUID format. ");
             }
             try {
 
                 returnedFUASection = await FUASectionImplementation.getByUUIDSequelize(idReceived);
 
             } catch (err: unknown){
-                console.error('Error in FUASection Service: ', err);
-                (err as Error).message =  'Error in FUASection Service: ' + (err as Error).message;
+                console.error('Error in FUA Section Service - getByIdOrUUID: ', err);
+                (err as Error).message =  'Error in FUASection Service - getByIdOrUUID: ' + (err as Error).message;
                 throw err;
             }
             

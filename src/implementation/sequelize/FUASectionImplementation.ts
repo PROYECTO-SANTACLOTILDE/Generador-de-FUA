@@ -48,11 +48,11 @@ class FUASectionImplementation {
         return returnedFUAFSections;
     };
 
-    // Get FUA Format Id by UUID
+    // Get FUA Section Id by UUID
     async getByUUIDSequelize(uuidSent: string){
         let returnFUASection = null;
         try {
-            returnFUASection = await FUAFormat.findAll({
+            returnFUASection = await FUASection.findAll({
                 where: {
                     uuid: uuidSent,
                     active: true,
@@ -60,8 +60,8 @@ class FUASectionImplementation {
             });
 
         } catch (err: unknown){
-            console.error(`Error in FUASection Sequelize Implementation: Couldnt found FUA Section identified by UUID '${uuidSent}' . `, err);
-            (err as Error).message =  `Error in FUASection Sequelize Implementation: Couldnt retrieve FUA Section identified by UUID '${uuidSent}' . ` + (err as Error).message;
+            console.error(`Error in FUA Section Sequelize Implementation - getByUUIDSequelize: Couldnt found FUA Section identified by UUID '${uuidSent}' . `, err);
+            (err as Error).message =  `Error in FUA Section Sequelize Implementation - getByUUIDSequelize: Couldnt retrieve FUA Section identified by UUID '${uuidSent}' . ` + (err as Error).message;
             throw err;
         }        
 
