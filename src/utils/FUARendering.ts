@@ -32,7 +32,7 @@ class FUARenderingUtils {
             
 
             formatContent = ( htmlPages ? htmlPages.map( page => `
-                <div class="fua-page">
+                <div class="fua-container">
                     ${ page }
                 </div>
             `).join('') : '' );
@@ -45,7 +45,7 @@ class FUARenderingUtils {
                     <meta charset="UTF-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <title>Previsualizacion de FUA</title>
-                    <link rel="stylesheet" href="/FUA_Previsualization.css">                
+                    <link rel="stylesheet" href="/FUA_Previsualization.css">
                 </head>
                 <body>
                     ${ formatContent }
@@ -175,10 +175,10 @@ class FUARenderingUtils {
         let htmlContent = `
             <style>
                 #field-${index}-${auxFUAField.codeName} {
-                    height: ${auxFUAField.height.toFixed(1)}mm;
-                    width: ${auxFUAField.width.toFixed(1)}mm;
-                    top: ${auxFUAField.top.toFixed(1)}mm;
-                    left: ${auxFUAField.left.toFixed(1)}mm;
+                    height: ${auxFUAField.bodyHeight?.toFixed(1) ?? ''}mm;
+                    width: ${auxFUAField.bodyWidth?.toFixed(1) ?? ''}mm;
+                    top: ${auxFUAField.top?.toFixed(1) ?? ''}mm;
+                    left: ${auxFUAField.left?.toFixed(1) ?? ''}mm;
                     position: absolute;
                 }
             </style>

@@ -1,6 +1,8 @@
 // Import Libraries
+require('dotenv').config();
 import express from 'express';
 const path = require('path');
+
 
 // Sequelize and models
 import { sequelize } from './models/database';
@@ -14,7 +16,7 @@ import { createDemoFormat } from './utils/utils';
 
 // Parameters and other options
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 // Testing database connection
 // Consider to envelope main in a async function

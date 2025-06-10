@@ -13,10 +13,11 @@ class FUAFieldImplementation {
         orientation: string;
         codeName: string;
         version: string;
-        height: number;
-        width: number;
+        bodyHeight: number;
+        bodyWidth: number;
         top: number;
         left: number;
+        labelSize: number;
         // Section data
         FUASectionId: number;
         // Audit Data

@@ -11,8 +11,6 @@ const newFUAPageFormatSchema = z.object({
     codeName: z.string(),
     version: z.string(),
     pageNumber: z.number().int().positive(),
-    nextPage: z.string().or(z.number().int().positive() ).optional(),
-    previousPage: z.string().or(z.number().int().positive() ).optional(),
     //Format Data
     FUAFormatId: z.string().or(z.number().int().positive() ),
     // Audit Data
@@ -28,8 +26,6 @@ class FUAPageService {
                     codeName: string;
                     version: string;
                     pageNumber: number;
-                    nextPage?: string | number;
-                    previousPage?: string | number;
                     // Format Data
                     FUAFormatId: string | number;
                     // Audit Data
@@ -75,8 +71,6 @@ class FUAPageService {
                 codeName: data.codeName,
                 version: data.version,
                 pageNumber: data.pageNumber,
-                nextPage: undefined ,
-                previousPage: undefined,
                 FUAFormatId: FUAFormatId,
                 createdBy: data.createdBy,
             });

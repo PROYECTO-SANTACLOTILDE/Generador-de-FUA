@@ -8,6 +8,7 @@ import FUAFieldRouter from './FUAFieldRoutes';
 import FUAFieldColumnRouter from './FUAFieldColumnRoutes';
 import FUAFieldRowRouter from './FUAFieldRowRoutes';
 import FUAFieldCellRouter from './FUAFieldCellRoutes';
+import FUAFromVisitRouter from './FUAFromVisitRouter';
 
 const globalRouter = express.Router();
 
@@ -18,5 +19,6 @@ globalRouter.use('/FUAField', FUAFieldRouter);
 globalRouter.use('/FUAFieldColumn', FUAFieldColumnRouter);
 globalRouter.use('/FUAFieldRow', FUAFieldRowRouter);
 globalRouter.use('/FUAFieldCell', FUAFieldCellRouter);
+globalRouter.use('/FUAFromVisit', FUAFromVisitRouter);
 
 export default globalRouter;

@@ -47,11 +47,11 @@ const FUAField = sequelize.define(
             type: DataTypes.STRING,
             allowNull: false
         },
-        height: {   // In mm
+        bodyHeight: {   // In mm
             type: DataTypes.FLOAT,       
             allowNull: false      
         },
-        width: {   // In mm
+        bodyWidth: {   // In mm
             type: DataTypes.FLOAT,       
             allowNull: false      
         },
@@ -60,6 +60,10 @@ const FUAField = sequelize.define(
             allowNull: false      
         },
         left: {   // In mm
+            type: DataTypes.FLOAT,       
+            allowNull: false      
+        },
+        labelSize: {   // In mm
             type: DataTypes.FLOAT,       
             allowNull: false      
         }

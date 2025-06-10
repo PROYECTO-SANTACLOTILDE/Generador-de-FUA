@@ -1,8 +1,8 @@
-const LabelOrientation = Object.freeze({
+const ValueType = Object.freeze({
     String: "String",
     Number: "Number",
     Boolean: "Boolean",   
-    FUAAField: "FUAField",
+    FUAField: "FUAField",
 });
 
-export default LabelOrientation;
+export default ValueType;

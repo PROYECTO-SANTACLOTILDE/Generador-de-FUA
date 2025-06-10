@@ -14,6 +14,8 @@ import FUAFieldColumn from './FUAFieldColumn';
 import FUAFieldRow from './FUAFieldRow';
 import FUAFieldCell from './FUAFieldCell';
 
+import FUAFromVisit from './FUAFromVisit.js';
+
 
 // Foreign keys
 
@@ -86,5 +88,6 @@ export {
     FUAField,
     FUAFieldColumn,
     FUAFieldRow,
-    FUAFieldCell
+    FUAFieldCell,
+    FUAFromVisit,
 };

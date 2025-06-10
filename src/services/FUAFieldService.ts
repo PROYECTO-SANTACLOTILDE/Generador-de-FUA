@@ -16,10 +16,11 @@ const newFUAFieldSchema = z.object({
     orientation: z.string(),
     codeName: z.string(),
     version: z.string(),    
-    height: z.number().positive(),
-    width: z.number().positive(),
-    top: z.number().nonnegative(),
-    left: z.number().nonnegative(),
+    bodyHeight: z.number().positive(),
+    bodyWidth: z.number().positive(),
+    top: z.number().positive(),
+    left: z.number().positive(),
+    labelSize: z.number().positive(),
     // Section Data
     FUASectionId: z.string().or(z.number().int().positive() ),
     // Audit Data
@@ -29,7 +30,7 @@ const newFUAFieldSchema = z.object({
 
 class FUAFieldService {
 
-    // Creation of FUA Page
+    // Creation of FUA Field
     async create(data: {
         // Field Data
         label: string;
@@ -40,10 +41,11 @@ class FUAFieldService {
         orientation: string;
         codeName: string;
         version: string;
-        height: number;
-        width: number;
+        bodyHeight: number;
+        bodyWidth: number;
         top: number;
         left: number;
+        labelSize: number;
         // Section Data
         FUASectionId: string | number;
         // Audit Data
@@ -93,10 +95,11 @@ class FUAFieldService {
                 orientation: data.orientation,
                 codeName: data.codeName,
                 version: data.version,
-                height: data.height,
-                width: data.width,
+                bodyHeight: data.bodyHeight,
+                bodyWidth: data.bodyWidth,
                 top: data.top,
                 left: data.left,
+                labelSize: data.labelSize,
                 FUASectionId: FUASectionId,
                 createdBy: data.createdBy,
             });

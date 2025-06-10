@@ -10,8 +10,6 @@ class FUAPageImplementation {
         codeName: string; 
         version: string; 
         pageNumber: number;
-        nextPage?: number; // Id
-        previousPage?: number; // Id
         //FUAFormat Data
         FUAFormatId: number; // Id
         // Audit Data
@@ -26,8 +24,6 @@ class FUAPageImplementation {
                 codeName: data.codeName, 
                 version: data.version, 
                 pageNumber: data.pageNumber,
-                nextPage: data.nextPage,
-                previousPage: data.previousPage,
                 FUAFormatId: data.FUAFormatId,
                 createdBy: data.createdBy,
             });

@@ -4,6 +4,8 @@ import FUAFormatService from "../services/FUAFormatService";
 import FUAPageService from "../services/FUAPageService";
 import FUASectionService from "../services/FUASectionService";
 
+const crypto = require('crypto');
+
 /**
  * Validates whether a given string is a valid UUID v4.
  * 
@@ -13,6 +15,8 @@ export function isValidUUIDv4(uuid: string): boolean {
   const uuidV4Regex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$/;
   return uuidV4Regex.test(uuid);
 }
+
+
 
 
 export async function fillSection2(auxUser: string, auxVersion: string, sectionUUID: string){
@@ -26,10 +30,11 @@ export async function fillSection2(auxUser: string, auxVersion: string, sectionU
     orientation: 'xd',
     codeName: 'date',
     version: '0.1',
-    height: 9.9,
-    width: 49.8,
+    bodyHeight: 9.9,
+    bodyWidth: 49.8,
     top: 2.7,
     left: 0.0,
+    labelSize: 3.0,
     FUASectionId: sectionUUID,
     createdBy: auxUser
   });  
@@ -44,11 +49,12 @@ export async function fillSection2(auxUser: string, auxVersion: string, sectionU
     orientation: 'xd',
     codeName: 'date',
     version: '0.1',
-    height: 9.9,
-    width: 49.8,
+    bodyHeight: 9.9,
+    bodyWidth: 49.8,
     top: 2.7,
     left: 0.0,
     FUASectionId: sectionUUID,
+    labelSize: 3.0,
     createdBy: auxUser
   });  
 
@@ -73,8 +79,6 @@ export async function createDemoFormat(){
       codeName: '',
       version: '',
       pageNumber: i+1,
-      nextPage: undefined,
-      previousPage: undefined,
       FUAFormatId: auxFormat.uuid,
       createdBy: auxUser
     });
