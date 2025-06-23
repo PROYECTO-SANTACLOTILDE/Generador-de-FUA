@@ -3,6 +3,7 @@ import {z} from "zod";
 import FUAFieldColumnImplementation from "../implementation/sequelize/FUAFieldColumnImplementation";
 import { isValidUUIDv4 } from "../utils/utils";
 import { FUAField } from "../models";
+import FUAFieldRowService from "./FUAFieldRowService";
 
 
 // Schemas
@@ -23,7 +24,7 @@ const newFUAFieldColumnSchema = z.object({
 
 class FUAFieldColumnService {
 
-    // Creation of FUA Field Column
+    // Creation of FUA Column Column
     async create(data: any) {
         
         // Object validation
@@ -52,7 +53,7 @@ class FUAFieldColumnService {
             throw new Error(`Error in FUA Field Column Service: Couldnt found FUA Field Column by Id or UUID '${data.FUAFormat}' sent in database using Sequelize. `);
         }
 
-        let FUAFieldId = auxFUAField[0].id;
+        let FUAFieldId = auxFUAField.id;
 
         // Send data to create  
         let returnedFUAFieldColumn = null;
@@ -78,7 +79,7 @@ class FUAFieldColumnService {
         };
     }
 
-    // List all FUA Pages
+    // List all FUA Columns
     async listAll( ){
         let returnedFUAFieldColumns = [];
         try {
@@ -93,19 +94,14 @@ class FUAFieldColumnService {
         return returnedFUAFieldColumns;
     };
 
-    // get FUA Field Column by Id (Id or UUID)
+    // Get FUA Field Column by Id (Id or UUID)
     async getByIdOrUUID (idReceived: string) {
         let returnedFUAFieldColumn = null;
-
         // Check if UUID or Id was sent
-        let id = null;
         const nuNumber = Number(idReceived);
         if( Number.isInteger(nuNumber) ){
-            id = nuNumber;
-
             try {
-                returnedFUAFieldColumn = await FUAFieldColumnImplementation.getByIdSequelize(id);
-
+                returnedFUAFieldColumn = await FUAFieldColumnImplementation.getByIdSequelize(nuNumber);
             } catch (err: unknown){
                 console.error('Error in FUA Field Column Service - getByIdOrUUID: ', err);
                 (err as Error).message =  'Error in FUA Field Column Service - getByIdOrUUID: ' + (err as Error).message;
@@ -113,31 +109,58 @@ class FUAFieldColumnService {
             }     
         }else{
             // Get id by UUID
-
             //Validate UUID Format        
             if (!isValidUUIDv4(idReceived) ) {
                 console.error('Error in FUA Field Column Service - getByIdOrUUID: Invalid UUID format. ');
                 throw new Error("Error in FUA Field Column Service - getByIdOrUUID: Invalid UUID format. ");
             }
             try {
-
                 returnedFUAFieldColumn = await FUAFieldColumnImplementation.getByUUIDSequelize(idReceived);
-
             } catch (err: unknown){
-                console.error('Error in FUA Field Column Service: ', err);
-                (err as Error).message =  'Error in FUA Field Column Service: ' + (err as Error).message;
+                console.error('Error in FUA Field Column Service - getByIdOrUUID: ', err);
+                (err as Error).message =  'Error in FUA Field Column Service - getByIdOrUUID: ' + (err as Error).message;
                 throw err;
             }
             
         }      
             
-        // If nothing was found, it will return a []
-        if( Array.isArray(returnedFUAFieldColumn) && returnedFUAFieldColumn.length === 0){
-            return null;
-        } 
-
         return returnedFUAFieldColumn;
     };
+
+    // Get list by FUA Field Identifier (Id or UUID)
+    async getListByFUAFieldIdOrUUID(auxId: string) {
+        let returnedColumns = [];
+        // Check if UUID or Id was sent
+        let id = null;
+        const nuNumber = Number(auxId);
+        if( Number.isInteger(nuNumber) ){
+            id = nuNumber;
+            try {
+                returnedColumns = await FUAFieldColumnImplementation.getListByFUAFieldIdSequelize(id);
+            } catch (err: unknown){
+                console.error('Error in FUA Field Column Service - getListByFUAFieldIdOrUUID: ', err);
+                (err as Error).message =  'Error in FUA Field Column Service - getListByFUAFieldIdOrUUID: ' + (err as Error).message;
+                throw err;
+            }     
+        }else{
+            // Get id by UUID
+            //Validate UUID Format        
+            if (!isValidUUIDv4(auxId) ) {
+                console.error('Error in FUA Field Column Service - getListByFUAFieldIdOrUUID: Invalid UUID format. ');
+                throw new Error("Error in FUA Field Column Service - getListByFUAFieldIdOrUUID: Invalid UUID format. ");
+            }
+            try {
+                returnedColumns = await FUAFieldColumnImplementation.getListByFUAFieldUUIDSequelize(auxId);
+            } catch (err: unknown){
+                console.error('Error in FUA Field Column Service - getListByFUAFieldIdOrUUID: ', err);
+                (err as Error).message =  'Error in FUA Field Column Service - getListByFUAFieldIdOrUUID: ' + (err as Error).message;
+                throw err;
+            }            
+        }                  
+        // If nothing was found, it will return a null
+        return returnedColumns;
+    };
+
 };
 
 export default new FUAFieldColumnService();

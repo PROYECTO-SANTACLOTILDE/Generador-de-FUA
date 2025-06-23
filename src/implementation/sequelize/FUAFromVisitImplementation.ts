@@ -71,7 +71,7 @@ class FUAFromVisitImplementation {
 
         let returnedFUA = null;
         try {
-            returnedFUA = await FUAFromVisit.findAll({
+            returnedFUA = await FUAFromVisit.findOne({
                 where: {
                     uuid: uuid,
                     active: true,

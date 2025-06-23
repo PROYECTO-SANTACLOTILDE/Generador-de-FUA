@@ -98,16 +98,11 @@ class FUAFieldCellService {
     // get FUA Field Cell by Id (Id or UUID)
     async getByIdOrUUID (idReceived: string) {
         let returnedFUAFieldCell = null;
-
         // Check if UUID or Id was sent
-        let id = null;
         const nuNumber = Number(idReceived);
         if( Number.isInteger(nuNumber) ){
-            id = nuNumber;
-
             try {
-                returnedFUAFieldCell = await FUAFieldCellImplementation.getByIdSequelize(id);
-
+                returnedFUAFieldCell = await FUAFieldCellImplementation.getByIdSequelize(nuNumber);
             } catch (err: unknown){
                 console.error('Error in FUA Field Cell Service - getByIdOrUUID: ', err);
                 (err as Error).message =  'Error in FUA Field Cell Service - getByIdOrUUID: ' + (err as Error).message;
@@ -115,29 +110,20 @@ class FUAFieldCellService {
             }     
         }else{
             // Get id by UUID
-
             //Validate UUID Format        
             if (!isValidUUIDv4(idReceived) ) {
                 console.error('Error in FUA Field Cell Service - getByIdOrUUID: Invalid UUID format. ');
                 throw new Error("Error in FUA Field Cell Service - getByIdOrUUID: Invalid UUID format. ");
             }
             try {
-
                 returnedFUAFieldCell = await FUAFieldCellImplementation.getByUUIDSequelize(idReceived);
-
             } catch (err: unknown){
-                console.error('Error in FUA Field Cell Service: ', err);
-                (err as Error).message =  'Error in FUA Field Cell Service: ' + (err as Error).message;
+                console.error('Error in FUA Field Cell Service - getByIdOrUUID: ', err);
+                (err as Error).message =  'Error in FUA Field Cell Service - getByIdOrUUID: ' + (err as Error).message;
                 throw err;
-            }
-            
-        }      
-            
-        // If nothing was found, it will return a []
-        if( Array.isArray(returnedFUAFieldCell) && returnedFUAFieldCell.length === 0){
-            return null;
-        } 
-
+            }            
+        }                  
+        // If nothing was found, it will return a null
         return returnedFUAFieldCell;
     };
 };

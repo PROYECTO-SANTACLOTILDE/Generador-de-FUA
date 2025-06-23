@@ -98,9 +98,7 @@ class FUAFromVisitService {
                 throw new Error("Error in FUA From Visit: Invalid UUID format. ");
             }
             try {
-
                 returnedFUAField = await FUAFromVisitImplementation.getByUUIDSequelize(idReceived);
-
             } catch (err: unknown){
                 console.error('Error in FUA From Visit Service: ', err);
                 (err as Error).message =  'Error in FUA From Visit Service: ' + (err as Error).message;

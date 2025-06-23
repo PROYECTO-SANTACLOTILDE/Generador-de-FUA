@@ -57,7 +57,7 @@ class FUAPageImplementation {
     async getFUAPageByIdSequelize(id: number){
         let returnFUAPage = null;
         try {
-            returnFUAPage = await FUAPage.findAll({
+            returnFUAPage = await FUAPage.findOne({
                 where: {
                     id: id,
                     active: true,
@@ -77,7 +77,7 @@ class FUAPageImplementation {
     async getFUAPageByUUIDSequelize(uuid: string){
         let returnFUAPage = null;
         try {
-            returnFUAPage = await FUAPage.findAll({
+            returnFUAPage = await FUAPage.findOne({
                 where: {
                     uuid: uuid,
                     active: true,

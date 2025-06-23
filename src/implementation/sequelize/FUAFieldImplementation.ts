@@ -1,4 +1,5 @@
 import { FUAField, FUASection } from "../../models";
+import { isValidUUIDv4 } from "../../utils/utils";
 
 class FUAFieldImplementation {
 
@@ -59,7 +60,7 @@ class FUAFieldImplementation {
     async getByUUIDSequelize(uuidSent: string){
         let returnedFUAField = null;
         try {
-            returnedFUAField = await FUAField.findAll({
+            returnedFUAField = await FUAField.findOne({
                 where: {
                     uuid: uuidSent,
                     active: true,
@@ -80,7 +81,7 @@ class FUAFieldImplementation {
 
         let returnedFUAField = null;
         try {
-            returnedFUAField = await FUAField.findAll({
+            returnedFUAField = await FUAField.findOne({
                 where: {
                     id: id,
                     active: true,
@@ -89,12 +90,50 @@ class FUAFieldImplementation {
 
 
         } catch (err: unknown){
-            console.error(`Error in FUAField Sequelize Implementation: Couldnt retrieve FUA Field identified by Id "${id}". `, err);
-            (err as Error).message =  `Error in FUAField Sequelize Implementation: Couldnt retrieve FUA Field identified by Id "${id}" . ` + (err as Error).message;
+            console.error(`Error in FUA Field Sequelize Implementation - getByIdSequelize: Couldnt retrieve FUA Field identified by Id "${id}". `, err);
+            (err as Error).message =  `Error in FUA Field Sequelize Implementation  - getByIdSequelize: Couldnt retrieve FUA Field identified by Id "${id}" . ` + (err as Error).message;
             throw err;
         }     
 
         return returnedFUAField;
+    };
+
+    // Get list by FUA Format Id
+    async getListByFUAFormatId(idReceived: number){
+        let returnedFUAFields = [];
+        try {
+            returnedFUAFields = await FUAField.findAll({
+                where: {
+                    id: idReceived,
+                    active: true,
+                }
+            });
+        } catch (err: unknown){
+            console.error('Error in FUA Field Sequelize Implementation - getListByFUAFormatId: ', err);
+            (err as Error).message =  'Error in FUA Field Sequelize Implementation - getListByFUAFormatId: ' + (err as Error).message;
+            throw err;
+        }                       
+        // If nothing was found, it will return a []
+        return returnedFUAFields;
+    };
+
+    // Get list by FUA Format UUID
+    async getListByFUAFormatUUID(idReceived: string){
+        let returnedFUAFields = [];
+        try {
+            returnedFUAFields = await FUAField.findAll({
+                where: {
+                    uuid: idReceived,
+                    active: true,
+                }
+            });
+        } catch (err: unknown){
+            console.error('Error in FUA Field Sequelize Implementation - getListByFUAFormatUUID: ', err);
+            (err as Error).message =  'Error in FUA Field Sequelize Implementation - getListByFUAFormatUUID: ' + (err as Error).message;
+            throw err;
+        }                       
+        // If nothing was found, it will return a []
+        return returnedFUAFields;
     };
 
 };

@@ -1,4 +1,5 @@
 import { FUAField, FUASection } from "../models";
+import FUAFieldColumnService from "../services/FUAFieldColumnService";
 import FUAFieldService from "../services/FUAFieldService";
 import FUAFormatService from "../services/FUAFormatService";
 import FUAPageService from "../services/FUAPageService";
@@ -38,6 +39,13 @@ export async function fillSection2(auxUser: string, auxVersion: string, sectionU
     FUASectionId: sectionUUID,
     createdBy: auxUser
   });  
+
+  //Fill with a field with Dia, Mes, Año
+  /* const DiaColumn = await FUAFieldColumnService.create({
+    label: "DIA",
+    showLabel
+  }); */
+
 
   // Fecha de atencion table
   const table2 = await FUAFieldService.create({

@@ -66,7 +66,7 @@ class FUAFormatService {
 
     // Get FUA Format by Id (Id or UUID)
     async getByIdOrUUID( idReceived: string ) {
-        let returnedFUAFormats = null;
+        let returnedFUAFormat = null;
 
         // Check if UUID or Id was sent
         let id = null;
@@ -75,7 +75,7 @@ class FUAFormatService {
             id = nuNumber;
 
             try {
-                returnedFUAFormats = await FUAFormatImplementation.getByIdSequelize(id);
+                returnedFUAFormat = await FUAFormatImplementation.getByIdSequelize(id);
 
             } catch (err: unknown){
                 console.error('Error in FUAFormat Service: ', err);
@@ -92,7 +92,7 @@ class FUAFormatService {
             }
             try {
 
-                returnedFUAFormats = await FUAFormatImplementation.getByUUIDSequelize(idReceived);
+                returnedFUAFormat = await FUAFormatImplementation.getByUUIDSequelize(idReceived);
 
             } catch (err: unknown){
                 console.error('Error in FUAFormat Service: ', err);
@@ -101,13 +101,8 @@ class FUAFormatService {
             }
             
         }      
-        
-        // If nothing was found, it will return a []
-        if( Array.isArray(returnedFUAFormats) && returnedFUAFormats.length === 0){
-            return null;
-        } 
-
-        return returnedFUAFormats;
+        // If nothing was offund, return a null
+        return returnedFUAFormat;
     };
 
     // Get FUA Format Id by UUID
@@ -128,10 +123,8 @@ class FUAFormatService {
             throw err;
         }
 
-        // If nothing was found, it will return a []
-        if( Array.isArray(returnedFUAFormats) && returnedFUAFormats.length === 0){
-            return null;
-        } 
+        // If nothing was found, it will return a null
+        return returnedFUAFormats
     }
 
     // Get FUA Pages by Id or UUID
@@ -151,8 +144,6 @@ class FUAFormatService {
             console.error(`Error in FUA Format Service - getFUAPagesByIdOrUUID: Couldnt found FUA Format identified by Id "${idReceived}". `);
             throw new Error(`Error in FUA Format Service - getFUAPagesByIdOrUUID: Couldnt found FUA Format identified by Id "${idReceived}". `);
         }
-
-        auxFUAFormat = auxFUAFormat[0]; // Get the first element, since it is an array
 
         let returnedFUAFormatPages = [];
         
@@ -182,8 +173,6 @@ class FUAFormatService {
         if( auxFuaFormat === null){
             return null;
         } 
-
-        auxFuaFormat = auxFuaFormat[0]; // Get the first element, since it is an array
 
         // Get FUA Pages
         auxFuaFormat.pages = [];

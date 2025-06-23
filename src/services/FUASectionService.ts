@@ -66,7 +66,7 @@ class FUASectionService {
 
         // Pending to check nextPage and previousPage
         
-        let FUAPageId = auxFUAPage[0].id;
+        let FUAPageId = auxFUAPage.id;
 
         // Send data to create  
         let returnedFUASection = null;
@@ -145,11 +145,7 @@ class FUASectionService {
             
         }      
             
-        // If nothing was found, it will return a []
-        if( Array.isArray(returnedFUASection) && returnedFUASection.length === 0){
-            return null;
-        } 
-
+        // If nothing was found, it will return a null
         return returnedFUASection;
     };
 

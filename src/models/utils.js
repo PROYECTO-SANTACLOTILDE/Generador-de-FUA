@@ -25,7 +25,7 @@ function sortObjectKeys(obj) {
  */
 function generateHMAC(obj) {
   const secret = process.env.HMAC_SECRET;
-  if (!secret) throw new Error('HMAC_SECRET not defined');
+  if (!secret) throw new Error('HMAC_SECRET not defined. ');
   const str = JSON.stringify(sortObjectKeys(obj));
   return crypto.createHmac('sha256', secret).update(str).digest('hex');
 }

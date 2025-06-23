@@ -52,7 +52,7 @@ class FUAFieldRowService {
             throw new Error(`Error in FUA Field Row Service: Couldnt found FUA Field Column by Id or UUID '${data.FUAFormat}'. `);
         }
 
-        let FUAFieldColumnId = auxFUAColumn[0].id;
+        let FUAFieldColumnId = auxFUAColumn.id;
 
         // Send data to create  
         let returnedFUAFieldRow = null;
@@ -131,13 +131,45 @@ class FUAFieldRowService {
             
         }      
             
-        // If nothing was found, it will return a []
-        if( Array.isArray(returnedFUAFieldRow) && returnedFUAFieldRow.length === 0){
-            return null;
-        } 
-
+        // If nothing was found, it will return a null
         return returnedFUAFieldRow;
     };
+
+    // Get FUA Rows by Identifiers (Id or UUID)
+    async getListByIdOrUUID(idReceived: string){
+        let returnedRows = [];
+        // Check if UUID or Id was sent
+        let id = null;
+        const nuNumber = Number(idReceived);
+        if( Number.isInteger(nuNumber) ){
+            id = nuNumber;
+            try {
+                returnedRows = await FUAFieldRowImplementation.getListByIdSequelize(id);
+            } catch (err: unknown){
+                console.error('Error in FUA Field Row Service - getListByIdOrUUID: ', err);
+                (err as Error).message =  'Error in FUA Field Row Service - getListByIdOrUUID: ' + (err as Error).message;
+                throw err;
+            }     
+        }else{
+            // Get list by UUID
+            //Validate UUID Format        
+            if (!isValidUUIDv4(idReceived) ) {
+                console.error('Error in FUA Field Row Service - getByIdOrUUID: Invalid UUID format. ');
+                throw new Error("Error in FUA Field Row Service - getListByIdOrUUID: Invalid UUID format. ");
+            }
+            try {
+                returnedRows = await FUAFieldRowImplementation.getListByUUIDSequelize(idReceived);
+            } catch (err: unknown){
+                console.error('Error in FUA Field Row Service - getListByIdOrUUID: ', err);
+                (err as Error).message =  'Error in FUA Field Row Service - getListByIdOrUUID: ' + (err as Error).message;
+                throw err;
+            }            
+        }      
+            
+        // If nothing was found, it will return a null
+        return returnedRows;
+    };
+
 };
 
 export default new FUAFieldRowService();

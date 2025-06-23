@@ -23,19 +23,19 @@ const FUAField = sequelize.define(
             type: DataTypes.BOOLEAN,
             allowNull: false
         },
-        labelOrientation: {        // Vertical or Horizontal
+        labelOrientation: {         // Vertical or Horizontal
             type: DataTypes.STRING,
             allowNull: false
         },
-        labelPosition: {        // Up, Down, Left or Right
+        labelPosition: {            // Up, Down, Left or Right
             type: DataTypes.STRING,
             allowNull: false
         },
-        valueType: {        // Shows what type of field is
+        valueType: {                // Shows what type of field is
             type: DataTypes.STRING,
             allowNull: false
         },
-        orientation: {     // Vertical or Horizontal   
+        orientation: {              // Vertical or Horizontal   
             type: DataTypes.STRING,
             allowNull: false
         },

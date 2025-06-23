@@ -52,7 +52,7 @@ class FUASectionImplementation {
     async getByUUIDSequelize(uuidSent: string){
         let returnFUASection = null;
         try {
-            returnFUASection = await FUASection.findAll({
+            returnFUASection = await FUASection.findOne({
                 where: {
                     uuid: uuidSent,
                     active: true,
@@ -73,7 +73,7 @@ class FUASectionImplementation {
 
         let returnedFUAFormat = null;
         try {
-            returnedFUAFormat = await FUAFormat.findAll({
+            returnedFUAFormat = await FUAFormat.findOne({
                 where: {
                     id: id,
                     active: true,

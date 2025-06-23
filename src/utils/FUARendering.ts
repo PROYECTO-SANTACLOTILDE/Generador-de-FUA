@@ -1,5 +1,6 @@
 // Interfaces
 
+import FUAFieldService from "../services/FUAFieldService";
 import FUAPageService from "../services/FUAPageService";
 import FUASectionService from "../services/FUASectionService";
 
@@ -32,7 +33,7 @@ class FUARenderingUtils {
             
 
             formatContent = ( htmlPages ? htmlPages.map( page => `
-                <div class="fua-container">
+                <div class="fua-page">
                     ${ page }
                 </div>
             `).join('') : '' );
@@ -113,8 +114,8 @@ class FUARenderingUtils {
         try {
             fieldsContent = await Promise.all( FUASection.fields.map( (field: any, index: number) => this.renderFUAField(field, index) ) );  
         }catch(error: any){
-            console.error('Error in FUA Rendering Utils - getFUASectionsByIdOrUUID: ', error);
-            (error as Error).message =  'Error in FUA Rendering Utils - getFUASectionsByIdOrUUID: ' + (error as Error).message;
+            console.error('Error in FUA Rendering Utils - renderFUASection: ', error);
+            (error as Error).message =  'Error in FUA Rendering Utils - renderFUASection: ' + (error as Error).message;
             throw error;
         }
         
@@ -150,11 +151,18 @@ class FUARenderingUtils {
         
         // Get columns with row and cells
         let columns = [];
-        /* try {
-
+        try {
+            columns = await FUAFieldService.getFUAColumnsByIdOrUUID(auxFUAField.id);
         }catch(error: any){
+            console.error('Error in FUA Rendering Utils - renderFUAField: ', error);
+            (error as Error).message =  'Error in FUA Rendering Utils - renderFUAField: ' + (error as Error).message;
+            throw error;
+        }
 
-        } */
+        // Get Rows of each Column
+        columns.foreach( (auxColumn: any, index: number) => {
+            //auxColumn.row = await 
+        });
         
         let fieldContent = '';
         /* try {

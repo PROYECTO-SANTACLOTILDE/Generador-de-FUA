@@ -48,7 +48,7 @@ class FUAFieldColumnRowImplementation {
         return returnedFUAFieldColumns;
     };
 
-    // Get FUA Field Column Id by UUID
+    // Get FUA Column Column Id by UUID
     async getByUUIDSequelize(uuidSent: string){
         let returnedFUAFieldColumn = null;
         try {
@@ -68,8 +68,28 @@ class FUAFieldColumnRowImplementation {
         return returnedFUAFieldColumn;
     };
 
-    // Get FUA Format by id 
+    // Get FUA Column by id 
     async getByIdSequelize(id: number ) {
+        let returnedFUAFieldColumn = null;
+        try {
+            returnedFUAFieldColumn = await FUAFieldColumn.findOne({
+                where: {
+                    id: id,
+                    active: true,
+                }
+            });
+        } catch (err: unknown){
+            console.error(`Error in FUA Field Column Sequelize Implementation: Couldnt retrieve FUA Field Column identified by Id "${id}". `, err);
+            (err as Error).message =  `Error in FUA Field Column Sequelize Implementation: Couldnt retrieve FUA Field Column identified by Id "${id}" . ` + (err as Error).message;
+            throw err;
+        }     
+
+        // Nothing was found, returns null
+        return returnedFUAFieldColumn;
+    };
+
+    // Get list by FUA Field Id 
+    async getListByFUAFieldIdSequelize(id: number ) {
 
         let returnedFUAFieldColumn = null;
         try {
@@ -82,12 +102,35 @@ class FUAFieldColumnRowImplementation {
 
 
         } catch (err: unknown){
-            console.error(`Error in FUA Field Column Sequelize Implementation: Couldnt retrieve FUA Field Column identified by Id "${id}". `, err);
-            (err as Error).message =  `Error in FUA Field Column Sequelize Implementation: Couldnt retrieve FUA Field Column identified by Id "${id}" . ` + (err as Error).message;
+            console.error(`Error in FUA Field Column Sequelize Implementation - getListByFUAFieldIdSequelize: Couldnt retrieve FUA Field Columns identified by FUA FIeld Id "${id}". `, err);
+            (err as Error).message =  `Error in FUA Field Column Sequelize Implementation - getListByFUAFieldIdSequelize: Couldnt retrieve FUA Field Columns identified by FUA Field Id "${id}" . ` + (err as Error).message;
             throw err;
         }     
 
+        // Returns an array ( [] )
         return returnedFUAFieldColumn;
+    };
+
+    // Get list by FUA Field UUID
+    async getListByFUAFieldUUIDSequelize(auxUUID: string ) {
+
+        let returnedFUAFieldColumns = null;
+        try {
+            returnedFUAFieldColumns = await FUAFieldColumn.findOne({
+                where: {
+                    uuid: auxUUID,
+                    active: true,
+                }
+            });
+
+
+        } catch (err: unknown){
+            console.error(`Error in FUA Field Column Sequelize Implementation - getListByUUIDSequelize: Couldnt retrieve FUA Field Columns identified by FUA Field UUID "${auxUUID}". `, err);
+            (err as Error).message =  `Error in FUA Field Column Sequelize Implementation - getListByUUIDSequelize: Couldnt retrieve FUA Field Columns identified by FUA Field UUID "${auxUUID}" . ` + (err as Error).message;
+            throw err;
+        }     
+        // Nothing was found, returns null
+        return returnedFUAFieldColumns;
     };
 
 };

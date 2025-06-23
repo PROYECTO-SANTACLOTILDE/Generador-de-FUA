@@ -47,7 +47,7 @@ class FUAFormatImplementation {
     async getByIdOrUUIDSequelize(uuidSent: string){
         let returnFUAFormat = null;
         try {
-            returnFUAFormat = await FUAFormat.findAll({
+            returnFUAFormat = await FUAFormat.findOne({
                 where: {
                     uuid: uuidSent,
                     active: true,
@@ -68,7 +68,7 @@ class FUAFormatImplementation {
 
         let returnedFUAFormat = null;
         try {
-            returnedFUAFormat = await FUAFormat.findAll({
+            returnedFUAFormat = await FUAFormat.findOne({
                 where: {
                     id: id,
                     active: true,

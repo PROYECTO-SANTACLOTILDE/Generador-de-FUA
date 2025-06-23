@@ -137,11 +137,7 @@ class FUAPageService {
             
         }      
             
-        // If nothing was found, it will return a []
-        if( Array.isArray(returnedFUAPage) && returnedFUAPage.length === 0){
-            return null;
-        } 
-
+        // If nothing was found, it will return a mull
         return returnedFUAPage;
     };
 
@@ -162,8 +158,6 @@ class FUAPageService {
             console.error(`Error in FUA Format Service - getFUAPagesByIdOrUUID: Couldnt found FUA Format identified by Id "${idReceived}". `);
             throw new Error(`Error in FUA Format Service - getFUAPagesByIdOrUUID: Couldnt found FUA Format identified by Id "${idReceived}". `);
         }
-
-        auxFUAPage = auxFUAPage[0]; // Get the first element, since it is an array
 
         let returnedFUASections = [];
         
