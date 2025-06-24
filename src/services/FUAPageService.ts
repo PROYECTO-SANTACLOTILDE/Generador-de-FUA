@@ -60,7 +60,7 @@ class FUAPageService {
 
         // Pending to check nextPage and previousPage
         
-        let FUAFormatId = auxFUAFormat[0].id;
+        let FUAFormatId = auxFUAFormat.id;
 
         // Send data to create  
         let returnedFUAPage = null;
