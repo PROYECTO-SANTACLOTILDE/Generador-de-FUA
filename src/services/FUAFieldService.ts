@@ -82,7 +82,7 @@ class FUAFieldService {
 
         // Pending to check nextPage and previousPage
         
-        let FUASectionId = auxFUASection[0].id;
+        let FUASectionId = auxFUASection.id;
 
         // Send data to create  
         let returnedFUAField = null;
@@ -129,6 +129,48 @@ class FUAFieldService {
 
         return returnedFUAFields;
     };
+
+    // get FUA Field by Id (Id or UUID)
+        async getByIdOrUUID (idReceived: string) {
+            let returnedFUAField = null;
+    
+            // Check if UUID or Id was sent
+            let id = null;
+            const nuNumber = Number(idReceived);
+            if( Number.isInteger(nuNumber) ){
+                id = nuNumber;
+    
+                try {
+                    returnedFUAField = await FUAFieldImplementation.getByIdSequelize(id);
+    
+                } catch (err: unknown){
+                    console.error('Error in FUA Field Service - getByIdOrUUID: ', err);
+                    (err as Error).message =  'Error in FUA Field Service - getByIdOrUUID: ' + (err as Error).message;
+                    throw err;
+                }     
+            }else{
+                // Get id by UUID
+    
+                //Validate UUID Format        
+                if (!isValidUUIDv4(idReceived) ) {
+                    console.error('Error in FUA Field Service - getByIdOrUUID: Invalid UUID format. ');
+                    throw new Error("Error in FUA Field Service - getByIdOrUUID: Invalid UUID format. ");
+                }
+                try {
+    
+                    returnedFUAField = await FUAFieldImplementation.getByUUIDSequelize(idReceived);
+    
+                } catch (err: unknown){
+                    console.error('Error in FUA Field Service: ', err);
+                    (err as Error).message =  'Error in FUA Field Service: ' + (err as Error).message;
+                    throw err;
+                }
+                
+            }      
+                
+            // If nothing was found, it will return a null
+            return returnedFUAField;
+        };
 
     // Get list by Id (Id or UUID)
     async getListByFUAFormatIdOrUUID (idReceived: string) {

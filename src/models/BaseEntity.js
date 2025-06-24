@@ -1,5 +1,8 @@
 const {  DataTypes, Model } = require('sequelize');
 
+
+
+
 class BaseEntity extends Model {
   static commonAttributes() {
     return {

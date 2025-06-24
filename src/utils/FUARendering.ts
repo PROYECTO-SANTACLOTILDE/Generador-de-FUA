@@ -1,5 +1,7 @@
-// Interfaces
+import * as fs from "fs";
+import * as path from "path";
 
+// Services
 import FUAFieldService from "../services/FUAFieldService";
 import FUAPageService from "../services/FUAPageService";
 import FUASectionService from "../services/FUASectionService";
@@ -8,6 +10,18 @@ import FUASectionService from "../services/FUASectionService";
 
 class FUARenderingUtils {
     
+    // Get CSS styles from public/FUA_Previsualization.css
+    private static async getCSSStyles(): Promise<string> {
+        const cssFilePath = path.resolve(__dirname, "../public/FUA_Previsualization.css");
+        let fuaPreviewCss = "";
+        try {
+            fuaPreviewCss = fs.readFileSync(cssFilePath, "utf-8");
+        } catch (err) {
+            console.error("Could not read FUA_Previsualization.css from public directory:", err);
+        }
+        return "";
+    }
+
 
     //Render a FUA Document using HTML header and body
     public static async renderFUAFormat( FUAFormat : any ) : Promise<string> {
@@ -39,6 +53,9 @@ class FUARenderingUtils {
             `).join('') : '' );
         }
 
+        // Get CSS style from public folder
+        
+
         let htmlContent = `
             <!DOCTYPE html>
             <html lang="es">
@@ -47,6 +64,8 @@ class FUARenderingUtils {
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <title>Previsualizacion de FUA</title>
                     <link rel="stylesheet" href="/FUA_Previsualization.css">
+                    <style>
+                    </style>
                 </head>
                 <body>
                     ${ formatContent }
@@ -110,14 +129,14 @@ class FUARenderingUtils {
 
         FUASection.fields = auxSectionFields;
         
-        let fieldsContent: string[] = [];
+        /* let fieldsContent: string[] = [];
         try {
             fieldsContent = await Promise.all( FUASection.fields.map( (field: any, index: number) => this.renderFUAField(field, index) ) );  
         }catch(error: any){
             console.error('Error in FUA Rendering Utils - renderFUASection: ', error);
             (error as Error).message =  'Error in FUA Rendering Utils - renderFUASection: ' + (error as Error).message;
             throw error;
-        }
+        } */
         
         // title, showTitle
         let title = '';
@@ -129,7 +148,7 @@ class FUARenderingUtils {
             `;            
         }
 
-        let fieldsHtmlContent = fieldsContent.length == 0 ? `<p> No hay campos en esta seccion <p>` : fieldsContent.join('');
+        //let fieldsHtmlContent = fieldsContent.length == 0 ? `<p> No hay campos en esta seccion <p>` : fieldsContent.join('');
 
         let htmlContent = `
             <table id="section-${index.toString()}" class="table-section" style="height: ${FUASection.bodyHeight.toFixed(1)}mm;">
@@ -138,7 +157,7 @@ class FUARenderingUtils {
 
                 <tr>                    
                     <td class="section-content">
-                        ${fieldsHtmlContent}
+                        ${""}
                     </td>
                 </tr>                    
             </table>
@@ -152,7 +171,7 @@ class FUARenderingUtils {
         // Get columns with row and cells
         let columns = [];
         try {
-            columns = await FUAFieldService.getFUAColumnsByIdOrUUID(auxFUAField.id);
+            columns = await FUAFieldService.getListByFUAFormatIdOrUUID(auxFUAField.id);
         }catch(error: any){
             console.error('Error in FUA Rendering Utils - renderFUAField: ', error);
             (error as Error).message =  'Error in FUA Rendering Utils - renderFUAField: ' + (error as Error).message;

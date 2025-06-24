@@ -64,7 +64,10 @@ const FUAFormatController = {
     // Render FUA Format by Id or UUID
     async render (req: Request, res: Response): Promise<void>  {
         const payload = req.params.id;
+        const { token = "---", visit = "---" } = req.body ?? {};
 
+        // Validate token
+        
         let htmlContent = null;
 
         try {

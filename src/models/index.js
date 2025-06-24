@@ -77,9 +77,8 @@ FUAFieldCell.hasMany(FUAField, {
 });
 FUAField.belongsTo(FUAFieldCell);
 
-
 //Exports
-export {
+export {    
     User,
     Visit,
     FUAFormat,

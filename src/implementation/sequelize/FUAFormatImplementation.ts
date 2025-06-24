@@ -92,7 +92,7 @@ class FUAFormatImplementation {
 
         let returnedFUAFormatId = null;
         try {
-            returnedFUAFormatId = await FUAFormat.findAll({
+            returnedFUAFormatId = await FUAFormat.findOne({
                 attributes: [
                     'id',
                 ],

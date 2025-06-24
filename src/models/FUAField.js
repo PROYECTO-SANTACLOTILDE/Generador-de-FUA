@@ -8,6 +8,9 @@ const BaseEntity = require('./BaseEntity');
   Fua Format entity derived from the Base Entity for audit purpouses.
 */
 
+//interface FUAFieldInterface = {}
+
+
 const FUAField = sequelize.define(
     "FUAField",
     {

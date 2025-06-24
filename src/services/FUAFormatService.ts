@@ -84,7 +84,6 @@ class FUAFormatService {
             }     
         }else{
             // Get id by UUID
-
             //Validate UUID Format        
             if (!isValidUUIDv4(idReceived) ) {
                 console.error('Error in FUAFormat Service: Invalid UUID format. ');
