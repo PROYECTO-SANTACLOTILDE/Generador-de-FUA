@@ -5,7 +5,7 @@ const path = require('path');
 
 
 // Sequelize and models
-import { sequelize } from './models/database';
+import { sequelize } from './modelsSequelize/database';
 
 // Services
 import { getPatient } from './services/fhirService';

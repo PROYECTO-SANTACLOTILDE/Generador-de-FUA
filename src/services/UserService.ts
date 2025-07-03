@@ -1,5 +1,5 @@
 
-import User from '../models/User.js';
+import User from '../modelsSequelize/User.js';
 
 // Extra libraries
 import crypto from 'crypto';

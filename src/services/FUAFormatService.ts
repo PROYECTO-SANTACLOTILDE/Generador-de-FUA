@@ -19,8 +19,9 @@ class FUAFormatService {
     // Creation of FUA Format
     async create(data: {
         // Format Data
-        codeName: string; 
-        version: string;
+        codeName: string;
+        versionTag: string; 
+        version: number;
         // Audit Data
         createdBy: string;
     }) {

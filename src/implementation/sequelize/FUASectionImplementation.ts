@@ -1,4 +1,4 @@
-import { FUAField, FUAFormat, FUASection } from "../../models";
+import { FUAField, FUAFormat, FUASection } from "../../modelsSequelize";
 
 class FUASectionImplementation {
 

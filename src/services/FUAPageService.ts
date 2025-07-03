@@ -137,7 +137,7 @@ class FUAPageService {
             
         }      
             
-        // If nothing was found, it will return a mull
+        // If nothing was found, it will return a null
         return returnedFUAPage;
     };
 

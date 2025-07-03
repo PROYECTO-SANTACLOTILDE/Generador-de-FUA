@@ -5,7 +5,7 @@ import { generateHMAC } from './utils';
 
 
 // Base Entity Inheritance
-const BaseEntity = require('./BaseEntity');
+const BaseEntity = require('./BaseEntityModel');
 
 /*
   Fua From Visit entity derived from the Base Entity for audit purpouses.

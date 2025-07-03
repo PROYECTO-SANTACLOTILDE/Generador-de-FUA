@@ -1,30 +1,33 @@
 const { DataTypes, Model } = require('sequelize');
 import { sequelize } from './database';
-import { FUAPage } from './FUAPage';
+import { FUAField } from './FUAFieldModel';
 
 // Base Entity Inheritance
-const BaseEntity = require('./BaseEntity');
+const BaseEntity = require('./BaseEntityModel');
 
 /*
   Fua Format entity derived from the Base Entity for audit purpouses.
 */
-
-const FUASection = sequelize.define(
-    "FUASection",
+const FUAFieldCell = sequelize.define(
+    "FUAFieldCell",
     {
         //Extending BaseEntity
         ...BaseEntity.commonAttributes(),
         
         // Define FuaFormat atributes
-        title: {
+        label: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        showTitle: {
+        showLabel: {
             type: DataTypes.BOOLEAN,
             allowNull: false
         },
-        codeName: {
+        valueType: {        // Shows what type of field is
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        codeName: {     
             type: DataTypes.STRING,
             allowNull: false
         },
@@ -32,14 +35,20 @@ const FUASection = sequelize.define(
             type: DataTypes.STRING,
             allowNull: false
         },
-        titleHeight: {
-            type: DataTypes.FLOAT,       
-            allowNull: false
+        colSpan: { // validate to always be greater than 0
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            validate: {
+                min: 0
+            }
         },
-        bodyHeight: {   // If its null, it will wrap its elements
-            type: DataTypes.FLOAT,       
-            allowNull: false      
-        },
+        rowSpan: { // validate to always be greater than 0
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            validate: {
+                min: 0
+            }
+        }     
         
     },
     {
@@ -49,9 +58,4 @@ const FUASection = sequelize.define(
 );
 
 
-export default FUASection;
-
-
-
-
-
+export default FUAFieldCell;

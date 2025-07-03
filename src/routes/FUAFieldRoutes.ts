@@ -16,5 +16,8 @@ FUAFieldRouter.get('/:id', FUAFieldController.getById);
 // Get All FUA Formats
 FUAFieldRouter.get('/', FUAFieldController.listAll);
 
+// Get FUA Formats by FUA Format Identifier
+//FUAFieldRouter.get('/', FUAFieldController.getListByFUAFormat);
+
 
 export default FUAFieldRouter;

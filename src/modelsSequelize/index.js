@@ -3,13 +3,13 @@ import { Sequelize } from 'sequelize';
 // Import all entities
 
 
-import Visit from './Visit';
+import Visit from './VisitModel';
 import User from './User';
 
-import FUAFormat from './FUAFormat';
-import FUAPage from './FUAPage';
-import FUASection from './FUASection'; 
-import FUAField from './FUAField';
+import FUAFormat from './FUAFormatModel';
+import FUAPage from './FUAPageModel';
+import FUASection from './FUASectionModel'; 
+import FUAField from './FUAFieldModel';
 import FUAFieldColumn from './FUAFieldColumn';
 import FUAFieldRow from './FUAFieldRow';
 import FUAFieldCell from './FUAFieldCell';

@@ -1,7 +1,7 @@
 import { Request, Response} from 'express';
 import FUASectionService from '../services/FUASectionService';
 import FUAFieldService from '../services/FUAFieldService';
-import { FUAField } from '../models';
+import { FUAField } from '../modelsSequelize';
 
 
 
@@ -54,6 +54,33 @@ const FUAFieldController = {
             }
 
             res.status(200).json(searchedFUAFormat);    
+        } catch (err: any) {
+            res.status(500).json({
+                error: 'Failed to get FUA Field. (Controller)', 
+                message: (err as (Error)).message,
+                details: (err as any).details ?? null, 
+            });
+        }
+            
+    },
+
+    async getListByFUAFormat (req: Request, res: Response): Promise<void>  {
+        const payload = req.params.id;
+
+        let searchedFUAFields = [];
+
+        try {
+            searchedFUAFields = await FUAFieldService.getListByFUAFormatIdOrUUID(payload);
+            
+            // In case nothing was found 
+            if(searchedFUAFields.length === 0){
+                res.status(404).json({
+                    error: `FUA Fields with FUA Format Id or UUID '${payload}' couldnt be found. `,
+                });
+                return;
+            }
+
+            res.status(200).json(searchedFUAFields);    
         } catch (err: any) {
             res.status(500).json({
                 error: 'Failed to get FUA Field. (Controller)', 

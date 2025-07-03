@@ -1,5 +1,5 @@
 import { raw } from "express";
-import { FUAFromVisit } from "../../models";
+import { FUAFromVisit } from "../../modelsSequelize";
 
 class FUAFromVisitImplementation {
 

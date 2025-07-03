@@ -1,4 +1,4 @@
-import { FUAField, FUASection } from "../models";
+import { FUAField, FUASection } from "../modelsSequelize";
 import FUAFieldColumnService from "../services/FUAFieldColumnService";
 import FUAFieldService from "../services/FUAFieldService";
 import FUAFormatService from "../services/FUAFormatService";
@@ -75,7 +75,8 @@ export async function createDemoFormat(){
   // Create demo format
   const auxFormat: any = await FUAFormatService.create( {
     codeName: "demoFormat",
-    version: "0.1",
+    versionTag: "0.1",
+    version: 1,
     createdBy: auxUser
   } );
 
@@ -195,3 +196,32 @@ export async function createDemoFormat(){
   return {uuid: auxFormat.uuid}
 
 };
+
+// Dedent tabulations for strings declared with ´´
+export function dedentCustom(str: string): string {
+  if(str === null || str == undefined){
+    throw new Error("Error in Utils - dedentCustom: string received should not be null. ");
+  }
+  const lines = str.split('\n');
+
+  // Find the first non-empty line with tabs (after any initial empty lines)
+  const firstIndentedLine = lines.find(line => line.trim().length > 0);
+  if (!firstIndentedLine) return str.trim(); // no valid content
+
+  // Count leading tabs in the first non-empty line
+  const tabMatch = firstIndentedLine.match(/^(\t+)/);
+  const tabCount = tabMatch ? tabMatch[1].length : 0;
+
+  // Remove exactly that many leading tabs from all lines
+  const dedented = lines.map(line => {
+      let i = 0;
+      while (i < tabCount && line.startsWith('\t')) {
+        line = line.slice(1);
+        i++;
+      }
+      return line;
+  });
+
+  return dedented.join('\n').trim();
+
+}

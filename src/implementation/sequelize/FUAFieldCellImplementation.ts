@@ -1,4 +1,4 @@
-import { FUAFieldCell, FUAFieldColumn, FUAFieldRow } from "../../models";
+import { FUAFieldCell, FUAFieldColumn, FUAFieldRow } from "../../modelsSequelize";
 
 class FUAFieldCellImplementation {
 
@@ -92,17 +92,15 @@ class FUAFieldCellImplementation {
     };
 
     // Get FUA Cells by id 
-    async getListByIdSequelize(id: number ) {
-
+    async getListByFUAFieldRowIdSequelize(id: number ) {
         let returnedFUAFieldCells = [];
         try {
             returnedFUAFieldCells = await FUAFieldColumn.findAll({
                 where: {
-                    id: id,
+                    FUAFieldRowId: id,
                     active: true,
                 }
             });
-
 
         } catch (err: unknown){
             console.error(`Error in FUA Field Cells Sequelize Implementation - getListByIdSequelize: Couldnt retrieve FUA Field Cells identified by Id "${id}". `, err);
@@ -112,28 +110,6 @@ class FUAFieldCellImplementation {
 
         // Returns an array ( [] )
         return returnedFUAFieldCells;
-    };
-
-    // Get FUA Cells by UUID 
-    async getListByUUIDSequelize(auxUUID: string ) {
-
-        let returnedFUAFieldColumns = null;
-        try {
-            returnedFUAFieldColumns = await FUAFieldColumn.findOne({
-                where: {
-                    uuid: auxUUID,
-                    active: true,
-                }
-            });
-
-
-        } catch (err: unknown){
-            console.error(`Error in FUA Field Column Sequelize Implementation - getListByUUIDSequelize: Couldnt retrieve FUA Field Columns identified by UUID "${auxUUID}". `, err);
-            (err as Error).message =  `Error in FUA Field Column Sequelize Implementation - getListByUUIDSequelize: Couldnt retrieve FUA Field Columns identified by UUID "${auxUUID}" . ` + (err as Error).message;
-            throw err;
-        }     
-        // Nothing was found, returns null
-        return returnedFUAFieldColumns;
     };
 
 

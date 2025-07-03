@@ -2,16 +2,13 @@ const { DataTypes, Model } = require('sequelize');
 import { sequelize } from './database';
 
 // Base Entity Inheritance
-const BaseEntity = require('./BaseEntity');
+const BaseEntity = require('./BaseEntityModel');
 
 /*
   Fua Format entity derived from the Base Entity for audit purpouses.
 */
 
-//interface FUAFieldInterface = {}
-
-
-const FUAField = sequelize.define(
+const FUAFieldModel = sequelize.define(
     "FUAField",
     {
         //Extending BaseEntity
@@ -69,8 +66,10 @@ const FUAField = sequelize.define(
         labelSize: {   // In mm
             type: DataTypes.FLOAT,       
             allowNull: false      
-        }
-        
+        },
+        extraStyles: {
+            type: DataTypes.STRING,
+        }        
     },
     {
         sequelize,                  // We need to pass the connection instance,
@@ -78,4 +77,4 @@ const FUAField = sequelize.define(
     },
 );
 
-export default FUAField;
+export default FUAFieldModel;

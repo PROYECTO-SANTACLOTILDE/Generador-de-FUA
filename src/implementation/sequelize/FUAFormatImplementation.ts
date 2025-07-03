@@ -1,13 +1,25 @@
 import { raw } from "express";
-import { FUAFormat, FUAPage } from "../../models";
+import { FUAFormat, FUAPage } from "../../modelsSequelize";
+
+
+
+interface FUAFormatCreateInterface {
+    //Field Form Data
+    codeName: string; 
+    versionTag: string;
+    version: number;        
+    // Audit Data
+    createdBy: string;
+};
 
 class FUAFormatImplementation {
 
     // Creation of FUA Format
     async createSequelize(data: {
-        // Format Data
+        //Field Form Data
         codeName: string; 
-        version: string;
+        versionTag: string;
+        version: number;        
         // Audit Data
         createdBy: string;
     }) {

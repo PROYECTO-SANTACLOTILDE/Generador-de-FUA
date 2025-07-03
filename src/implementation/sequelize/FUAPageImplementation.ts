@@ -1,4 +1,4 @@
-import { FUAPage, FUASection } from "../../models";
+import { FUAPage, FUASection } from "../../modelsSequelize";
 import FUAFormatService from "../../services/FUAFormatService";
 
 class FUAPageImplementation {

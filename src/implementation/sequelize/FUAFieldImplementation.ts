@@ -1,4 +1,4 @@
-import { FUAField, FUASection } from "../../models";
+import { FUAField, FUASection } from "../../modelsSequelize";
 import { isValidUUIDv4 } from "../../utils/utils";
 
 class FUAFieldImplementation {
@@ -111,25 +111,6 @@ class FUAFieldImplementation {
         } catch (err: unknown){
             console.error('Error in FUA Field Sequelize Implementation - getListByFUAFormatId: ', err);
             (err as Error).message =  'Error in FUA Field Sequelize Implementation - getListByFUAFormatId: ' + (err as Error).message;
-            throw err;
-        }                       
-        // If nothing was found, it will return a []
-        return returnedFUAFields;
-    };
-
-    // Get list by FUA Format UUID
-    async getListByFUAFormatUUID(idReceived: string){
-        let returnedFUAFields = [];
-        try {
-            returnedFUAFields = await FUAField.findAll({
-                where: {
-                    uuid: idReceived,
-                    active: true,
-                }
-            });
-        } catch (err: unknown){
-            console.error('Error in FUA Field Sequelize Implementation - getListByFUAFormatUUID: ', err);
-            (err as Error).message =  'Error in FUA Field Sequelize Implementation - getListByFUAFormatUUID: ' + (err as Error).message;
             throw err;
         }                       
         // If nothing was found, it will return a []

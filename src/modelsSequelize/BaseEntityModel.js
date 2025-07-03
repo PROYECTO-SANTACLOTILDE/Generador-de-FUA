@@ -1,9 +1,10 @@
 const {  DataTypes, Model } = require('sequelize');
 
+/*
+  Base Entity entity that holds atributes for audit purpouses.
+*/
 
-
-
-class BaseEntity extends Model {
+class BaseEntityModel extends Model {
   static commonAttributes() {
     return {
       // Base Entity attributes 
@@ -26,7 +27,8 @@ class BaseEntity extends Model {
       updatedBy: {
         type: DataTypes.STRING,
       },
-      active: { // Consider if its necessWary to put default as true for this 
+      active: { 
+        // Consider if its necessWary to put default as true for this 
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: true
@@ -44,4 +46,4 @@ class BaseEntity extends Model {
   }
 }
 
-module.exports = BaseEntity;
+module.exports = BaseEntityModel;

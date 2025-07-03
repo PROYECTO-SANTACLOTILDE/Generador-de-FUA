@@ -131,82 +131,75 @@ class FUAFieldService {
     };
 
     // get FUA Field by Id (Id or UUID)
-        async getByIdOrUUID (idReceived: string) {
-            let returnedFUAField = null;
-    
-            // Check if UUID or Id was sent
-            let id = null;
-            const nuNumber = Number(idReceived);
-            if( Number.isInteger(nuNumber) ){
-                id = nuNumber;
-    
-                try {
-                    returnedFUAField = await FUAFieldImplementation.getByIdSequelize(id);
-    
-                } catch (err: unknown){
-                    console.error('Error in FUA Field Service - getByIdOrUUID: ', err);
-                    (err as Error).message =  'Error in FUA Field Service - getByIdOrUUID: ' + (err as Error).message;
-                    throw err;
-                }     
-            }else{
-                // Get id by UUID
-    
-                //Validate UUID Format        
-                if (!isValidUUIDv4(idReceived) ) {
-                    console.error('Error in FUA Field Service - getByIdOrUUID: Invalid UUID format. ');
-                    throw new Error("Error in FUA Field Service - getByIdOrUUID: Invalid UUID format. ");
-                }
-                try {
-    
-                    returnedFUAField = await FUAFieldImplementation.getByUUIDSequelize(idReceived);
-    
-                } catch (err: unknown){
-                    console.error('Error in FUA Field Service: ', err);
-                    (err as Error).message =  'Error in FUA Field Service: ' + (err as Error).message;
-                    throw err;
-                }
-                
-            }      
-                
-            // If nothing was found, it will return a null
-            return returnedFUAField;
-        };
+    async getByIdOrUUID (idReceived: string): Promise<any[]>{
+        let returnedFUAField = null;
 
-    // Get list by Id (Id or UUID)
-    async getListByFUAFormatIdOrUUID (idReceived: string) {
-        let returnedFUAFields = [];
         // Check if UUID or Id was sent
         let id = null;
         const nuNumber = Number(idReceived);
         if( Number.isInteger(nuNumber) ){
             id = nuNumber;
             try {
-                returnedFUAFields = await FUAFieldImplementation.getListByFUAFormatId(id);
+                returnedFUAField = await FUAFieldImplementation.getByIdSequelize(id);
             } catch (err: unknown){
-                console.error('Error in FUA Field Service - getListByFUAFormatIdOrUUID: ', err);
-                (err as Error).message =  'Error in FUA Field Service - getListByFUAFormatIdOrUUID: ' + (err as Error).message;
+                console.error('Error in FUA Field Service - getByIdOrUUID: ', err);
+                (err as Error).message =  'Error in FUA Field Service - getByIdOrUUID: ' + (err as Error).message;
                 throw err;
             }     
         }else{
             // Get id by UUID
-
             //Validate UUID Format        
             if (!isValidUUIDv4(idReceived) ) {
-                console.error('Error in FUA Field Service - getListByFUAFormatIdOrUUID: Invalid UUID format. ');
-                throw new Error("Error in FUA Field Service - getListByFUAFormatIdOrUUID: Invalid UUID format. ");
+                console.error('Error in FUA Field Service - getByIdOrUUID: Invalid UUID format. ');
+                throw new Error("Error in FUA Field Service - getByIdOrUUID: Invalid UUID format. ");
             }
             try {
-                returnedFUAFields = await FUAFieldImplementation.getListByFUAFormatUUID(idReceived);
+                returnedFUAField = await FUAFieldImplementation.getByUUIDSequelize(idReceived);
             } catch (err: unknown){
-                console.error('Error in FUA Field Service Service - getByIdOrUUID: ', err);
-                (err as Error).message =  'Error in FUA Field Service Service - getByIdOrUUID: ' + (err as Error).message;
+                console.error('Error in FUA Field Service: ', err);
+                (err as Error).message =  'Error in FUA Field Service: ' + (err as Error).message;
                 throw err;
-            }            
+            }
+            
         }                  
-        // If nothing was found, it will return a null
+        // If nothing was found, it will return a []
+        return returnedFUAField;
+    };
+
+    // Get list by FUA Format Identifier (Id or UUID)
+    async getListByFUAFormatIdOrUUID (idReceived: string) {
+        let returnedFUAFields = [];
+        try{
+            // Not null or empty string validation
+            if (!idReceived?.trim()) throw new Error('Error in FUA Field Service - getListByFUAFormatIdOrUUID:  Identifier could not be empty or null. ');
+            
+            // Check if UUID or Id was sent
+            const nuNumber = Number(idReceived);
+            
+            if( Number.isInteger(nuNumber) && nuNumber > 0 ){
+                returnedFUAFields = await FUAFieldImplementation.getListByFUAFormatId(nuNumber);
+            }else{
+                //Validate UUID
+                if (!isValidUUIDv4(idReceived) ) {
+                    console.error('Error in FUA Field Service - getListByFUAFormatIdOrUUID: Invalid UUID format. ');
+                    throw new Error("Error in FUA Field Service - getListByFUAFormatIdOrUUID: Invalid UUID format. ");
+                }
+                
+                // Get FUA Format Id
+                const auxFUAField: any = await this.getByIdOrUUID(idReceived);
+
+                returnedFUAFields = await FUAFieldImplementation.getListByFUAFormatId(auxFUAField.id);
+            }
+        }catch(err: unknown){
+            console.error('Error in FUA Field Service - getListByFUAFormatIdOrUUID: ', err);
+            (err as Error).message =  'Error in FUA Field Service - getListByFUAFormatIdOrUUID: ' + (err as Error).message;
+            throw err;
+        }       
+        
         return returnedFUAFields;
     };
-        
+
+       
 };
 
 export default new FUAFieldService();

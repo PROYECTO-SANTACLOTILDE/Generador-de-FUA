@@ -1,4 +1,4 @@
-import { FUAFieldColumn } from "../../models";
+import { FUAFieldColumn } from "../../modelsSequelize";
 
 class FUAFieldColumnRowImplementation {
 
@@ -95,42 +95,20 @@ class FUAFieldColumnRowImplementation {
         try {
             returnedFUAFieldColumn = await FUAFieldColumn.findAll({
                 where: {
-                    id: id,
+                    FUAFieldId: id,
                     active: true,
                 }
             });
 
 
         } catch (err: unknown){
-            console.error(`Error in FUA Field Column Sequelize Implementation - getListByFUAFieldIdSequelize: Couldnt retrieve FUA Field Columns identified by FUA FIeld Id "${id}". `, err);
+            console.error(`Error in FUA Field Column Sequelize Implementation - getListByFUAFieldIdSequelize: Couldnt retrieve FUA Field Columns identified by FUA Field Id "${id}". `, err);
             (err as Error).message =  `Error in FUA Field Column Sequelize Implementation - getListByFUAFieldIdSequelize: Couldnt retrieve FUA Field Columns identified by FUA Field Id "${id}" . ` + (err as Error).message;
             throw err;
         }     
 
         // Returns an array ( [] )
         return returnedFUAFieldColumn;
-    };
-
-    // Get list by FUA Field UUID
-    async getListByFUAFieldUUIDSequelize(auxUUID: string ) {
-
-        let returnedFUAFieldColumns = null;
-        try {
-            returnedFUAFieldColumns = await FUAFieldColumn.findOne({
-                where: {
-                    uuid: auxUUID,
-                    active: true,
-                }
-            });
-
-
-        } catch (err: unknown){
-            console.error(`Error in FUA Field Column Sequelize Implementation - getListByUUIDSequelize: Couldnt retrieve FUA Field Columns identified by FUA Field UUID "${auxUUID}". `, err);
-            (err as Error).message =  `Error in FUA Field Column Sequelize Implementation - getListByUUIDSequelize: Couldnt retrieve FUA Field Columns identified by FUA Field UUID "${auxUUID}" . ` + (err as Error).message;
-            throw err;
-        }     
-        // Nothing was found, returns null
-        return returnedFUAFieldColumns;
     };
 
 };

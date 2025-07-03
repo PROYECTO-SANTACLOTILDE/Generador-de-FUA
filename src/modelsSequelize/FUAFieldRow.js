@@ -2,7 +2,7 @@ const { DataTypes, Model } = require('sequelize');
 import { sequelize } from './database';
 
 // Base Entity Inheritance
-const BaseEntity = require('./BaseEntity');
+const BaseEntity = require('./BaseEntityModel');
 
 /*
   FUA Field Row entity derived from the Base Entity for audit purpouses.

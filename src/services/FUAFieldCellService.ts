@@ -95,7 +95,7 @@ class FUAFieldCellService {
         return returnedFUAFieldCells;
     };
 
-    // get FUA Field Cell by Id (Id or UUID)
+    // Get FUA Field Cell by Id (Id or UUID)
     async getByIdOrUUID (idReceived: string) {
         let returnedFUAFieldCell = null;
         // Check if UUID or Id was sent
@@ -125,6 +125,34 @@ class FUAFieldCellService {
         }                  
         // If nothing was found, it will return a null
         return returnedFUAFieldCell;
+    };
+
+    // Get list by FUA Field Row Identifier (Id or UUID)
+    async getListByFUAFieldRowIdOrUUID (idReceived: string) {
+        let returnedFUAFieldCells = [];
+        try{
+            // Not null or empty string validation
+            if (!idReceived?.trim()) throw new Error('Error in FUA Field Cell Service - getListByFUAFieldRowIdOrUUID:  Identifier could not be empty or null. ');                
+            // Check if UUID or Id was sent
+            const nuNumber = Number(idReceived);                
+            if( Number.isInteger(nuNumber) && nuNumber > 0 ){
+                returnedFUAFieldCells = await FUAFieldCellImplementation.getListByFUAFieldRowIdSequelize(nuNumber);
+            }else{
+                //Validate UUID
+                if (!isValidUUIDv4(idReceived) ) {
+                    console.error('Error in FUA Field Cell Service - getListByFUAFieldRowIdOrUUID: Invalid UUID format. ');
+                    throw new Error("Error in FUA Field Cell Service - getListByFUAFieldRowIdOrUUID: Invalid UUID format. ");
+                }                    
+                // Get FUA Format Id
+                const auxFUAFieldRow: any = await this.getByIdOrUUID(idReceived);    
+                returnedFUAFieldCells = await FUAFieldCellImplementation.getListByFUAFieldRowIdSequelize(auxFUAFieldRow.id);
+            }
+        }catch(err: unknown){
+            console.error('Error in FUA Field Row Service - getListByFUAFieldIdOrUUID: ', err);
+            (err as Error).message =  'Error in FUA Field Row Service - getListByFUAFieldIdOrUUID: ' + (err as Error).message;
+            throw err;
+        }                   
+        return returnedFUAFieldCells;
     };
 };
 

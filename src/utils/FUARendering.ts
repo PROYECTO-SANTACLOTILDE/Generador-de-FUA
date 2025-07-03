@@ -1,10 +1,13 @@
 import * as fs from "fs";
 import * as path from "path";
+import dedent from 'dedent';
 
 // Services
 import FUAFieldService from "../services/FUAFieldService";
 import FUAPageService from "../services/FUAPageService";
 import FUASectionService from "../services/FUASectionService";
+import { dedentCustom } from "./utils";
+import FUAFieldColumnService from "../services/FUAFieldColumnService";
 
 
 
@@ -13,13 +16,13 @@ class FUARenderingUtils {
     // Get CSS styles from public/FUA_Previsualization.css
     private static async getCSSStyles(): Promise<string> {
         const cssFilePath = path.resolve(__dirname, "../public/FUA_Previsualization.css");
-        let fuaPreviewCss = "";
         try {
-            fuaPreviewCss = fs.readFileSync(cssFilePath, "utf-8");
+            const fuaPreviewCss = fs.readFileSync(cssFilePath, "utf-8");
+            return fuaPreviewCss;
         } catch (err) {
-            console.error("Could not read FUA_Previsualization.css from public directory:", err);
+            console.error("Error in FUA Rendering Utils - getCSSStyles: Could not read FUA_Previsualization.css from public directory. ", err);
+            throw new Error("Error in FUA Rendering Utils - getCSSStyles: Could not read FUA_Previsualization.css from public directory. ");
         }
-        return "";
     }
 
 
@@ -27,7 +30,6 @@ class FUARenderingUtils {
     public static async renderFUAFormat( FUAFormat : any ) : Promise<string> {
 
         let formatContent = '';
-
 
         // FUAFormat.sections is at least a []
         if( FUAFormat.pages.length === 0 ){
@@ -54,24 +56,31 @@ class FUARenderingUtils {
         }
 
         // Get CSS style from public folder
-        
+        let cssStyles = '';
+        try{
+            cssStyles = await this.getCSSStyles();
+        }catch(error: unknown){
+            console.error('Error in FUA Rendering Utils - renderFUAFormat: ', error);
+            (error as Error).message =  'Error in FUA Rendering Utils - renderFUAFormat: ' + (error as Error).message;
+            throw error;
+        }
 
-        let htmlContent = `
+        let htmlContent = dedentCustom(`
             <!DOCTYPE html>
             <html lang="es">
                 <head>
                     <meta charset="UTF-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <title>Previsualizacion de FUA</title>
-                    <link rel="stylesheet" href="/FUA_Previsualization.css">
                     <style>
+                        ${cssStyles}
                     </style>
                 </head>
                 <body>
                     ${ formatContent }
                 </body>
             </html>
-        `;
+        `);
 
         return htmlContent;
     }
@@ -118,9 +127,9 @@ class FUARenderingUtils {
     public static async renderFUASection( FUASection : any, index: number ): Promise<string> {
         let auxSectionFields: Array<any> = [];
 
-        // Get FUA Section Fields
+        // Get FUA Fields of FUA Section
         try {
-            auxSectionFields = await FUASectionService.getFUAFieldsById(FUASection.id);
+            auxSectionFields = await FUASectionService.getFUAFieldsById(FUASection.id.toString());
         }catch(error: any){
             console.error('Error in FUA Rendering Utils - getFUASectionsByIdOrUUID: ', error);
             (error as Error).message =  'Error in FUA Rendering Utils - getFUASectionsByIdOrUUID: ' + (error as Error).message;
@@ -129,14 +138,14 @@ class FUARenderingUtils {
 
         FUASection.fields = auxSectionFields;
         
-        /* let fieldsContent: string[] = [];
+        let fieldsContent: string[] = [];
         try {
             fieldsContent = await Promise.all( FUASection.fields.map( (field: any, index: number) => this.renderFUAField(field, index) ) );  
         }catch(error: any){
             console.error('Error in FUA Rendering Utils - renderFUASection: ', error);
             (error as Error).message =  'Error in FUA Rendering Utils - renderFUASection: ' + (error as Error).message;
             throw error;
-        } */
+        }
         
         // title, showTitle
         let title = '';
@@ -168,27 +177,94 @@ class FUARenderingUtils {
 
     public static async renderFUAField( auxFUAField : any, index: number ): Promise<string> {
         
-        // Get columns with row and cells
+        // Get columns 
+        /* let columns = [];
+        try {
+            columns = await FUAFieldColumnService.getListByFUAFieldIdOrUUID(auxFUAField.id.toString());
+        }catch(error: any){
+            console.error('Error in FUA Rendering Utils - renderFUAField: ', error);
+            (error as Error).message =  'Error in FUA Rendering Utils - renderFUAField: ' + (error as Error).message;
+            throw error;
+        } */
+
+        // Order columns by column index
+        //columns.sort((a: any, b: any) => a.columnIndex - b.columnIndex);
+
+             
+        /* let columnsContent: string[] = [];
+        try {
+            columnsContent = await Promise.all( columns.map( (column: any, index: number) => this.renderFUAColumn(column, index) ) );  
+        }catch(error: any){
+            console.error('Error in FUA Rendering Utils - renderFUAField: ', error);
+            (error as Error).message =  'Error in FUA Rendering Utils - renderFUAField: ' + (error as Error).message;
+            throw error;
+        } */
+
+        /* let label = '';
+        if(auxFUAField.showLabel){
+            label = `
+                <tr>
+                    <th class="table-data"> ${auxFUAField.label} </th>
+                </tr>
+            `;
+        } */
+
+        /* let htmlContent = `
+            <style>
+                #field-${index}-${auxFUAField.codeName} {
+                    height: ${auxFUAField.bodyHeight?.toFixed(1) ?? ''}mm;
+                    width: ${auxFUAField.bodyWidth?.toFixed(1) ?? ''}mm;
+                    top: ${auxFUAField.top?.toFixed(1) ?? ''}mm;
+                    left: ${auxFUAField.left?.toFixed(1) ?? ''}mm;
+                    position: absolute;
+                }
+            </style>
+
+            <table id="field-${index}-${auxFUAField.codeName}" class="table-field">
+                ${label}
+                <tr>
+                    <td> <p>FUA Field Body</p> </td>
+                </tr>
+            </table>
+        `; */
+
+        /* let htmlContent = `
+            <table id="field-${index}-${auxFUAField.codeName}" class="table-field">
+                
+                <tr>
+                    <td> <p>FUA Field Body</p> </td>
+                </tr>
+            </table>
+        `; */
+
+        //return htmlContent;
+        return "";
+    }
+
+    public static async renderFUAColumn( auxFUAColumn : any, index: number ): Promise<string> {
+        
+        // Get rows
         let columns = [];
         try {
-            columns = await FUAFieldService.getListByFUAFormatIdOrUUID(auxFUAField.id);
+            columns = await FUAFieldColumnService.getListByFUAFieldIdOrUUID(auxFUAField.id.toString());
         }catch(error: any){
             console.error('Error in FUA Rendering Utils - renderFUAField: ', error);
             (error as Error).message =  'Error in FUA Rendering Utils - renderFUAField: ' + (error as Error).message;
             throw error;
         }
 
-        // Get Rows of each Column
-        columns.foreach( (auxColumn: any, index: number) => {
-            //auxColumn.row = await 
-        });
-        
-        let fieldContent = '';
-        /* try {
+        // Order columns by column index
+        columns.sort((a: any, b: any) => a.columnIndex - b.columnIndex);
 
+             
+        let columnsContent: string[] = [];
+        try {
+            columnsContent = await Promise.all( columns.map( (field: any, index: number) => this.renderFUAField(field, index) ) );  
         }catch(error: any){
-
-        } */
+            console.error('Error in FUA Rendering Utils - renderFUASection: ', error);
+            (error as Error).message =  'Error in FUA Rendering Utils - renderFUASection: ' + (error as Error).message;
+            throw error;
+        }
 
         let label = '';
         if(auxFUAField.showLabel){
