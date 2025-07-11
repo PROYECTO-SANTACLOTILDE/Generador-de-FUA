@@ -6,6 +6,11 @@ import FUAPageService from "../services/FUAPageService";
 import FUASectionService from "../services/FUASectionService";
 
 const crypto = require('crypto');
+import * as fs from 'fs';
+import * as path from 'path';
+import { parse } from 'jsonc-parser';
+import FUARenderingUtils from "./FUARendering";
+
 
 /**
  * Validates whether a given string is a valid UUID v4.
@@ -69,132 +74,19 @@ export async function fillSection2(auxUser: string, auxVersion: string, sectionU
 };
 
 export async function createDemoFormat(){
-  // Some variables
-  const auxUser = "demoUser";
-  
-  // Create demo format
-  const auxFormat: any = await FUAFormatService.create( {
-    codeName: "demoFormat",
-    versionTag: "0.1",
-    version: 1,
-    createdBy: auxUser
-  } );
+  const jsoncPath = path.resolve(process.cwd(), "./src/utils/FUA_Schema_Examples/FUA_1.0.jsonc");
+  const jsoncContent = fs.readFileSync(jsoncPath, 'utf-8');
+  const parsed = parse(jsoncContent);
 
-  // Create 2 Pages
-  let auxPages = [];
-  for (let i = 0; i < 2; i++) {
-    const auxPageUUID = await FUAPageService.create({
-      title: '',
-      codeName: '',
-      version: '',
-      pageNumber: i+1,
-      FUAFormatId: auxFormat.uuid,
-      createdBy: auxUser
-    });
-    auxPages.push(auxPageUUID.uuid);
-  };
-
-  // Section 1 : MINSA Symbols
-  let section1 = await FUASectionService.create({
-    title: '',
-    showTitle: false,
-    codeName: 'MINSA Symbols',
-    version: '0.1',
-    titleHeight: 1.0,
-    bodyHeight: 7.6,
-    FUAPageId: auxPages[0],
-    createdBy: auxUser
-  });
-
-  // Section 2 : Formato unico de atencion
-  let section2 = await FUASectionService.create({
-    title: 'FORMATO UNICO DE ATENCIÓN',
-    showTitle: true,
-    codeName: 'fua',
-    version: '0.1',
-    titleHeight: 3.4,
-    bodyHeight: 48,
-    FUAPageId: auxPages[0],
-    createdBy: auxUser
-  });
-
-  // Section 3 : Del asegurado usuario
-  let section3 = await FUASectionService.create({
-    title: 'DEL ASEGURADO USUARIO',
-    showTitle: true,
-    codeName: 'person',
-    version: '0.1',
-    titleHeight: 2.2,
-    bodyHeight: 33.6,
-    FUAPageId: auxPages[0],
-    createdBy: auxUser
-  });
-
-  // Section 4 : De la atencion
-  let section4 = await FUASectionService.create({
-    title: 'DE LA ATENCIÓN',
-    showTitle: true,
-    codeName: 'visit',
-    version: '0.1',
-    titleHeight: 2.4,
-    bodyHeight: 47.7,
-    FUAPageId: auxPages[0],
-    createdBy: auxUser
-  });
-
-  // Section 5 : Destino asegurado
-  let section5 = await FUASectionService.create({
-    title: 'DEL DESTINO DEL ASEGURADO/USUARIO',
-    showTitle: true,
-    codeName: 'visit',
-    version: '0.1',
-    titleHeight: 2.3,
-    bodyHeight: 16,
-    FUAPageId: auxPages[0],
-    createdBy: auxUser
-  });
-
-  // Section 6 : Actividades y vacunas
-  let section6 = await FUASectionService.create({
-    title: 'ACTIVIDADES Y VACUNAS',
-    showTitle: true,
-    codeName: 'other activities',
-    version: '0.1',
-    titleHeight: 2.5,
-    bodyHeight: 37.8,
-    FUAPageId: auxPages[0],
-    createdBy: auxUser
-  });
-
-  // Section 7 : Diagnosticos
-  let section7 = await FUASectionService.create({
-    title: 'DIAGNÒSTICOS',
-    showTitle: true,
-    codeName: 'diags',
-    version: '0.1',
-    titleHeight: 2.5,
-    bodyHeight: 24.1,
-    FUAPageId: auxPages[0],
-    createdBy: auxUser
-  });
-
-  // Section 8 : Responsable atencion
-  let section8 = await FUASectionService.create({
-    title: '',
-    showTitle: false,
-    codeName: 'provider',
-    version: '0.1',
-    titleHeight: 1.0,
-    bodyHeight: 44.0,
-    FUAPageId: auxPages[0],
-    createdBy: auxUser
-  });
-
-  // Filling Section 2
-  const section2Filling = await fillSection2(auxUser, "0.1", section2.uuid);
-
-  return {uuid: auxFormat.uuid}
-
+  let html : string = '';
+  try{
+    html = await FUARenderingUtils.renderFUAFormatFromSchema(parsed);
+  }catch(error: unknown){
+    console.error('Error in Utils - createDemoFormat: ', error);
+    (error as Error).message =  'Error in Utils - createDemoFormat: ' + (error as Error).message;
+    throw error;
+  }
+  return html;
 };
 
 // Dedent tabulations for strings declared with ´´

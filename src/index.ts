@@ -4,6 +4,7 @@ import express from 'express';
 const path = require('path');
 
 
+
 // Sequelize and models
 import { sequelize } from './modelsSequelize/database';
 
@@ -26,8 +27,8 @@ sequelize.authenticate()
   console.log(`\nConnection has been established with database successfully.\n`);  
   // Syncronize models
   console.log('\n Syncronizing models ... \n');
-  // sequelize.sync({ force: true })
-  sequelize.sync({ alter: true })
+  sequelize.sync({ force: true })
+  // sequelize.sync({ alter: true })
   .then( () : void => {
     console.log('\nEnded syncronizing models ...\n');
   } );  
@@ -41,6 +42,7 @@ sequelize.authenticate()
 // Importing utilities for Express
 app.use(express.static(path.resolve(__dirname, './public')));
 app.use(express.json());
+
 
 // Importing Routes
 app.use('/ws', globalRouter);
@@ -73,13 +75,17 @@ app.get('/FUA', (req, res) => {
 
 
 //TESTING ENTITIES
-app.post('/demo', async (req, res) => {
+app.get('/demo', async (req, res) => {
   try {
     const demoAnswer = await createDemoFormat();
-    res.status(201).json(demoAnswer);
-  } catch (err) {
+    res.status(200).send(demoAnswer);
+  } catch (err: unknown) {
     console.error(err);
-    res.status(500).json({ error: 'Failed to create Demo.' });
+    res.status(500).json({
+      error: 'Failed to create demo. ', 
+      message: (err as (Error)).message,
+      details: (err as any).details ?? null,
+    });
   }
 });
 

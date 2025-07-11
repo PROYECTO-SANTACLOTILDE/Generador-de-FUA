@@ -9,6 +9,8 @@ import FUAFieldColumnRouter from './FUAFieldColumnRoutes';
 import FUAFieldRowRouter from './FUAFieldRowRoutes';
 import FUAFieldCellRouter from './FUAFieldCellRoutes';
 import FUAFromVisitRouter from './FUAFromVisitRouter';
+import FUAFormatFromSchemaRouter from './FUAFormatFromSchemaRoutes';
+import { globalAgent } from 'http';
 
 const globalRouter = express.Router();
 
@@ -20,5 +22,6 @@ globalRouter.use('/FUAFieldColumn', FUAFieldColumnRouter);
 globalRouter.use('/FUAFieldRow', FUAFieldRowRouter);
 globalRouter.use('/FUAFieldCell', FUAFieldCellRouter);
 globalRouter.use('/FUAFromVisit', FUAFromVisitRouter);
+globalRouter.use('/FUAFormatFromSchema', FUAFormatFromSchemaRouter);
 
 export default globalRouter;

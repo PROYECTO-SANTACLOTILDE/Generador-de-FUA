@@ -8,6 +8,7 @@ import FUAPageService from "../services/FUAPageService";
 import FUASectionService from "../services/FUASectionService";
 import { dedentCustom } from "./utils";
 import FUAFieldColumnService from "../services/FUAFieldColumnService";
+import { col } from "sequelize";
 
 
 
@@ -15,7 +16,7 @@ class FUARenderingUtils {
     
     // Get CSS styles from public/FUA_Previsualization.css
     private static async getCSSStyles(): Promise<string> {
-        const cssFilePath = path.resolve(__dirname, "../public/FUA_Previsualization.css");
+        const cssFilePath = path.resolve(process.cwd(), "./src/public/FUA_Previsualization.css");
         try {
             const fuaPreviewCss = fs.readFileSync(cssFilePath, "utf-8");
             return fuaPreviewCss;
@@ -77,7 +78,9 @@ class FUARenderingUtils {
                     </style>
                 </head>
                 <body>
-                    ${ formatContent }
+                    <div id="fua-render-container">
+                        ${ formatContent }
+                    </div>                    
                 </body>
             </html>
         `);
@@ -177,126 +180,248 @@ class FUARenderingUtils {
 
     public static async renderFUAField( auxFUAField : any, index: number ): Promise<string> {
         
-        // Get columns 
-        /* let columns = [];
-        try {
-            columns = await FUAFieldColumnService.getListByFUAFieldIdOrUUID(auxFUAField.id.toString());
-        }catch(error: any){
-            console.error('Error in FUA Rendering Utils - renderFUAField: ', error);
-            (error as Error).message =  'Error in FUA Rendering Utils - renderFUAField: ' + (error as Error).message;
-            throw error;
-        } */
-
-        // Order columns by column index
-        //columns.sort((a: any, b: any) => a.columnIndex - b.columnIndex);
-
-             
-        /* let columnsContent: string[] = [];
-        try {
-            columnsContent = await Promise.all( columns.map( (column: any, index: number) => this.renderFUAColumn(column, index) ) );  
-        }catch(error: any){
-            console.error('Error in FUA Rendering Utils - renderFUAField: ', error);
-            (error as Error).message =  'Error in FUA Rendering Utils - renderFUAField: ' + (error as Error).message;
-            throw error;
-        } */
-
-        /* let label = '';
-        if(auxFUAField.showLabel){
-            label = `
-                <tr>
-                    <th class="table-data"> ${auxFUAField.label} </th>
-                </tr>
-            `;
-        } */
-
-        /* let htmlContent = `
-            <style>
-                #field-${index}-${auxFUAField.codeName} {
-                    height: ${auxFUAField.bodyHeight?.toFixed(1) ?? ''}mm;
-                    width: ${auxFUAField.bodyWidth?.toFixed(1) ?? ''}mm;
-                    top: ${auxFUAField.top?.toFixed(1) ?? ''}mm;
-                    left: ${auxFUAField.left?.toFixed(1) ?? ''}mm;
-                    position: absolute;
-                }
-            </style>
-
-            <table id="field-${index}-${auxFUAField.codeName}" class="table-field">
-                ${label}
-                <tr>
-                    <td> <p>FUA Field Body</p> </td>
-                </tr>
-            </table>
-        `; */
-
-        /* let htmlContent = `
-            <table id="field-${index}-${auxFUAField.codeName}" class="table-field">
-                
-                <tr>
-                    <td> <p>FUA Field Body</p> </td>
-                </tr>
-            </table>
-        `; */
-
-        //return htmlContent;
         return "";
     }
 
-    public static async renderFUAColumn( auxFUAColumn : any, index: number ): Promise<string> {
+    
+    // Render a FUA Format using HTML header and body from jsonc schema
+    // Pending to validate
+    public static async renderFUAFormatFromSchema( FUAFormat : any ) : Promise<string> {
+
+        let formatContent = '';
+
+        // Validate pages
+        if( FUAFormat.pages.length === 0 ){
+            formatContent = ``;
+        }else{   
+            formatContent = FUAFormat.pages.map((item: any, index: number) => this.renderFUAPageFromSchema(item, index+1)).join('');            
+        }
+
+        // Get CSS style from public folder
+        let cssStyles = '';
+        try{
+            cssStyles = await this.getCSSStyles();
+        }catch(error: unknown){
+            console.error('Error in FUA Rendering Utils - renderFUAFormat: ', error);
+            (error as Error).message =  'Error in FUA Rendering Utils - renderFUAFormat: ' + (error as Error).message;
+            throw error;
+        }
+
+        let htmlContent = dedentCustom(`
+            <!DOCTYPE html>
+            <html lang="es">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Previsualizacion de FUA</title>
+                    <style>
+                        ${cssStyles}
+                    </style>
+                </head>
+                <body>
+                    <div id="fua-render-container">
+                        ${ formatContent }
+                    </div>                    
+                </body>
+            </html>
+        `);
+
+        return htmlContent;
+    };
+
+    // Render FUA Page from jsonc schema
+    public static renderFUAPageFromSchema( auxFUAPage : any, pageIndex: number ): string {
         
-        // Get rows
-        let columns = [];
-        try {
-            columns = await FUAFieldColumnService.getListByFUAFieldIdOrUUID(auxFUAField.id.toString());
-        }catch(error: any){
-            console.error('Error in FUA Rendering Utils - renderFUAField: ', error);
-            (error as Error).message =  'Error in FUA Rendering Utils - renderFUAField: ' + (error as Error).message;
-            throw error;
-        }
+        let pageContent = '';
+   
+        // Get FUA Format Sections
+        let auxFUASections = auxFUAPage.sections;
 
-        // Order columns by column index
-        columns.sort((a: any, b: any) => a.columnIndex - b.columnIndex);
-
-             
-        let columnsContent: string[] = [];
-        try {
-            columnsContent = await Promise.all( columns.map( (field: any, index: number) => this.renderFUAField(field, index) ) );  
-        }catch(error: any){
-            console.error('Error in FUA Rendering Utils - renderFUASection: ', error);
-            (error as Error).message =  'Error in FUA Rendering Utils - renderFUASection: ' + (error as Error).message;
-            throw error;
-        }
-
-        let label = '';
-        if(auxFUAField.showLabel){
-            label = `
-                <tr>
-                    <th class="table-data"> ${auxFUAField.label} </th>
-                </tr>
-            `;
+        // Validate sections
+        if( auxFUASections === undefined || auxFUASections.length === 0){
+            pageContent = ``;
+        }else{            
+            const paddings = {
+                padding_top:    auxFUAPage.padding_top,
+                padding_left:   auxFUAPage.padding_left,
+            };
+            pageContent = auxFUASections.map( (item:any, index: number) => this.renderFUASectionFromSchema(item, index, `fua-page-${pageIndex.toString()}`,paddings)).join('');
         }
 
         let htmlContent = `
             <style>
-                #field-${index}-${auxFUAField.codeName} {
-                    height: ${auxFUAField.bodyHeight?.toFixed(1) ?? ''}mm;
-                    width: ${auxFUAField.bodyWidth?.toFixed(1) ?? ''}mm;
-                    top: ${auxFUAField.top?.toFixed(1) ?? ''}mm;
-                    left: ${auxFUAField.left?.toFixed(1) ?? ''}mm;
-                    position: absolute;
+                #fua-page-${pageIndex.toString()} {
+                    width: ${auxFUAPage.width.toFixed(1)}mm;
+                    height: ${auxFUAPage.height.toFixed(1)}mm;
+                    padding-top: ${auxFUAPage.padding_top.toFixed(1)}mm;
+                    padding-left: ${auxFUAPage.padding_left.toFixed(1)}mm;
                 }
             </style>
+            <div id="fua-page-${pageIndex.toString()}" class="fua-page" ${auxFUAPage.extraStyle !== undefined ? `style="${auxFUAPage.extraStyle}"` : ""}>
+                    ${ pageContent }
+            </div>
+     
+        `;
 
-            <table id="field-${index}-${auxFUAField.codeName}" class="table-field">
-                ${label}
+        return htmlContent;
+    };
+
+    // Render FUA Section from jsonc schema
+    public static renderFUASectionFromSchema( auxFUASection : any, index: number, prefix: string, paddings: any ): string {
+        
+        let sectionContent = '';
+      
+        // title, showTitle
+        let title = '';
+        if(auxFUASection.showTitle == true){
+            title = `
                 <tr>
-                    <td> <p>FUA Field Body</p> </td>
+                    <th class="section-header text-container" style="height: ${auxFUASection.titleHeight.toFixed(1)}mm;"> ${auxFUASection.title ?? ''} </th>
                 </tr>
+            `;            
+        }
+
+        // Get section content
+        if (!Array.isArray(auxFUASection.fields) || auxFUASection.fields.length === 0) {
+            sectionContent = ``;
+        }else{
+            sectionContent = auxFUASection.fields.map( (item: any, index: number) => this.renderFUAFieldFromSchema(item,index,`${prefix}-section-${index.toString()}`) ).join('');
+        }
+
+        let htmlContent = `
+            <style>
+                #${prefix}-section-${index.toString()} {
+                    ${ Number.isFinite(auxFUASection.top)  ? `top: ${ (paddings.padding_top + auxFUASection.top ).toFixed(1)}mm;` : ''}
+                    ${ Number.isFinite(auxFUASection.left) ? `left: ${ ( paddings.padding_left + auxFUASection.left ).toFixed(1)}mm;` : ''}
+                    height: ${ ( auxFUASection.bodyHeight + (auxFUASection.showTitle ? auxFUASection.titleHeight : 0.0 ) ).toFixed(1)}mm;
+                    width: ${ auxFUASection.bodyWidth ? `${auxFUASection.bodyWidth.toFixed(1)}mm;` : '100%;'}
+                }
+            </style>
+            <table id="${prefix}-section-${index.toString()}" class="table-section" >                  
+                ${title}
+                <tr>                    
+                    <td class="section-content">
+                        ${sectionContent}
+                    </td>
+                </tr>                    
             </table>
         `;
 
         return htmlContent;
-    }
+    };
 
+    // Render FUA Field from jsonc schema
+    public static renderFUAFieldFromSchema( auxFUAField : any, fieldIndex: number, prefix: string ): string {
+        let fieldContent = '';
+        let extraStyles = '';
+        
+        let label = '';
+        if(auxFUAField.showLabel == true){
+            label = `
+                <style>
+                    #${prefix}-field-${fieldIndex}-caption {
+                        caption-side: top;
+                        font-weight: bold;
+                        border-bottom: none;
+                        background-color: lightgray;
+                        ${auxFUAField.labelHeight !== null ? `height: ${auxFUAField.labelHeight.toFixed(1)}mm;` : ''}
+                        ${auxFUAField.labelHeight !== null ? `line-height: ${auxFUAField.labelHeight.toFixed(1)}mm;` : ''}
+                    }
+                </style>
+                <caption id="${prefix}-field-${fieldIndex}-caption" class="field-border text-container">
+                    ${auxFUAField.label}
+                </caption>
+            `;            
+        }
+
+        let colgroups = '';
+
+        if(auxFUAField.valueType === "Table"){
+            // Define colgroups
+            let auxColumns = auxFUAField.columns;
+            auxColumns = auxFUAField.columns.map((item: any) => `<col style="width: ${item.width.toFixed(1)}mm;" />` );      
+            colgroups  = `
+                <colgroup>
+                    ${auxColumns.join('')}
+                </colgroup>
+            `;
+
+            // Defining rows, ordered by 'index' attribute
+            let auxRows = auxFUAField.rows.sort( (a: any, b: any) => ( a.index - b.index ) );
+            // Process row
+            auxRows = auxRows.map( (row: any, index: number) => this.renderFUAFieldTableRowFromSchema(row, index, auxColumns.length ,`${prefix}-field-${fieldIndex}`) );
+            fieldContent = auxRows.join('');
+        }
+
+        if( auxFUAField.valueType === "Field"){
+            fieldContent = `
+                <tr>
+                    <td> <td>
+                </tr>
+            `;
+            extraStyles = `
+                width:  ${auxFUAField.width.toFixed(1)}mm;    
+                height: ${auxFUAField.height.toFixed(1)}mm;  
+            `;
+        }
+
+        fieldContent = `
+            <style>
+                #${prefix}-field-${fieldIndex} {
+                    top:    ${auxFUAField.top.toFixed(1)}mm;
+                    left:   ${auxFUAField.left.toFixed(1)}mm;
+                    ${extraStyles}
+                }
+            </style>
+            <table id="${prefix}-field-${fieldIndex}" class="table-field" >
+                ${label}
+                ${colgroups}
+                ${fieldContent}
+            </table>
+        `;
+
+
+        return fieldContent;
+    };
+
+    // Render FUA Field row from jsonc schema
+    private static renderFUAFieldTableRowFromSchema( auxRow : any, index : number, colAmount : number, prefix: string) : string {
+        let htmlContent = '';
+        // no columns, return ''
+        if( colAmount === 0 ) return '';
+        
+        // Row height
+        let height = `style="height: ${auxRow.height}mm;"`;
+
+        // Get cell if the are
+        let cells = auxRow.cells ?? null;
+        let rowContent = [];
+        for(let i = 0; i < colAmount; i++ ){
+            /* let extraStyles = '';
+            if( cells !== null){
+                extraStyles = `
+                <style>
+                    # {
+                    }
+                </style>
+                `;
+            } */
+            let auxCellContent = `
+                <td class="field-border text-container" > 
+                    ${cells?.[i]?.text ?? ''} 
+                </td>
+            `;
+            rowContent.push(auxCellContent);
+        }
+
+        htmlContent = `
+            <tr ${height} class="field-border">
+                ${rowContent.length > 0 ? rowContent.join('') : ''}
+            </tr>
+        `;
+
+        return htmlContent;
+    }
 
 }
 

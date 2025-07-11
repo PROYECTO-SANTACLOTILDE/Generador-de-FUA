@@ -5,21 +5,16 @@ body {
     background: #fff;
 }
 
-table tr th td{
-    border-collapse: collapse;
-    border-spacing: 0;
-    border: 1px solid black; /* outer border */
-    table-layout: fixed;
-}
-
 /* General Styles */
 
+#fua-render-container {
+    all: unset;
+}
+
 .fua-page {
-    width: 210mm;
-    min-height: 297mm;
-    padding: 20px;
     border: 1px solid #000;
     box-sizing: border-box;
+    position: relative;
 }
 
 .table-section {
@@ -28,6 +23,7 @@ table tr th td{
     border: 2px solid black; /* outer border */
     width: 100%;
     table-layout: fixed;
+    position: absolute;
 }
 
 .section-header {
@@ -46,6 +42,11 @@ table tr th td{
 .table-field {
     border: 1px solid black;
     border-collapse: collapse;
+    position: absolute;
+}
+
+.field-border{
+    border: 1px solid black;
 }
 
 .table-data {
@@ -59,6 +60,23 @@ table tr th td{
     border-collapse: collapse;
     border: 1px solid black;
     border-spacing: 0px;
+}
+
+.text-container {
+    /* Text alignment */
+    text-align: center;
+    vertical-align: middle;
+    /* Prevent text from overflowing */
+    overflow: hidden;
+    white-space: normal;
+    text-overflow: ellipsis;
+    /* Container query support */
+    container-type: size;
+    container-name: card;
+    /* Dynamic font sizing */
+    font-size: clamp(3px, 0.9cqh, 100%);
+    /* Optional: force text to scale down if needed */
+    line-height: 1;
 }
 
 
@@ -80,22 +98,6 @@ table tr th td{
     background-color: gray;
 }
  
-/* Unique Styles */
-
-#section-1-1 {
-    width: 100%;
-    height: 7.6mm;
-}
-
-#section-1-2 {
-    width: 100%;
-    height: 51.3mm;
-}
-
-#section-3 {
-    width: 100%;
-    height: 9mm;
-}
 
 
 

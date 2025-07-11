@@ -26,6 +26,7 @@
   "homepage": "https://github.com/PROYECTO-SANTACLOTILDE/Generador-de-FUA#readme",
   "dependencies": {
     "@types/fhir": "^0.0.41",
+    "body-parser": "^2.2.0",
     "c": "^1.1.1",
     "clean": "^4.0.2",
     "cors": "^2.8.5",
@@ -34,6 +35,8 @@
     "express": "^5.1.0",
     "fhir": "^4.12.0",
     "fhir-kit-client": "^1.9.2",
+    "jsonc-parser": "^3.3.1",
+    "multer": "^2.0.1",
     "pg": "^8.15.5",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.37.7",
@@ -41,6 +44,7 @@
   },
   "devDependencies": {
     "@types/express": "^5.0.1",
+    "@types/multer": "^2.0.0",
     "@types/node": "^22.15.0",
     "nodemon": "^3.1.10",
     "sequelize-cli": "^6.3.0",
