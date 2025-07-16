@@ -3,7 +3,6 @@ import FUAFormatFromSchemaModel from '../../modelsSequelize/FUAFormatFromSchemaM
 interface FUAFormatFromSchemaCreateInterface {
     // Data
     name: string;
-    filename: string;
     content: string;
     //Field Form Data
     codeName: string; 
@@ -15,7 +14,17 @@ interface FUAFormatFromSchemaCreateInterface {
 
 class FUAFormatFromSchemaImplementation {
     // Creation of FUA Format
-    async createSequelize(data: FUAFormatFromSchemaCreateInterface ) {
+    async createSequelize(data : {
+        // Data
+        name: string;
+        content: string;
+        //Field Form Data
+        codeName: string; 
+        versionTag: string;
+        versionNumber: number;        
+        // Audit Data
+        createdBy: string;
+    }) {
         if( data.versionNumber == undefined ) data.versionNumber = 1; 
         let returnedFUAFormat = null;
         try {

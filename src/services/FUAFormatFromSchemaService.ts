@@ -3,15 +3,18 @@ import {z} from "zod";
 import FUAFormatImplementation from '../implementation/sequelize/FUAFormatImplementation';
 import { isValidUUIDv4 } from "../utils/utils";
 import FUARenderingUtils from "../utils/FUARendering";
+import FUAFormatFromSchemaImplementation from "../implementation/sequelize/FUAFormatFromSchemaImplementation";
 
 // Schemas
 
 const newFUAFormatFromSchemaZod = z.object({
     // Format Data
     name: z.string(),
-    codeName: z.string(),
+    content: z.string(),
+    // Base Field Form Data
+    codeName: z.string(),    
     versionTag: z.string(),
-    version: z.number().int().positive(), // must be a positive integer
+    versionNumber: z.number().int().positive(), // must be a positive integer
     // Audit Data
     createdBy: z.string(),
 });
@@ -22,9 +25,11 @@ class FUAFormatFromSchemaService {
     async create(data: {
         // Format Data
         name: string;
+        content: string;
+        // Version Data
         codeName: string;
         versionTag: string; 
-        version: number;
+        versionNumber: number;
         // Audit Data
         createdBy: string;
     }) {
@@ -40,7 +45,17 @@ class FUAFormatFromSchemaService {
         // FUAFormat creation
         let returnedFUAFormat = null;
         try {
-            returnedFUAFormat = await FUAFormatImplementation.createSequelize(data);
+            returnedFUAFormat = await FUAFormatFromSchemaImplementation.createSequelize({
+                // Format Data
+                name: data.name,
+                content: data.content,
+                // Version Data
+                codeName: data.codeName,
+                versionTag: data.versionTag , 
+                versionNumber: data.versionNumber,
+                // Audit Data
+                createdBy: data.createdBy,
+            });
         } catch (err: unknown){
             console.error('Error in FUA Format From Schema Service: ', err);
             (err as Error).message =  'Error in FUA Format From Schema Service: \n' + (err as Error).message;

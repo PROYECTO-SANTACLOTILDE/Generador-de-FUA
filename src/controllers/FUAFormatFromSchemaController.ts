@@ -12,14 +12,25 @@ const FUAFormatFromSchemaController = {
     async create  (req: Request, res: Response): Promise<void>  {
         const controllerBody = req.body;
         const files = req.files as { [fieldname: string]: Express.Multer.File[] };
-        const file = files['formatPayload']?.[0];
 
+        const file = files['formatPayload']?.[0];
+         
         const jsoncContent = file.buffer.toString('utf-8');
         const parsed = parse(jsoncContent);
 
+        // Validation parsing validation pending needed
+        
+
         let newFUAFormat = null;
         try {
-            newFUAFormat = await FUAFormatFromSchemaService.create(controllerBody);
+            newFUAFormat = await FUAFormatFromSchemaService.create({
+                name: controllerBody.name,
+                content: jsoncContent,
+                codeName: controllerBody.name  ?? controllerBody.name.toString(),
+                versionTag: controllerBody.versionTag ?? controllerBody.name.toString() + '_1',
+                versionNumber: controllerBody.versionNumber ?? 1,
+                createdBy: controllerBody.createdBy,
+            });
             res.status(201).json(newFUAFormat);    
         } catch (err: any) {
             res.status(500).json({

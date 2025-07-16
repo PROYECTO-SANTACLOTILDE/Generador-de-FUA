@@ -101,7 +101,7 @@
               "labelOrientation": "Horizontal",
               "labelPosition": "Up",
               "labelHeight": 5.6,
-              "valueType": "Field",
+              "valueType": "Box",
               "width": 15.5 ,
               "height": 4.0
             },
@@ -142,6 +142,115 @@
                   "index": 2,
                   "height": 4.0,
                   "isHeader": false
+                }
+              ]
+            },
+            {
+              // Base Field Form Attribute
+              "codeName": "Provider Type",
+              "versionTag": "1.0",
+              // Field data
+              "top": 28.0,
+              "left": 0.0,
+              "label": "PERSONAL QUE ATIENDE",
+              "showLabel": true,
+              "labelOrientation": "Horizontal",
+              "labelPosition": "Up",
+              "labelHeight": 4.0,
+              "valueType": "Field",
+              "width": 52.5,
+              "height": 14.6,
+              "fields": [
+                {
+                  //Field 1
+                  // Base Field Form Attribute
+                  "codeName": "Provider Type",
+                  "versionTag": "1.0",
+                  // Field data
+                  "top": 0.0,
+                  "left": 0.0,
+                  "showLabel": false,
+                  "label": "CÓDIGO DE LA OFERTA FLEXIBLE",
+                  "valueType": "Table",
+                  "labelOrientation": "Horizontal",
+                  "labelPosition": "Up",
+                  "labelHeight": 5.6,
+                  "columns": [
+                    { "width": 18.0},
+                    { "width": 5.0}
+                  ],
+                  "rows": [
+                    {
+                      // Row 1
+                      "index": 1,
+                      "height": 4.0,
+                      "isHeader": false,
+                      "cells": [
+                        {
+                          "text": "DE LA IPRESS"
+                        }
+                      ]
+                    },
+                    {
+                      // Row 2
+                      "index": 2,
+                      "height": 4.0,
+                      "isHeader": false,
+                      "cells": [
+                        {
+                          "text": "ITINERANTE"
+                        }
+                      ]
+                    },
+                    {
+                      // Row 3
+                      "index": 3,
+                      "height": 4.0,
+                      "isHeader": false,
+                      "cells": [
+                        {
+                          "text": "PLAN MAS SALUD"
+                        }
+                      ]
+                    },
+                    {
+                      // Row 4
+                      "index": 4,
+                      "height": 4.0,
+                      "isHeader": false,
+                      "cells": [
+                        {
+                          "text": "OFERTA FLEXIBLE"
+                        }
+                      ]
+                    },
+                    {
+                      // Row 5
+                      "index": 5,
+                      "height": 4.0,
+                      "isHeader": false,
+                      "cells": [
+                        {
+                          "text": ""
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  // Field 2
+                  // Base Field Form Attribute
+                  "codeName": "Oferta Flexible Code",
+                  "versionTag": "1.0",
+                  // Field data
+                  "top": 0.0,
+                  "left": 23.0,
+                  "showLabel": true,
+                  "label": "CÓDIGO DE LA OFERTA FLEXIBLE",
+                  "labelHeight": 4.0,
+                  "valueType": "Box",
+                  "width": 28.5,
+                  "height": 14.6                  
                 }
               ]
             },

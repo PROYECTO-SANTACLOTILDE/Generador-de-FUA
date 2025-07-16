@@ -353,7 +353,7 @@ class FUARenderingUtils {
             fieldContent = auxRows.join('');
         }
 
-        if( auxFUAField.valueType === "Field"){
+        if( auxFUAField.valueType === "Box"){
             fieldContent = `
                 <tr>
                     <td> <td>
@@ -362,6 +362,24 @@ class FUARenderingUtils {
             extraStyles = `
                 width:  ${auxFUAField.width.toFixed(1)}mm;    
                 height: ${auxFUAField.height.toFixed(1)}mm;  
+            `;
+        }
+
+        if (auxFUAField.valueType === "Field"){
+            let auxFields = auxFUAField.fields;
+            let finalContent = auxFields.map( (item: any, index: number) => this.renderFUAFieldFromSchema( item, index, `${prefix}-field-${index}`) ).join('');
+            extraStyles = `
+                width:  ${auxFUAField.width.toFixed(1)}mm;    
+                height: ${auxFUAField.height.toFixed(1)}mm;  
+            `;
+            fieldContent = `
+                <tr>
+                    <td style="padding: 0px;" class="field-content"> 
+
+                            ${finalContent}
+
+                    <td>
+                </tr>
             `;
         }
 
@@ -421,7 +439,7 @@ class FUARenderingUtils {
         `;
 
         return htmlContent;
-    }
+    };
 
 }
 

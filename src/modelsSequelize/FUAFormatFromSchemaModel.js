@@ -17,10 +17,6 @@ const FUAFormatFromSchemaModel = sequelize.define(
             type: DataTypes.STRING,
             allowNull: false
         }, 
-        filename: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
         content: {
             type: DataTypes.TEXT('long'), // Store large JSONC content
             allowNull: false,

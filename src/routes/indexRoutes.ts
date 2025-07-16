@@ -14,7 +14,8 @@ import { globalAgent } from 'http';
 
 const globalRouter = express.Router();
 
-globalRouter.use('/FUAFormat', FUAFormatRouter);
+//globalRouter.use('/FUAFormat', FUAFormatRouter);
+globalRouter.use('/FUAFormat', FUAFormatFromSchemaRouter);
 globalRouter.use('/FUAPage', FUAPageRouter);
 globalRouter.use('/FUASection', FUASectionRouter);
 globalRouter.use('/FUAField', FUAFieldRouter);
@@ -22,6 +23,6 @@ globalRouter.use('/FUAFieldColumn', FUAFieldColumnRouter);
 globalRouter.use('/FUAFieldRow', FUAFieldRowRouter);
 globalRouter.use('/FUAFieldCell', FUAFieldCellRouter);
 globalRouter.use('/FUAFromVisit', FUAFromVisitRouter);
-globalRouter.use('/FUAFormatFromSchema', FUAFormatFromSchemaRouter);
+
 
 export default globalRouter;
