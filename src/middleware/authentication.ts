@@ -3,13 +3,13 @@ require('dotenv').config();
 
 export const authenticate = (req: Request, res: Response, next: NextFunction) => {
     
-    const token  = req.headers['token'];
+    const token  = req.headers['fuagentoken'];
 
     if ( !token ) {
         return next(
             res.status(401).json({
                 error: 'Authentication error. ', 
-                message: 'No token provided in request body. ',
+                message: 'No token provided in authorization header. ',
             })
         );    
     };

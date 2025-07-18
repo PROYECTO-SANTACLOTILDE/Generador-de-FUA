@@ -84,19 +84,17 @@ const FUAFormatFromSchemaController = {
     },
 
     // Render FUA Format by Id or UUID
-    /* async render (req: Request, res: Response): Promise<void>  {
-        const payload = req.params.id;
-        const { token = "---", visit = "---" } = req.body ?? {};
-
-        // Validate token
-        
+    async render (req: Request, res: Response): Promise<void>  {
+        const formatidentifier = req.params.id;
+        const visitpayload = req.body.payload;
+     
         let htmlContent = null;
 
         try {
-            htmlContent = await FUAFormatFromSchemaController.renderById(payload);
+            htmlContent = await FUAFormatFromSchemaService.renderById(visitpayload, formatidentifier);
             if(htmlContent === null){
                 res.status(404).json({
-                    error: `FUA Format by Id or UUID '${payload}' couldnt be found. `, 
+                    error: `FUA Format by Id or UUID '${formatidentifier}' couldnt be found. `, 
                 });
                 return;
             }                
@@ -109,7 +107,7 @@ const FUAFormatFromSchemaController = {
             });
         }
             
-    }, */
+    },
 };
 
 export default FUAFormatFromSchemaController;

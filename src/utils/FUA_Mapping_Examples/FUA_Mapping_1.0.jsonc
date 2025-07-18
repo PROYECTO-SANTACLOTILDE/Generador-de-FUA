@@ -1,0 +1,46 @@
+{
+    // Mapping of filling fields
+    "pagepageNumber": 1,
+    // Sections Mapping
+    "sections": [
+        {
+            "codeName": "IPRESS Data",
+            // Fields Mapping
+            "fields": [
+                
+                {
+                    // Visit Date
+                    "codeName": "Visit Date",
+                    "fieldType": "Table",
+                    "mappings": [
+                        {
+                            // DIA
+                            "column": 1,
+                            "row": 2,
+                            "valueType": "String",
+                            "value": ["startDatetime"],
+                            "extraProcessing": ["getLocalDate_Day"]                             
+                        },
+                        {
+                            // MES
+                            "column": 1,
+                            "row": 2,
+                            "valueType": "String",
+                            "value": ["startDatetime"],
+                            "extraProcessing": ["getLocalDate_Month"]                             
+                        },
+                        {
+                            // MES
+                            "column": 1,
+                            "row": 2,
+                            "valueType": "String",
+                            "value": ["startDatetime"],
+                            "extraProcessing": ["getLocalDate_Year"]                             
+                        },
+                    ]
+                }
+            ]
+        }
+    ]
+
+}

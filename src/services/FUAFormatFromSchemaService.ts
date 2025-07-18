@@ -1,4 +1,5 @@
 import {z} from "zod";
+import { parse } from 'jsonc-parser';
 
 import FUAFormatImplementation from '../implementation/sequelize/FUAFormatImplementation';
 import { isValidUUIDv4 } from "../utils/utils";
@@ -72,7 +73,7 @@ class FUAFormatFromSchemaService {
     async listAll( ) {
         let returnedFUAFormats = [];
         try {
-            returnedFUAFormats = await FUAFormatImplementation.listAllSequelize();
+            returnedFUAFormats = await FUAFormatFromSchemaImplementation.listAllSequelize();
 
         } catch (err: unknown){
             console.error('Error in FUA Format From Schema Service: ', err);
@@ -94,7 +95,7 @@ class FUAFormatFromSchemaService {
             id = nuNumber;
 
             try {
-                returnedFUAFormat = await FUAFormatImplementation.getByIdSequelize(id);
+                returnedFUAFormat = await FUAFormatFromSchemaImplementation.getByIdSequelize(id);
 
             } catch (err: unknown){
                 console.error('Error in FUA Format From Schema Service: ', err);
@@ -110,7 +111,7 @@ class FUAFormatFromSchemaService {
             }
             try {
 
-                returnedFUAFormat = await FUAFormatImplementation.getByUUIDSequelize(idReceived);
+                returnedFUAFormat = await FUAFormatFromSchemaImplementation.getByUUIDSequelize(idReceived);
 
             } catch (err: unknown){
                 console.error('Error in FUA Format From Schema Service: ', err);
@@ -133,7 +134,7 @@ class FUAFormatFromSchemaService {
         }
 
         try {
-            returnedFUAFormats = await FUAFormatImplementation.getByUUIDSequelize(uuidReceived);
+            returnedFUAFormats = await FUAFormatFromSchemaImplementation.getByUUIDSequelize(uuidReceived);
 
         } catch (err: unknown){
             console.error('Error in FUA Format From Schema Service - getIdByUUID: ', err);
@@ -146,7 +147,7 @@ class FUAFormatFromSchemaService {
     }
 
     // Render FUA Format by Id
-    async renderById( idReceived: string ) {
+    async renderById( visitPayload: Object, idReceived: string ) {
         // Get Format by Id or UUID
         let auxFuaFormat = null;
         try {
@@ -156,15 +157,18 @@ class FUAFormatFromSchemaService {
             (err as Error).message =  'Error in FUAFormat Service - renderById: ' + (err as Error).message;
             throw err;
         }
-        // If nothing was found, it will return a []
+
+        // If nothing was found, it will return a null
         if( auxFuaFormat === null){
             return null;
         } 
 
         let htmlContent = ''; 
 
+        let parsedContent = parse(auxFuaFormat.content);
+
         try{
-            htmlContent = await FUARenderingUtils.renderFUAFormatFromSchema(auxFuaFormat.content);
+            htmlContent = await FUARenderingUtils.renderFUAFormatFromSchema(parsedContent);
         } catch(error: any){
             console.error('Error in FUA Format Service - renderById: ', error);
             (error as Error).message =  'Error in FUA Format Service - renderById: ' + (error as Error).message;

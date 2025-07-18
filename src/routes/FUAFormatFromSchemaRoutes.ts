@@ -25,6 +25,6 @@ FUAFormatFromSchemaRouter.get('/:id', FUAFormatFromSchemaController.getById);
 FUAFormatFromSchemaRouter.get('/', FUAFormatFromSchemaController.listAll);
 
 // Render a FUA Format
-//FUAFormatFromSchemaRouter.get('/:id/render', FUAFormatFromSchemaController.render);
+FUAFormatFromSchemaRouter.get('/:id/render', FUAFormatFromSchemaController.render);
 
 export default FUAFormatFromSchemaRouter;
