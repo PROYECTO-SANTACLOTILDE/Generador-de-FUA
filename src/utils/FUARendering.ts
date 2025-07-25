@@ -127,7 +127,7 @@ class FUARenderingUtils {
         return htmlContent;
     }
 
-    public static async renderFUASection( FUASection : any, index: number ): Promise<string> {
+    public static async renderFUASection( FUASection : any, sectionIndex: number ): Promise<string> {
         let auxSectionFields: Array<any> = [];
 
         // Get FUA Fields of FUA Section
@@ -163,7 +163,7 @@ class FUARenderingUtils {
         //let fieldsHtmlContent = fieldsContent.length == 0 ? `<p> No hay campos en esta seccion <p>` : fieldsContent.join('');
 
         let htmlContent = `
-            <table id="section-${index.toString()}" class="table-section" style="height: ${FUASection.bodyHeight.toFixed(1)}mm;">
+            <table id="section-${sectionIndex.toString()}" class="table-section" style="height: ${FUASection.bodyHeight.toFixed(1)}mm;">
                   
                 ${title}
 
@@ -267,7 +267,7 @@ class FUARenderingUtils {
     };
 
     // Render FUA Section from jsonc schema
-    public static renderFUASectionFromSchema( auxFUASection : any, index: number, prefix: string, paddings: any ): string {
+    public static renderFUASectionFromSchema( auxFUASection : any, sectionIndex: number, prefix: string, paddings: any ): string {
         
         let sectionContent = '';
       
@@ -285,19 +285,19 @@ class FUARenderingUtils {
         if (!Array.isArray(auxFUASection.fields) || auxFUASection.fields.length === 0) {
             sectionContent = ``;
         }else{
-            sectionContent = auxFUASection.fields.map( (item: any, index: number) => this.renderFUAFieldFromSchema(item,index,`${prefix}-section-${index.toString()}`) ).join('');
+            sectionContent = auxFUASection.fields.map( (item: any, index: number) => this.renderFUAFieldFromSchema(item,index,`${prefix}-section-${sectionIndex.toString()}`) ).join('');
         }
 
         let htmlContent = `
             <style>
-                #${prefix}-section-${index.toString()} {
+                #${prefix}-section-${sectionIndex.toString()} {
                     ${ Number.isFinite(auxFUASection.top)  ? `top: ${ (paddings.padding_top + auxFUASection.top ).toFixed(1)}mm;` : ''}
                     ${ Number.isFinite(auxFUASection.left) ? `left: ${ ( paddings.padding_left + auxFUASection.left ).toFixed(1)}mm;` : ''}
                     height: ${ ( auxFUASection.bodyHeight + (auxFUASection.showTitle ? auxFUASection.titleHeight : 0.0 ) ).toFixed(1)}mm;
                     width: ${ auxFUASection.bodyWidth ? `${auxFUASection.bodyWidth.toFixed(1)}mm;` : '100%;'}
                 }
             </style>
-            <table id="${prefix}-section-${index.toString()}" class="table-section" >                  
+            <table id="${prefix}-section-${sectionIndex.toString()}" class="table-section" >                  
                 ${title}
                 <tr>                    
                     <td class="section-content">
@@ -356,7 +356,7 @@ class FUARenderingUtils {
         if( auxFUAField.valueType === "Box"){
             fieldContent = `
                 <tr>
-                    <td> <td>
+                    <td class="text-container"> ${auxFUAField.text ?? ''} <td>
                 </tr>
             `;
             extraStyles = `
@@ -440,6 +440,90 @@ class FUARenderingUtils {
 
         return htmlContent;
     };
+
+
+    // Generate demo mappings from visit json payload
+    public static generateMappingsDemo(visitPayload : any) : Map<string, Object[]>{
+
+        // Fields mapping for section IPRESS Data
+        let IPRESSDataSectionMap = new Map();
+
+        let visitDateMappings = {
+            valueType: "Table",
+            values: new Array()
+        };
+        
+        // Fill Dia of Visit Time
+        visitDateMappings.values.push({
+            column: 1,
+            row: 1,
+            value: visitPayload.startDatetime?.slice(8, 10) ?? ''
+        });
+
+        // Fill Mes of Visit Time
+        visitDateMappings.values.push({
+            column: 2,
+            row: 1,
+            value: visitPayload.startDatetime?.slice(5, 7) ?? ''
+        });
+
+        // Fill Año of Visit Time
+        visitDateMappings.values.push({
+            column: 2,
+            row: 1,
+            value: visitPayload.startDatetime?.slice(0, 4) ?? ''
+        });
+
+        IPRESSDataSectionMap.set("Visit Date",visitDateMappings);
+
+
+        // Visit TIme Mapping
+        let visitTimeMappings = {
+            valueType: "Box",
+            value: ""
+        };
+
+        // Fill Hour of Visit Time
+        visitTimeMappings.value = visitPayload.startDatetime?.slice(11, 16) ?? '';
+
+        IPRESSDataSectionMap.set("Visit Time", visitTimeMappings);
+
+
+        // Fill IPRESS Provider
+        let ipressProviderMappings = {
+            valueType: "Table",
+            value: new Array()            
+        };
+
+        ipressProviderMappings.value.push({
+            column: 1,
+            row: 2,
+            value: "00000066"
+        });
+
+        ipressProviderMappings.value.push({
+            column: 2,
+            row: 2,
+            value: "SANTA CLOTILDE"
+        });
+
+        IPRESSDataSectionMap.set("Visit Time",visitDateMappings);
+
+        // Mapping of pagina_2
+        let page1Map = new Map();
+        page1Map.set("IPRESS Data", IPRESSDataSectionMap);
+
+
+        // Mapping of pagina_2
+        let page2Map = new Map();
+
+        // Mapping of FUA
+        let fuaMap = new Map();
+        fuaMap.set("pagina_1",page1Map);
+        fuaMap.set("pagina_2",page2Map);
+
+        return fuaMap;
+    }
 
 }
 
