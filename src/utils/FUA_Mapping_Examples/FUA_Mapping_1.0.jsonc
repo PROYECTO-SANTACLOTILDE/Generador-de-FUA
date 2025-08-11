@@ -6,8 +6,7 @@
         {
             "codeName": "IPRESS Data",
             // Fields Mapping
-            "fields": [
-                
+            "fields": [                
                 {
                     // Visit Date
                     "codeName": "Visit Date",

@@ -1,4 +1,4 @@
-FROM node:22.13-alpine
+FROM node:lts-alpine
 WORKDIR /FUA_Generator
 COPY package.json /FUA_Generator
 RUN npm install
