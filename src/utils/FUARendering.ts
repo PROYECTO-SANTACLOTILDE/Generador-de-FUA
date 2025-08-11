@@ -324,8 +324,9 @@ class FUARenderingUtils {
                         font-weight: bold;
                         border-bottom: none;
                         background-color: lightgray;
-                        ${auxFUAField.labelHeight !== null ? `height: ${auxFUAField.labelHeight.toFixed(1)}mm;` : ''}
-                        ${auxFUAField.labelHeight !== null ? `line-height: ${auxFUAField.labelHeight.toFixed(1)}mm;` : ''}
+                        ${auxFUAField.labelHeight ? `height: ${auxFUAField.labelHeight.toFixed(1)}mm;` : ''}
+                        ${auxFUAField.labelHeight ? `line-height: ${auxFUAField.labelHeight.toFixed(1)}mm;` : ''}
+                        ${auxFUAField.labelExtraStyle ?? ``}
                     }
                 </style>
                 <caption id="${prefix}-field-${fieldIndex}-caption" class="field-border text-container">
