@@ -684,6 +684,68 @@
             },
             {
               // Base Field Form Attribute
+              "codeName": "DATE OF DEATH",
+              "versionTag": "1.0",
+              // Field data
+              "top": 30.4,
+              "left": 25.0,
+              "label": "FECHA DE FALLECIMIENTO",
+              "showLabel": false,
+              "labelOrientation": "Horizontal",
+              "labelPosition": "Up",
+              "labelHeight": 2.5,
+              "valueType": "Table",
+              "columns": [
+                { "width": 24.2},
+                { "width": 16.7},
+                { "width": 14.7},
+                { "width": 30.0}
+              ],
+              "rows": [
+                {
+                  // Row 1
+                  "index": 1,
+                  "height": 2.8,
+                  "isHeader": true,
+                  "cells": [
+                    {
+                      "text": "FECHA"
+                    },
+                    {
+                      "text": "DIA"
+                    },
+                    {
+                      "text": "MES"
+                    },
+                    {
+                      "text": "AÑO"
+                    }  
+                  ]
+                },
+                {
+                  // Row 2
+                  "index": 2,
+                  "height": 6.0,
+                  "isHeader": true,
+                  "cells": [
+                    {
+                      "text": "<p style='font-size: 1.3mm; padding: 0.01mm; line-height: 1.5mm;'>FECHA PROBABLE DE PARTO / FECHA DE PARTO</p>"
+                    },
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": ""
+                    }  
+                  ]
+                }
+              ]
+            },
+            {
+              // Base Field Form Attribute
               "codeName": "BIRTHDATE",
               "versionTag": "1.0",
               // Field data
@@ -810,7 +872,7 @@
           "title": "DE LA ATENCIÓN",
           "showTitle": true,
           "titleHeight": 2.4,
-          "bodyHeight": 33.5,
+          "bodyHeight": 41.8,
           "bodyWidth": 192.0,
           "top": 130.0,
           "extraStyle": "",
@@ -829,7 +891,7 @@
               "labelHeight": 4.8,
               "valueType": "Box",
               "width": 8.3,
-              "height": 9
+              "height": 9.0
             },
             {
               // Base Field Form Attribute
@@ -838,15 +900,15 @@
               // Field data
               "top": 0.5,
               "left": 83.0,
-              "label": "CÓDIGO <br> PRESTACIONAL",
+              "label": "<p style='line-height: 1.5mm;'>CÓDIGO <br> PRESTACIONAL </p>",
               "showLabel": true,
               "labelOrientation": "Horizontal",
               "labelPosition": "Up",
               "labelHeight": 4.8,
-              "labelExtraStyle": "background-color: red; line-height: 2.0mm; font-size: 1.5mm; vertical-align: middle;",
+              "labelExtraStyle": "line-height: 2.0mm; font-size: 1.5mm; vertical-align: middle;",
               "valueType": "Box",
               "width": 16.4,
-              "height": 9
+              "height": 9.0
             },
             {
               // Base Field Form Attribute
@@ -855,31 +917,164 @@
               // Field data
               "top": 0.5,
               "left": 100.0,
-              "label": "CÓDIGO PRESTACIONAL(ES) ADICIONAL(ES)",
+              "label": "<p style='line-height: 1.5mm;'>CÓDIGO PRESTACIONAL(ES) ADICIONAL(ES)</p>",
               "showLabel": true,
               "labelOrientation": "Horizontal",
               "labelPosition": "Up",
               "labelHeight": 4.8,
+              "labelExtraStyle": "line-height: 2.0mm; font-size: 1.5mm; vertical-align: middle;",
               "valueType": "Box",
               "width": 26.5,
-              "height": 9
+              "height": 9.0
             },
             {
               // Base Field Form Attribute
               "codeName": "N° FUA TO BE LINKED",
               "versionTag": "1.0",
               // Field data
-              "top": 15,
+              "top": 15.0,
               "left": 72.0,
               "label": "N° FUA A VINCULAR",
               "showLabel": true,
               "labelOrientation": "Horizontal",
               "labelPosition": "Up",
-              "labelHeight": 4.8,
+              "labelHeight": 2.3,
               "valueType": "Box",
               "width": 56.7,
-              "height": 9
-            }
+              "height": 5.0
+            },
+            {
+              // Base Field Form Attribute
+              "codeName": "LINKED REPORT",
+              "versionTag": "1.0",
+              // Field data
+              "top": 15.0,
+              "left": 25.0,
+              "label": "REPORTE VINCULADO",
+              "showLabel": false,
+              "labelOrientation": "Horizontal",
+              "labelPosition": "Up",
+              "labelHeight": 2.3,
+              "valueType": "Table",
+              "columns": [
+                { "width": 42.8}
+              ],
+              "rows": [
+                {
+                  // Row 1
+                  "index": 1,
+                  "height": 2.3,
+                  "isHeader": true,
+                  "cells": [
+                    {
+                      "text": "Cód. AUTHORIZACIóN"
+                    }    
+                  ]
+                },
+                {
+                  // Row 2
+                  "index": 2,
+                  "height": 4.0,
+                  "isHeader": true,
+                  "cells": [
+                    {
+                      "text": ""
+                    } 
+                  ]  
+                }
+              ]
+            },
+            {
+              // Base Field Form Attribute
+              "codeName": "HOSPITALISATION",
+              "versionTag": "1.0",
+              // Field data
+              "top": 0.5,
+              "left": 130.0,
+              "label": "HOSPITALIZACIÓN",
+              "showLabel": false,
+              "labelOrientation": "Horizontal",
+              "labelPosition": "Up",
+              "labelHeight": 2.3,
+              "valueType": "Table",
+              "columns": [
+                { "width": 21.5},
+                { "width": 11.0},
+                { "width": 11.8},
+                { "width": 20.2}
+              ],
+              "rows": [
+                {
+                  // Row 1
+                  "index": 1,
+                  "height": 2.3,
+                  "isHeader": true,
+                  "cells": [
+                    {
+                      "text": "FECHA"
+                    },
+                    {
+                      "text": "DIA"
+                    },
+                    {
+                      "text": "MES"
+                    },
+                    {
+                      "text": "AÑO"
+                    }   
+                  ]
+                },
+                {
+                  // Row 2
+                  "index": 2,
+                  "height": 5.6,
+                  "isHeader": true,
+                  "cells": [
+                    {
+                      "text": "DE INGRESO"
+                    } 
+                  ]  
+                },
+                {
+                  // Row 3
+                  "index": 3,
+                  "height": 5.6,
+                  "isHeader": true,
+                  "cells": [
+                    {
+                      "text": "DE ALTA"
+                    } 
+                  ]  
+                },
+                {
+                  // Row 4
+                  "index": 4,
+                  "height": 6.7,
+                  "isHeader": true,
+                  "cells": [
+                    {
+                      "text": "DE CORTE ADMINISTRATIVO"
+                    }
+                  ]  
+                }
+              ]
+            },
+            {
+              // Base Field Form Attribute
+              "codeName": "ATTENTION CONCEPT",
+              "versionTag": "1.0",
+              // Field data
+              "top": 22.5,
+              "left": 0.0,
+              "label": "CONCEPTO PRESTACIONAL",
+              "showLabel": true,
+              "labelOrientation": "Horizontal",
+              "labelPosition": "Up",
+              "labelHeight": 2.3,
+              "valueType": "Box",
+              "width": 191.0,
+              "height": 15.2
+            },
           ]
         },
         {
@@ -889,10 +1084,113 @@
           "title": "DEL DESTINO DEL ASEGURADO/USUARIO",
           "showTitle": true,
           "titleHeight": 2.3,
-          "bodyHeight": 16.0,
+          "bodyHeight": 28.0,
           "bodyWidth": 192.0,
-          "top": 186.0,
-          "extraStyle": ""
+          "top": 174.5,
+          "extraStyle": "",
+          "fields": [
+            {
+              // Base Field Form Attribute
+              "codeName": "Normal Destiny",
+              "versionTag": "1.0",
+              // Field data
+              "top": 0.5,
+              "left": 0.0,
+              "label": "",
+              "showLabel": false,
+              "labelOrientation": "Horizontal",
+              "labelPosition": "Up",
+              "labelHeight": 2.3,
+              "valueType": "Table",
+              "columns": [
+                { "width": 6.9},
+                { "width": 7.1},
+                { "width": 11.3},
+                { "width": 7.7},
+                { "width": 23.4},
+                { "width": 7.5}
+              ],
+              "rows": [
+                {
+                  // Row 1
+                  "index": 1,
+                  "height": 7.0,
+                  "isHeader": true,
+                  "cells": [
+                    {
+                      "text": "ALTA"
+                    },
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "CITA"
+                    },
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "HOSPITALIZACIÓN"
+                    },
+                    {
+                      "text": ""
+                    }    
+                  ]
+                } 
+              ]
+            },
+            {
+              // Base Field Form Attribute
+              "codeName": "REFFERED DESTINY",
+              "versionTag": "1.0",
+              // Field data
+              "top": 0.5,
+              "left": 64.3,
+              "label": "REFERIDO",
+              "showLabel": true,
+              "labelOrientation": "Horizontal",
+              "labelPosition": "Up",
+              "labelHeight": 2.0,
+              "valueType": "Table",
+              "columns": [
+                { "width": 6.9},
+                { "width": 7.1},
+                { "width": 11.3},
+                { "width": 7.7},
+                { "width": 23.4},
+                { "width": 7.5}
+              ],
+              "rows": [
+                {
+                  // Row 1
+                  "index": 1,
+                  "height": 4.7,
+                  "isHeader": true,
+                  "cells": [
+                    {
+                      "text": "EMERGENCIA",
+                      "extraStyles": "font-size: 1.5mm; padding: 0.2mm;" 
+                    },
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "CONSULTA EXTERNA"
+                    },
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "APOYO AL DIAGNÓSTICO"
+                    },
+                    {
+                      "text": ""
+                    }    
+                  ]
+                } 
+              ]
+            }
+          ]
         },
         {
           // Base Field Form Attribute
@@ -905,7 +1203,7 @@
           "bodyWidth": 120.0,
           "top": 205.0,
           "left": 0.0,
-          "extraStyle": "",
+          "extraStyles": "",
           "fields": [
             {
               // Base Field Form Attribute

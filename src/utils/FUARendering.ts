@@ -416,17 +416,19 @@ class FUARenderingUtils {
         let cells = auxRow.cells ?? null;
         let rowContent = [];
         for(let i = 0; i < colAmount; i++ ){
-            /* let extraStyles = '';
+            let extraStyles = '';
             if( cells !== null){
                 extraStyles = `
                 <style>
-                    # {
+                    #${prefix}-cell-${i} {
+                        ${cells?.[i]?.extraStyles ?? ''}
                     }
                 </style>
                 `;
-            } */
+            }
             let auxCellContent = `
-                <td class="field-border text-container" > 
+                ${extraStyles}
+                <td id="${prefix}-cell-${i}" class="field-border text-container" > 
                     ${cells?.[i]?.text ?? ''} 
                 </td>
             `;
