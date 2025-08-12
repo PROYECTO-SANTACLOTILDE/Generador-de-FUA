@@ -420,15 +420,16 @@ class FUARenderingUtils {
             if( cells !== null){
                 extraStyles = `
                 <style>
-                    #${prefix}-cell-${i} {
-                        ${cells?.[i]?.extraStyles ?? ''}
+                    #${prefix}-row-${index}-cell-${i} {
+                        ${cells?.[i]?.extraStyles ?? ''},
+                        min-width: 0;
                     }
                 </style>
                 `;
             }
             let auxCellContent = `
                 ${extraStyles}
-                <td id="${prefix}-cell-${i}" class="field-border text-container" > 
+                <td id="${prefix}-row-${index}-cell-${i}" class="field-border text-container" > 
                     ${cells?.[i]?.text ?? ''} 
                 </td>
             `;

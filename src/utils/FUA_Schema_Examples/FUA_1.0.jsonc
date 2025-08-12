@@ -16,7 +16,7 @@
       "width": 210.0,
       "padding_top": 10.0,
       "padding_left": 8.0,
-      "extraStyle":  "",
+      "extraStyles":  "",
       // Page sections
       "sections": [
         {
@@ -30,7 +30,7 @@
           "bodyHeight": 10.0,
           "bodyWidth": 192.0,
           "top": 0.0,
-          "extraStyle": ""
+          "extraStyles": ""
         },
         {
           // Base Field Form Attribute
@@ -42,7 +42,7 @@
           "bodyHeight": 58.0,
           "bodyWidth": 192.0,
           "top": 10.0,
-          "extraStyle": "",
+          "extraStyles": "",
           // Section fields
           "fields": [
             {
@@ -414,7 +414,7 @@
           "bodyHeight": 55.7,
           "bodyWidth": 192.0,
           "top": 70.0,
-          "extraStyle": "",
+          "extraStyles": "",
           "fields": [
             {
               //Field 1
@@ -729,7 +729,8 @@
                   "isHeader": true,
                   "cells": [
                     {
-                      "text": "<p style='font-size: 1.3mm; padding: 0.01mm; line-height: 1.5mm;'>FECHA PROBABLE DE PARTO / FECHA DE PARTO</p>"
+                      "text": "FECHA PROBABLE DE PARTO / FECHA DE PARTO",
+                      "extraStyles": "font-size: 1.55mm; padding: 0.2mm;"
                     },
                     {
                       "text": ""
@@ -875,7 +876,7 @@
           "bodyHeight": 41.8,
           "bodyWidth": 192.0,
           "top": 130.0,
-          "extraStyle": "",
+          "extraStyles": "",
           "fields": [
             {
               // Base Field Form Attribute
@@ -905,7 +906,7 @@
               "labelOrientation": "Horizontal",
               "labelPosition": "Up",
               "labelHeight": 4.8,
-              "labelExtraStyle": "line-height: 2.0mm; font-size: 1.5mm; vertical-align: middle;",
+              "labelextraStyles": "line-height: 2.0mm; font-size: 1.5mm; vertical-align: middle;",
               "valueType": "Box",
               "width": 16.4,
               "height": 9.0
@@ -922,7 +923,7 @@
               "labelOrientation": "Horizontal",
               "labelPosition": "Up",
               "labelHeight": 4.8,
-              "labelExtraStyle": "line-height: 2.0mm; font-size: 1.5mm; vertical-align: middle;",
+              "labelextraStyles": "line-height: 2.0mm; font-size: 1.5mm; vertical-align: middle;",
               "valueType": "Box",
               "width": 26.5,
               "height": 9.0
@@ -1084,18 +1085,18 @@
           "title": "DEL DESTINO DEL ASEGURADO/USUARIO",
           "showTitle": true,
           "titleHeight": 2.3,
-          "bodyHeight": 28.0,
+          "bodyHeight": 20.0,
           "bodyWidth": 192.0,
-          "top": 174.5,
-          "extraStyle": "",
+          "top": 175.0,
+          "extraStyles": "",
           "fields": [
             {
               // Base Field Form Attribute
               "codeName": "Normal Destiny",
               "versionTag": "1.0",
               // Field data
-              "top": 0.5,
-              "left": 0.0,
+              "top": 0.3,
+              "left": 0.1,
               "label": "",
               "showLabel": false,
               "labelOrientation": "Horizontal",
@@ -1103,12 +1104,12 @@
               "labelHeight": 2.3,
               "valueType": "Table",
               "columns": [
-                { "width": 6.9},
-                { "width": 7.1},
-                { "width": 11.3},
-                { "width": 7.7},
-                { "width": 23.4},
-                { "width": 7.5}
+                { "width": 5.9},
+                { "width": 6.1},
+                { "width": 10.3},
+                { "width": 6.7},
+                { "width": 22.4},
+                { "width": 6.5}
               ],
               "rows": [
                 {
@@ -1118,19 +1119,22 @@
                   "isHeader": true,
                   "cells": [
                     {
-                      "text": "ALTA"
+                      "text": "ALTA",
+                      "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"
                     },
                     {
                       "text": ""
                     },
                     {
-                      "text": "CITA"
+                      "text": "CITA",
+                      "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"
                     },
                     {
                       "text": ""
                     },
                     {
-                      "text": "HOSPITALIZACIÓN"
+                      "text": "HOSPITALIZACIÓN",
+                      "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"
                     },
                     {
                       "text": ""
@@ -1144,8 +1148,8 @@
               "codeName": "REFFERED DESTINY",
               "versionTag": "1.0",
               // Field data
-              "top": 0.5,
-              "left": 64.3,
+              "top": 0.3,
+              "left": 58.35,
               "label": "REFERIDO",
               "showLabel": true,
               "labelOrientation": "Horizontal",
@@ -1153,12 +1157,12 @@
               "labelHeight": 2.0,
               "valueType": "Table",
               "columns": [
-                { "width": 6.9},
-                { "width": 7.1},
-                { "width": 11.3},
-                { "width": 7.7},
-                { "width": 23.4},
-                { "width": 7.5}
+                { "width": 7.3},
+                { "width": 8.5},
+                { "width": 11.7},
+                { "width": 8.1},
+                { "width": 23.8},
+                { "width": 7.9}
               ],
               "rows": [
                 {
@@ -1175,17 +1179,130 @@
                       "text": ""
                     },
                     {
-                      "text": "CONSULTA EXTERNA"
+                      "text": "CONSULTA EXTERNA",
+                      "extraStyles": "font-size: 1.5mm; padding: 0.2mm;"
                     },
                     {
                       "text": ""
                     },
                     {
-                      "text": "APOYO AL DIAGNÓSTICO"
+                      "text": "APOYO AL DIAGNÓSTICO",
+                      "extraStyles": "font-size: 1.5mm; padding: 0.2mm;"
                     },
                     {
                       "text": ""
                     }    
+                  ]
+                } 
+              ]
+            },
+            {
+              // Base Field Form Attribute
+              "codeName": "COUNTER REFERRED",
+              "versionTag": "1.0",
+              // Field data
+              "top": 0.3,
+              "left": 129.6,
+              "label": "",
+              "showLabel": false,
+              "labelOrientation": "Horizontal",
+              "labelPosition": "Up",
+              "labelHeight": 2.3,
+              "valueType": "Table",
+              "columns": [
+                { "width": 5.9},
+                { "width": 6.1},
+                { "width": 10.3},
+                { "width": 6.7},
+                { "width": 22.4},
+                { "width": 6.5}
+              ],
+              "rows": [
+                {
+                  // Row 1
+                  "index": 1,
+                  "height": 7.0,
+                  "isHeader": true,
+                  "cells": [
+                    {
+                      "text": "CONTRA",
+                      "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"
+                    },
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "FALLECIDO",
+                      "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"
+                    },
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "CORTE ADMINIS.",
+                      "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"
+                    },
+                    {
+                      "text": ""
+                    }    
+                  ]
+                } 
+              ]
+            },
+            {
+              // Base Field Form Attribute
+              "codeName": "REFFERS / COUNTERREFERS TO",
+              "versionTag": "1.0",
+              // Field data
+              "top": 8.0,
+              "left": 0.0,
+              "label": "SE REFIERE / CONTRARREFIERE A:",
+              "showLabel": true,
+              "labelOrientation": "Horizontal",
+              "labelPosition": "Up",
+              "labelHeight": 2.0,
+              "valueType": "Table",
+              "columns": [
+                { "width": 40.0},
+                { "width": 122.0},
+                { "width": 52.0}
+              ],
+              "rows": [
+                {
+                  // Row 1
+                  "index": 1,
+                  "height": 2.8,
+                  "isHeader": true,
+                  "cells": [
+                     {
+                      "text": "CÓDIGO RENAES DE LA IPRESS",
+                      "extraStyles": "font-size: 1.9mm; padding: 0.3mm;"
+                    },
+                    {
+                      "text": "NOMBRE DE LA IPRESS A LA QUE SE REFIERE / CONTRARREFIERE",
+                      "extraStyles": "font-size: 1.9mm; padding: 0.3mm;"
+                    },
+                    {
+                      "text": "N° HOJA DE REFER / CONTRARR.",
+                      "extraStyles": "font-size: 1.9mm; padding: 0.3mm;"
+                    }
+                  ]
+                },
+                {
+                  // Row 2
+                  "index": 2,
+                  "height": 4.7,
+                  "isHeader": true,
+                  "cells": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": ""
+                    }
                   ]
                 } 
               ]
@@ -1201,7 +1318,7 @@
           "titleHeight": 2.5,
           "bodyHeight": 40.0,
           "bodyWidth": 120.0,
-          "top": 205.0,
+          "top": 198.0,
           "left": 0.0,
           "extraStyles": "",
           "fields": [
@@ -1249,7 +1366,7 @@
               "versionTag": "1.0",
               // Field data
               "top": 4.1,
-              "left": 101.5,
+              "left": 250.0,
               "label": "JOVEN ADULTO",
               "showLabel": true,
               "labelOrientation": "Horizontal",
@@ -1257,8 +1374,8 @@
               "labelHeight": 4.5,
               "valueType": "Table",
               "columns": [
-                { "width": 12.0},
-                { "width": 5.7 }
+                { "width": 40.0},
+                { "width": 200.5}
               ],
               "rows": [
                 {
@@ -1267,10 +1384,253 @@
                   "height": 5.0,
                   "isHeader": false,
                   "cells": [
-                    { "text": "EVALUACIÓN INTEGRAL" },
-                    { "text": "X" }
+                    { "text": "EVALUACIÓN INTEGRAL",
+                  "extraStyles": "font-size: 1.6mm;"},
+                    { "text": "X" ,
+                  "extraStyles": "font-size: 1.6mm; padding: 0.3mm;"}
                   ]
                 }                
+              ]
+            },
+            {
+              // Base Field Form Attribute
+              "codeName": "Of the pregnant woman",
+              "versionTag": "1.0",
+              // Field data
+              "top": 4.1,
+              "left": 0.0,
+              "label": "DE LA GESTANTE",
+              "showLabel": true,
+              "labelOrientation": "Horizontal",
+              "labelPosition": "Up",
+              "labelHeight": 4.5,
+              "valueType": "Table",
+              "columns": [
+                { "width": 11.0},
+                { "width": 7.7}
+              ],
+              "rows": [
+                {
+                  // Row 1
+                  "index": 1,
+                  "height": 5.4,
+                  "isHeader": false,
+                  "cells": [
+                    { "text": "CPN (N°)",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
+                  ]
+                },
+                {
+                  // Row 2
+                  "index": 2,
+                  "height": 5.4,
+                  "isHeader": false,
+                  "cells": [
+                    { "text": "EDAD GEST",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
+                  ]
+                },
+                {
+                  // Row 3
+                  "index": 3,
+                  "height": 5.4,
+                  "isHeader": false,
+                  "cells": [
+                    { "text": "CONTROL PUERP (N°)",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
+                  ]
+                },
+                {
+                  // Row 4
+                  "index": 4,
+                  "height": 5.4,
+                  "isHeader": false,
+                  "cells": [
+                    { "text": "PARTO VERTICAL",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
+                  ]
+                },
+                {
+                  // Row 5
+                  "index": 5,
+                  "height": 5.4,
+                  "isHeader": false,
+                  "cells": [
+                    { "text": "CONTROL PUERP (N°)",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
+                  ]
+                }                
+              ]
+            },
+            {
+              // Base Field Form Attribute
+              "codeName": "Of the newborn",
+              "versionTag": "1.0",
+              // Field data
+              "top": 4.1,
+              "left": 19.3,
+              "label": "DEL RECIEN NAIDO",
+              "showLabel": true,
+              "labelOrientation": "Horizontal",
+              "labelPosition": "Up",
+              "labelHeight": 4.5,
+              "valueType": "Table",
+              "columns": [
+                { "width": 19.0},
+                { "width": 12.0}
+              ],
+              "rows": [
+                {
+                  // Row 1
+                  "index": 1,
+                  "height": 5.4,
+                  "isHeader": false,
+                  "cells": [
+                    { "text": "EDAD GEST RN (SEM)",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
+                  ]
+                }            
+              ]
+            },
+            {
+              // Base Field Form Attribute
+              "codeName": "Apgar",
+              "versionTag": "1.0",
+              // Field data
+              "top": 15.0,
+              "left": 19.3,
+              "label": "APGAR",
+              "showLabel": false,
+              "labelOrientation": "Horizontal",
+              "labelPosition": "Up",
+              "labelHeight": 4.5,
+              "valueType": "Table",
+              "columns": [
+                { "width": 9.1},
+                { "width": 3.3},
+                { "width": 6.8},
+                { "width": 3.3},
+                { "width": 8.5}
+              ],
+              "rows": [
+                {
+                  // Row 1
+                  "index": 1,
+                  "height": 11.0,
+                  "isHeader": false,
+                  "cells": [
+                    { "text": "APGAR",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  { "text": "1°",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  { "text": "",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  { "text": "5°",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
+                  ]
+                }            
+              ]
+            },
+            {
+              // Base Field Form Attribute
+              "codeName": "Apgar",
+              "versionTag": "1.0",
+              // Field data
+              "top": 27.0,
+              "left": 19.3,
+              "label": "APGAR",
+              "showLabel": false,
+              "labelOrientation": "Horizontal",
+              "labelPosition": "Up",
+              "labelHeight": 6.8,
+              "valueType": "Table",
+              "columns": [
+                { "width": 22.5},
+                { "width": 8.5}
+              ],
+              "rows": [
+                {
+                  // Row 1
+                  "index": 1,
+                  "height": 6.8,
+                  "isHeader": false,
+                  "cells": [
+                    { "text": "Corte Tardío de Cordón <br>(2 a 3min)",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
+                  ]
+                }            
+              ]
+            },
+            {
+              // Base Field Form Attribute
+              "codeName": "PREGNANT/IN/CHILD/ADOLESCENT/YOUNG AND ADULT/OLDER ADULT",
+              "versionTag": "1.0",
+              // Field data
+              "top": 4.1,
+              "left": 50.8,
+              "label": "<p style='line-height: 1.5mm; font-size: 1.6mm; padding: 0.1mm'>GESTANTE /RN/NIÑO/ADOLESCENTE/JOVEN Y ADULTO/ADULTO MAYOR </p>",
+              "showLabel": true,
+              "labelOrientation": "Horizontal",
+              "labelPosition": "Up",
+              "labelHeight": 4.5,
+              "valueType": "Table",
+              "columns": [
+                { "width": 13.2},
+                { "width": 11.7},
+                { "width": 9.3},
+                { "width": 16.2}
+              ],
+              "rows": [
+                {
+                  // Row 1
+                  "index": 1,
+                  "height": 5.4,
+                  "isHeader": false,
+                  "cells": [
+                    { "text": "CRED N°",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  { "text": "",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  { "text": "PAB(cm)",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
+                  ]
+                }            
+              ]
+            },
+            {
+              // Base Field Form Attribute
+              "codeName": "PREGNANT/IN/CHILD/ADOLESCENT/YOUNG AND ADULT/OLDER ADULT",
+              "versionTag": "1.0",
+              // Field data
+              "top": 4.1,
+              "left": 50.8,
+              "label": "<p style='line-height: 1.5mm; font-size: 1.6mm; padding: 0.1mm'>GESTANTE /RN/NIÑO/ADOLESCENTE/JOVEN Y ADULTO/ADULTO MAYOR </p>",
+              "showLabel": true,
+              "labelOrientation": "Horizontal",
+              "labelPosition": "Up",
+              "labelHeight": 4.5,
+              "valueType": "Table",
+              "columns": [
+                { "width": 13.2},
+                { "width": 11.7},
+                { "width": 9.3},
+                { "width": 16.2}
+              ],
+              "rows": [
+                {
+                  // Row 1
+                  "index": 1,
+                  "height": 5.4,
+                  "isHeader": false,
+                  "cells": [
+                    { "text": "CRED N°",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  { "text": "",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  { "text": "PAB(cm)",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
+                  ]
+                }            
               ]
             }
           ]
@@ -1285,7 +1645,7 @@
           "titleHeight": 2.5,
           "bodyHeight": 40.0,
           "bodyWidth": 72.0,
-          "extraStyle": "",
+          "extraStyles": "",
           "top": 205.0,
           "left": 120.0
         },
@@ -1299,7 +1659,7 @@
           "bodyHeight": 24.0,
           "bodyWidth": 192.0,
           "top": 248.5,
-          "extraStyle": "",
+          "extraStyles": "",
           "fields": [
             {
               // Base Field Form Attribute
@@ -1378,7 +1738,7 @@
           "bodyHeight": 44.0,
           "bodyWidth": 192.0,
           "top": 275.4,
-          "extraStyle": ""
+          "extraStyles": ""
         }
       ]
     },
@@ -1392,7 +1752,7 @@
       "width": 210.0,
       "padding_top": 9.0,
       "padding_left": 8.0,
-      "extraStyle":  "padding-top: 20px; padding-left: 20px; padding-bottom: 20px; padding-right: 20px;"
+      "extraStyles":  "padding-top: 20px; padding-left: 20px; padding-bottom: 20px; padding-right: 20px;"
       // Page sections
     }
   ]
