@@ -901,12 +901,11 @@
               // Field data
               "top": 0.5,
               "left": 83.0,
-              "label": "<p style='line-height: 1.5mm;'>CÓDIGO <br> PRESTACIONAL </p>",
+              "label": "<p style='line-height: 1.6mm; font-size: 1.5mm;'>CÓDIGO <br> PRESTACIONAL </p>",
               "showLabel": true,
               "labelOrientation": "Horizontal",
               "labelPosition": "Up",
               "labelHeight": 4.8,
-              "labelextraStyles": "line-height: 2.0mm; font-size: 1.5mm; vertical-align: middle;",
               "valueType": "Box",
               "width": 16.4,
               "height": 9.0
@@ -918,7 +917,7 @@
               // Field data
               "top": 0.5,
               "left": 100.0,
-              "label": "<p style='line-height: 1.5mm;'>CÓDIGO PRESTACIONAL(ES) ADICIONAL(ES)</p>",
+              "label": "<p style='line-height: 1.5mm; font-size: 1.5mm;'>CÓDIGO PRESTACIONAL(ES) ADICIONAL(ES)</p>",
               "showLabel": true,
               "labelOrientation": "Horizontal",
               "labelPosition": "Up",
@@ -1366,16 +1365,16 @@
               "versionTag": "1.0",
               // Field data
               "top": 4.1,
-              "left": 250.0,
-              "label": "JOVEN ADULTO",
+              "left": 105.0,
+              "label": "<p style='line-height: 1.5mm; font-size: 1.6mm; padding: 0.1mm'>JOVEN Y ADULTO</p>",
               "showLabel": true,
               "labelOrientation": "Horizontal",
               "labelPosition": "Up",
               "labelHeight": 4.5,
               "valueType": "Table",
               "columns": [
-                { "width": 40.0},
-                { "width": 200.5}
+                { "width": 10.0},
+                { "width": 5.5}
               ],
               "rows": [
                 {
@@ -1385,8 +1384,38 @@
                   "isHeader": false,
                   "cells": [
                     { "text": "EVALUACIÓN INTEGRAL",
-                  "extraStyles": "font-size: 1.6mm;"},
+                  "extraStyles": "font-size: 1.6mm; padding: 0.3mm;"},
                     { "text": "X" ,
+                  "extraStyles": "font-size: 1.6mm; padding: 0.3mm;"}
+                  ]
+                }                
+              ]
+            },
+            {
+              // Base Field Form Attribute
+              "codeName": "Young Adult Eval",
+              "versionTag": "1.0",
+              // Field data
+              "top": 15.0,
+              "left": 105.0,
+              "label": "<p style='line-height: 1.5mm; font-size: 1.6mm; padding: 0.1mm'>ADULTO MAYOR</p>",
+              "showLabel": true,
+              "labelOrientation": "Horizontal",
+              "labelPosition": "Up",
+              "labelHeight": 4.5,
+              "valueType": "Table",
+              "columns": [
+                { "width": 10.0},
+                { "width": 5.5}
+              ],
+              "rows": [
+                {
+                  // Row 1
+                  "index": 1,
+                  "height": 5.0,
+                  "isHeader": false,
+                  "cells": [
+                    { "text": "VACAM",
                   "extraStyles": "font-size: 1.6mm; padding: 0.3mm;"}
                   ]
                 }                
@@ -1599,22 +1628,20 @@
             },
             {
               // Base Field Form Attribute
-              "codeName": "PREGNANT/IN/CHILD/ADOLESCENT/YOUNG AND ADULT/OLDER ADULT",
+              "codeName": "Premature, LOW BIRTH WEIGHT",
               "versionTag": "1.0",
               // Field data
-              "top": 4.1,
+              "top": 15.0,
               "left": 50.8,
-              "label": "<p style='line-height: 1.5mm; font-size: 1.6mm; padding: 0.1mm'>GESTANTE /RN/NIÑO/ADOLESCENTE/JOVEN Y ADULTO/ADULTO MAYOR </p>",
-              "showLabel": true,
+              "label": "R.N. PREMATURO, BAJO PESO AL NACER",
+              "showLabel": false,
               "labelOrientation": "Horizontal",
               "labelPosition": "Up",
               "labelHeight": 4.5,
               "valueType": "Table",
               "columns": [
-                { "width": 13.2},
-                { "width": 11.7},
-                { "width": 9.3},
-                { "width": 16.2}
+                { "width": 18.7},
+                { "width": 6.2}
               ],
               "rows": [
                 {
@@ -1623,14 +1650,140 @@
                   "height": 5.4,
                   "isHeader": false,
                   "cells": [
-                    { "text": "CRED N°",
-                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
-                  { "text": "",
-                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
-                  { "text": "PAB(cm)",
+                    { "text": "R.N. PREMATURO",
                   "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
                   ]
-                }            
+                },
+                {
+                  // Row 2
+                  "index": 2,
+                  "height": 5.4,
+                  "isHeader": false,
+                  "cells": [
+                    { "text": "BAJO PESO AL NACER",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
+                  ]
+                }        
+              ]
+            },
+            {
+              // Base Field Form Attribute
+              "codeName": "CONGENITAL DISEASE / SEQUEL AT BIRTH, NUMBER OF RELATIVES AT GEST / PUERP. MAT. HOME",
+              "versionTag": "1.0",
+              // Field data
+              "top": 26.2,
+              "left": 50.8,
+              "label": "ENFER. CONGENITA / SECUELA AL NACER, N° FAMILIARES DE GEST / PUERP. CASA MAT.",
+              "showLabel": false,
+              "labelOrientation": "Horizontal",
+              "labelPosition": "Up",
+              "labelHeight": 4.5,
+              "valueType": "Table",
+              "columns": [
+                { "width": 18.7},
+                { "width": 6.2}
+              ],
+              "rows": [
+                {
+                  // Row 1
+                  "index": 1,
+                  "height": 5.4,
+                  "isHeader": false,
+                  "cells": [
+                    { "text": "ENFER. CONGENITA / SECUELA AL NACER",
+                  "extraStyles": "font-size: 1.6mm; padding: 0.3mm;"}
+                  ]
+                },
+                {
+                  // Row 2
+                  "index": 2,
+                  "height": 5.4,
+                  "isHeader": false,
+                  "cells": [
+                    { "text": "N° FAMILIARES DE GEST / PUERP. CASA MAT.",
+                  "extraStyles": "font-size: 1.6mm; padding: 0.3mm;"}
+                  ]
+                }        
+              ]
+            },
+            {
+              // Base Field Form Attribute
+              "codeName": "Nutritional Counseling, TAP/EEDP or TEPSI",
+              "versionTag": "1.0",
+              // Field data
+              "top": 15.0,
+              "left": 76.1,
+              "label": "CONSEJERIA NUTRICIONAL, TAP/EEDP o TEPSI",
+              "showLabel": false,
+              "labelOrientation": "Horizontal",
+              "labelPosition": "Up",
+              "labelHeight": 4.5,
+              "valueType": "Table",
+              "columns": [
+                { "width": 18.7},
+                { "width": 6.2}
+              ],
+              "rows": [
+                {
+                  // Row 1
+                  "index": 1,
+                  "height": 5.4,
+                  "isHeader": false,
+                  "cells": [
+                    { "text": "TAP/EEDP o TEPSI",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
+                  ]
+                },
+                {
+                  // Row 2
+                  "index": 2,
+                  "height": 5.4,
+                  "isHeader": false,
+                  "cells": [
+                    { "text": "CONSEJERIA NUTRICIONAL",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
+                  ]
+                }        
+              ]
+            },
+            {
+              // Base Field Form Attribute
+              "codeName": "NUTRITIONAL COUNSELING, BMI (Kg/M²)",
+              "versionTag": "1.0",
+              // Field data
+              "top": 26.2,
+              "left": 76.1,
+              "label": "CONSEJERIA NUTRICIONAL, IMC (Kg/M²)",
+              "showLabel": false,
+              "labelOrientation": "Horizontal",
+              "labelPosition": "Up",
+              "labelHeight": 4.5,
+              "valueType": "Table",
+              "columns": [
+                { "width": 18.7},
+                { "width": 6.2}
+              ],
+              "rows": [
+                {
+                  // Row 1
+                  "index": 1,
+                  "height": 5.4,
+                  "isHeader": false,
+                  "cells": [
+                    { "text": "CONSEJERIA NUTRICIONAL",
+                  "extraStyles": "font-size: 1.6mm; padding: 0.3mm;"}
+                  ]
+                },
+                {
+                  // Row 2
+                  "index": 2,
+                  "height": 5.4,
+                  "isHeader": false,
+                  "cells": [
+                    { "text": "IMC (Kg/M²)",
+                  "extraStyles": "font-size: 1.6mm; padding: 0.3mm;"}
+                  ]
+                }        
               ]
             }
           ]
@@ -1646,8 +1799,202 @@
           "bodyHeight": 40.0,
           "bodyWidth": 72.0,
           "extraStyles": "",
-          "top": 205.0,
-          "left": 120.0
+          "top": 198.0,
+          "left": 120.0,
+          "fields": [
+            {
+              // Base Field Form Attribute
+              "codeName": "Immunisation data",
+              "versionTag": "1.0",
+              // Field data
+              "top": 0.0,
+              "left": 0.0,
+              "label": "IMMUNIZACIÓN DATA",
+              "showLabel": false,
+              "labelOrientation": "Horizontal",
+              "labelPosition": "Up",
+              "labelHeight": 4.5,
+              "valueType": "Table",
+              "columns": [
+                { "width": 15.9},
+                { "width": 12.5},
+                { "width": 16.6},
+                { "width": 12.7},
+                { "width": 16.7},
+                { "width": 11.3}
+              ],
+              "rows": [
+                {
+                  // Row 1
+                  "index": 1,
+                  "height": 4.5,
+                  "isHeader": false,
+                  "cells": [
+                    { "text": "BCG",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  { "text": "",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  { "text": "INFLUENZA",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  { "text": "",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  { "text": "ANTIAMARILICA",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
+                  ]
+                },
+                {
+                  // Row 2
+                  "index": 2,
+                  "height": 4.5,
+                  "isHeader": false,
+                  "cells": [
+                    { "text": "DPT",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  { "text": "",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  { "text": "PAROTID",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  { "text": "",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  { "text": "ANTINEUMOC",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
+                  ]
+                },
+                {
+                  // Row 3
+                  "index": 3,
+                  "height": 4.5,
+                  "isHeader": false,
+                  "cells": [
+                    { "text": "APO",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  { "text": "",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  { "text": "RUBEOLA",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  { "text": "",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  { "text": "ANTITETANICA",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
+                  ]
+                },
+                {
+                  // Row 4
+                  "index": 4,
+                  "height": 4.5,
+                  "isHeader": false,
+                  "cells": [
+                    { "text": "ASA",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  { "text": "",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  { "text": "ROTAVIRUS",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  { "text": "",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  { "text": "COMPLETAS PARA LA EDAD",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  { "text": "SI | NO",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
+                  ]
+                },
+                {
+                  // Row 5
+                  "index": 5,
+                  "height": 4.5,
+                  "isHeader": false,
+                  "cells": [
+                    { "text": "SPR",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  { "text": "",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  { "text": "DT ADULTO (N° DOSIS)",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  { "text": "",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  { "text": "VPH",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
+                  ]
+                },
+                {
+                  // Row 6
+                  "index": 6,
+                  "height": 4.5,
+                  "isHeader": false,
+                  "cells": [
+                    { "text": "SR",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  { "text": "",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  { "text": "IPV",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  { "text": "",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  { "text": "VARICELA",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
+                  ]
+                },
+                {
+                  // Row 7
+                  "index": 7,
+                  "height": 4.5,
+                  "isHeader": false,
+                  "cells": [
+                    { "text": "HVB",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  { "text": "",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  { "text": "PENTAVAL",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  { "text": "",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  { "text": "OTRA VACUNA",
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
+                  ]
+                }           
+              ]
+            },
+            {
+              // Base Field Form Attribute
+              "codeName": "Risk group number",
+              "versionTag": "1.0",
+              // Field data
+              "top": 31.5,
+              "left": 0.1,
+              "label": "GRUPO DE RIESGO HVB",
+              "showLabel": false,
+              "labelOrientation": "Horizontal",
+              "labelPosition": "Up",
+              "labelHeight": 2.3,
+              "valueType": "Table",
+              "columns": [
+                { "width": 19.8},
+                { "width": 8.9},
+                { "width": 51.0}
+              ],
+              "rows": [
+                {
+                  // Row 1
+                  "index": 1,
+                  "height": 6,
+                  "isHeader": true,
+                  "cells": [
+                    {
+                      "text": "GRUPO DE RIESGO HVB",
+                      "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"
+                    },
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "GRUPO DE RIESGO HVB: 1. TRABAJADOR DE SALUD 2. TRABAJAD SEXUALES 3. HSH 4. PRIVADO LIBERTAD 5. FF. AA. 6. POLICIA NACIONAL 7. ESTUDIANTES DE SALUD 8. POLITRANFUNDIDOS 9. DROGO DEPENDIENTES",
+                      "extraStyles": "font-size: 1.4mm; padding: 0.3mm;"
+                    } 
+                  ]
+                } 
+              ]
+            }
+          ]
         },
         {
           // Base Field Form Attribute

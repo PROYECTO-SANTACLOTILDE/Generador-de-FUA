@@ -326,7 +326,7 @@ class FUARenderingUtils {
                         background-color: lightgray;
                         ${auxFUAField.labelHeight ? `height: ${auxFUAField.labelHeight.toFixed(1)}mm;` : ''}
                         ${auxFUAField.labelHeight ? `line-height: ${auxFUAField.labelHeight.toFixed(1)}mm;` : ''}
-                        ${auxFUAField.labelExtraStyle ?? ``}
+                        ${auxFUAField.labelExtraStyles ?? ``}
                     }
                 </style>
                 <caption id="${prefix}-field-${fieldIndex}-caption" class="field-border text-container">
