@@ -729,7 +729,7 @@
                   "isHeader": true,
                   "cells": [
                     {
-                      "text": "FECHA PROBABLE DE PARTO / FECHA DE PARTO",
+                      "text": "FECHA PROBABLE DE<br>PARTO / FECHA DE<br>PARTO",
                       "extraStyles": "font-size: 1.55mm; padding: 0.2mm;"
                     },
                     {
@@ -917,7 +917,7 @@
               // Field data
               "top": 0.5,
               "left": 100.0,
-              "label": "<p style='line-height: 1.5mm; font-size: 1.5mm;'>CÓDIGO PRESTACIONAL(ES) ADICIONAL(ES)</p>",
+              "label": "<p style='line-height: 1.5mm; font-size: 1.5mm;'>CÓDIGO PRESTACIONAL(ES)<br>ADICIONAL(ES)</p>",
               "showLabel": true,
               "labelOrientation": "Horizontal",
               "labelPosition": "Up",
@@ -1053,7 +1053,7 @@
                   "isHeader": true,
                   "cells": [
                     {
-                      "text": "DE CORTE ADMINISTRATIVO"
+                      "text": "DE CORTE<br>ADMINISTRATIVO"
                     }
                   ]  
                 }
@@ -1185,7 +1185,7 @@
                       "text": ""
                     },
                     {
-                      "text": "APOYO AL DIAGNÓSTICO",
+                      "text": "APOYO AL<br>ALDIAGNÓSTICO",
                       "extraStyles": "font-size: 1.5mm; padding: 0.2mm;"
                     },
                     {
@@ -1224,7 +1224,7 @@
                   "isHeader": true,
                   "cells": [
                     {
-                      "text": "CONTRA",
+                      "text": "CONTRA<br>RREFERIDO",
                       "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"
                     },
                     {
@@ -1238,7 +1238,7 @@
                       "text": ""
                     },
                     {
-                      "text": "CORTE ADMINIS.",
+                      "text": "CORTE<br>ADMINIS.",
                       "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"
                     },
                     {
@@ -1373,8 +1373,8 @@
               "labelHeight": 4.5,
               "valueType": "Table",
               "columns": [
-                { "width": 1.0},
-                { "width": 50.0}
+                { "width": 12.4},
+                { "width": 60.0}
               ],
               "rows": [
                 {
@@ -1418,6 +1418,16 @@
                     { "text": "VACAM",
                   "extraStyles": "font-size: 1.6mm; padding: 0.3mm;"}
                   ]
+                },
+                {
+                  // Row 2
+                  "index": 2,
+                  "height": 5.0,
+                  "isHeader": false,
+                  "cells": [
+                    { "text": "TAMIZAJE<br>DE SALUD<br>MENTAL",
+                  "extraStyles": "font-size: 1.6mm; padding: 0.3mm;"}
+                  ]
                 }                
               ]
             },
@@ -1428,7 +1438,7 @@
               // Field data
               "top": 4.1,
               "left": 0.0,
-              "label": "DE LA GESTANTE",
+              "label": "DE LA<br>GESTANTE",
               "showLabel": true,
               "labelOrientation": "Horizontal",
               "labelPosition": "Up",
@@ -1455,7 +1465,7 @@
                   "height": 5.4,
                   "isHeader": false,
                   "cells": [
-                    { "text": "EDAD GEST",
+                    { "text": "EDAD<br>GEST",
                   "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
                   ]
                 },
@@ -1465,7 +1475,7 @@
                   "height": 5.4,
                   "isHeader": false,
                   "cells": [
-                    { "text": "CONTROL PUERP (N°)",
+                    { "text": "ALTURA<br>UTERIA",
                   "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
                   ]
                 },
@@ -1475,7 +1485,7 @@
                   "height": 5.4,
                   "isHeader": false,
                   "cells": [
-                    { "text": "PARTO VERTICAL",
+                    { "text": "PARTO<br>VERTICAL",
                   "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
                   ]
                 },
@@ -1485,7 +1495,7 @@
                   "height": 5.4,
                   "isHeader": false,
                   "cells": [
-                    { "text": "CONTROL PUERP (N°)",
+                    { "text": "CONTROL<br>PUERP (N°)",
                   "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
                   ]
                 }                
@@ -1515,7 +1525,7 @@
                   "height": 5.4,
                   "isHeader": false,
                   "cells": [
-                    { "text": "EDAD GEST RN (SEM)",
+                    { "text": "EDAD GEST RN<br>(SEM)",
                   "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
                   ]
                 }            
@@ -1584,7 +1594,7 @@
                   "height": 6.8,
                   "isHeader": false,
                   "cells": [
-                    { "text": "Corte Tardío de Cordón <br>(2 a 3min)",
+                    { "text": "Corte Tardío de Cordón<br>(2 a 3min)",
                   "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
                   ]
                 }            
@@ -1597,7 +1607,7 @@
               // Field data
               "top": 4.1,
               "left": 50.8,
-              "label": "<p style='line-height: 1.5mm; font-size: 1.6mm; padding: 0.1mm'>GESTANTE /RN/NIÑO/ADOLESCENTE/JOVEN Y ADULTO/ADULTO MAYOR </p>",
+              "label": "<p style='line-height: 1.5mm; font-size: 1.6mm; padding: 0.1mm'>GESTANTE /RN/NIÑO/ADOLESCENTE/JOVEN Y<br>ADULTO/ADULTO MAYOR </p>",
               "showLabel": true,
               "labelOrientation": "Horizontal",
               "labelPosition": "Up",
@@ -1690,7 +1700,7 @@
                   "height": 5.4,
                   "isHeader": false,
                   "cells": [
-                    { "text": "ENFER. CONGENITA / SECUELA AL NACER",
+                    { "text": "ENFER. CONGENITA /<br>SECUELA AL NACER",
                   "extraStyles": "font-size: 1.6mm; padding: 0.3mm;"}
                   ]
                 },
@@ -1700,7 +1710,7 @@
                   "height": 5.4,
                   "isHeader": false,
                   "cells": [
-                    { "text": "N° FAMILIARES DE GEST / PUERP. CASA MAT.",
+                    { "text": "N° FAMILIARES DE<br>GEST / PUERP. CASA<br>MAT.",
                   "extraStyles": "font-size: 1.6mm; padding: 0.3mm;"}
                   ]
                 }        
@@ -1730,7 +1740,7 @@
                   "height": 5.4,
                   "isHeader": false,
                   "cells": [
-                    { "text": "TAP/EEDP o TEPSI",
+                    { "text": "TAP/EEDP o<br>TEPSI",
                   "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
                   ]
                 },
@@ -1740,7 +1750,7 @@
                   "height": 5.4,
                   "isHeader": false,
                   "cells": [
-                    { "text": "CONSEJERIA NUTRICIONAL",
+                    { "text": "CONSEJERIA<br>NUTRICIONAL",
                   "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
                   ]
                 }        
@@ -1770,7 +1780,7 @@
                   "height": 5.4,
                   "isHeader": false,
                   "cells": [
-                    { "text": "CONSEJERIA NUTRICIONAL",
+                    { "text": "CONSEJERIA<br>INTEGRAL",
                   "extraStyles": "font-size: 1.6mm; padding: 0.3mm;"}
                   ]
                 },
@@ -1892,7 +1902,7 @@
                   "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
                   { "text": "",
                   "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
-                  { "text": "COMPLETAS PARA LA EDAD",
+                  { "text": "COMPLETAS<br>PARA LA EDAD",
                   "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
                   { "text": "SI | NO",
                   "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
@@ -1908,7 +1918,7 @@
                   "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
                   { "text": "",
                   "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
-                  { "text": "DT ADULTO (N° DOSIS)",
+                  { "text": "DT ADULTO (N°<br>DOSIS)",
                   "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
                   { "text": "",
                   "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
@@ -1980,14 +1990,14 @@
                   "isHeader": true,
                   "cells": [
                     {
-                      "text": "GRUPO DE RIESGO HVB",
+                      "text": "GRUPO DE RIESGO<br>HVB",
                       "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"
                     },
                     {
                       "text": ""
                     },
                     {
-                      "text": "GRUPO DE RIESGO HVB: 1. TRABAJADOR DE SALUD 2. TRABAJAD SEXUALES 3. HSH 4. PRIVADO LIBERTAD 5. FF. AA. 6. POLICIA NACIONAL 7. ESTUDIANTES DE SALUD 8. POLITRANFUNDIDOS 9. DROGO DEPENDIENTES",
+                      "text": "GRUPO DE RIESGO HVB: 1. TRABAJADOR DE SALUD 2. TRABAJAD<br>SEXUALES 3. HSH 4. PRIVADO LIBERTAD 5. FF. AA. 6. POLICIA<br>NACIONAL 7. ESTUDIANTES DE SALUD 8. POLITRANFUNDIDOS 9.<br>DROGO DEPENDIENTES",
                       "extraStyles": "font-size: 1.4mm; padding: 0.3mm;"
                     } 
                   ]
