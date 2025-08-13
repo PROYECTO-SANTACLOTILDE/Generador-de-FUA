@@ -571,7 +571,7 @@
               "codeName": "Patient Gender",
               "versionTag": "1.0",
               // Field data
-              "top": 30.0,
+              "top": 32.3,
               "left": 0,
               "label": "SEXO",
               "showLabel": true,
@@ -613,7 +613,7 @@
               "codeName": "MATERNAL HEALTH",
               "versionTag": "1.0",
               // Field data
-              "top": 40.0,
+              "top": 42.0,
               "left": 0,
               "label": "SALUD MATERNA",
               "showLabel": true,
