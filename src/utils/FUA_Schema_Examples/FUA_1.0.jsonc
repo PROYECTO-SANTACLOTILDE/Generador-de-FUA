@@ -874,7 +874,7 @@
           "showTitle": true,
           "titleHeight": 2.4,
           "bodyHeight": 41.8,
-          "bodyWidth": 192.0,
+          "bodyWidth": 201.6,
           "top": 130.0,
           "extraStyles": "",
           "fields": [
@@ -884,14 +884,14 @@
               "versionTag": "1.0",
               // Field data
               "top": 0.5,
-              "left": 72.0,
+              "left": 72.3,
               "label": "UPS",
               "showLabel": true,
               "labelOrientation": "Horizontal",
               "labelPosition": "Up",
               "labelHeight": 4.8,
               "valueType": "Box",
-              "width": 8.3,
+              "width": 8.2,
               "height": 9.0
             },
             {
@@ -900,7 +900,7 @@
               "versionTag": "1.0",
               // Field data
               "top": 0.5,
-              "left": 83.0,
+              "left": 84.9,
               "label": "<p style='line-height: 1.6mm; font-size: 1.5mm;'>CÓDIGO <br> PRESTACIONAL </p>",
               "showLabel": true,
               "labelOrientation": "Horizontal",
@@ -916,7 +916,7 @@
               "versionTag": "1.0",
               // Field data
               "top": 0.5,
-              "left": 100.0,
+              "left": 102.6,
               "label": "<p style='line-height: 1.5mm; font-size: 1.5mm;'>CÓDIGO PRESTACIONAL(ES)<br>ADICIONAL(ES)</p>",
               "showLabel": true,
               "labelOrientation": "Horizontal",
@@ -933,15 +933,15 @@
               "versionTag": "1.0",
               // Field data
               "top": 15.0,
-              "left": 72.0,
+              "left": 72.2,
               "label": "N° FUA A VINCULAR",
               "showLabel": true,
               "labelOrientation": "Horizontal",
               "labelPosition": "Up",
-              "labelHeight": 2.3,
+              "labelHeight": 2.5,
               "valueType": "Box",
               "width": 56.7,
-              "height": 5.0
+              "height": 3.8
             },
             {
               // Base Field Form Attribute
@@ -949,7 +949,7 @@
               "versionTag": "1.0",
               // Field data
               "top": 15.0,
-              "left": 25.0,
+              "left": 28.2,
               "label": "REPORTE VINCULADO",
               "showLabel": false,
               "labelOrientation": "Horizontal",
@@ -963,18 +963,19 @@
                 {
                   // Row 1
                   "index": 1,
-                  "height": 2.3,
+                  "height": 2.5,
                   "isHeader": true,
                   "cells": [
                     {
-                      "text": "Cód. AUTHORIZACIóN"
+                      "text": "Cód. AUTHORIZACIóN",
+                      "extraStyles": "font-size: 1.7mm;"
                     }    
                   ]
                 },
                 {
                   // Row 2
                   "index": 2,
-                  "height": 4.0,
+                  "height": 3.8,
                   "isHeader": true,
                   "cells": [
                     {
@@ -990,7 +991,7 @@
               "versionTag": "1.0",
               // Field data
               "top": 0.5,
-              "left": 130.0,
+              "left": 140.3,
               "label": "HOSPITALIZACIÓN",
               "showLabel": false,
               "labelOrientation": "Horizontal",
@@ -998,16 +999,16 @@
               "labelHeight": 2.3,
               "valueType": "Table",
               "columns": [
-                { "width": 21.5},
-                { "width": 11.0},
-                { "width": 11.8},
-                { "width": 20.2}
+                { "width": 20.1},
+                { "width": 10.8},
+                { "width": 11.2},
+                { "width": 19.1}
               ],
               "rows": [
                 {
                   // Row 1
                   "index": 1,
-                  "height": 2.3,
+                  "height": 3.0,
                   "isHeader": true,
                   "cells": [
                     {
@@ -1027,7 +1028,7 @@
                 {
                   // Row 2
                   "index": 2,
-                  "height": 5.6,
+                  "height": 5.8,
                   "isHeader": true,
                   "cells": [
                     {
@@ -1038,7 +1039,7 @@
                 {
                   // Row 3
                   "index": 3,
-                  "height": 5.6,
+                  "height": 5.7,
                   "isHeader": true,
                   "cells": [
                     {
@@ -1049,7 +1050,7 @@
                 {
                   // Row 4
                   "index": 4,
-                  "height": 6.7,
+                  "height": 6.2,
                   "isHeader": true,
                   "cells": [
                     {
@@ -1072,7 +1073,7 @@
               "labelPosition": "Up",
               "labelHeight": 2.3,
               "valueType": "Box",
-              "width": 191.0,
+              "width": 200.5,
               "height": 15.2
             },
           ]
@@ -1085,7 +1086,7 @@
           "showTitle": true,
           "titleHeight": 2.3,
           "bodyHeight": 20.0,
-          "bodyWidth": 192.0,
+          "bodyWidth": 201.6,
           "top": 175.0,
           "extraStyles": "",
           "fields": [
