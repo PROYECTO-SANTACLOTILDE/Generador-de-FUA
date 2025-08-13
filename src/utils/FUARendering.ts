@@ -314,6 +314,7 @@ class FUARenderingUtils {
     public static renderFUAFieldFromSchema( auxFUAField : any, fieldIndex: number, prefix: string ): string {
         let fieldContent = '';
         let extraStyles = '';
+        let auxWidth = '';
         
         let label = '';
         if(auxFUAField.showLabel == true){
@@ -338,15 +339,18 @@ class FUARenderingUtils {
         let colgroups = '';
 
         if(auxFUAField.valueType === "Table"){
+            let auxWidthValue = 0.0;
             // Define colgroups
             let auxColumns = auxFUAField.columns;
             auxColumns = auxFUAField.columns.map((item: any) => `<col style="width: ${item.width.toFixed(1)}mm;" />` );      
+            
             colgroups  = `
                 <colgroup>
                     ${auxColumns.join('')}
                 </colgroup>
             `;
-
+            auxWidthValue = auxFUAField.columns.reduce((auxWidthValue: number, obj: any) => auxWidthValue + parseFloat(obj.float || 0), 0);
+            auxWidth = 'width: '+auxWidthValue.toFixed(1)+'mm;'
             // Defining rows, ordered by 'index' attribute
             let auxRows = auxFUAField.rows.sort( (a: any, b: any) => ( a.index - b.index ) );
             // Process row
@@ -390,6 +394,7 @@ class FUARenderingUtils {
                     top:    ${auxFUAField.top.toFixed(1)}mm;
                     left:   ${auxFUAField.left.toFixed(1)}mm;
                     ${extraStyles}
+                    ${auxWidth}
                 }
             </style>
             <table id="${prefix}-field-${fieldIndex}" class="table-field" >
