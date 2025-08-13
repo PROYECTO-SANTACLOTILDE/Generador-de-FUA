@@ -5,6 +5,8 @@ body {
 
 table {
     border-spacing: 0px;
+    table-layout: fixed; /* lock column widths to colgroup */
+    /* width: 100%; */
 }
 
 /* General Styles */
@@ -75,8 +77,8 @@ table {
     vertical-align: middle;
     /* Prevent text from overflowing */
     overflow: hidden;
-    white-space: normal;
-    text-overflow: clip;
+    white-space: nowrap;
+    text-overflow: hidden;
     /* Container query support */
     container-type: size;
     container-name: card;

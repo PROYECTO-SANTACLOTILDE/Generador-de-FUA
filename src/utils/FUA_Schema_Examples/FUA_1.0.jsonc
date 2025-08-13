@@ -13,7 +13,7 @@
       // Page Attributes
       "pageNumber": 1,
       "height": 332.7,
-      "width": 210.0,
+      "width": 215.0,
       "padding_top": 10.0,
       "padding_left": 8.0,
       "extraStyles":  "",
@@ -59,7 +59,7 @@
               "labelHeight": 2.5,
               "valueType": "Table",
               "columns": [
-                { "width": 10.0},
+                { "width": 1.1},
                 { "width": 10.7},
                 { "width": 29.2}
               ],
@@ -679,7 +679,7 @@
               "labelPosition": "Up",
               "labelHeight": 2.5,
               "valueType": "Box",
-              "width": 41.3,
+              "width": 3.95,
               "height": 6.7
             },
             {
@@ -1366,15 +1366,15 @@
               // Field data
               "top": 4.1,
               "left": 105.0,
-              "label": "<p style='line-height: 1.5mm; font-size: 1.6mm; padding: 0.1mm'>JOVEN Y ADULTO</p>",
+              "label": "<p style='line-height: 1.5mm; font-size: 1.6mm; padding: 0.1mm'>JOVEN Y <br> ADULTO</p>",
               "showLabel": true,
               "labelOrientation": "Horizontal",
               "labelPosition": "Up",
               "labelHeight": 4.5,
               "valueType": "Table",
               "columns": [
-                { "width": 10.0},
-                { "width": 5.5}
+                { "width": 1.0},
+                { "width": 50.0}
               ],
               "rows": [
                 {
@@ -1383,8 +1383,8 @@
                   "height": 5.0,
                   "isHeader": false,
                   "cells": [
-                    { "text": "EVALUACIÓN INTEGRAL",
-                  "extraStyles": "font-size: 1.6mm; padding: 0.3mm;"},
+                    { "text": "EVALUACIÓN <br> INTEGRAL",
+                  "extraStyles": "font-size: 1.4mm; padding: 0.3mm;"},
                     { "text": "X" ,
                   "extraStyles": "font-size: 1.6mm; padding: 0.3mm;"}
                   ]
