@@ -991,7 +991,7 @@
               "versionTag": "1.0",
               // Field data
               "top": 0.5,
-              "left": 140.3,
+              "left": 140.0,
               "label": "HOSPITALIZACIÓN",
               "showLabel": false,
               "labelOrientation": "Horizontal",
@@ -999,10 +999,10 @@
               "labelHeight": 2.3,
               "valueType": "Table",
               "columns": [
-                { "width": 20.1},
-                { "width": 10.8},
-                { "width": 11.2},
-                { "width": 19.1}
+                { "width": 20.0},
+                { "width": 10.7},
+                { "width": 11.0},
+                { "width": 18.9}
               ],
               "rows": [
                 {
@@ -1366,7 +1366,7 @@
               "versionTag": "1.0",
               // Field data
               "top": 4.1,
-              "left": 105.0,
+              "left": 107.1,
               "label": "<p style='line-height: 1.5mm; font-size: 1.6mm; padding: 0.1mm'>JOVEN Y <br> ADULTO</p>",
               "showLabel": true,
               "labelOrientation": "Horizontal",
@@ -1375,7 +1375,7 @@
               "valueType": "Table",
               "columns": [
                 { "width": 12.4},
-                { "width": 60.0}
+                { "width": 6.0}
               ],
               "rows": [
                 {
