@@ -19,12 +19,24 @@ FUAFormatFromSchemaRouter.post(
 ); 
 
 // Get FUA Format by Id (Id or UUID)
-FUAFormatFromSchemaRouter.get('/:id', FUAFormatFromSchemaController.getById);
+FUAFormatFromSchemaRouter.get(
+    '/:id', 
+    authenticate,
+    FUAFormatFromSchemaController.getById
+);
 
 // Read All FUA Formats
-FUAFormatFromSchemaRouter.get('/', FUAFormatFromSchemaController.listAll);
+FUAFormatFromSchemaRouter.get(
+    '/', 
+    authenticate,
+    FUAFormatFromSchemaController.listAll
+);
 
 // Render a FUA Format
-FUAFormatFromSchemaRouter.post('/:id/render', FUAFormatFromSchemaController.render);
+FUAFormatFromSchemaRouter.post(
+    '/:id/render',
+    authenticate, 
+    FUAFormatFromSchemaController.render
+);
 
 export default FUAFormatFromSchemaRouter;
