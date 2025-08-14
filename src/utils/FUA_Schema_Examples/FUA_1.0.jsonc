@@ -12,10 +12,10 @@
       "versionTag": 11.0,
       // Page Attributes
       "pageNumber": 1,
-      "height": 332.7,
-      "width": 215.0,
-      "padding_top": 10.0,
-      "padding_left": 8.0,
+      "height": 296.0,
+      "width": 210.0,
+      "padding_top": 9.5,
+      "padding_left": 7.9,
       "extraStyles":  "",
       // Page sections
       "sections": [
@@ -41,7 +41,7 @@
           "titleHeight": 1.0,
           "bodyHeight": 58.0,
           "bodyWidth": 192.0,
-          "top": 10.0,
+          "top": 7.7,
           "extraStyles": "",
           // Section fields
           "fields": [
@@ -874,7 +874,7 @@
           "showTitle": true,
           "titleHeight": 2.4,
           "bodyHeight": 41.8,
-          "bodyWidth": 201.6,
+          "bodyWidth": 190.9,
           "top": 130.0,
           "extraStyles": "",
           "fields": [
@@ -884,7 +884,7 @@
               "versionTag": "1.0",
               // Field data
               "top": 0.5,
-              "left": 72.3,
+              "left": 7.3,
               "label": "UPS",
               "showLabel": true,
               "labelOrientation": "Horizontal",
@@ -1032,7 +1032,8 @@
                   "isHeader": true,
                   "cells": [
                     {
-                      "text": "DE INGRESO"
+                      "text": "DE INGRESO",
+                      "extraStyles": "background-color: #F0F0F0;"
                     } 
                   ]  
                 },
@@ -1264,7 +1265,7 @@
               "valueType": "Table",
               "columns": [
                 { "width": 40.0},
-                { "width": 122.0},
+                { "width": 12.0},
                 { "width": 52.0}
               ],
               "rows": [
@@ -2106,10 +2107,10 @@
       "versionTag": "1.0",
       // Page Attributes
       "pageNumber": 2,
-      "height": 332.7,
+      "height": 296.0,
       "width": 210.0,
-      "padding_top": 9.0,
-      "padding_left": 8.0,
+      "padding_top": 9.5,
+      "padding_left": 7.9,
       "extraStyles":  "padding-top: 20px; padding-left: 20px; padding-bottom: 20px; padding-right: 20px;"
       // Page sections
     }
