@@ -903,6 +903,7 @@
               "left": 84.9,
               "label": "<p style='line-height: 1.6mm; font-size: 1.5mm;'>CÓDIGO <br> PRESTACIONAL </p>",
               "showLabel": true,
+              "captionSide": "left",
               "labelOrientation": "Horizontal",
               "labelPosition": "Up",
               "labelHeight": 4.8,

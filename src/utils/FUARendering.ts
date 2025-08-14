@@ -313,31 +313,21 @@ class FUARenderingUtils {
 
     //Erase the border by the position of the label
     private static eraseBorderOfFieldCaption(captionSide: string): string{
-        let result = '';
+        let result = `
+            border-bottom: none;
+        `;
 
         switch(captionSide){
             case `top`:
                 result = `
-                caption-side: ${captionSide ?? `top`};
-                border-bottom: none;
-                `;
-                break;
-            case `left`:
-                result = `
-                caption-side: ${captionSide ?? `left`};
-                border-right: none;
-                `;
-                break;
-            case `right`:
-                result = `
-                caption-side: ${captionSide ?? `right`};
-                border-left: none;
+                    caption-side: top;
+                    border-bottom: none;
                 `;
                 break;
             case `bottom`:
                 result = `
-                caption-side: ${captionSide ?? `bottom`};
-                border-top: none;
+                    caption-side: bottom;
+                    border-top: none;
                 `;
                 break;
             default:
