@@ -310,8 +310,44 @@ class FUARenderingUtils {
         return htmlContent;
     };
 
+
+    //Erase the border by the position of the label
+    private static eraseBorderOfFieldCaption(captionSide: string): string{
+        let result = '';
+
+        switch(captionSide){
+            case `top`:
+                result = `
+                caption-side: ${captionSide ?? `top`};
+                border-bottom: none;
+                `;
+                break;
+            case `left`:
+                result = `
+                caption-side: ${captionSide ?? `left`};
+                border-right: none;
+                `;
+                break;
+            case `right`:
+                result = `
+                caption-side: ${captionSide ?? `right`};
+                border-left: none;
+                `;
+                break;
+            case `bottom`:
+                result = `
+                caption-side: ${captionSide ?? `bottom`};
+                border-top: none;
+                `;
+                break;
+            default:
+                break;
+        }
+        return result;
+    }
+
     // Render FUA Field from jsonc schema
-    public static renderFUAFieldFromSchema( auxFUAField : any, fieldIndex: number, prefix: string ): string {
+    public static renderFUAFieldFromSchema( auxFUAField : any, fieldIndex: number, prefix: string): string {
         let fieldContent = '';
         let extraStyles = '';
         let auxWidth = '';
@@ -321,9 +357,8 @@ class FUARenderingUtils {
             label = `
                 <style>
                     #${prefix}-field-${fieldIndex}-caption {
-                        caption-side: top;
+                        ${this.eraseBorderOfFieldCaption(auxFUAField.captionSide)}
                         font-weight: bold;
-                        border-bottom: none;
                         background-color: lightgray;
                         ${auxFUAField.labelHeight ? `height: ${auxFUAField.labelHeight.toFixed(1)}mm;` : ''}
                         ${auxFUAField.labelHeight ? `line-height: ${auxFUAField.labelHeight.toFixed(1)}mm;` : ''}
