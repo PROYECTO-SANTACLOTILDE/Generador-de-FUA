@@ -15,7 +15,7 @@
       "height": 296.0,
       "width": 210.0,
       "padding_top": 9.5,
-      "padding_left": 7.9,
+      "padding_left": 7.4,
       "extraStyles":  "",
       // Page sections
       "sections": [
@@ -71,13 +71,16 @@
                   "isHeader": true,
                   "cells": [
                     {
-                      "text": "DIA"
+                      "text": "DIA",
+                      "extraStyles": "background-color: #F0F0F0;"
                     },
                     {
-                      "text": "MES"
+                      "text": "MES",
+                      "extraStyles": "background-color: #F0F0F0;"
                     },
                     {
-                      "text": "AÑO"
+                      "text": "AÑO",
+                      "extraStyles": "background-color: #F0F0F0;"
                     }
                   ]
                 },
@@ -141,8 +144,8 @@
                   "height": 3.2,
                   "isHeader": true,
                   "cells": [
-                    { "text": "CÓDIGO RENAES DE LA IPRESS" },
-                    { "text": "NOMBRE DE LA IPRESS QUE REALIZA LA ATENCIÓN" }
+                    { "text": "CÓDIGO RENAES DE LA IPRESS", "extraStyles": "background-color: #F0F0F0;"},
+                    { "text": "NOMBRE DE LA IPRESS QUE REALIZA LA ATENCIÓN", "extraStyles": "background-color: #F0F0F0;"}
                   ]
                 },
                 {
@@ -290,7 +293,7 @@
                   "height": 4.0,
                   "isHeader": false,
                   "cells": [
-                    { "text": "INTRAMURAL" },
+                    { "text": "INTRAMURAL","extraStyles": "background-color: #F0F0F0;"},
                     { "text": "X" }
                   ]
                 },
@@ -301,7 +304,8 @@
                   "isHeader": false,
                   "cells": [
                     {
-                      "text": "EXTRAMURAL"
+                      "text": "EXTRAMURAL",
+                      "extraStyles": "background-color: #F0F0F0;"
                     }
                   ]
                 }
@@ -331,7 +335,7 @@
                   "height": 4.0,
                   "isHeader": false,
                   "cells": [
-                    { "text": "AMBULATORIA" },
+                    { "text": "AMBULATORIA", "extraStyles": "background-color: #F0F0F0;"},
                     { "text": "X" }
                   ]
                 },
@@ -342,7 +346,8 @@
                   "isHeader": false,
                   "cells": [
                     {
-                      "text": "REFERENCIA"
+                      "text": "REFERENCIA",
+                      "extraStyles": "background-color: #F0F0F0;"
                     }
                   ]
                 },
@@ -353,7 +358,8 @@
                   "isHeader": false,
                   "cells": [
                     {
-                      "text": "EMERGENCIA"
+                      "text": "EMERGENCIA",
+                      "extraStyles": "background-color: #F0F0F0;"
                     }
                   ]
                 }
@@ -384,9 +390,9 @@
                   "height": 4.0,
                   "isHeader": true,
                   "cells": [
-                    { "text": "CÓD. RENAES" },
-                    { "text": "NOMBRE DE LA IPRESS U OFERTA FLEXIBLE" },
-                    { "text": "Nº DE HOJA DE REFERENCIA" }
+                    { "text": "CÓD. RENAES", "extraStyles": "background-color: #F0F0F0;"},
+                    { "text": "NOMBRE DE LA IPRESS U OFERTA FLEXIBLE", "extraStyles": "background-color: #F0F0F0;"},
+                    { "text": "Nº DE HOJA DE REFERENCIA", "extraStyles": "background-color: #F0F0F0;"}
                   ]
                 },
                 {
@@ -441,8 +447,8 @@
                   "height": 3.8,
                   "isHeader": false,
                   "cells": [
-                    { "text": "TDI" },
-                    { "text": "Nº DOCUMENTO DE IDENTIDAD" }
+                    { "text": "TDI", "extraStyles": "background-color: #F0F0F0;"},
+                    { "text": "Nº DOCUMENTO DE IDENTIDAD", "extraStyles": "background-color: #F0F0F0;"}
                   ]
                 },
                 {
@@ -482,8 +488,8 @@
                   "height": 3.8,
                   "isHeader": false,
                   "cells": [
-                    { "text": "DIRESA / OTROS" },
-                    { "text": "NÚMERO" }
+                    { "text": "DIRESA / OTROS", "extraStyles": "background-color: #F0F0F0;"},
+                    { "text": "NÚMERO", "extraStyles": "background-color: #F0F0F0;"}
                   ]
                 },
                 {
@@ -591,7 +597,8 @@
                   "isHeader": true,
                   "cells": [
                     {
-                      "text": "MASCULINO"
+                      "text": "MASCULINO",
+                      "extraStyles": "background-color: #F0F0F0;"
                     }    
                   ]
                 },
@@ -602,7 +609,8 @@
                   "isHeader": true,
                   "cells": [
                     {
-                      "text": "FEMININO"
+                      "text": "FEMININO",
+                      "extraStyles": "background-color: #F0F0F0;"
                     } 
                   ]  
                 }
@@ -633,7 +641,8 @@
                   "isHeader": true,
                   "cells": [
                     {
-                      "text": "GESTANTE"
+                      "text": "GESTANTE",
+                      "extraStyles": "background-color: #F0F0F0;"
                     }    
                   ]
                 },
@@ -644,7 +653,8 @@
                   "isHeader": true,
                   "cells": [
                     {
-                      "text": "PUERPERA"
+                      "text": "PUERPERA",
+                      "extraStyles": "background-color: #F0F0F0;"
                     } 
                   ]  
                 }
@@ -709,16 +719,20 @@
                   "isHeader": true,
                   "cells": [
                     {
-                      "text": "FECHA"
+                      "text": "FECHA",
+                      "extraStyles": "background-color: #F0F0F0;"
                     },
                     {
-                      "text": "DIA"
+                      "text": "DIA",
+                      "extraStyles": "background-color: #F0F0F0;"
                     },
                     {
-                      "text": "MES"
+                      "text": "MES",
+                      "extraStyles": "background-color: #F0F0F0;"
                     },
                     {
-                      "text": "AÑO"
+                      "text": "AÑO",
+                      "extraStyles": "background-color: #F0F0F0;"
                     }  
                   ]
                 },
@@ -730,7 +744,7 @@
                   "cells": [
                     {
                       "text": "FECHA PROBABLE DE<br>PARTO / FECHA DE<br>PARTO",
-                      "extraStyles": "font-size: 1.55mm; padding: 0.2mm;"
+                      "extraStyles": "font-size: 1.55mm; padding: 0.2mm; background-color: #F0F0F0;"
                     },
                     {
                       "text": ""
@@ -772,7 +786,8 @@
                   "isHeader": true,
                   "cells": [
                     {
-                      "text": "FECHA DE NACIMIENTO"
+                      "text": "FECHA DE NACIMIENTO",
+                      "extraStyles": "background-color: #F0F0F0;"
                     }    
                   ]
                 }
@@ -805,7 +820,8 @@
                   "isHeader": true,
                   "cells": [
                     {
-                      "text": "FECHA DE FALLECIMIENTO"
+                      "text": "FECHA DE FALLECIMIENTO",
+                      "extraStyles": "background-color: #F0F0F0;"
                     }    
                   ]
                 }
@@ -836,7 +852,8 @@
                   "isHeader": true,
                   "cells": [
                     {
-                      "text": "DNI / CNV / AFILIACIÓN DEL RN 1"
+                      "text": "DNI / CNV / AFILIACIÓN DEL RN 1",
+                      "extraStyles": "background-color: #F0F0F0;"
                     }    
                   ]
                 },
@@ -847,7 +864,8 @@
                   "isHeader": true,
                   "cells": [
                     {
-                      "text": "DNI / CNV / AFILIACIÓN DEL RN 2"
+                      "text": "DNI / CNV / AFILIACIÓN DEL RN 2",
+                      "extraStyles": "background-color: #F0F0F0;"
                     }    
                   ]
                 },
@@ -858,7 +876,8 @@
                   "isHeader": true,
                   "cells": [
                     {
-                      "text": "DNI / CNV / AFILIACIÓN DEL RN 3"
+                      "text": "DNI / CNV / AFILIACIÓN DEL RN 3",
+                      "extraStyles": "background-color: #F0F0F0;"
                     }    
                   ]
                 }
@@ -874,7 +893,7 @@
           "showTitle": true,
           "titleHeight": 2.4,
           "bodyHeight": 41.8,
-          "bodyWidth": 190.9,
+          "bodyWidth": 200.0,
           "top": 130.0,
           "extraStyles": "",
           "fields": [
@@ -998,6 +1017,7 @@
               "labelOrientation": "Horizontal",
               "labelPosition": "Up",
               "labelHeight": 2.3,
+              "labelextraStyles": "background-color: #F0F0F0;",
               "valueType": "Table",
               "columns": [
                 { "width": 20.0},
@@ -1013,7 +1033,8 @@
                   "isHeader": true,
                   "cells": [
                     {
-                      "text": "FECHA"
+                      "text": "FECHA",
+                      "extraStyles": "background-color: #F0F0F0;"
                     },
                     {
                       "text": "DIA"
@@ -1045,7 +1066,8 @@
                   "isHeader": true,
                   "cells": [
                     {
-                      "text": "DE ALTA"
+                      "text": "DE ALTA",
+                      "extraStyles": "background-color: #F0F0F0;"
                     } 
                   ]  
                 },
@@ -1056,7 +1078,8 @@
                   "isHeader": true,
                   "cells": [
                     {
-                      "text": "DE CORTE<br>ADMINISTRATIVO"
+                      "text": "DE CORTE<br>ADMINISTRATIVO",
+                      "extraStyles": "background-color: #F0F0F0;"
                     }
                   ]  
                 }
@@ -1064,20 +1087,285 @@
             },
             {
               // Base Field Form Attribute
-              "codeName": "ATTENTION CONCEPT",
+              "codeName": "Attention concept",
               "versionTag": "1.0",
               // Field data
-              "top": 22.5,
+              "top": 20.7,
               "left": 0.0,
               "label": "CONCEPTO PRESTACIONAL",
               "showLabel": true,
               "labelOrientation": "Horizontal",
               "labelPosition": "Up",
-              "labelHeight": 2.3,
-              "valueType": "Box",
-              "width": 200.5,
-              "height": 15.2
-            },
+              "labelHeight": 2.2,
+              "valueType": "Field",
+              "width": 200.7,
+              "height": 12.0,
+              "fields": [
+                {
+                  // Base Field Form Attribute
+                  "codeName": "Direction Attention",
+                  "versionTag": "1.0",
+                  // Field data
+                  "top": 2.4,
+                  "left": 0.0,
+                  "label": "ATENCIÓN DIRECTA",
+                  "showLabel": false,
+                  "labelOrientation": "Horizontal",
+                  "labelPosition": "Up",
+                  "labelHeight": 2.3,
+                  "valueType": "Table",
+                  "columns": [
+                    { "width": 14.5},
+                    { "width": 6.7}
+                  ],
+                  "rows": [
+                    {
+                      // Row 1
+                      "index": 1,
+                      "height": 11.9,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": "ATENCIÓN<br>DIRECTA",
+                          "extraStyles": "background-color: #F0F0F0;"
+                        },
+                        {
+                          "text": ""
+                        }
+                      ]
+                    } 
+                  ]
+                },
+                {
+                  // Base Field Form Attribute
+                  "codeName": "Extaordinary COB",
+                  "versionTag": "1.0",
+                  // Field data
+                  "top": 2.4,
+                  "left": 21.6,
+                  "label": "COB EXTRAORDINARIA",
+                  "showLabel": true,
+                  "labelOrientation": "Horizontal",
+                  "labelPosition": "Up",
+                  "labelHeight": 2.3,
+                  "valueType": "Table",
+                  "columns": [
+                    { "width": 22.6},
+                    { "width": 20.9}
+                  ],
+                  "rows": [
+                    {
+                      // Row 1
+                      "index": 1,
+                      "height": 3.8,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": "N° Autorización",
+                          "extraStyles": "background-color: #F0F0F0;"
+                        },
+                        {
+                          "text": ""
+                        }
+                      ]
+                    } 
+                  ]
+                },
+                {
+                  // Base Field Form Attribute
+                  "codeName": "Amount",
+                  "versionTag": "1.0",
+                  // Field data
+                  "top": 8.7,
+                  "left": 21.6,
+                  "label": "Monto S/.",
+                  "showLabel": false,
+                  "labelOrientation": "Horizontal",
+                  "labelPosition": "Up",
+                  "labelHeight": 2.3,
+                  "valueType": "Table",
+                  "columns": [
+                    { "width": 19.1},
+                    { "width": 24.4}
+                  ],
+                  "rows": [
+                    {
+                      // Row 1
+                      "index": 1,
+                      "height": 5.6,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": "Monto S/.",
+                          "extraStyles": "background-color: #F0F0F0;"
+                        },
+                        {
+                          "text": ""
+                        }
+                      ]
+                    } 
+                  ]
+                },
+                {
+                  // Base Field Form Attribute
+                  "codeName": "Waranty card",
+                  "versionTag": "1.0",
+                  // Field data
+                  "top": 2.4,
+                  "left": 65.1,
+                  "label": "CARTA DE GARANTIA",
+                  "showLabel": true,
+                  "labelOrientation": "Horizontal",
+                  "labelPosition": "Up",
+                  "labelHeight": 2.3,
+                  "valueType": "Table",
+                  "columns": [
+                    { "width": 18.7},
+                    { "width": 19.8}
+                  ],
+                  "rows": [
+                    {
+                      // Row 1
+                      "index": 1,
+                      "height": 3.8,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": "N° Autorización",
+                          "extraStyles": "background-color: #F0F0F0;"
+                        },
+                        {
+                          "text": ""
+                        }
+                      ]
+                    } 
+                  ]
+                },
+                {
+                  // Base Field Form Attribute
+                  "codeName": "Amount2",
+                  "versionTag": "1.0",
+                  // Field data
+                  "top": 8.7,
+                  "left": 65.1,
+                  "label": "Monto S/.",
+                  "showLabel": false,
+                  "labelOrientation": "Horizontal",
+                  "labelPosition": "Up",
+                  "labelHeight": 2.3,
+                  "valueType": "Table",
+                  "columns": [
+                    { "width": 14.5},
+                    { "width": 24.0}
+                  ],
+                  "rows": [
+                    {
+                      // Row 1
+                      "index": 1,
+                      "height": 5.6,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": "Monto S/.",
+                          "extraStyles": "background-color: #F0F0F0;"
+                        },
+                        {
+                          "text": ""
+                        }
+                      ]
+                    } 
+                  ]
+                },
+                {
+                  // Base Field Form Attribute
+                  "codeName": "Transfer",
+                  "versionTag": "1.0",
+                  // Field data
+                  "top": 2.4,
+                  "left": 103.6,
+                  "label": "TRASLADO",
+                  "showLabel": false,
+                  "labelOrientation": "Horizontal",
+                  "labelPosition": "Up",
+                  "labelHeight": 2.3,
+                  "valueType": "Table",
+                  "columns": [
+                    { "width": 15.3},
+                    { "width": 5.3}
+                  ],
+                  "rows": [
+                    {
+                      // Row 1
+                      "index": 1,
+                      "height": 11.9,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": "TRASLADO",
+                          "extraStyles": "background-color: #F0F0F0;"
+                        },
+                        {
+                          "text": ""
+                        }
+                      ]
+                    } 
+                  ]
+                },
+                {
+                  // Base Field Form Attribute
+                  "codeName": "Burial",
+                  "versionTag": "1.0",
+                  // Field data
+                  "top": 2.4,
+                  "left": 124.2,
+                  "label": "SEPELIO",
+                  "showLabel": true,
+                  "labelOrientation": "Horizontal",
+                  "labelPosition": "Up",
+                  "labelHeight": 2.3,
+                  "valueType": "Table",
+                  "columns": [
+                    { "width": 22.1},
+                    { "width": 9.2},
+                    { "width": 12.7},
+                    { "width": 10.9},
+                    { "width": 9.0},
+                    { "width": 9.4}
+                  ],
+                  "rows": [
+                    {
+                      // Row 1
+                      "index": 1,
+                      "height": 9.3,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": "NATIMUERTO",
+                          "extraStyles": "background-color: #F0F0F0;"
+                        },
+                        {
+                          "text": ""
+                        },
+                        {
+                          "text": "OBITO",
+                          "extraStyles": "background-color: #F0F0F0;"
+                        },
+                        {
+                          "text": ""
+                        },
+                        {
+                          "text": "OTRO",
+                          "extraStyles": "background-color: #F0F0F0;"
+                        },
+                        {
+                          "text": ""
+                        }
+                      ]
+                    } 
+                  ]
+                }
+              ]
+            }
           ]
         },
         {
@@ -1122,21 +1410,21 @@
                   "cells": [
                     {
                       "text": "ALTA",
-                      "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"
+                      "extraStyles": "font-size: 1.8mm; padding: 0.3mm; background-color: #F0F0F0;"
                     },
                     {
                       "text": ""
                     },
                     {
                       "text": "CITA",
-                      "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"
+                      "extraStyles": "font-size: 1.8mm; padding: 0.3mm; background-color: #F0F0F0;"
                     },
                     {
                       "text": ""
                     },
                     {
                       "text": "HOSPITALIZACIÓN",
-                      "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"
+                      "extraStyles": "font-size: 1.8mm; padding: 0.3mm; background-color: #F0F0F0;"
                     },
                     {
                       "text": ""
@@ -1175,7 +1463,7 @@
                   "cells": [
                     {
                       "text": "EMERGENCIA",
-                      "extraStyles": "font-size: 1.5mm; padding: 0.2mm;" 
+                      "extraStyles": "font-size: 1.5mm; padding: 0.2mm; background-color: #F0F0F0;" 
                     },
                     {
                       "text": ""
@@ -1228,21 +1516,21 @@
                   "cells": [
                     {
                       "text": "CONTRA<br>RREFERIDO",
-                      "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"
+                      "extraStyles": "font-size: 1.8mm; padding: 0.3mm; background-color: #F0F0F0;"
                     },
                     {
                       "text": ""
                     },
                     {
                       "text": "FALLECIDO",
-                      "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"
+                      "extraStyles": "font-size: 1.8mm; padding: 0.3mm; background-color: #F0F0F0;"
                     },
                     {
                       "text": ""
                     },
                     {
                       "text": "CORTE<br>ADMINIS.",
-                      "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"
+                      "extraStyles": "font-size: 1.8mm; padding: 0.3mm; background-color: #F0F0F0;"
                     },
                     {
                       "text": ""
@@ -1352,11 +1640,11 @@
                   "height": 4.0,
                   "isHeader": true,
                   "cells": [
-                    { "text": "PESO (kg)" },
+                    { "text": "PESO (kg)", "extraStyles": "background-color: #F0F0F0;"},
                     { "text": "72.0" },
-                    { "text": "TALLA (cm)" },
+                    { "text": "TALLA (cm)", "extraStyles": "background-color: #F0F0F0;"},
                     { "text": "165" },
-                    { "text": "P.A. (mmHg)" },
+                    { "text": "P.A. (mmHg)", "extraStyles": "background-color: #F0F0F0;"},
                     { "text": "115 / 75" },
                   ]
                 }
@@ -1387,9 +1675,9 @@
                   "isHeader": false,
                   "cells": [
                     { "text": "EVALUACIÓN <br> INTEGRAL",
-                  "extraStyles": "font-size: 1.4mm; padding: 0.3mm;"},
+                  "extraStyles": "font-size: 1.4mm; padding: 0.3mm; background-color: #F0F0F0;"},
                     { "text": "X" ,
-                  "extraStyles": "font-size: 1.6mm; padding: 0.3mm;"}
+                  "extraStyles": "font-size: 1.6mm; padding: 0.3mm; "}
                   ]
                 }                
               ]
@@ -1419,7 +1707,7 @@
                   "isHeader": false,
                   "cells": [
                     { "text": "VACAM",
-                  "extraStyles": "font-size: 1.6mm; padding: 0.3mm;"}
+                  "extraStyles": "font-size: 1.6mm; padding: 0.3mm; background-color: #F0F0F0;"}
                   ]
                 },
                 {
@@ -1429,7 +1717,7 @@
                   "isHeader": false,
                   "cells": [
                     { "text": "TAMIZAJE<br>DE SALUD<br>MENTAL",
-                  "extraStyles": "font-size: 1.6mm; padding: 0.3mm;"}
+                  "extraStyles": "font-size: 1.6mm; padding: 0.3mm; background-color: #F0F0F0;"}
                   ]
                 }                
               ]
@@ -1459,7 +1747,7 @@
                   "isHeader": false,
                   "cells": [
                     { "text": "CPN (N°)",
-                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm; background-color: #F0F0F0;"}
                   ]
                 },
                 {
@@ -1469,7 +1757,7 @@
                   "isHeader": false,
                   "cells": [
                     { "text": "EDAD<br>GEST",
-                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm; background-color: #F0F0F0;"}
                   ]
                 },
                 {
@@ -1479,7 +1767,7 @@
                   "isHeader": false,
                   "cells": [
                     { "text": "ALTURA<br>UTERIA",
-                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm; background-color: #F0F0F0;"}
                   ]
                 },
                 {
@@ -1489,7 +1777,7 @@
                   "isHeader": false,
                   "cells": [
                     { "text": "PARTO<br>VERTICAL",
-                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm; background-color: #F0F0F0;"}
                   ]
                 },
                 {
@@ -1499,7 +1787,7 @@
                   "isHeader": false,
                   "cells": [
                     { "text": "CONTROL<br>PUERP (N°)",
-                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm; background-color: #F0F0F0;"}
                   ]
                 }                
               ]
@@ -1529,7 +1817,7 @@
                   "isHeader": false,
                   "cells": [
                     { "text": "EDAD GEST RN<br>(SEM)",
-                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm; background-color: #F0F0F0;"}
                   ]
                 }            
               ]
@@ -1564,23 +1852,23 @@
                     { "text": "APGAR",
                   "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
                   { "text": "1°",
-                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm; background-color: #F0F0F0;"},
                   { "text": "",
                   "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
                   { "text": "5°",
-                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm; background-color: #F0F0F0;"}
                   ]
                 }            
               ]
             },
             {
               // Base Field Form Attribute
-              "codeName": "Apgar",
+              "codeName": "Corte Tardío de Cordón",
               "versionTag": "1.0",
               // Field data
               "top": 27.0,
               "left": 19.3,
-              "label": "APGAR",
+              "label": "Corte Tardío de Cordón",
               "showLabel": false,
               "labelOrientation": "Horizontal",
               "labelPosition": "Up",
@@ -1598,7 +1886,7 @@
                   "isHeader": false,
                   "cells": [
                     { "text": "Corte Tardío de Cordón<br>(2 a 3min)",
-                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm; background-color: #F0F0F0;"}
                   ]
                 }            
               ]
@@ -1630,11 +1918,11 @@
                   "isHeader": false,
                   "cells": [
                     { "text": "CRED N°",
-                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm; background-color: #F0F0F0;"},
                   { "text": "",
                   "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
                   { "text": "PAB(cm)",
-                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm; background-color: #F0F0F0;"}
                   ]
                 }            
               ]
@@ -1664,7 +1952,7 @@
                   "isHeader": false,
                   "cells": [
                     { "text": "R.N. PREMATURO",
-                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm; background-color: #F0F0F0;"}
                   ]
                 },
                 {
@@ -1674,7 +1962,7 @@
                   "isHeader": false,
                   "cells": [
                     { "text": "BAJO PESO AL NACER",
-                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm; background-color: #F0F0F0;"}
                   ]
                 }        
               ]
@@ -1704,7 +1992,7 @@
                   "isHeader": false,
                   "cells": [
                     { "text": "ENFER. CONGENITA /<br>SECUELA AL NACER",
-                  "extraStyles": "font-size: 1.6mm; padding: 0.3mm;"}
+                  "extraStyles": "font-size: 1.6mm; padding: 0.3mm; background-color: #F0F0F0;"}
                   ]
                 },
                 {
@@ -1714,7 +2002,7 @@
                   "isHeader": false,
                   "cells": [
                     { "text": "N° FAMILIARES DE<br>GEST / PUERP. CASA<br>MAT.",
-                  "extraStyles": "font-size: 1.6mm; padding: 0.3mm;"}
+                  "extraStyles": "font-size: 1.6mm; padding: 0.3mm; background-color: #F0F0F0;"}
                   ]
                 }        
               ]
@@ -1744,7 +2032,7 @@
                   "isHeader": false,
                   "cells": [
                     { "text": "TAP/EEDP o<br>TEPSI",
-                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm; background-color: #F0F0F0;"}
                   ]
                 },
                 {
@@ -1754,7 +2042,7 @@
                   "isHeader": false,
                   "cells": [
                     { "text": "CONSEJERIA<br>NUTRICIONAL",
-                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm; background-color: #F0F0F0;"}
                   ]
                 }        
               ]
@@ -1784,7 +2072,7 @@
                   "isHeader": false,
                   "cells": [
                     { "text": "CONSEJERIA<br>INTEGRAL",
-                  "extraStyles": "font-size: 1.6mm; padding: 0.3mm;"}
+                  "extraStyles": "font-size: 1.6mm; padding: 0.3mm; background-color: #F0F0F0;"}
                   ]
                 },
                 {
@@ -1794,7 +2082,7 @@
                   "isHeader": false,
                   "cells": [
                     { "text": "IMC (Kg/M²)",
-                  "extraStyles": "font-size: 1.6mm; padding: 0.3mm;"}
+                  "extraStyles": "font-size: 1.6mm; padding: 0.3mm; background-color: #F0F0F0;"}
                   ]
                 }        
               ]
@@ -1844,15 +2132,15 @@
                   "isHeader": false,
                   "cells": [
                     { "text": "BCG",
-                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm; background-color: #F0F0F0;"},
                   { "text": "",
                   "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
                   { "text": "INFLUENZA",
-                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm; background-color: #F0F0F0;"},
                   { "text": "",
                   "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
                   { "text": "ANTIAMARILICA",
-                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm; background-color: #F0F0F0;"}
                   ]
                 },
                 {
@@ -1862,15 +2150,15 @@
                   "isHeader": false,
                   "cells": [
                     { "text": "DPT",
-                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm; background-color: #F0F0F0;"},
                   { "text": "",
                   "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
                   { "text": "PAROTID",
-                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm; background-color: #F0F0F0;"},
                   { "text": "",
                   "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
                   { "text": "ANTINEUMOC",
-                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm; background-color: #F0F0F0;"}
                   ]
                 },
                 {
@@ -1880,15 +2168,15 @@
                   "isHeader": false,
                   "cells": [
                     { "text": "APO",
-                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm; background-color: #F0F0F0;"},
                   { "text": "",
                   "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
                   { "text": "RUBEOLA",
-                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm; background-color: #F0F0F0;"},
                   { "text": "",
                   "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
                   { "text": "ANTITETANICA",
-                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm; background-color: #F0F0F0;"}
                   ]
                 },
                 {
@@ -1898,15 +2186,15 @@
                   "isHeader": false,
                   "cells": [
                     { "text": "ASA",
-                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm; background-color: #F0F0F0;"},
                   { "text": "",
                   "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
                   { "text": "ROTAVIRUS",
-                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm; background-color: #F0F0F0;"},
                   { "text": "",
                   "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
                   { "text": "COMPLETAS<br>PARA LA EDAD",
-                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm; background-color: #F0F0F0;"},
                   { "text": "SI | NO",
                   "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
                   ]
@@ -1918,15 +2206,15 @@
                   "isHeader": false,
                   "cells": [
                     { "text": "SPR",
-                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm; background-color: #F0F0F0;"},
                   { "text": "",
                   "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
                   { "text": "DT ADULTO (N°<br>DOSIS)",
-                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm; background-color: #F0F0F0;"},
                   { "text": "",
                   "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
                   { "text": "VPH",
-                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm; background-color: #F0F0F0;"}
                   ]
                 },
                 {
@@ -1936,15 +2224,15 @@
                   "isHeader": false,
                   "cells": [
                     { "text": "SR",
-                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm; background-color: #F0F0F0;"},
                   { "text": "",
                   "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
                   { "text": "IPV",
-                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm; background-color: #F0F0F0;"},
                   { "text": "",
                   "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
                   { "text": "VARICELA",
-                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm; background-color: #F0F0F0;"}
                   ]
                 },
                 {
@@ -1954,15 +2242,15 @@
                   "isHeader": false,
                   "cells": [
                     { "text": "HVB",
-                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm; background-color: #F0F0F0;"},
                   { "text": "",
                   "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
                   { "text": "PENTAVAL",
-                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm; background-color: #F0F0F0;"},
                   { "text": "",
                   "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"},
                   { "text": "OTRA VACUNA",
-                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"}
+                  "extraStyles": "font-size: 1.8mm; padding: 0.3mm; background-color: #F0F0F0;"}
                   ]
                 }           
               ]
@@ -1994,7 +2282,7 @@
                   "cells": [
                     {
                       "text": "GRUPO DE RIESGO<br>HVB",
-                      "extraStyles": "font-size: 1.8mm; padding: 0.3mm;"
+                      "extraStyles": "font-size: 1.8mm; padding: 0.3mm; background-color: #F0F0F0;"
                     },
                     {
                       "text": ""

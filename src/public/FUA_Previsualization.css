@@ -91,6 +91,7 @@ table {
     font-size: clamp(3px, 0.9cqh, 100%);
     /* Optional: force text to scale down if needed */
     line-height: 1;
+
 }
 
 
