@@ -892,7 +892,7 @@
           "title": "DE LA ATENCIÓN",
           "showTitle": true,
           "titleHeight": 2.4,
-          "bodyHeight": 41.8,
+          "bodyHeight": 37.5,
           "bodyWidth": 200.0,
           "top": 130.0,
           "extraStyles": "",
@@ -920,7 +920,8 @@
               // Field data
               "top": 0.5,
               "left": 84.9,
-              "label": "<p style='line-height: 1.6mm; font-size: 1.5mm;'>CÓDIGO <br> PRESTACIONAL </p>",
+              "label": "CÓDIGO <br> PRESTACIONAL",
+              "labelextraStyles": "font-size: 1.3mm;",
               "showLabel": true,
               "captionSide": "left",
               "labelOrientation": "Horizontal",
@@ -1377,7 +1378,7 @@
           "titleHeight": 2.3,
           "bodyHeight": 20.0,
           "bodyWidth": 201.6,
-          "top": 175.0,
+          "top": 171.0,
           "extraStyles": "",
           "fields": [
             {
@@ -1608,7 +1609,7 @@
           "titleHeight": 2.5,
           "bodyHeight": 40.0,
           "bodyWidth": 120.0,
-          "top": 198.0,
+          "top": 194.0,
           "left": 0.0,
           "extraStyles": "",
           "fields": [
@@ -2100,7 +2101,7 @@
           "bodyHeight": 40.0,
           "bodyWidth": 72.0,
           "extraStyles": "",
-          "top": 198.0,
+          "top": 194.0,
           "left": 120.0,
           "fields": [
             {
@@ -2306,7 +2307,7 @@
           "titleHeight": 2.2,
           "bodyHeight": 24.0,
           "bodyWidth": 192.0,
-          "top": 248.5,
+          "top": 237.5,
           "extraStyles": "",
           "fields": [
             {
@@ -2381,12 +2382,135 @@
           // Base Field Form Attribute
           "codeName": "Provider data",
           // Section Atributes
-          "title": "",
+          "title": "NOMBRE DEL RESPONSABLE DE LA ATENCIÓN",
           "showTitle": false,
+          "titleHeight": 2.3,
           "bodyHeight": 44.0,
           "bodyWidth": 192.0,
-          "top": 275.4,
-          "extraStyles": ""
+          "top": 266.0,
+          "extraStyles": "",
+          "fields": [
+            {
+              // Base Field Form Attribute
+              "codeName": "Provider data / DNI / COLEGIATURA",
+              "versionTag": "1.0",
+              // Field data
+              "top": 0.0,
+              "left": 0.0,
+              "label": "",
+              "showLabel": false,
+              "labelOrientation": "Horizontal",
+              "labelPosition": "Up",
+              "labelHeight": 2.0,
+              "valueType": "Table",
+              "columns": [
+                { "width": 40.6},
+                { "width": 119.2},
+                { "width": 40.5}
+              ],
+              "rows": [
+                {
+                  // Row 1
+                  "index": 1,
+                  "height": 2.3,
+                  "isHeader": true,
+                  "cells": [
+                     {
+                      "text": "N° DE DNI",
+                      "extraStyles": "font-size: 2.1mm; padding: 0.3mm; background-color: lightgrey; font-weight: 700;"
+                    },
+                    {
+                      "text": "NOMBRE DEL REPONSABLE DE LA ATENCIÓN",
+                      "extraStyles": "font-size: 2.1mm; padding: 0.3mm; background-color: lightgrey; font-weight: 700;"
+                    },
+                    {
+                      "text": "N° DE COLEGIATURA",
+                      "extraStyles": "font-size: 2.1mm; padding: 0.3mm; background-color:lightgrey; font-weight: 700;"
+                    }
+                  ]
+                },
+                {
+                  // Row 2
+                  "index": 2,
+                  "height": 5.0,
+                  "isHeader": true,
+                  "cells": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": ""
+                    }
+                  ]
+                } 
+              ]
+            },
+            {
+              // Base Field Form Attribute
+              "codeName": "Provider data / Specialisation / N° RNE/ Graduate",
+              "versionTag": "1.0",
+              // Field data
+              "top": 8.5,
+              "left": 0.0,
+              "label": "",
+              "showLabel": false,
+              "labelOrientation": "Horizontal",
+              "labelPosition": "Up",
+              "labelHeight": 2.0,
+              "valueType": "Table",
+              "columns": [
+                { "width": 40.6},
+                { "width": 7.7},
+                { "width": 21.9},
+                { "width": 57.3},
+                { "width": 15.8},
+                { "width": 15.2},
+                { "width": 30.7},
+                { "width": 9.4}
+              ],
+              "rows": [
+                {
+                  // Row 1
+                  "index": 1,
+                  "height": 2.9,
+                  "isHeader": true,
+                  "cells": [
+                    {
+                      "text": "RESPONSABLE DE LA ATENCIÓN",
+                      "extraStyles": "background-color: #F0F0F0;"
+                    },
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "ESPECIALIDAD",
+                      "extraStyles": "background-color: #F0F0F0;"
+                    },
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "N° RNE",
+                      "extraStyles": "background-color: #F0F0F0;"
+                    },
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "EGRESADO",
+                      "extraStyles": "background-color: #F0F0F0;"
+                    },
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -2400,8 +2524,122 @@
       "width": 210.0,
       "padding_top": 9.5,
       "padding_left": 7.9,
-      "extraStyles":  "padding-top: 20px; padding-left: 20px; padding-bottom: 20px; padding-right: 20px;"
+      "extraStyles":  "padding-top: 20px; padding-left: 20px; padding-bottom: 20px; padding-right: 20px;",
       // Page sections
+      "sections": [
+        {
+          // Base Field Form Attribute
+          "codeName": "Medications",
+          "versionTag": "1.0",
+          // Section Atributes
+          "title": "",
+          "showTitle": false,
+          "titleHeight": 3.0,
+          "bodyHeight": 200.0,
+          "bodyWidth": 192.0,
+          "top": 10.0,
+          "extraStyles": "",
+          "fields": [
+            {
+              // Base Field Form Attribute
+              "codeName": "Medications list",
+              "versionTag": "1.0",
+              // Field data
+              "top": 6.0,
+              "left": 0.0,
+              "label": "MEDICAMENTOS",
+              "showLabel": true,
+              "labelOrientation": "Horizontal",
+              "labelPosition": "Up",
+              "labelHeight": 2.0,
+              "valueType": "Table",
+              "columns": [
+                { "width": 8.7},
+                { "width": 49.0},
+                { "width": 5.5},
+                { "width": 16.3},
+                { "width": 5.7},
+                { "width": 5.7},
+                { "width": 5.7},
+                { "width": 8.7},
+                { "width": 49.0},
+                { "width": 5.5},
+                { "width": 16.3},
+                { "width": 5.7},
+                { "width": 5.7},
+                { "width": 5.7}
+              ],
+              "rows": [
+                {
+                  // Row 1
+                  "index": 1,
+                  "height": 2.3,
+                  "isHeader": true,
+                  "cells": [
+                     {
+                      "text": "CÓDIGO<br>SISMED",
+                      "extraStyles" : "font-size: 1.4mm;"
+                    },
+                    {
+                      "text": "NUMBRE",
+                      "extraStyles" : "font-size: 1.4mm;"
+                    },
+                    {
+                      "text": "FF",
+                      "extraStyles" : "font-size: 1.4mm;"
+                    },
+                    {
+                      "text": "CONCENTR",
+                      "extraStyles" : "font-size: 1.4mm;"
+                    },
+                    {
+                      "text": "PREN",
+                      "extraStyles" : "font-size: 1.4mm;"
+                    },
+                    {
+                      "text": "ENTR",
+                      "extraStyles" : "font-size: 1.4mm;"
+                    },
+                    {
+                      "text": "DX",
+                      "extraStyles" : "font-size: 1.4mm;"
+                    },
+                    {
+                      "text": "CÓDIGO<br>SISMED",
+                      "extraStyles" : "font-size: 1.4mm;"
+                    },
+                    {
+                      "text": "NUMBRE",
+                      "extraStyles" : "font-size: 1.4mm;"
+                    },
+                    {
+                      "text": "FF",
+                      "extraStyles" : "font-size: 1.4mm;"
+                    },
+                    {
+                      "text": "CONCENTR",
+                      "extraStyles" : "font-size: 1.4mm;"
+                    },
+                    {
+                      "text": "PREN",
+                      "extraStyles" : "font-size: 1.4mm;"
+                    },
+                    {
+                      "text": "ENTR",
+                      "extraStyles" : "font-size: 1.4mm;"
+                    },
+                    {
+                      "text": "DX",
+                      "extraStyles" : "font-size: 1.4mm;"
+                    }
+
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ]
 }
