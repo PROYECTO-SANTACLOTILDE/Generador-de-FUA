@@ -108,6 +108,46 @@ const FUAFormatFromSchemaController = {
         }
             
     },
+
+    async edit (req: Request, res: Response): Promise<void>  {
+        const controllerBody = req.body;
+        const files = req.files as { [fieldname: string]: Express.Multer.File[] };
+
+        const file = files['formatPayload']?.[0];
+         
+        const jsoncContent = file.buffer.toString('utf-8');
+        const parsed = parse(jsoncContent);
+
+        // Validation parsing validation pending needed
+        
+
+        let editFUAFormat = null;
+        try {
+            editFUAFormat = await FUAFormatFromSchemaService.edit({
+                uuid: req.params.id,
+                name: controllerBody.name,
+                content: jsoncContent,
+                codeName: controllerBody.name  ?? controllerBody.name.toString(),
+                versionTag: controllerBody.versionTag ?? controllerBody.name.toString() + '_1',
+                versionNumber: controllerBody.versionNumber ?? 1,
+                createdBy: controllerBody.createdBy,
+            });
+            if (editFUAFormat == null){
+                res.status(304).json({
+                    error: `FUA Field by UUID '${controllerBody.uuid}' couldnt be found. `,
+                });
+                return;
+            }
+            res.status(200).json(editFUAFormat);    
+        } catch (err: any) {
+            res.status(500).json({
+                error: 'Failed to edit FUA Format From Schema. (Controller)', 
+                message: (err as (Error)).message,
+                details: (err as any).details ?? null, 
+            });
+        }
+            
+    }
 };
 
 export default FUAFormatFromSchemaController;

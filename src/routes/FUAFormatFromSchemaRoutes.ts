@@ -33,10 +33,19 @@ FUAFormatFromSchemaRouter.get(
 );
 
 // Render a FUA Format
-FUAFormatFromSchemaRouter.post(
+FUAFormatFromSchemaRouter.get(
     '/:id/render',
     authenticate, 
     FUAFormatFromSchemaController.render
 );
+
+// Edit FUA Format
+let edit = upload.fields([{ name: 'formatPayload', maxCount: 1 }, { name: 'name', maxCount: 1 }, { name: 'token', maxCount: 1}]);
+FUAFormatFromSchemaRouter.put(
+    '/:id',
+    authenticate,
+    edit,    
+    FUAFormatFromSchemaController.edit
+); 
 
 export default FUAFormatFromSchemaRouter;

@@ -102,6 +102,56 @@ class FUAFormatFromSchemaImplementation {
         return returnedFUAFormat;
     };   
 
+    async editSequelize(data : {
+        // Data
+        uuid: string;
+        name: string;
+        content: string;
+        //Field Form Data
+        codeName: string; 
+        versionTag: string;
+        versionNumber: number;
+        createdBy: string;
+    }){
+
+        // Find the object to edit
+        let searchedFUAFormat = null;
+
+        try {
+            searchedFUAFormat = await this.getByUUIDSequelize(data.uuid);
+        } catch (err: unknown){
+            console.error(`Error in FUA Format From Schema Sequelize Implementation: Couldnt found FUA Format From Schema in database identified by UUID ${data.uuid} Sequelize. `, err);
+            (err as Error).message =  `Error in FUA Format From Schema Sequelize Implementation: Couldnt found FUA Format From Schema in database identified by UUID ${data.uuid} Sequelize. ` + (err as Error).message;
+            throw err;
+        }
+
+        if(searchedFUAFormat === null){
+            // In case a FUA Format wasnt found
+            console.error(`Error in FUA Format From Schema Sequelize Implementation: Couldnt found FUA Format by UUID '${data.uuid}' sent in database using Sequelize. `);
+            throw new Error(`Error in FUA Format From Schema Sequelize Implementation: Couldnt found FUA Format by UUID '${data.uuid}' sent in database using Sequelize. `);
+        }
+        
+
+        // Set the new fields
+
+        let returnedFUAFormat = null;
+        let aux = null;
+        returnedFUAFormat = searchedFUAFormat.set(data);
+        try {
+            aux = await returnedFUAFormat.save();
+        } catch (err: unknown){
+            console.error('Error in FUA Format From Schema Sequelize Implementation: Couldnt save FUA Format From Schema in database using Sequelize. ', err);
+            (err as Error).message =  'Error in FUA Format From Schema Sequelize Implementation: Couldnt save FUA Format From Schema in database using Sequelize: ' + (err as Error).message;
+            throw err;
+        }
+
+
+        // Save them
+
+
+        return aux;
+    };
+
 
 };
 

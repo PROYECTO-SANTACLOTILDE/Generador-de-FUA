@@ -20,6 +20,19 @@ const newFUAFormatFromSchemaZod = z.object({
     createdBy: z.string(),
 });
 
+const editFUAFormatFromSchemaZod = z.object({
+    // Format Data
+    uuid: z.string(),
+    name: z.string(),
+    content: z.string(),
+    // Base Field Form Data
+    codeName: z.string(),    
+    versionTag: z.string(),
+    versionNumber: z.number().int().positive(), // must be a positive integer
+    // Audit Data
+    createdBy: z.string(),
+});
+
 class FUAFormatFromSchemaService {
 
     // Creation of FUA Format
@@ -176,9 +189,60 @@ class FUAFormatFromSchemaService {
         }
         
         
-        return htmlContent;
-         
+        return htmlContent;   
     }
+
+
+    // Edit of FUA format
+    async edit(data: {
+        // Format Data
+        uuid: string;
+        name: string;
+        content: string;
+        // Version Data
+        codeName: string;
+        versionTag: string; 
+        versionNumber: number;
+        // Audit Data
+        createdBy: string;
+    }) {
+        // Object Validation
+        const result = editFUAFormatFromSchemaZod.safeParse(data);
+        if( !result.success ){
+            console.error('Error in FUA Format From Schema Service - editFUAFormat: ZOD validation. \n', result.error);
+            const newError = new Error('Error in FUA Format From Schema Service - editFUAFormat: ZOD validation. ');
+            (newError as any).details = result.error;
+            throw newError;
+        }
+        
+        // FUAFormat edit
+        let returnedFUAFormat = null;
+        try {
+            returnedFUAFormat = await FUAFormatFromSchemaImplementation.editSequelize({
+                // Format Data
+                uuid: data.uuid,
+                name: data.name,
+                content: data.content,
+                // Version Data
+                codeName: data.codeName,
+                versionTag: data.versionTag , 
+                versionNumber: data.versionNumber,
+                // Audit Data
+                createdBy: data.createdBy,
+            });
+        } catch (err: unknown){
+            console.error('Error in FUA Format From Schema Service: ', err);
+            (err as Error).message =  'Error in FUA Format From Schema Service: \n' + (err as Error).message;
+            throw err;
+        }
+        if (returnedFUAFormat == null){
+            return null;
+        }
+    
+        return {
+            uuid: returnedFUAFormat.uuid
+        };
+    };
 };
 
 export default new FUAFormatFromSchemaService();
