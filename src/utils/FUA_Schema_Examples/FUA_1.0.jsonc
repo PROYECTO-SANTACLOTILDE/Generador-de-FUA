@@ -2385,7 +2385,7 @@
           "title": "NOMBRE DEL RESPONSABLE DE LA ATENCIÓN",
           "showTitle": false,
           "titleHeight": 2.3,
-          "bodyHeight": 44.0,
+          "bodyHeight": 30.0,
           "bodyWidth": 192.0,
           "top": 266.0,
           "extraStyles": "",
@@ -2535,9 +2535,9 @@
           "title": "",
           "showTitle": false,
           "titleHeight": 3.0,
-          "bodyHeight": 281.0,
+          "bodyHeight": 288.0,
           "bodyWidth": 192.0,
-          "top": 10.0,
+          "top": 0.0,
           "extraStyles": "",
           "fields": [
             {
@@ -2618,31 +2618,31 @@
                       "cells": [
                         {
                           "text": "CÓDIGO<br>SISMED",
-                          "extraStyles" : "font-size: 1.4mm;"
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         },
                         {
                           "text": "NOMBRE",
-                          "extraStyles" : "font-size: 1.4mm;"
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         },
                         {
                           "text": "FF",
-                          "extraStyles" : "font-size: 1.4mm;"
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         },
                         {
                           "text": "CONCENTR",
-                          "extraStyles" : "font-size: 1.4mm;"
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         },
                         {
                           "text": "PREN",
-                          "extraStyles" : "font-size: 1.4mm;"
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         },
                         {
                           "text": "ENTR",
-                          "extraStyles" : "font-size: 1.4mm;"
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         },
                         {
                           "text": "DX",
-                          "extraStyles" : "font-size: 1.4mm;"
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         }
                       ]
                     },
@@ -4849,31 +4849,31 @@
                       "cells": [
                         {
                           "text": "CÓDIGO<br>SISMED",
-                          "extraStyles" : "font-size: 1.4mm;"
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         },
                         {
                           "text": "NOMBRE",
-                          "extraStyles" : "font-size: 1.4mm;"
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         },
                         {
                           "text": "FF",
-                          "extraStyles" : "font-size: 1.4mm;"
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         },
                         {
                           "text": "CONCENTR",
-                          "extraStyles" : "font-size: 1.4mm;"
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         },
                         {
                           "text": "PREN",
-                          "extraStyles" : "font-size: 1.4mm;"
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         },
                         {
                           "text": "ENTR",
-                          "extraStyles" : "font-size: 1.4mm;"
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         },
                         {
                           "text": "DX",
-                          "extraStyles" : "font-size: 1.4mm;"
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         }
                       ]
                     },
@@ -7097,27 +7097,27 @@
                       "cells": [
                         {
                           "text": "CÓDIGO",
-                          "extraStyles" : "font-size: 1.4mm;"
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         },
                         {
                           "text": "NOMBRE",
-                          "extraStyles" : "font-size: 1.4mm;"
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         },
                         {
                           "text": "INB",
-                          "extraStyles" : "font-size: 1.4mm;"
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         },
                         {
                           "text": "...",
-                          "extraStyles" : "font-size: 1.4mm;"
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         },
                         {
                           "text": "DX",
-                          "extraStyles" : "font-size: 1.4mm;"
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         },
                         {
                           "text": "...",
-                          "extraStyles" : "font-size: 1.4mm;"
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         }
                       ]
                     },
@@ -7679,27 +7679,27 @@
                       "cells": [
                         {
                           "text": "CÓDIGO",
-                          "extraStyles" : "font-size: 1.4mm;"
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         },
                         {
                           "text": "NOMBRE",
-                          "extraStyles" : "font-size: 1.4mm;"
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         },
                         {
                           "text": "INB",
-                          "extraStyles" : "font-size: 1.4mm;"
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         },
                         {
                           "text": "...",
-                          "extraStyles" : "font-size: 1.4mm;"
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         },
                         {
                           "text": "DX",
-                          "extraStyles" : "font-size: 1.4mm;"
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         },
                         {
                           "text": "...",
-                          "extraStyles" : "font-size: 1.4mm;"
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         }
                       ]
                     },
@@ -8238,7 +8238,7 @@
               "codeName": "PROCEDURES/DIAGNOSTIC IMAGING/LABORATORY Field",
               "versionTag": "1.0",
               // Field data
-              "top": 200.0,
+              "top": 190.1,
               "left": 0.0,
               "label": "PROCEDIMIENTOS/DIAGNÓSTICO POR IMAGENES/ LABORATORIO",
               "showLabel": true,
@@ -8247,7 +8247,7 @@
               "labelHeight": 2.3,
               "valueType": "Field",
               "width": 191.0,
-              "height": 39.6,
+              "height": 76.85,
               "fields": [
                 {
                   // Base Field Form Attribute
@@ -8274,38 +8274,38 @@
                     {
                       // Row 1
                       "index": 1,
-                      "height": 1.9,
+                      "height": 1.5,
                       "isHeader": true,
                       "cells": [
                         {
                           "text": "CÓDIGO",
-                          "extraStyles" : "font-size: 1.4mm;"
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         },
                         {
                           "text": "NOMBRE",
-                          "extraStyles" : "font-size: 1.4mm;"
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         },
                         {
                           "text": "INB",
-                          "extraStyles" : "font-size: 1.4mm;"
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         },
                         {
                           "text": "...",
-                          "extraStyles" : "font-size: 1.4mm;"
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         },
                         {
                           "text": "DX",
-                          "extraStyles" : "font-size: 1.4mm;"
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         },
                         {
                           "text": "...",
-                          "extraStyles" : "font-size: 1.4mm;"
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         }
                       ]
                     },
                     {
                       "index": 2,
-                      "height": 1.7,
+                      "height": 1.6,
                       "isHeader": true,
                       "cells": [
                         {
@@ -8336,7 +8336,7 @@
                     },
                     {
                       "index": 3,
-                      "height": 1.7,
+                      "height": 1.6,
                       "isHeader": true,
                       "cells": [
                         {
@@ -8367,7 +8367,7 @@
                     },
                     {
                       "index": 4,
-                      "height": 1.7,
+                      "height": 1.6,
                       "isHeader": true,
                       "cells": [
                         {
@@ -8398,7 +8398,7 @@
                     },
                     {
                       "index": 5,
-                      "height": 1.7,
+                      "height": 1.6,
                       "isHeader": true,
                       "cells": [
                         {
@@ -8429,7 +8429,7 @@
                     },
                     {
                       "index": 6,
-                      "height": 1.7,
+                      "height": 1.6,
                       "isHeader": true,
                       "cells": [
                         {
@@ -8460,7 +8460,7 @@
                     },
                     {
                       "index": 7,
-                      "height": 1.7,
+                      "height": 1.6,
                       "isHeader": true,
                       "cells": [
                         {
@@ -8491,7 +8491,7 @@
                     },
                     {
                       "index": 8,
-                      "height": 1.7,
+                      "height": 1.6,
                       "isHeader": true,
                       "cells": [
                         {
@@ -8522,7 +8522,7 @@
                     },
                     {
                       "index": 9,
-                      "height": 1.7,
+                      "height": 1.6,
                       "isHeader": true,
                       "cells": [
                         {
@@ -8553,7 +8553,7 @@
                     },
                     {
                       "index": 10,
-                      "height": 1.7,
+                      "height": 1.6,
                       "isHeader": true,
                       "cells": [
                         {
@@ -8584,7 +8584,7 @@
                     },
                     {
                       "index": 11,
-                      "height": 1.7,
+                      "height": 1.6,
                       "isHeader": true,
                       "cells": [
                         {
@@ -8615,7 +8615,7 @@
                     },
                     {
                       "index": 12,
-                      "height": 1.7,
+                      "height": 1.6,
                       "isHeader": true,
                       "cells": [
                         {
@@ -8646,7 +8646,7 @@
                     },
                     {
                       "index": 13,
-                      "height": 1.7,
+                      "height": 1.6,
                       "isHeader": true,
                       "cells": [
                         {
@@ -8677,7 +8677,7 @@
                     },
                     {
                       "index": 14,
-                      "height": 1.7,
+                      "height": 1.6,
                       "isHeader": true,
                       "cells": [
                         {
@@ -8705,9 +8705,10 @@
                           "extraStyles": "font-size: 1.4mm;"
                         }
                       ]
-                    },{
+                    },
+                    {
                       "index": 15,
-                      "height": 1.7,
+                      "height": 1.6,
                       "isHeader": true,
                       "cells": [
                         {
@@ -8738,7 +8739,7 @@
                     },
                     {
                       "index": 16,
-                      "height": 1.7,
+                      "height": 1.6,
                       "isHeader": true,
                       "cells": [
                         {
@@ -8769,7 +8770,7 @@
                     },
                     {
                       "index": 17,
-                      "height": 1.7,
+                      "height": 1.6,
                       "isHeader": true,
                       "cells": [
                         {
@@ -8800,7 +8801,534 @@
                     },
                     {
                       "index": 18,
-                      "height": 1.7,
+                      "height": 1.6,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": "36412",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "AEROCAMARA DE PLASTICO ADULTO",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        }
+                      ]
+                    },
+                    {
+                      "index": 19,
+                      "height": 1.6,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": "36412",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "AEROCAMARA DE PLASTICO ADULTO",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        }
+                      ]
+                    },
+                    {
+                      "index": 20,
+                      "height": 1.6,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": "36412",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "AEROCAMARA DE PLASTICO ADULTO",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        }
+                      ]
+                    },
+                    {
+                      "index": 21,
+                      "height": 1.6,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": "36412",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "AEROCAMARA DE PLASTICO ADULTO",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        }
+                      ]
+                    },
+                    {
+                      "index": 22,
+                      "height": 1.6,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": "36412",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "AEROCAMARA DE PLASTICO ADULTO",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        }
+                      ]
+                    },
+                    {
+                      "index": 23,
+                      "height": 1.6,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": "36412",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "AEROCAMARA DE PLASTICO ADULTO",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        }
+                      ]
+                    },
+                    {
+                      "index": 24,
+                      "height": 1.6,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": "36412",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "AEROCAMARA DE PLASTICO ADULTO",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        }
+                      ]
+                    },
+                    {
+                      "index": 25,
+                      "height": 1.6,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": "36412",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "AEROCAMARA DE PLASTICO ADULTO",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        }
+                      ]
+                    },
+                    {
+                      "index": 26,
+                      "height": 1.6,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": "36412",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "AEROCAMARA DE PLASTICO ADULTO",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        }
+                      ]
+                    },
+                    {
+                      "index": 27,
+                      "height": 1.6,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": "36412",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "AEROCAMARA DE PLASTICO ADULTO",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        }
+                      ]
+                    },
+                    {
+                      "index": 28,
+                      "height": 1.6,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": "36412",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "AEROCAMARA DE PLASTICO ADULTO",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        }
+                      ]
+                    },
+                    {
+                      "index": 29,
+                      "height": 1.6,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": "36412",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "AEROCAMARA DE PLASTICO ADULTO",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        }
+                      ]
+                    },
+                    {
+                      "index": 30,
+                      "height": 1.6,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": "36412",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "AEROCAMARA DE PLASTICO ADULTO",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        }
+                      ]
+                    },
+                    {
+                      "index": 31,
+                      "height": 1.6,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": "36412",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "AEROCAMARA DE PLASTICO ADULTO",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        }
+                      ]
+                    },
+                    {
+                      "index": 32,
+                      "height": 1.6,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": "36412",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "AEROCAMARA DE PLASTICO ADULTO",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        }
+                      ]
+                    },
+                    {
+                      "index": 33,
+                      "height": 1.6,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": "36412",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "AEROCAMARA DE PLASTICO ADULTO",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        }
+                      ]
+                    },
+                    {
+                      "index": 34,
+                      "height": 1.6,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": "36412",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "AEROCAMARA DE PLASTICO ADULTO",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        }
+                      ]
+                    },
+                    {
+                      "index": 35,
+                      "height": 1.6,
                       "isHeader": true,
                       "cells": [
                         {
@@ -8861,27 +9389,27 @@
                       "cells": [
                         {
                           "text": "CÓDIGO",
-                          "extraStyles" : "font-size: 1.4mm;"
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         },
                         {
                           "text": "NOMBRE",
-                          "extraStyles" : "font-size: 1.4mm;"
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         },
                         {
                           "text": "INB",
-                          "extraStyles" : "font-size: 1.4mm;"
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         },
                         {
                           "text": "...",
-                          "extraStyles" : "font-size: 1.4mm;"
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         },
                         {
                           "text": "DX",
-                          "extraStyles" : "font-size: 1.4mm;"
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         },
                         {
                           "text": "...",
-                          "extraStyles" : "font-size: 1.4mm;"
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         }
                       ]
                     },
@@ -9410,7 +9938,718 @@
                           "extraStyles": "font-size: 1.4mm;"
                         }
                       ]
+                    },
+                    {
+                      "index": 19,
+                      "height": 1.6,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": "36412",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "AEROCAMARA DE PLASTICO ADULTO",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        }
+                      ]
+                    },
+                    {
+                      "index": 20,
+                      "height": 1.6,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": "36412",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "AEROCAMARA DE PLASTICO ADULTO",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        }
+                      ]
+                    },
+                    {
+                      "index": 21,
+                      "height": 1.6,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": "36412",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "AEROCAMARA DE PLASTICO ADULTO",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        }
+                      ]
+                    },
+                    {
+                      "index": 22,
+                      "height": 1.6,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": "36412",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "AEROCAMARA DE PLASTICO ADULTO",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        }
+                      ]
+                    },
+                    {
+                      "index": 23,
+                      "height": 1.6,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": "36412",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "AEROCAMARA DE PLASTICO ADULTO",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        }
+                      ]
+                    },
+                    {
+                      "index": 24,
+                      "height": 1.6,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": "36412",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "AEROCAMARA DE PLASTICO ADULTO",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        }
+                      ]
+                    },
+                    {
+                      "index": 25,
+                      "height": 1.6,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": "36412",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "AEROCAMARA DE PLASTICO ADULTO",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        }
+                      ]
+                    },
+                    {
+                      "index": 26,
+                      "height": 1.6,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": "36412",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "AEROCAMARA DE PLASTICO ADULTO",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        }
+                      ]
+                    },
+                    {
+                      "index": 27,
+                      "height": 1.6,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": "36412",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "AEROCAMARA DE PLASTICO ADULTO",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        }
+                      ]
+                    },
+                    {
+                      "index": 28,
+                      "height": 1.6,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": "36412",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "AEROCAMARA DE PLASTICO ADULTO",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        }
+                      ]
+                    },
+                    {
+                      "index": 29,
+                      "height": 1.6,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": "36412",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "AEROCAMARA DE PLASTICO ADULTO",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        }
+                      ]
+                    },
+                    {
+                      "index": 30,
+                      "height": 1.6,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": "36412",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "AEROCAMARA DE PLASTICO ADULTO",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        }
+                      ]
+                    },
+                    {
+                      "index": 31,
+                      "height": 1.6,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": "36412",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "AEROCAMARA DE PLASTICO ADULTO",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        }
+                      ]
+                    },
+                    {
+                      "index": 32,
+                      "height": 1.6,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": "36412",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "AEROCAMARA DE PLASTICO ADULTO",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        }
+                      ]
+                    },
+                    {
+                      "index": 33,
+                      "height": 1.6,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": "36412",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "AEROCAMARA DE PLASTICO ADULTO",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        }
+                      ]
+                    },
+                    {
+                      "index": 34,
+                      "height": 1.6,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": "36412",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "AEROCAMARA DE PLASTICO ADULTO",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        }
+                      ]
+                    },
+                    {
+                      "index": 35,
+                      "height": 1.6,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": "36412",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "AEROCAMARA DE PLASTICO ADULTO",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        },
+                        {
+                          "text": "",
+                          "extraStyles": "font-size: 1.4mm;"
+                        }
+                      ]
                     }
+                  ]
+                }
+              ]
+            },
+            {
+              // Base Field Form Attribute
+              "codeName": "OBSERVATIONS",
+              "versionTag": "1.0",
+              // Field data
+              "top": 290.0,
+              "left": 0.0,
+              "label": "OBSERVACIONES",
+              "showLabel": true,
+              "labelOrientation": "Horizontal",
+              "labelPosition": "Up",
+              "labelHeight": 2.3,
+              "valueType": "Field",
+              "width": 191.0,
+              "height": 8.9,
+              "fields": [
+                {
+                  "codeName": "OBSERVATIONS",
+                  "versionTag": "1.0",
+                  // Field data
+                  "top": 0.0,
+                  "left": 0.0,
+                  "label": "OBSERVACIONES",
+                  "showLabel": false,
+                  "labelOrientation": "Horizontal",
+                  "labelPosition": "Up",
+                  "labelHeight": 2.3,
+                  "valueType": "Table",
+                  "columns": [
+                    {"width": 7.8},
+                    {"width": 183.3}
+                  ],
+                  "rows": [
+                    {
+                      // Row 1
+                      "index": 1,
+                      "height": 2.9,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": ""
+                        }
+                      ]
+                    },
+                    {
+                      // Row 2
+                      "index": 2,
+                      "height": 2.9,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": ""
+                        }
+                      ]
+                    },
+                    {
+                      // Row 3
+                      "index": 3,
+                      "height": 2.9,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": ""
+                        }
+                      ]
+                    }
+                    
+                    
+                  ]
+                }
+              ]
+            },
+            {
+              // Base Field Form Attribute
+              "codeName": "PERFORMANCE SUBCOMPONENT Field",
+              "versionTag": "1.0",
+              // Field data
+              "top": 275.0,
+              "left": 0.0,
+              "label": "SUB COMPONENTE PRESTACIONAL (MEDICALMENTOS, INSUMOS Y/O PROCEDIMIENTOS)",
+              "showLabel": true,
+              "labelOrientation": "Horizontal",
+              "labelPosition": "Up",
+              "labelHeight": 2.3,
+              "valueType": "Field",
+              "width": 191.0,
+              "height": 8.9,
+              "fields": [
+                {
+                  "codeName": "PERFORMANCE SUBCOMPONENT Table",
+                  "versionTag": "1.0",
+                  // Field data
+                  "top": 2.4,
+                  "left": 0.0,
+                  "label": "",
+                  "showLabel": false,
+                  "labelOrientation": "Horizontal",
+                  "labelPosition": "Up",
+                  "labelHeight": 2.3,
+                  "valueType": "Table",
+                  "columns": [
+                    {"width": 8.3},
+                    {"width": 73.2},
+                    {"width": 19.6},
+                    {"width": 16.9},
+                    {"width": 15.1},
+                    {"width": 22.7},
+                    {"width": 16.3},
+                    {"width": 7.7},
+                    {"width": 11.0}
+                  ],
+                  "rows": [
+                    {
+                      // Row 1
+                      "index": 1,
+                      "height": 1.9,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": "CODIGO",
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
+                        },
+                        {
+                          "text": "NOMBRE",
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
+                        },
+                        {
+                          "text": "CARACT",
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
+                        },
+                        {
+                          "text": "IND/PRES",
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
+                        },
+                        {
+                          "text": "EJE/ENTR",
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
+                        },
+                        {
+                          "text": "DX",
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
+                        },
+                        {
+                          "text": "RES",
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
+                        },
+                        {
+                          "text": "N°TICKET",
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
+                        },
+                        {
+                          "text": "PO",
+                          "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
+                        }
+                      ]
+                    },
+                    {
+                      // Row 2
+                      "index": 2,
+                      "height": 1.5,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": ""
+                        }
+                      ]
+                    },
+                    {
+                      // Row 3
+                      "index": 3,
+                      "height": 1.5,
+                      "isHeader": true,
+                      "cells": [
+                        {
+                          "text": ""
+                        }
+                      ]
+                    }
+                    
+                    
                   ]
                 }
               ]
