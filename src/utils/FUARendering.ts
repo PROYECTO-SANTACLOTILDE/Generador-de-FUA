@@ -397,7 +397,7 @@ class FUARenderingUtils {
 
         if (auxFUAField.valueType === "Field"){
             let auxFields = auxFUAField.fields;
-            let finalContent = auxFields.map( (item: any, index: number) => this.renderFUAFieldFromSchema( item, index, `${prefix}-field-${index}`) ).join('');
+            let finalContent = auxFields.map( (item: any, index: number) => this.renderFUAFieldFromSchema( item, index, `${prefix}-field-${fieldIndex}`) ).join('');
             extraStyles = `
                 width:  ${auxFUAField.width.toFixed(1)}mm;    
                 height: ${auxFUAField.height.toFixed(1)}mm;  
