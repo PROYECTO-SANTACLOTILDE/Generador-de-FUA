@@ -3,6 +3,7 @@ require('dotenv').config();
 import express from 'express';
 const path = require('path');
 
+import puppeteer, { Browser } from "puppeteer";
 
 
 // Sequelize and models
@@ -89,5 +90,89 @@ app.get('/demo', async (req, res) => {
   }
 });
 
+//TESTING Puppeteer
 
+let browserPromise: Promise<Browser> | null = null;
+async function getBrowser() {
+  if (!browserPromise) {
+    browserPromise = puppeteer.launch({
+      headless: true, // pas "new"
+      args: ["--no-sandbox", "--font-render-hinting=none"],
+    });
+  }
+  return browserPromise;
+}
+
+app.get('/demopdf', async (req, res) => {
+  let demoAnswer = '';
+  try {
+    demoAnswer = await createDemoFormat();
+   
+    //res.status(200).send(demoAnswer);
+  } catch (err: unknown) {
+    console.error(err);
+    res.status(500).json({
+      error: 'Failed to create demo. ', 
+      message: (err as (Error)).message,
+      details: (err as any).details ?? null,
+    });
+  }
+  try {
+
+    const browser = await getBrowser();
+    const page = await browser.newPage();
+
+    // 1) Mode impression
+    await page.emulateMediaType("print");
+
+    // 2) Charger le HTML (équiv. à wkhtmltopdf qui lit une string)
+    //    Si ton HTML référence des CSS/images relatives, passe un baseURL (file://… ou http://…)
+    await page.setContent(demoAnswer, {
+      waitUntil: "networkidle0",
+    });
+
+    // 4) Deux façons de fixer la taille 210×306 mm :
+    //    A) (recommandée) Laisser le CSS décider: ajouter dans ton CSS:
+    //       @page { size: 210mm 306mm; margin: 0; }
+    //       .fua-container { width:210mm; height:306mm; }
+    //       et utiliser preferCSSPageSize: true
+    const useCssPageSize = true;
+
+    const pdfBuffer = await page.pdf(
+      useCssPageSize
+        ? {
+            printBackground: true,
+            preferCSSPageSize: true,           // <-- respecte @page { size: ... }
+            margin: { top: "0mm", right: "0mm", bottom: "0mm", left: "0mm" },
+            pageRanges: "1-",
+            scale: 1,
+          }
+        : {
+            printBackground: true,
+            preferCSSPageSize: false,
+            width: "210mm",                    // <-- taille forcée côté Puppeteer
+            height: "306mm",
+            margin: { top: "0mm", right: "0mm", bottom: "0mm", left: "0mm" },
+            pageRanges: "1-",
+            scale: 1,
+          }
+    );
+
+    await page.close();
+
+    // 5) Réponse HTTP (équivalent à ton pipe wkhtmltopdf)
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader("X-Content-Type-Options", "nosniff");
+    res.setHeader("Content-Disposition", 'inline; filename="demo.pdf"');
+    res.status(200).end(pdfBuffer);
+
+  } catch (err: any) {
+    console.error(err);
+    res.status(500).json({
+      error: "Failed to create demo.",
+      message: err?.message,
+      details: err?.stack ?? null,
+    });
+  }
+});
 
