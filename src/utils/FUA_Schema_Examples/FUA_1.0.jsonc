@@ -12,7 +12,7 @@
       "versionTag": 11.0,
       // Page Attributes
       "pageNumber": 1,
-      "height": 298.0,
+      "height": 306.0,
       "width": 210.0,
       "padding_top": 9.5,
       "padding_left": 7.4,
@@ -2520,11 +2520,11 @@
       "versionTag": "1.0",
       // Page Attributes
       "pageNumber": 2,
-      "height": 298.0,
+      "height": 306.0,
       "width": 210.0,
-      "padding_top": 9.5,
-      "padding_left": 7.9,
-      "extraStyles":  "padding-top: 20px; padding-left: 20px; padding-bottom: 20px; padding-right: 20px;",
+      "padding_top": 12.0,
+      "padding_left": 11.0,
+      //"extraStyles":  "padding-top: 20px; padding-left: 20px; padding-bottom: 20px; padding-right: 20px;",
       // Page sections
       "sections": [
         {
