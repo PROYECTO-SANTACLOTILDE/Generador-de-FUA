@@ -1,4 +1,15 @@
 
+@media print {
+  body {
+    margin: 0; /* remove browser default margins */
+  }
+
+  /* Optional: force scaling */
+  html, body {
+    zoom: 1.0;  /* try adjusting this if output looks shrunk */
+  }
+}
+
 body {
     font-family: Arial, sans-serif;
     padding: 0px;

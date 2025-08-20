@@ -2,6 +2,7 @@
 require('dotenv').config();
 import express from 'express';
 const path = require('path');
+var wkhtmltopdf = require('wkhtmltopdf');
 
 
 
@@ -90,4 +91,34 @@ app.get('/demo', async (req, res) => {
 });
 
 
+//TESTING WKHTML
+app.get('/demopdf', async (req, res) => {
+  try {
+    const demoAnswer = await createDemoFormat();
+    // Set headers before piping
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('Content-Disposition', 'inline; filename="demo.pdf"');
+    const pdfTest = wkhtmltopdf(demoAnswer, {
+      disableSmartShrinking: true,
+      /* pageWidth:  "210mm",
+      pageHeight: "306mm", */
+      pageSize: "A4",
+      marginTop: "0mm",
+      marginRight: "0mm",
+      marginBottom: "0mm",
+      marginLeft: "0mm",
+      javascriptDelay: 3000
+
+    }).pipe(res);
+    //res.status(200).send(demoAnswer);
+  } catch (err: unknown) {
+    console.error(err);
+    res.status(500).json({
+      error: 'Failed to create demo. ', 
+      message: (err as (Error)).message,
+      details: (err as any).details ?? null,
+    });
+  }
+});
 
