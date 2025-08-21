@@ -96,7 +96,8 @@ let browserPromise: Promise<Browser> | null = null;
 async function getBrowser() {
   if (!browserPromise) {
     browserPromise = puppeteer.launch({
-      headless: true, // pas "new"
+      headless: true, 
+      defaultViewport: null,
       args: ["--no-sandbox", "--font-render-hinting=none"],
     });
   }
