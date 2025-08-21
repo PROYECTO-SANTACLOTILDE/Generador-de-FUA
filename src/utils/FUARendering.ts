@@ -186,7 +186,7 @@ class FUARenderingUtils {
     
     // Render a FUA Format using HTML header and body from jsonc schema
     // Pending to validate
-    public static async renderFUAFormatFromSchema( FUAFormat : any ) : Promise<string> {
+    public static async renderFUAFormatFromSchema( FUAFormat : any, printMode : boolean ) : Promise<string> {
 
         let formatContent = '';
 
@@ -194,7 +194,7 @@ class FUARenderingUtils {
         if( FUAFormat.pages.length === 0 ){
             formatContent = ``;
         }else{   
-            formatContent = FUAFormat.pages.map((item: any, index: number) => this.renderFUAPageFromSchema(item, index+1)).join('');            
+            formatContent = FUAFormat.pages.map((item: any, index: number) => this.renderFUAPageFromSchema(item, index+1, printMode)).join('');            
         }
 
         // Get CSS style from public folder
@@ -230,7 +230,7 @@ class FUARenderingUtils {
     };
 
     // Render FUA Page from jsonc schema
-    public static renderFUAPageFromSchema( auxFUAPage : any, pageIndex: number ): string {
+    public static renderFUAPageFromSchema( auxFUAPage : any, pageIndex: number, printMode: boolean ): string {
         
         let pageContent = '';
    
@@ -257,7 +257,7 @@ class FUARenderingUtils {
                     padding-left: ${auxFUAPage.padding_left.toFixed(1)}mm;
                 }
             </style>
-            <div id="fua-page-${pageIndex.toString()}" class="fua-page" ${auxFUAPage.extraStyle !== undefined ? `style="${auxFUAPage.extraStyle}"` : ""}>
+            <div id="fua-page-${pageIndex.toString()}" class="fua-page ${printMode ? 'format-related-print' : ''}" ${auxFUAPage.extraStyle !== undefined ? `style="${auxFUAPage.extraStyle}"` : ""}>
                     ${ pageContent }
             </div>
      
