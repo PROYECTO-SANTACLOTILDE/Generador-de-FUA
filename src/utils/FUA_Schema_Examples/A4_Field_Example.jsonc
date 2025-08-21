@@ -1,0 +1,120 @@
+{
+  // Format Attributes
+  "name": "Ficha Única de Atención",
+  // Base Field Form Attribute
+  "codeName": "FUA test",
+  "versionTag": "1.0",
+  // Format pages
+  "pages":[
+    {
+      // Base Field Form Attribute
+      "codeName": "pagina_1",
+      "versionTag": 11.0,
+      // Page Attributes
+      "pageNumber": 1,
+      "height": 297.0,
+      "width": 210.0,
+      "padding_top": 19.0,
+      "padding_left": 12.0,
+      "extraStyles":  "",
+      // Page sections
+      "sections": [
+        {
+          // Base Field Form Attribute
+          "codeName": "A4 Example section",
+          "versionTag": "1.0",
+          // Section Atributes
+          "title": "A4 Example",
+          "showTitle": false,
+          "titleHeight": 3.0,
+          "bodyHeight": 65.0,
+          "bodyWidth": 107.0,
+          "left": 0.0,
+          "top": 0.0,
+          "extraStyles": "", 
+          "fields": [
+            {
+              // Base Field Form Attribute
+              "codeName": "Example",
+              "versionTag": "1.0",
+              // Field data
+              "top": 5.8,
+              "left": 11.6,
+              "label": "A4 Field Example:",
+              "showLabel": false,
+              "valueType": "Table",
+              "columns": [
+                { "width": 32.5},
+                { "width": 32.5}
+              ],
+              "rows": [
+                {
+                  // Row 1
+                  "index": 1,
+                  "height": 6.2,
+                  "isHeader": true,
+                  "cells": [
+                    {
+                      "text": "A4 Field Example:"
+                    },
+                    {
+                      "text": "I'm a text.",
+                      "extraStyle": "color: black !important;"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              // Base Field Form Attribute
+              "codeName": "Name and Age",
+              "versionTag": "1.0",
+              // Field data
+              "top": 21.5,
+              "left": 12.6,
+              "label": "",
+              "showLabel": false,
+              "valueType": "Table",
+              "columns": [
+                { "width": 24.2},
+                { "width": 24.2}
+              ],
+              "rows": [
+                {
+                  // Row 1
+                  "index": 1,
+                  "height": 10.0,
+                  "isHeader": true,
+                  "cells": [
+                    {
+                      "text": "Name"
+                    },
+                    {
+                      "text": "Age"
+                    }
+                  ]
+                },
+                {
+                  // Row 1
+                  "index": 1,
+                  "height": 10.0,
+                  "isHeader": true,
+                  "cells": [
+                    {
+                      "text": "Yvan",
+                      "extraStyle": "color: black !important;"
+                    },
+                    {
+                      "text": "25",
+                      "extraStyle": "color: black !important;"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

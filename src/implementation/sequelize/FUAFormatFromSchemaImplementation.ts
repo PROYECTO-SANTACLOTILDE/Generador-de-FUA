@@ -145,9 +145,7 @@ class FUAFormatFromSchemaImplementation {
             throw err;
         }
 
-
-        // Save them
-
+        
 
         return aux;
     };

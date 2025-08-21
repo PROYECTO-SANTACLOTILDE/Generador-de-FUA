@@ -32,7 +32,7 @@ table {
 .format-related-print {
     background-color: transparent !important;
     border: transparent !important;
-    color: transparent;
+   /*  color: transparent; */
 }
 
 

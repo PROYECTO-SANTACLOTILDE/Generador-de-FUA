@@ -137,7 +137,7 @@ app.get('/demopdf', async (req, res) => {
     //       @page { size: 210mm 306mm; margin: 0; }
     //       .fua-container { width:210mm; height:306mm; }
     //       et utiliser preferCSSPageSize: true
-    const useCssPageSize = false;
+    const useCssPageSize = true;
 
     const pdfBuffer = await page.pdf(
       useCssPageSize
