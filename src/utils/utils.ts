@@ -73,14 +73,14 @@ export async function fillSection2(auxUser: string, auxVersion: string, sectionU
 
 };
 
-export async function createDemoFormat(){
+export async function createDemoFormat(printMode : boolean){
   const jsoncPath = path.resolve(process.cwd(), "./src/utils/FUA_Schema_Examples/FUA_1.0.jsonc");
   const jsoncContent = fs.readFileSync(jsoncPath, 'utf-8');
   const parsed = parse(jsoncContent);
 
   let html : string = '';
   try{
-    html = await FUARenderingUtils.renderFUAFormatFromSchema(parsed);
+    html = await FUARenderingUtils.renderFUAFormatFromSchema(parsed, printMode);
   }catch(error: unknown){
     console.error('Error in Utils - createDemoFormat: ', error);
     (error as Error).message =  'Error in Utils - createDemoFormat: ' + (error as Error).message;
@@ -116,4 +116,16 @@ export function dedentCustom(str: string): string {
 
   return dedented.join('\n').trim();
 
+}
+
+// Remove the background-color attribut when printing rendering
+export function removeBackgroundColor(inlineStyle?: string): string {
+  if (inlineStyle == undefined || inlineStyle == null){
+    return ''
+  }
+  return inlineStyle
+    .split(";")
+    .map(rule => rule.trim())
+    .filter(rule => rule.length > 0 && !/^background-color\s*:/i.test(rule))
+    .join("; ");
 }

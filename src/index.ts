@@ -78,7 +78,7 @@ app.get('/FUA', (req, res) => {
 //TESTING ENTITIES
 app.get('/demo', async (req, res) => {
   try {
-    const demoAnswer = await createDemoFormat();
+    const demoAnswer = await createDemoFormat(false);
     res.status(200).send(demoAnswer);
   } catch (err: unknown) {
     console.error(err);
@@ -107,7 +107,7 @@ async function getBrowser() {
 app.get('/demopdf', async (req, res) => {
   let demoAnswer = '';
   try {
-    demoAnswer = await createDemoFormat();
+    demoAnswer = await createDemoFormat(true);
    
     //res.status(200).send(demoAnswer);
   } catch (err: unknown) {

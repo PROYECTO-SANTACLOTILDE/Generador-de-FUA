@@ -181,7 +181,7 @@ class FUAFormatFromSchemaService {
         let parsedContent = parse(auxFuaFormat.content);
 
         try{
-            htmlContent = await FUARenderingUtils.renderFUAFormatFromSchema(parsedContent);
+            htmlContent = await FUARenderingUtils.renderFUAFormatFromSchema(parsedContent, false);
         } catch(error: any){
             console.error('Error in FUA Format Service - renderById: ', error);
             (error as Error).message =  'Error in FUA Format Service - renderById: ' + (error as Error).message;

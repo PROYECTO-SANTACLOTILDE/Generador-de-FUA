@@ -6,7 +6,7 @@ import dedent from 'dedent';
 import FUAFieldService from "../services/FUAFieldService";
 import FUAPageService from "../services/FUAPageService";
 import FUASectionService from "../services/FUASectionService";
-import { dedentCustom } from "./utils";
+import { dedentCustom, removeBackgroundColor } from "./utils";
 import FUAFieldColumnService from "../services/FUAFieldColumnService";
 import { col } from "sequelize";
 
@@ -245,7 +245,7 @@ class FUARenderingUtils {
                 padding_top:    auxFUAPage.padding_top,
                 padding_left:   auxFUAPage.padding_left,
             };
-            pageContent = auxFUASections.map( (item:any, index: number) => this.renderFUASectionFromSchema(item, index, `fua-page-${pageIndex.toString()}`,paddings)).join('');
+            pageContent = auxFUASections.map( (item:any, index: number) => this.renderFUASectionFromSchema(item, index, `fua-page-${pageIndex.toString()}`,paddings, printMode)).join('');
         }
 
         let htmlContent = `
@@ -267,7 +267,7 @@ class FUARenderingUtils {
     };
 
     // Render FUA Section from jsonc schema
-    public static renderFUASectionFromSchema( auxFUASection : any, sectionIndex: number, prefix: string, paddings: any ): string {
+    public static renderFUASectionFromSchema( auxFUASection : any, sectionIndex: number, prefix: string, paddings: any , printMode : boolean): string {
         
         let sectionContent = '';
       
@@ -276,7 +276,7 @@ class FUARenderingUtils {
         if(auxFUASection.showTitle == true){
             title = `
                 <tr>
-                    <th class="section-header text-container" style="height: ${auxFUASection.titleHeight.toFixed(1)}mm;"> ${auxFUASection.title ?? ''} </th>
+                    <th class="section-header text-container ${printMode ? 'format-related-print' : ''}" style="height: ${auxFUASection.titleHeight.toFixed(1)}mm;"> ${auxFUASection.title ?? ''} </th>
                 </tr>
             `;            
         }
@@ -285,7 +285,7 @@ class FUARenderingUtils {
         if (!Array.isArray(auxFUASection.fields) || auxFUASection.fields.length === 0) {
             sectionContent = ``;
         }else{
-            sectionContent = auxFUASection.fields.map( (item: any, index: number) => this.renderFUAFieldFromSchema(item,index,`${prefix}-section-${sectionIndex.toString()}`) ).join('');
+            sectionContent = auxFUASection.fields.map( (item: any, index: number) => this.renderFUAFieldFromSchema(item,index,`${prefix}-section-${sectionIndex.toString()}`,printMode) ).join('');
         }
 
         let htmlContent = `
@@ -297,7 +297,7 @@ class FUARenderingUtils {
                     width: ${ auxFUASection.bodyWidth ? `${auxFUASection.bodyWidth.toFixed(1)}mm;` : '100%;'}
                 }
             </style>
-            <table id="${prefix}-section-${sectionIndex.toString()}" class="table-section" >                  
+            <table id="${prefix}-section-${sectionIndex.toString()}" class="table-section ${printMode ? 'format-related-print' : ''}" >                  
                 ${title}
                 <tr>                    
                     <td class="section-content">
@@ -337,7 +337,7 @@ class FUARenderingUtils {
     }
 
     // Render FUA Field from jsonc schema
-    public static renderFUAFieldFromSchema( auxFUAField : any, fieldIndex: number, prefix: string): string {
+    public static renderFUAFieldFromSchema( auxFUAField : any, fieldIndex: number, prefix: string, printMode : boolean): string {
         let fieldContent = '';
         let extraStyles = '';
         let auxWidth = '';
@@ -352,10 +352,10 @@ class FUARenderingUtils {
                         background-color: lightgray;
                         ${auxFUAField.labelHeight ? `height: ${auxFUAField.labelHeight.toFixed(1)}mm;` : ''}
                         ${auxFUAField.labelHeight ? `line-height: ${auxFUAField.labelHeight.toFixed(1)}mm;` : ''}
-                        ${auxFUAField.labelExtraStyles ?? ``}
+                        ${auxFUAField.labelExtraStyles ? (printMode == true ? removeBackgroundColor(auxFUAField.labelExtraStyles) : auxFUAField.labelExtraStyles) : ``}
                     }
                 </style>
-                <caption id="${prefix}-field-${fieldIndex}-caption" class="field-border text-container">
+                <caption id="${prefix}-field-${fieldIndex}-caption" class="field-border text-container ${printMode ? 'format-related-print' : ''}">
                     ${auxFUAField.label}
                 </caption>
             `;            
@@ -379,14 +379,14 @@ class FUARenderingUtils {
             // Defining rows, ordered by 'index' attribute
             let auxRows = auxFUAField.rows.sort( (a: any, b: any) => ( a.index - b.index ) );
             // Process row
-            auxRows = auxRows.map( (row: any, index: number) => this.renderFUAFieldTableRowFromSchema(row, index, auxColumns.length ,`${prefix}-field-${fieldIndex}`) );
+            auxRows = auxRows.map( (row: any, index: number) => this.renderFUAFieldTableRowFromSchema(row, index, auxColumns.length ,`${prefix}-field-${fieldIndex}`, printMode) );
             fieldContent = auxRows.join('');
         }
 
         if( auxFUAField.valueType === "Box"){
             fieldContent = `
                 <tr>
-                    <td class="text-container"> ${auxFUAField.text ?? ''} <td>
+                    <td class="text-container ${printMode ? 'format-related-print' : ''}"> ${auxFUAField.text ?? ''} <td>
                 </tr>
             `;
             extraStyles = `
@@ -397,14 +397,14 @@ class FUARenderingUtils {
 
         if (auxFUAField.valueType === "Field"){
             let auxFields = auxFUAField.fields;
-            let finalContent = auxFields.map( (item: any, index: number) => this.renderFUAFieldFromSchema( item, index, `${prefix}-field-${fieldIndex}`) ).join('');
+            let finalContent = auxFields.map( (item: any, index: number) => this.renderFUAFieldFromSchema( item, index, `${prefix}-field-${fieldIndex}`, printMode) ).join('');
             extraStyles = `
                 width:  ${auxFUAField.width.toFixed(1)}mm;    
                 height: ${auxFUAField.height.toFixed(1)}mm;  
             `;
             fieldContent = `
                 <tr>
-                    <td style="padding: 0px;" class="field-content"> 
+                    <td style="padding: 0px;" class="field-content ${printMode ? 'format-related-print' : ''}"> 
 
                             ${finalContent}
 
@@ -422,7 +422,7 @@ class FUARenderingUtils {
                     ${auxWidth}
                 }
             </style>
-            <table id="${prefix}-field-${fieldIndex}" class="table-field" >
+            <table id="${prefix}-field-${fieldIndex}" class="table-field ${printMode ? 'format-related-print' : ''}" >
                 ${label}
                 ${colgroups}
                 ${fieldContent}
@@ -434,7 +434,7 @@ class FUARenderingUtils {
     };
 
     // Render FUA Field row from jsonc schema
-    private static renderFUAFieldTableRowFromSchema( auxRow : any, index : number, colAmount : number, prefix: string) : string {
+    private static renderFUAFieldTableRowFromSchema( auxRow : any, index : number, colAmount : number, prefix: string, printMode : boolean) : string {
         let htmlContent = '';
         // no columns, return ''
         if( colAmount === 0 ) return '';
@@ -459,7 +459,7 @@ class FUARenderingUtils {
             }
             let auxCellContent = `
                 ${extraStyles}
-                <td id="${prefix}-row-${index}-cell-${i}" class="field-border text-container" > 
+                <td id="${prefix}-row-${index}-cell-${i}" class="field-border text-container ${printMode ? 'format-related-print' : ''}" > 
                     ${cells?.[i]?.text ?? ''} 
                 </td>
             `;
@@ -467,7 +467,7 @@ class FUARenderingUtils {
         }
 
         htmlContent = `
-            <tr ${height} class="field-border">
+            <tr ${height} class="field-border ${printMode ? 'format-related-print' : ''}">
                 ${rowContent.length > 0 ? rowContent.join('') : ''}
             </tr>
         `;
