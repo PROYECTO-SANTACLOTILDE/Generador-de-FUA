@@ -137,7 +137,7 @@ app.get('/demopdf', async (req, res) => {
     //       @page { size: 210mm 306mm; margin: 0; }
     //       .fua-container { width:210mm; height:306mm; }
     //       et utiliser preferCSSPageSize: true
-    const useCssPageSize = true;
+    const useCssPageSize = false;
 
     const pdfBuffer = await page.pdf(
       useCssPageSize
@@ -152,7 +152,7 @@ app.get('/demopdf', async (req, res) => {
             printBackground: true,
             preferCSSPageSize: false,
             width: "210mm",                    // <-- taille forcée côté Puppeteer
-            height: "306mm",
+            height: "297mm",
             margin: { top: "0mm", right: "0mm", bottom: "0mm", left: "0mm" },
             pageRanges: "1-",
             displayHeaderFooter: false,
