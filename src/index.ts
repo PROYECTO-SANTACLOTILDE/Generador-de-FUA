@@ -2,8 +2,15 @@
 require('dotenv').config();
 import express from 'express';
 const path = require('path');
+import fs from "fs";
 
+// PDF Generation
 import puppeteer, { Browser } from "puppeteer";
+//import signer, { pdfkitAddPlaceholder } from "node-signpdf";
+import { plainAddPlaceholder } from '@signpdf/placeholder-plain';
+import { P12Signer } from '@signpdf/signer-p12';
+import signpdf from '@signpdf/signpdf';
+
 
 
 // Sequelize and models
@@ -160,13 +167,34 @@ app.get('/demopdf', async (req, res) => {
           }
     );
 
-    await page.close();
+    await page.close(); 
+
+    // 4.1) sign PDF 
+    // Retrieve signature content 
+    const certPath = path.resolve(process.cwd(), "./src/certificate/certificate.p12");
+    const passphrase = "password";
+    // Sign PDF with signature content
+    const p12Buffer = fs.readFileSync(certPath);
+    // Create a P12 signer instance 
+      
+    // Create placeholder
+    const pdfWithPlaceholder = plainAddPlaceholder({
+      pdfBuffer: Buffer.isBuffer(pdfBuffer) ? pdfBuffer : Buffer.from(pdfBuffer),
+      reason: "Approval",
+      contactInfo: "backend@example.com",
+      name: "My Server",
+      location: "Datacenter"
+    });
+
+    const signer = new P12Signer(p12Buffer, {passphrase});  
+
+    const signedPdf = await signpdf.sign(pdfWithPlaceholder, signer);
 
     // 5) Réponse HTTP (équivalent à ton pipe wkhtmltopdf)
     res.setHeader("Content-Type", "application/pdf");
     res.setHeader("X-Content-Type-Options", "nosniff");
     res.setHeader("Content-Disposition", 'inline; filename="demo.pdf"');
-    res.status(200).end(pdfBuffer);
+    res.status(200).end(signedPdf);
 
   } catch (err: any) {
     console.error(err);
