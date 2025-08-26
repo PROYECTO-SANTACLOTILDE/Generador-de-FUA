@@ -243,6 +243,26 @@ class FUAFormatFromSchemaService {
             uuid: returnedFUAFormat.uuid
         };
     };
+
+
+    // Return a signed PDF by Id
+    async returnSignedPDFbyID(idReceived: string){
+        // Get FUA Format from DB
+        let auxFuaFormat = null;
+        try {
+            auxFuaFormat = await this.getByIdOrUUID(idReceived);
+        } catch (err: unknown){
+            console.error('Error in FUAFormat Service - returnSignedPDFbyID: ', err);
+            (err as Error).message =  'Error in FUAFormat Service - returnSignedPDFbyID: ' + (err as Error).message;
+            throw err;
+        }
+
+        // If nothing was found, it will return a null
+        if( auxFuaFormat === null){
+            return null;
+        } 
+        // Generate the signed PDF
+    }
 };
 
 export default new FUAFormatFromSchemaService();
