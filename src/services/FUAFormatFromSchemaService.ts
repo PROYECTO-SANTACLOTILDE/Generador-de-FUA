@@ -5,6 +5,7 @@ import FUAFormatImplementation from '../implementation/sequelize/FUAFormatImplem
 import { isValidUUIDv4 } from "../utils/utils";
 import FUARenderingUtils from "../utils/FUARendering";
 import FUAFormatFromSchemaImplementation from "../implementation/sequelize/FUAFormatFromSchemaImplementation";
+import puppeteer from "puppeteer";
 
 // Schemas
 
@@ -33,7 +34,7 @@ const editFUAFormatFromSchemaZod = z.object({
     createdBy: z.string(),
 });
 
-class FUAFormatFromSchemaService {
+export class FUAFormatFromSchemaService {
 
     // Creation of FUA Format
     async create(data: {
@@ -243,6 +244,86 @@ class FUAFormatFromSchemaService {
             uuid: returnedFUAFormat.uuid
         };
     };
+
+    // Return a signed PDF by Id
+    async returnSignedPDFbyID(idReceived: string): Promise<Buffer | null> {
+        // Get FUA Format from DB
+        let auxFuaFormat = null;
+        try {
+            auxFuaFormat = await this.getByIdOrUUID(idReceived);
+        } catch (err: unknown){
+            console.error('Error in FUAFormat Service - returnSignedPDFbyID: ', err);
+            (err as Error).message =  'Error in FUAFormat Service - returnSignedPDFbyID: ' + (err as Error).message;
+            throw err;
+        }
+        // If nothing was found, it will return a null
+        if( auxFuaFormat === null){
+            return null;
+        } 
+        // Generate the pdf 
+
+        let parsedSchema = null;
+
+        try {
+            parsedSchema = parse(auxFuaFormat.content);
+
+        }catch (err: unknown){
+            console.error('Error in FUAFormat Service - returnSignedPDFbyID: ', err);
+            (err as Error).message = 'Error in FUAFormat Service - returnSignedPDFbyID: ' + (err as Error).message;
+            throw err;
+        }
+
+        let htmlContent = '';
+
+        try{
+            htmlContent = await FUARenderingUtils.renderFUAFormatFromSchema(parsedSchema, true);
+        }catch (err: unknown){
+            console.error('Error in FUAFormat Service - returnSignedPDFbyID: ', err);
+            (err as Error).message = 'Error in FUAFormat Service - returnSignedPDFbyID: ' + (err as Error).message;
+            throw err;
+        }
+        
+        let pdfBuffer: Buffer;
+
+        try {
+            const browser = await puppeteer.launch({
+                headless: true,
+                defaultViewport: null,
+                args: ["--no-sandbox", "--font-render-hinting=none"],
+            });
+        const page = await browser.newPage();
+        await page.emulateMediaType("print");
+
+        await page.setContent(htmlContent, {waitUntil: "networkidle0"});
+
+        const rawPdf = await page.pdf({
+            printBackground: true,
+            preferCSSPageSize: false,  // même choix que votre code
+            width: "210mm",
+            height: "297mm",
+            margin: { top: "0mm", right: "0mm", bottom: "0mm", left: "0mm" },
+            pageRanges: "1-",
+            displayHeaderFooter: false,
+            scale: 1,
+        });
+
+        pdfBuffer = Buffer.isBuffer(rawPdf) ? rawPdf : Buffer.from(rawPdf);    
+
+        console.log("Type vérifié :", Buffer.isBuffer(pdfBuffer));  
+        console.log("Taille du buffer :", pdfBuffer.length);
+
+        await page.close();
+        await browser.close();
+        }catch(err: unknown){
+            console.error('Error in FUAFormat Service - returnSignedPDFbyID: ', err);
+            (err as Error).message = 'Error in FUAFormat Service - returnSignedPDFbyID: ' + (err as Error).message;
+            throw err;
+        }
+        return pdfBuffer;
+    }
+
+
+
 };
 
 export default new FUAFormatFromSchemaService();

@@ -451,7 +451,7 @@ class FUARenderingUtils {
                 extraStyles = `
                 <style>
                     #${prefix}-row-${index}-cell-${i} {
-                        ${cells?.[i]?.extraStyles ?? ''},
+                        ${printMode ? removeBackgroundColor(cells?.[i]?.extraStyles ?? '') : (cells?.[i]?.extraStyles ?? '')},
                         min-width: 0;
                     }
                 </style>
