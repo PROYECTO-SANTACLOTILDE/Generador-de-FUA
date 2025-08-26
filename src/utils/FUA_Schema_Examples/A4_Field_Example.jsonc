@@ -1,0 +1,167 @@
+{
+  // Format Attributes
+  "name": "Ficha Única de Atención",
+  // Base Field Form Attribute
+  "codeName": "FUA test",
+  "versionTag": "1.0",
+  // Format pages
+  "pages":[
+    {
+      // Base Field Form Attribute
+      "codeName": "pagina_1",
+      "versionTag": 1.0,
+      // Page Attributes
+      "pageNumber": 1,
+      "height": 297.0,
+      "width": 210.0,
+      "padding_top": 0.0,
+      "padding_left": 0.0,
+      "extraStyles":  "",
+      // Page sections
+      "sections": [
+        {
+          // Base Field Form Attribute
+          "codeName": "content table",
+          "versionTag": "1.0",
+          // Section Atributes
+          "title": "",
+          "showTitle": false,
+          "bodyHeight": 100.0,
+          "bodyWidth": 205.0,
+          "left": 0.0,
+          "top": 0.0,
+          "extraStyles": "", 
+          "fields": [
+            {
+              // Base Field Form Attribute
+              "codeName": "3x3 table",
+              "versionTag": "1.0",
+              // Field data
+              "top": 29.2,
+              "left": 33.1,
+              "label": "",
+              "showLabel": false,
+              "valueType": "Table",
+              "columns": [
+                { "width": 48.0},
+                { "width": 48.0},
+                { "width": 48.0}
+              ],
+              "rows": [
+                {
+                  // Row 1
+                  "index": 1,
+                  "height": 4.9,
+                  "isHeader": true,
+                  "cells": [
+                    {
+                      "text": "123",
+                      "extraStyles": "font-size: 3mm;"
+                    },
+                    {
+                      "text": "AAA",
+                      "extraStyles": "color: blue !important; font-size: 3.0mm;"
+                    },
+                    {
+                      "text": "BBB",
+                      "extraStyles": "color: blue !important; font-size: 3.0mm;"
+                    }
+                  ]
+                },
+                {
+                  // Row 2
+                  "index": 2,
+                  "height": 4.9,
+                  "isHeader": true,
+                  "cells": [
+                    {
+                      "text": "CCC",
+                      "extraStyles": "color: blue !important; font-size: 3.0mm;"
+                    },
+                    {
+                      "text": "123",
+                      "extraStyles": "font-size: 3mm;"
+                    },
+                    {
+                      "text": "DDD",
+                      "extraStyles": "color: blue !important; font-size: 3.0mm;"
+                    }
+                  ]
+                },
+                {
+                  // Row 3
+                  "index": 3,
+                  "height": 4.9,
+                  "isHeader": true,
+                  "cells": [
+                    {
+                      "text": "EEE",
+                      "extraStyles": "color: blue !important; font-size: 3.0mm;"
+                    },
+                    {
+                      "text": "FFF",
+                      "extraStyles": "color: blue !important; font-size: 3.0mm;"
+                    },
+                    {
+                      "text": "123",
+                      "extraStyles": "font-size: 3mm;"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              // Base Field Form Attribute
+              "codeName": "text y otro text",
+              "versionTag": "1.0",
+              // Field data
+              "top": 55.0,
+              "left": 26.5,
+              "label": "",
+              "showLabel": false,
+              "valueType": "Table",
+              "columns": [
+                { "width": 30.0},
+                { "width": 32.0}
+              ],
+              "rows": [
+                {
+                  // Row 1
+                  "index": 1,
+                  "height": 12.0,
+                  "isHeader": true,
+                  "cells": [
+                    {
+                      "text": "Soy un texto:",
+                      "extraStyles": "font-size: 3mm;"
+                    },
+                    {
+                      "text": "Ivan",
+                      "extraStyles": "color: blue !important; font-size: 3.0mm;"
+                    }
+                  ]
+                },
+                {
+                  // Row 1
+                  "index": 1,
+                  "height": 12.0,
+                  "isHeader": true,
+                  "cells": [
+                    {
+                      "text": "Otro texto:",
+                      "extraStyles": "font-size: 3mm;"
+                    },
+                    {
+                      "text": "Evan",
+                      "extraStyles": "color: blue !important; font-size: 3.0mm;"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

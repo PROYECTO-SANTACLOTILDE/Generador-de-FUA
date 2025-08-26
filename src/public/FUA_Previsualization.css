@@ -1,0 +1,138 @@
+html, body { margin: 0; padding: 0; }
+  /* le conteneur principal de ta page */
+  .fua-container {
+    position: relative;
+    /* width: 210mm;
+    height: 310mm; */
+    overflow: hidden;
+    box-sizing: border-box;
+    /* Si tu as un fond/bordure plein-bord, voir point 3 */
+  }
+  /* couleurs/fonds exacts au print */
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+body {
+    font-family: Arial, sans-serif;
+    padding: 0px;
+    margin: 0;
+}
+
+table {
+    border-spacing: 0px;
+    table-layout: fixed; /* lock column widths to colgroup */
+    /* width: 100%; */
+}
+
+/* General Styles */
+
+#fua-render-container {
+    all: unset;
+}
+
+.format-related-print {
+    background-color: transparent !important;
+    border: transparent !important;
+   /*  color: transparent; */
+}
+
+
+
+.fua-page {
+    box-shadow: inset 0 0 0 1px black;
+    box-sizing: content-box;
+    position: relative;
+}
+
+.table-section {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 2px solid black; /* outer border */
+    width: 100%;
+    table-layout: fixed;
+    position: absolute;
+}
+
+.section-header {
+    width: 100%;
+    background-color: lightgray;
+    border: 2px solid black;
+}
+
+.section-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.field-content {
+    /* position: relative; */
+    overflow: visible;
+    width: 100%;
+    height: 100%;
+}
+
+.table-field {
+    border: 1px solid black;
+    border-collapse: collapse;
+    position: absolute;
+    overflow: visible;
+    box-sizing: content-box;
+}
+
+.field-border{
+    border: 1px solid black;
+}
+
+.table-data {
+    border: 1px solid black; /* inner borders */
+    width: 100%;
+    text-align: center;
+}
+
+.auxTable {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid black;
+    border-spacing: 0px;
+}
+
+.text-container {
+    /* Text alignment */
+    text-align: center;
+    vertical-align: middle;
+    /* Prevent text from overflowing */
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: hidden;
+    /* Container query support */
+    container-type: size;
+    container-name: card;
+    /* Dynamic font sizing */
+    font-size: clamp(3px, 0.9cqh, 100%);
+    /* Optional: force text to scale down if needed */
+    line-height: 1;
+}
+
+
+
+.blank-space {
+    font-weight: bold;
+    background-color: aquamarine;
+}
+
+.section-title {
+    width: 100%;
+    height: 12mm;
+    font-weight: bold;
+    display: flex;
+    align-items: center; /* Vertical centering */
+    justify-content: center; /* Optional: also center horizontally */
+    border: 1px solid #000;
+    box-sizing: content-box;
+    background-color: gray;
+}
+ 
+
+
+
+  

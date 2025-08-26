@@ -1,0 +1,32 @@
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: ${FuaGen_DB__USER:-fuagenerator}
+      POSTGRES_PASSWORD: ${FuaGen_DB_PASSWORD:-fuagenerator}
+      POSTGRES_DB: ${FuaGen_DB_NAME:-fuagenerator}
+    volumes:
+      - FuaGenerator_DB_Data:/var/lib/postgresql/data
+     # - ./init.sql:/docker-entrypoint-initdb.d/init.sql  # Optional initialization
+    ports:
+      - "5433:5432"
+
+
+  app:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_HOST: db
+      DB_USER: ${DB_USER:-postgres}
+      DB_PASSWORD: ${DB_PASSWORD:-postgres}
+      DB_NAME: ${DB_NAME:-mydatabase}
+      DB_PORT: 5432
+    ports:
+      - "3000:3000"
+    links:
+      - db
+
+volumes:
+  FuaGenerator_DB_Data:

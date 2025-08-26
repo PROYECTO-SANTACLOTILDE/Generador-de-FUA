@@ -1,0 +1,98 @@
+{
+    "token": "---",
+    "formatIdentifier": "----",
+    "payload": {
+        "uuid": "21c784ad-839f-4398-b456-90ce97f860a9",
+        "display": "OPD Visit @ Site 42 - 08/16/2023 10:05 PM",
+        "patient": {
+            "uuid": "492d1b12-64f5-4a8d-85ce-076ab3a6e8db",
+            "display": "100000Y - Betty Williams",
+            "links": [
+                {
+                    "rel": "self",
+                    "uri": "http://localhost:8080/openmrs/ws/rest/v1/patient/492d1b12-64f5-4a8d-85ce-076ab3a6e8db",
+                    "resourceAlias": "patient"
+                }
+            ]
+        },
+        "visitType": {
+            "uuid": "287463d3-2233-4c69-9851-5841a1f5e109",
+            "display": "OPD Visit",
+            "links": [
+                {
+                    "rel": "self",
+                    "uri": "http://localhost:8080/openmrs/ws/rest/v1/visittype/287463d3-2233-4c69-9851-5841a1f5e109",
+                    "resourceAlias": "visittype"
+                }
+            ]
+        },
+        "indication": null,
+        "location": {
+            "uuid": "92dbdbdf-17da-4cf0-873c-ad15dfae71cb",
+            "display": "Site 42",
+            "links": [
+                {
+                    "rel": "self",
+                    "uri": "http://localhost:8080/openmrs/ws/rest/v1/location/92dbdbdf-17da-4cf0-873c-ad15dfae71cb",
+                    "resourceAlias": "location"
+                }
+            ]
+        },
+        "startDatetime": "2023-08-16T22:05:03.000-0500",
+        "stopDatetime": "2023-08-16T22:29:03.000-0500",
+        "encounters": [
+            {
+                "uuid": "7b2372d7-677f-4cef-be03-e3a15cf36d02",
+                "display": "Lab Results 08/16/2023",
+                "encounterDatetime": "2023-08-16T22:26:03.000-0500", 
+                "patient":{
+
+                }
+            },
+            {
+            "uuid": "fd6925f8-0a74-4874-9401-903d4d739eae",
+            "display": "Visit Note 08/16/2023"
+            },
+            {
+            "uuid": "e0ce76b8-c516-4369-971c-9bf3f0726577",
+            "display": "Vitals 08/16/2023"
+            }
+        ],
+        "attributes": [],
+        "voided": false,
+        "auditInfo": {
+            "creator": {
+            "uuid": "A4F30A1B-5EB9-11DF-A648-37A07F9C90FB",
+            "display": "daemon",
+            "links": [
+                {
+                "rel": "self",
+                "uri": "http://localhost:8080/openmrs/ws/rest/v1/user/A4F30A1B-5EB9-11DF-A648-37A07F9C90FB",
+                "resourceAlias": "user"
+                }
+            ]
+            },
+            "dateCreated": "2024-12-13T12:04:10.000-0500",
+            "changedBy": {
+            "uuid": "A4F30A1B-5EB9-11DF-A648-37A07F9C90FB",
+            "display": "daemon",
+            "links": [
+                {
+                "rel": "self",
+                "uri": "http://localhost:8080/openmrs/ws/rest/v1/user/A4F30A1B-5EB9-11DF-A648-37A07F9C90FB",
+                "resourceAlias": "user"
+                }
+            ]
+            },
+            "dateChanged": "2024-12-13T12:04:10.000-0500"
+        },
+        "links": [
+            {
+                "rel": "self",
+                "uri": "http://localhost:8080/openmrs/ws/rest/v1/visit/21c784ad-839f-4398-b456-90ce97f860a9",
+                "resourceAlias": "visit"
+            }
+        ],
+        "resourceVersion": "1.9"
+    }
+}

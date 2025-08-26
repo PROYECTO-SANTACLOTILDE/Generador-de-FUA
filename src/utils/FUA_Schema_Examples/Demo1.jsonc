@@ -1,0 +1,799 @@
+{
+  // Format Attributes
+  "name": "Ficha Única de Atención",
+  // Base Field Form Attribute
+  "codeName": "FUA test",
+  "versionTag": "1.0",
+  // Format pages
+  "pages":[
+    {
+      // Base Field Form Attribute
+      "codeName": "pagina_1",
+      "versionTag": 11.0,
+      // Page Attributes
+      "pageNumber": 1,
+      "height": 297.0,
+      "width": 210.0,
+      "padding_top": 10.0,
+      "padding_left": 8.0,
+      "extraStyle":  "",
+      // Page sections
+      "sections": [
+        {
+          // Base Field Form Attribute
+          "codeName": "MINSA Symbols",
+          "versionTag": "1.0",
+          // Section Atributes
+          "title": "",
+          "showTitle": false,
+          "titleHeight": 3.0,
+          "bodyHeight": 10.0,
+          "bodyWidth": 192.0,
+          "top": 0.0,
+          "extraStyle": ""
+        },
+        {
+          // Base Field Form Attribute
+          "codeName": "IPRESS Data",
+          // Section Atributes
+          "title": "FORMATO UNICO DE ATENCIÓN - FUA",
+          "showTitle": true,
+          "titleHeight": 1.0,
+          "bodyHeight": 58.0,
+          "bodyWidth": 192.0,
+          "top": 10.0,
+          "extraStyle": "",
+          // Section fields
+          "fields": [
+            {
+              // Base Field Form Attribute
+              "codeName": "Visit Date",
+              "versionTag": "1.0",
+              // Field data
+              "top": 2.4,
+              "left": 0,
+              "label": "FECHA DE ATENCIÓN",
+              "showLabel": true,
+              "labelOrientation": "Horizontal",
+              "labelPosition": "Up",
+              "labelHeight": 2.5,
+              "valueType": "Table",
+              "columns": [
+                { "width": 10.0},
+                { "width": 10.7},
+                { "width": 29.2}
+              ],
+              "rows": [
+                {
+                  // Row 1
+                  "index": 1,
+                  "height": 3.2,
+                  "isHeader": true,
+                  "cells": [
+                    {
+                      "text": "DIA"
+                    },
+                    {
+                      "text": "MES"
+                    },
+                    {
+                      "text": "AÑO"
+                    }
+                  ]
+                },
+                {
+                  // Row 2
+                  "index": 2,
+                  "height": 4.0,
+                  "isHeader": false,
+                  "cells": [
+                    {
+                      "text": "03"
+                    },
+                    {
+                      "text": "06"
+                    },
+                    {
+                      "text": "2024"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              // Base Field Form Attribute
+              "codeName": "Visit Time",
+              "versionTag": "1.0",
+              // Field data
+              "top": 2.4,
+              "left": 52.0,
+              "label": "HORA",
+              "showLabel": true,
+              "labelOrientation": "Horizontal",
+              "labelPosition": "Up",
+              "labelHeight": 5.6,
+              "valueType": "Box",
+              "width": 15.5 ,
+              "height": 4.0,
+              "text": "15:33"
+            },
+            {
+              // Base Field Form Attribute
+              "codeName": "IPRESS provider",
+              "versionTag": "1.0",
+              // Field data
+              "top": 2.5,
+              "left": 69.0,
+              "label": "DE LA INSTITUCIÒN PRESTADORA DE SERVICIOS DE SALUD",
+              "showLabel": true,
+              "labelOrientation": "Horizontal",
+              "labelPosition": "Up",
+              "labelHeight": 2.4,
+              "valueType": "Table",
+              "columns": [
+                { "width": 41.0},
+                { "width": 82.0}
+              ],
+              "rows": [
+                {
+                  // Row 1
+                  "index": 1,
+                  "height": 3.2,
+                  "isHeader": true,
+                  "cells": [
+                    { "text": "CÓDIGO RENAES DE LA IPRESS" },
+                    { "text": "NOMBRE DE LA IPRESS QUE REALIZA LA ATENCIÓN" }
+                  ]
+                },
+                {
+                  // Row 2
+                  "index": 2,
+                  "height": 4.0,
+                  "isHeader": false,
+                  "cells": [
+                    { "text": "xxxxxx" },
+                    { "text": "SANTA CLOTILDE" }
+                  ]
+                }
+              ]
+            },
+            {
+              // Base Field Form Attribute
+              "codeName": "Provider Type",
+              "versionTag": "1.0",
+              // Field data
+              "top": 28.0,
+              "left": 0.0,
+              "label": "PERSONAL QUE ATIENDE",
+              "showLabel": true,
+              "labelOrientation": "Horizontal",
+              "labelPosition": "Up",
+              "labelHeight": 4.0,
+              "valueType": "Field",
+              "width": 52.5,
+              "height": 22.5,
+              "fields": [
+                {
+                  //Field 1
+                  // Base Field Form Attribute
+                  "codeName": "Provider Type",
+                  "versionTag": "1.0",
+                  // Field data
+                  "top": 0.0,
+                  "left": 0.0,
+                  "showLabel": false,
+                  "label": "CÓDIGO DE LA OFERTA FLEXIBLE",
+                  "valueType": "Table",
+                  "labelOrientation": "Horizontal",
+                  "labelPosition": "Up",
+                  "labelHeight": 5.6,
+                  "columns": [
+                    { "width": 18.0},
+                    { "width": 5.0}
+                  ],
+                  "rows": [
+                    {
+                      // Row 1
+                      "index": 1,
+                      "height": 4.0,
+                      "isHeader": false,
+                      "cells": [
+                        { "text": "DE LA IPRESS" },
+                        { "text": "X" }
+                      ]
+                    },
+                    {
+                      // Row 2
+                      "index": 2,
+                      "height": 4.0,
+                      "isHeader": false,
+                      "cells": [
+                        {
+                          "text": "ITINERANTE"
+                        }
+                      ]
+                    },
+                    {
+                      // Row 3
+                      "index": 3,
+                      "height": 4.0,
+                      "isHeader": false,
+                      "cells": [
+                        {
+                          "text": "PLAN MAS SALUD"
+                        }
+                      ]
+                    },
+                    {
+                      // Row 4
+                      "index": 4,
+                      "height": 4.0,
+                      "isHeader": false,
+                      "cells": [
+                        {
+                          "text": "OFERTA FLEXIBLE"
+                        }
+                      ]
+                    },
+                    {
+                      // Row 5
+                      "index": 5,
+                      "height": 4.0,
+                      "isHeader": false,
+                      "cells": [
+                        {
+                          "text": ""
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  // Field 2
+                  // Base Field Form Attribute
+                  "codeName": "Oferta Flexible Code",
+                  "versionTag": "1.0",
+                  // Field data
+                  "top": 0.0,
+                  "left": 23.0,
+                  "showLabel": true,
+                  "label": "CÓDIGO DE LA OFERTA FLEXIBLE",
+                  "labelHeight": 4.0,
+                  "valueType": "Box",
+                  "width": 28.7,
+                  "height": 17.7,
+                  "text": "---"                  
+                }
+              ]
+            },
+            {
+              // Base Field Form Attribute
+              "codeName": "Visit Location Type",
+              "versionTag": "1.0",
+              // Field data
+              "top": 28.0,
+              "left": 52.0,
+              "label": "LUGAR DE ATENCIÓN",
+              "showLabel": true,
+              "labelOrientation": "Horizontal",
+              "labelPosition": "Up",
+              "labelHeight": 4.0,
+              "valueType": "Table",
+              "columns": [
+                { "width": 16.2},
+                { "width": 6.0 }
+              ],
+              "rows": [
+                {
+                  // Row 1
+                  "index": 1,
+                  "height": 4.0,
+                  "isHeader": false,
+                  "cells": [
+                    { "text": "INTRAMURAL" },
+                    { "text": "X" }
+                  ]
+                },
+                {
+                  // Row 2
+                  "index": 2,
+                  "height": 4.0,
+                  "isHeader": false,
+                  "cells": [
+                    {
+                      "text": "EXTRAMURAL"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              // Base Field Form Attribute
+              "codeName": "Visit Type",
+              "versionTag": "1.0",
+              // Field data
+              "top": 28.0,
+              "left": 74.7,
+              "label": "ATENCIÓN",
+              "showLabel": true,
+              "labelOrientation": "Horizontal",
+              "labelPosition": "Up",
+              "labelHeight": 4.0,
+              "valueType": "Table",
+              "columns": [
+                { "width": 22.0 },
+                { "width": 5.0  }
+              ],
+              "rows": [
+                {
+                  // Row 1
+                  "index": 1,
+                  "height": 4.0,
+                  "isHeader": false,
+                  "cells": [
+                    { "text": "AMBULATORIA" },
+                    { "text": "X" }
+                  ]
+                },
+                {
+                  // Row 2
+                  "index": 2,
+                  "height": 8.0,
+                  "isHeader": false,
+                  "cells": [
+                    {
+                      "text": "REFERENCIA"
+                    }
+                  ]
+                },
+                {
+                  // Row 3
+                  "index": 3,
+                  "height": 8.0,
+                  "isHeader": false,
+                  "cells": [
+                    {
+                      "text": "EMERGENCIA"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              // Base Field Form Attribute
+              "codeName": "IPRESS Info",
+              "versionTag": "1.0",
+              // Field data
+              "top": 28.0,
+              "left": 102.0,
+              "label": "REFERENCIA REALIZADA POR",
+              "showLabel": true,
+              "labelOrientation": "Horizontal",
+              "labelPosition": "Up",
+              "labelHeight": 4.0,
+              "valueType": "Table",
+              "columns": [
+                { "width": 20.5},
+                { "width": 51.0},
+                { "width": 18.0}
+              ],
+              "rows": [
+                {
+                  // Row 1
+                  "index": 1,
+                  "height": 4.0,
+                  "isHeader": true,
+                  "cells": [
+                    { "text": "CÓD. RENAES" },
+                    { "text": "NOMBRE DE LA IPRESS U OFERTA FLEXIBLE" },
+                    { "text": "Nº DE HOJA DE REFERENCIA" }
+                  ]
+                },
+                {
+                  // Row 2
+                  "index": 2,
+                  "height": 16.0,
+                  "isHeader": false,
+                  "cells": [
+                    { "text": "----"},
+                    { "text": "----"},
+                    { "text": "----"}
+                  ]
+                }
+              ]
+            },
+          ]
+        },
+        {
+          // Base Field Form Attribute
+          "codeName": "Patient Data",
+          // Section Atributes
+          "title": "DEL ASEGURADO USUARIO",
+          "showTitle": true,
+          "titleHeight": 2.2,
+          "bodyHeight": 47.7,
+          "bodyWidth": 192.0,
+          "top": 70.0,
+          "extraStyle": "",
+          "fields": [
+            {
+              //Field 1
+              // Base Field Form Attribute
+              "codeName": "Patient Identifiers",
+              "versionTag": "1.0",
+              // Field data
+              "top": 0.0,
+              "left": 0.0,
+              "showLabel": true,
+              "label": "IDENTIFICACIÓN",
+              "valueType": "Table",
+              "labelOrientation": "Horizontal",
+              "labelPosition": "Up",
+              "labelHeight": 2.3,
+              "columns": [
+                { "width": 10.0},
+                { "width": 32.0}
+              ],
+              "rows": [
+                {
+                  // Row 1
+                  "index": 1,
+                  "height": 3.8,
+                  "isHeader": false,
+                  "cells": [
+                    { "text": "TDI" },
+                    { "text": "Nº DOCUMENTO DE IDENTIDAD" }
+                  ]
+                },
+                {
+                  // Row 2
+                  "index": 2,
+                  "height": 3.9,
+                  "isHeader": false,
+                  "cells": [
+                    { "text": "DNI" },
+                    { "text": "12598361" }
+                  ]
+                }                
+              ]
+            },
+            {
+              //Field 1
+              // Base Field Form Attribute
+              "codeName": "Healthcare Coverage",
+              "versionTag": "1.0",
+              // Field data
+              "top": 0.0,
+              "left": 44.0,
+              "showLabel": true,
+              "label": "CÓDIGO DEL ASEGURADO SIS",
+              "valueType": "Table",
+              "labelOrientation": "Horizontal",
+              "labelPosition": "Up",
+              "labelHeight": 2.3,
+              "columns": [
+                { "width": 12.6},
+                { "width": 39.0}
+              ],
+              "rows": [
+                {
+                  // Row 1
+                  "index": 1,
+                  "height": 3.8,
+                  "isHeader": false,
+                  "cells": [
+                    { "text": "DIRESA / OTROS" },
+                    { "text": "NÚMERO" }
+                  ]
+                },
+                {
+                  // Row 2
+                  "index": 2,
+                  "height": 3.9,
+                  "isHeader": false,
+                  "cells": [
+                    { "text": "XXXX" },
+                    { "text": "xxxxxxxx" }
+                  ]
+                }                
+              ]
+            },
+            {
+              // Base Field Form Attribute
+              "codeName": "Paternal Lastname",
+              "versionTag": "1.0",
+              // Field data
+              "top": 13,
+              "left": 0.0,
+              "label": "APELLIDO PATERNO",
+              "showLabel": true,
+              "labelOrientation": "Horizontal",
+              "labelPosition": "Up",
+              "labelHeight": 2.7,
+              "valueType": "Box",
+              "width": 96.0 ,
+              "height": 5.0,
+              "text": "DIBOS"
+            },
+            {
+              // Base Field Form Attribute
+              "codeName": "Maternal Lastname",
+              "versionTag": "1.0",
+              // Field data
+              "top": 13,
+              "left": 97.5,
+              "label": "APELLIDO MATERNO",
+              "showLabel": true,
+              "labelOrientation": "Horizontal",
+              "labelPosition": "Up",
+              "labelHeight": 2.7,
+              "valueType": "Box",
+              "width": 92.0 ,
+              "height": 5.0,
+              "text": "GOMEZ"
+            },
+            {
+              // Base Field Form Attribute
+              "codeName": "Firstname",
+              "versionTag": "1.0",
+              // Field data
+              "top": 21.5,
+              "left": 0.0,
+              "label": "PRIMER NOMBRE",
+              "showLabel": true,
+              "labelOrientation": "Horizontal",
+              "labelPosition": "Up",
+              "labelHeight": 2.7,
+              "valueType": "Box",
+              "width": 96.0 ,
+              "height": 5.0,
+              "text": "ROBERTO"
+            },
+            {
+              // Base Field Form Attribute
+              "codeName": "Other names",
+              "versionTag": "1.0",
+              // Field data
+              "top": 21.5,
+              "left": 97.5,
+              "label": "OTROS NOMBRES",
+              "showLabel": true,
+              "labelOrientation": "Horizontal",
+              "labelPosition": "Up",
+              "labelHeight": 2.7,
+              "valueType": "Box",
+              "width": 92.0 ,
+              "height": 5.0,
+              "text": "MARIO"
+            },
+          ]
+        },
+        {
+          // Base Field Form Attribute
+          "codeName": "Visit Data",
+          // Section Atributes
+          "title": "DE LA ATENCIÓN",
+          "showTitle": true,
+          "titleHeight": 2.4,
+          "bodyHeight": 33.5,
+          "bodyWidth": 192.0,
+          "top": 110.0,
+          "extraStyle": ""
+        },
+        {
+          // Base Field Form Attribute
+          "codeName": "Reference Data",
+          // Section Atributes
+          "title": "DEL DESTINO DEL ASEGURADO/USUARIO",
+          "showTitle": true,
+          "titleHeight": 2.3,
+          "bodyHeight": 16.0,
+          "bodyWidth": 192.0,
+          "top": 150.0,
+          "extraStyle": ""
+        },
+        {
+          // Base Field Form Attribute
+          "codeName": "Triages Data",
+          // Section Atributes
+          "title": "ACTIVIDADES PREVENTIVAS Y OTROS",
+          "showTitle": true,
+          "titleHeight": 2.5,
+          "bodyHeight": 40.0,
+          "bodyWidth": 120.0,
+          "top": 167.0,
+          "left": 0.0,
+          "extraStyle": "",
+          "fields": [
+            {
+              // Base Field Form Attribute
+              "codeName": "Basic Triage",
+              "versionTag": "1.0",
+              // Field data
+              "top": 0.0,
+              "left": 0.0,
+              "label": "ACTIVIDADES PREVENTIVAS",
+              "showLabel": false,
+              "labelOrientation": "Horizontal",
+              "labelPosition": "Up",
+              "labelHeight": 2.5,
+              "valueType": "Table",
+              "columns": [
+                { "width": 24.6},
+                { "width": 14.2},
+                { "width": 23.6}, 
+                { "width": 12.2},
+                { "width": 31.1},
+                { "width": 13.5}
+              ],
+              "rows": [
+                {
+                  // Row 1
+                  "index": 1,
+                  "height": 4.0,
+                  "isHeader": true,
+                  "cells": [
+                    { "text": "PESO (kg)" },
+                    { "text": "72.0" },
+                    { "text": "TALLA (cm)" },
+                    { "text": "165" },
+                    { "text": "P.A. (mmHg)" },
+                    { "text": "115 / 75" },
+                  ]
+                }
+              ]
+            },
+            {
+              // Base Field Form Attribute
+              "codeName": "Young Adult Eval",
+              "versionTag": "1.0",
+              // Field data
+              "top": 4.1,
+              "left": 101.5,
+              "label": "JOVEN ADULTO",
+              "showLabel": true,
+              "labelOrientation": "Horizontal",
+              "labelPosition": "Up",
+              "labelHeight": 4.5,
+              "valueType": "Table",
+              "columns": [
+                { "width": 12.0},
+                { "width": 5.7 }
+              ],
+              "rows": [
+                {
+                  // Row 1
+                  "index": 1,
+                  "height": 5.0,
+                  "isHeader": false,
+                  "cells": [
+                    { "text": "EVALUACIÓN INTEGRAL" },
+                    { "text": "X" }
+                  ]
+                }                
+              ]
+            }
+          ]
+        },
+        {
+          // Base Field Form Attribute
+          "codeName": "Triages Data",
+          // Section Atributes
+          "title": "VACUNA Nº DE DOSIS",
+          "showTitle": true,
+          "width": 72.0, 
+          "titleHeight": 2.5,
+          "bodyHeight": 40.0,
+          "bodyWidth": 72.0,
+          "extraStyle": "",
+          "top": 167.0,
+          "left": 120.0
+        },
+        {
+          // Base Field Form Attribute
+          "codeName": "Diagnostics data",
+          // Section Atributes
+          "title": "DIAGNÓSTICOS",
+          "showTitle": true,
+          "titleHeight": 2.2,
+          "bodyHeight": 24.0,
+          "bodyWidth": 192.0,
+          "top": 208.0,
+          "extraStyle": "",
+          "fields": [
+            {
+              // Base Field Form Attribute
+              "codeName": "Basic Triage",
+              "versionTag": "1.0",
+              // Field data
+              "top": 0.0,
+              "left": 0.0,
+              "label": "ACTIVIDADES PREVENTIVAS",
+              "showLabel": false,
+              "labelOrientation": "Horizontal",
+              "labelPosition": "Up",
+              "labelHeight": 2.5,
+              "valueType": "Table",
+              "columns": [
+                { "width": 4.8},
+                { "width": 115.0},
+                { "width": 13.2}, 
+                { "width": 24.2},
+                { "width": 10.6},
+                { "width": 23.4}
+              ],
+              "rows": [
+                {
+                  // Row 1
+                  "index": 1,
+                  "height": 4.0,
+                  "isHeader": true,
+                  "cells": [
+                    { "text": "Nº" },
+                    { "text": "DESCRIPCIÓN" },
+                    { "text": "DX INGRESO" },
+                    { "text": "CIE - 10" },
+                    { "text": "DX EGRESO" },
+                    { "text": "CIE - 10" },
+                  ]
+                },
+                {
+                  // Row 2
+                  "index": 2,
+                  "height": 3.8,
+                  "isHeader": true,
+                  "cells": [
+                    { "text": "1" },
+                    { "text": "Influenza debida a virus de la gripe identificado con otras manifestaciones respiratorias. " },
+                    { "text": "P" },
+                    { "text": "J10.1" },
+                    { "text": "D" },
+                    { "text": "J10.1" },
+                  ]
+                },
+                {
+                  // Row 3
+                  "index": 3,
+                  "height": 3.8,
+                  "isHeader": true,
+                  "cells": [
+                    { "text": "2" },
+                    { "text": "Rinofaringitis aguda (resfriado común). " },
+                    { "text": "P" },
+                    { "text": "J00" },
+                    { "text": "D" },
+                    { "text": "J00" },
+                  ]
+                }
+              ]
+            },
+          ]
+        },
+        {
+          // Base Field Form Attribute
+          "codeName": "Provider data",
+          // Section Atributes
+          "title": "",
+          "showTitle": false,
+          "bodyHeight": 44.0,
+          "bodyWidth": 192.0,
+          "top": 240.0,
+          "extraStyle": ""
+        }
+      ]
+    },
+    {
+      // Base Field Form Attribute
+      "codeName": "pagina_2",
+      "versionTag": "1.0",
+      // Page Attributes
+      "pageNumber": 2,
+      "height": 297.0,
+      "width": 210.0,
+      "padding_top": 9.0,
+      "padding_left": 8.0,
+      "extraStyle":  "padding-top: 20px; padding-left: 20px; padding-bottom: 20px; padding-right: 20px;"
+      // Page sections
+    }
+  ]
+}
