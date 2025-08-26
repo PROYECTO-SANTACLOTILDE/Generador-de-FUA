@@ -7,6 +7,12 @@ import FUARenderingUtils from "../utils/FUARendering";
 import FUAFormatFromSchemaImplementation from "../implementation/sequelize/FUAFormatFromSchemaImplementation";
 import puppeteer from "puppeteer";
 
+import * as fs from "fs";
+import * as path from "path";
+import { plainAddPlaceholder } from '@signpdf/placeholder-plain';
+import { P12Signer } from '@signpdf/signer-p12';
+import signpdf from '@signpdf/signpdf';
+
 // Schemas
 
 const newFUAFormatFromSchemaZod = z.object({
@@ -319,9 +325,32 @@ export class FUAFormatFromSchemaService {
             (err as Error).message = 'Error in FUAFormat Service - returnSignedPDFbyID: ' + (err as Error).message;
             throw err;
         }
-        return pdfBuffer;
+        let signedPdf: Buffer;
+        try {
+            const certPath = path.resolve(process.cwd(), "./src/certificate/certificate.p12");
+            const passphrase = "password";
+            const p12Buffer = fs.readFileSync(certPath);
+
+            const pdfWithPlaceholder = plainAddPlaceholder({
+                pdfBuffer: pdfBuffer,
+                reason: "Approval",
+                contactInfo: "gidis@example.com",
+                name: "My Server",
+                location: "PUCP"
+            });
+
+            const signer = new P12Signer(p12Buffer, {passphrase});  
+            signedPdf = await signpdf.sign(pdfWithPlaceholder, signer);
+        }catch (err: unknown) {
+            console.error('Error in FUAFormat Service - returnSignedPDFbyID (sign): ', err);
+            (err as Error).message = 'Error in FUAFormat Service - returnSignedPDFbyID (sign): ' + (err as Error).message;
+            throw err;
+        }
+    
+    return signedPdf;
     }
 
+    
 
 
 };
