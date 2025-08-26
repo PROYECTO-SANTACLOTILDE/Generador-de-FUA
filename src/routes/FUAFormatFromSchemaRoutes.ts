@@ -39,6 +39,13 @@ FUAFormatFromSchemaRouter.get(
     FUAFormatFromSchemaController.render
 );
 
+// Return a signed PDF by Id/UUID
+FUAFormatFromSchemaRouter.get(
+  '/:id/pdf-signed',
+  authenticate,
+  FUAFormatFromSchemaController.returnSignedPDFbyID
+);
+
 // Edit FUA Format
 let edit = upload.fields([{ name: 'formatPayload', maxCount: 1 }, { name: 'name', maxCount: 1 }, { name: 'token', maxCount: 1}]);
 FUAFormatFromSchemaRouter.put(
@@ -47,5 +54,6 @@ FUAFormatFromSchemaRouter.put(
     edit,    
     FUAFormatFromSchemaController.edit
 ); 
+
 
 export default FUAFormatFromSchemaRouter;

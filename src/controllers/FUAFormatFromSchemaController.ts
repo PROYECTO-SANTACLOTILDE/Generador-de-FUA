@@ -147,7 +147,33 @@ const FUAFormatFromSchemaController = {
             });
         }
             
+    },
+
+    async returnSignedPDFbyID (req: Request, res: Response): Promise<void>  {
+        const payload = req.params.id;
+
+        try {
+            const signedPdf = await FUAFormatFromSchemaService.returnSignedPDFbyID(payload);
+
+            if (signedPdf === null) {
+                res.status(404).json({
+                    error: `FUA Format by Id or UUID '${payload}' couldnt be found. `,
+                });
+                return;
+            }
+            res.setHeader('Content-Type', 'application/pdf');
+            res.setHeader('X-Content-Type-Options', 'nosniff');
+            res.setHeader('Content-Disposition', 'inline; filename="fua-signed.pdf"');
+            res.status(200).end(signedPdf);
+        } catch (err: any) {
+            res.status(500).json({
+                error: 'Failed to return signed PDF. (Controller)', 
+                message: (err as Error).message,
+                details: (err as any).details ?? null, 
+            });
+        }    
     }
+
 };
 
 export default FUAFormatFromSchemaController;
