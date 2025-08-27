@@ -13,6 +13,12 @@ import { plainAddPlaceholder } from '@signpdf/placeholder-plain';
 import { P12Signer } from '@signpdf/signer-p12';
 import signpdf from '@signpdf/signpdf';
 
+
+import crypto from "crypto";
+import { getServerCertFingerprintSHA256 } from "../utils/serverCert";
+
+const verifyPDF = require("@ninja-labs/verify-pdf");
+
 // Schemas
 
 const newFUAFormatFromSchemaZod = z.object({

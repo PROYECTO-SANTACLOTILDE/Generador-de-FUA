@@ -6,6 +6,9 @@ import { parse } from 'jsonc-parser';
 
 import FUAFormatFromSchemaService from '../services/FUAFormatFromSchemaService';
 
+//import { verifySignedByOurServer } from '../utils/verifySignedByOurServer';
+const { verifySignedByOurServer } = require("../utils/verifySignedByOurServer");
+
 
 const FUAFormatFromSchemaController = {
 
@@ -149,6 +152,7 @@ const FUAFormatFromSchemaController = {
             
     },
 
+    // Generation of a signed PDF
     async returnSignedPDFbyID (req: Request, res: Response): Promise<void>  {
         const payload = req.params.id;
 
@@ -172,7 +176,31 @@ const FUAFormatFromSchemaController = {
                 details: (err as any).details ?? null, 
             });
         }    
+    },
+
+    async checkServerSignature (req: Request, res: Response): Promise<void>  {
+        try {
+            const files = req.files as { [fieldname: string]: Express.Multer.File[] } | undefined;
+            const file = files?.['pdf']?.[0]; 
+
+            if (!file) {
+            res.status(400).json({ error: "No PDF provided (field 'pdf')." });
+            return;
+            }
+
+            const result = await verifySignedByOurServer(file.buffer);
+            res.status(200).json(result);
+
+        } catch (err: any) {
+            console.error("Error in FUAFormatFromSchema Controller - checkServerSignature:", err);
+            res.status(500).json({
+            error: "Failed to verify PDF signature. (Controller)",
+            message: (err as Error).message,
+            details: (err as any).details ?? null,
+            });
+        }
     }
+
 
 };
 

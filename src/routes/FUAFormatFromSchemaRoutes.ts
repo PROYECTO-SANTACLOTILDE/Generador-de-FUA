@@ -55,5 +55,13 @@ FUAFormatFromSchemaRouter.put(
     FUAFormatFromSchemaController.edit
 ); 
 
+const uploadPdf = upload.fields([{ name: 'pdf', maxCount: 1 }]);
+FUAFormatFromSchemaRouter.post(
+  '/check-signature',
+  authenticate,
+  uploadPdf,
+  FUAFormatFromSchemaController.checkServerSignature
+);
+
 
 export default FUAFormatFromSchemaRouter;
