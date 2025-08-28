@@ -310,7 +310,7 @@ export class FUAFormatFromSchemaService {
 
         const rawPdf = await page.pdf({
             printBackground: true,
-            preferCSSPageSize: false,  // même choix que votre code
+            preferCSSPageSize: false, 
             width: "210mm",
             height: "297mm",
             margin: { top: "0mm", right: "0mm", bottom: "0mm", left: "0mm" },
@@ -336,7 +336,7 @@ export class FUAFormatFromSchemaService {
             const certPath = path.resolve(process.cwd(), "./src/certificate/certificate.p12");
             const passphrase = "password";
             const p12Buffer = fs.readFileSync(certPath);
-
+            
             const pdfWithPlaceholder = plainAddPlaceholder({
                 pdfBuffer: pdfBuffer,
                 reason: "Approval",
