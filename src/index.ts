@@ -22,10 +22,33 @@ import { getPatient } from './services/fhirService';
 // Import Routes
 import globalRouter from './routes/indexRoutes';
 import { createDemoFormat } from './utils/utils';
+import { LoggerInstance } from './middleware/logger/models/typescript/Logger';
+import { Logger_EnvironmentType } from './middleware/logger/models/typescript/EnvironmentType';
+import { Log } from './middleware/logger/models/typescript/Log';
+import { Logger_LogLevel } from './utils/LegLevelEnum';
+import { Logger_SecurityLevel } from './middleware/logger/models/typescript/SecurityLevel';
+import { Logger_LogType } from './middleware/logger/models/typescript/LogType';
 
 // Parameters and other options
 const app = express();
 const port = process.env.PORT || 3000;
+
+// Logger instance
+let logger = new LoggerInstance( Logger_EnvironmentType.DEV, 'xd');
+
+let auxLog = new Log({
+  // id
+  // uuid
+  timeStamp: new Date(),
+  logLevel: Logger_LogLevel.DEBUG,
+  securityLevel: Logger_SecurityLevel.Admin,
+  logType: Logger_LogType.CREATE,
+  environmentType: logger.enviroment
+  // description,
+  // content
+});
+
+logger.testTerminal(auxLog);
 
 // Testing database connection
 // Consider to envelope main in a async function
