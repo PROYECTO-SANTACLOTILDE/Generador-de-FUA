@@ -43,9 +43,22 @@ let auxLog = new Log({
   logLevel: Logger_LogLevel.DEBUG,
   securityLevel: Logger_SecurityLevel.Admin,
   logType: Logger_LogType.CREATE,
-  environmentType: logger.enviroment
+  environmentType: logger.enviroment,
   // description,
-  // content
+  content: {
+    object: {
+      type: "FUAFormat",
+      id: "uuid",
+      display: "asdasd"
+    },
+    objectsRelates: [
+      {
+        type: "mapping",
+        id: "asdasd",
+        relation: "mapping used to generate fua"
+      }
+    ]
+  }
 });
 
 logger.testTerminal(auxLog);

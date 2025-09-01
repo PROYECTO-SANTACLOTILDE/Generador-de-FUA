@@ -75,11 +75,11 @@ export class Log {
     finalString += Cyan     + this.logLevel.padEnd(15, ' ')                + Reset + " ";
     finalString += Magenta  + this.securityLevel.padEnd(15, ' ')           + Reset + " ";
     finalString += White    + this.logType.padEnd(15,' ')                  + Reset + " ";
-    finalString += White    + (this.description?? 'No description.').padEnd(100, ' ')           + Reset + '\n ';
+    finalString += White    + (this.description?? 'No description.').padEnd(100, ' ')           + Reset + '\n';
     
 
     if (this.content) {
-        finalString += White + JSON.stringify(this.content, null, 2) + Reset;
+      finalString += White + JSON.stringify(this.content, null, 2) + Reset;
     }
 
     return finalString;
