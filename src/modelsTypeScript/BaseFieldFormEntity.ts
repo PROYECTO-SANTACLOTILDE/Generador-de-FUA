@@ -8,6 +8,7 @@ export interface BaseFieldFormEntityInterface extends BaseEntityInterface {
 };
 
 
+
 class BaseFieldFormEntity extends BaseEntity {
     codename: string;
     versionTag: string;

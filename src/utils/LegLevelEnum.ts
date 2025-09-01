@@ -1,4 +1,3 @@
-//
 export enum Logger_LogLevel {
     //
 	TRACE = 'TRACE',
