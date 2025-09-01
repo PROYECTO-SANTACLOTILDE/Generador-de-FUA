@@ -1,6 +1,6 @@
 //
 export enum Logger_LogLevel {
-// Very detailed debugging information
+    // Very detailed debugging information
 	TRACE = 'TRACE',
 	// Technical information for developers
     DEBUG = 'DEBUG',

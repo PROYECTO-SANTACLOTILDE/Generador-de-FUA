@@ -19,11 +19,11 @@
 
 export enum Logger_EnvironmentType {
     // Development environment logs
-	TRACE = 'DEV',
+	DEV = 'DEV',
 	// Quality assurance / testing environment logs
-    DEBUG = 'QUALITY',
+    QUALITY = 'QUALITY',
 	// Production environment logs (real system usage)
-    INFO = 'PROD'
+    PROD = 'PROD'
 }
 
 
