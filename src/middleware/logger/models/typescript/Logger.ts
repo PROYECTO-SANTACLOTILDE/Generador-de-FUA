@@ -35,4 +35,8 @@ export class LoggerInstance {
     message = log.toTerminal();
     console.log( message );
   }
+
+  testFile(path : string) {
+    
+  }
 }

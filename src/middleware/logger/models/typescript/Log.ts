@@ -71,11 +71,11 @@ export class Log {
 
     
 
-    finalString += White    + ('['+this.timeStamp.toISOString()+']').padEnd(30," ")  + Reset + " ";
-    finalString += Cyan     + this.logLevel.padEnd(15, ' ')                + Reset + " ";
-    finalString += Magenta  + this.securityLevel.padEnd(15, ' ')           + Reset + " ";
-    finalString += White    + this.logType.padEnd(15,' ')                  + Reset + " ";
-    finalString += White    + (this.description?? 'No description.').padEnd(100, ' ')           + Reset + '\n';
+    finalString += White    + ('['+this.timeStamp.toISOString()+']').padEnd(30," ")   + Reset + " ";
+    finalString += Cyan     + this.logLevel.padEnd(15, ' ')                           + Reset + " ";
+    finalString += Magenta  + this.securityLevel.padEnd(15, ' ')                      + Reset + " ";
+    finalString += White    + this.logType.padEnd(15,' ')                             + Reset + " ";
+    finalString += White    + (this.description?? 'No description.').padEnd(100, ' ') + Reset + '\n';
     
 
     if (this.content) {
