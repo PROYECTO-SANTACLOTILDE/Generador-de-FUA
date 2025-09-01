@@ -62,6 +62,7 @@ let auxLog = new Log({
 });
 
 logger.testTerminal(auxLog);
+logger.testFile('./error3e.log', auxLog);
 
 // Testing database connection
 // Consider to envelope main in a async function

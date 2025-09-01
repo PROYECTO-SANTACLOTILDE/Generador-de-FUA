@@ -1,7 +1,7 @@
 // Imported libraries
 import { Logger_EnvironmentType } from "./EnvironmentType";
 import { Log } from "./Log";
-
+import * as fs from "fs";
 
 // Interfaces
 
@@ -36,7 +36,16 @@ export class LoggerInstance {
     console.log( message );
   }
 
-  testFile(path : string) {
-    
+  testFile(path : string, log : Log) {
+    try {
+        if (!fs.existsSync(path)) {
+            let notFoundFileMessage = `[${(new Date).toISOString()}] File named '${path}' couldn't be found. Logger created the file. \n`;
+            fs.appendFileSync(path, notFoundFileMessage, { encoding: "utf-8" }); 
+        }
+        const message = log.toFile();
+        fs.appendFileSync(path, message, { encoding: "utf-8" });
+    } catch (err) {
+      console.error("Failed to write log file: ", err);
+    }
   }
 }

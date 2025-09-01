@@ -67,7 +67,7 @@ export class Log {
     const Magenta = "\x1b[35m";
     const Yellow = "\x1b[33m";
 
-    let finalString = "";
+    let finalString = "\n";
 
     
 
@@ -75,11 +75,11 @@ export class Log {
     finalString += Cyan     + this.logLevel.padEnd(15, ' ')                           + Reset + " ";
     finalString += Magenta  + this.securityLevel.padEnd(15, ' ')                      + Reset + " ";
     finalString += White    + this.logType.padEnd(15,' ')                             + Reset + " ";
-    finalString += White    + (this.description?? 'No description.').padEnd(100, ' ') + Reset + '\n';
+    finalString += White    + (this.description?? 'No description.').padEnd(100, ' ') + Reset + ' ';
     
 
     if (this.content) {
-      finalString += White + JSON.stringify(this.content, null, 2) + Reset;
+      finalString += White + JSON.stringify(this.content) + Reset;
     }
 
     return finalString;
@@ -87,7 +87,20 @@ export class Log {
 
   // In a file (String)
   toFile() {
+    let finalString = "\n";
 
+    finalString += ('['+this.timeStamp.toISOString()+']').padEnd(30," ")   + " ";
+    finalString += this.logLevel.padEnd(15, ' ')                           + " ";
+    finalString += this.securityLevel.padEnd(15, ' ')                      + " ";
+    finalString += this.logType.padEnd(15,' ')                             + " ";
+    finalString += (this.description?? 'No description.').padEnd(100, ' ') + ' ';
+    
+
+    if (this.content) {
+      finalString += JSON.stringify(this.content);
+    }
+
+    return finalString;
   };
 
   // In database
