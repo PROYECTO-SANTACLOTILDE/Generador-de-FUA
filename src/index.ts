@@ -61,8 +61,8 @@ let auxLog = new Log({
   }
 });
 
-logger.testTerminal(auxLog);
-logger.testFile('./error3e.log', auxLog);
+logger.testTerminal(auxLog);                  // test in terminal
+logger.testFile('./error3e.log', auxLog);     // test in file
 
 // Testing database connection
 // Consider to envelope main in a async function
@@ -72,8 +72,8 @@ sequelize.authenticate()
   console.log(`\nConnection has been established with database successfully.\n`);  
   // Syncronize models
   console.log('\n Syncronizing models ... \n');
-  //sequelize.sync({ force: true })
-  sequelize.sync({ alter: true })
+  sequelize.sync({ force: true })
+  //sequelize.sync({ alter: true })
   .then( () : void => {
     console.log('\nEnded syncronizing models ...\n');
   } );  
@@ -83,6 +83,8 @@ sequelize.authenticate()
   console.error('Unable to connect to the database: ');
   console.error(error);
 });
+
+
 
 // Importing utilities for Express
 app.use(express.static(path.resolve(__dirname, './public')));
@@ -97,6 +99,11 @@ app.use('/ws', globalRouter);
 app.get('/', (req, res) => {
   res.send('¡Servidor Express en funcionamiento!');
 });
+
+
+  
+  
+
 
 // Ruta para obtener un paciente por ID
 app.get('/patient/:id', async (req, res) => {
@@ -239,6 +246,21 @@ app.get('/demopdf', async (req, res) => {
       error: "Failed to create demo.",
       message: err?.message,
       details: err?.stack ?? null,
+    });
+  }
+});
+
+//TESTING LOGGER DB
+app.get('/logger-db', async (req, res) => {
+  try {
+    const aux = logger.testDB(auxLog);
+    res.status(200).send('okay');
+  } catch (err: unknown) {
+    console.error(err);
+    res.status(500).json({
+      error: 'Failed to create log. ', 
+      message: (err as (Error)).message,
+      details: (err as any).details ?? null,
     });
   }
 });

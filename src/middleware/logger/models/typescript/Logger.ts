@@ -1,4 +1,5 @@
 // Imported libraries
+import { LogSequelize } from "../sequelize";
 import { Logger_EnvironmentType } from "./EnvironmentType";
 import { Log } from "./Log";
 import * as fs from "fs";
@@ -47,5 +48,20 @@ export class LoggerInstance {
     } catch (err) {
       console.error("Failed to write log file: ", err);
     }
+  };
+
+  async testDB(log : Log){
+    try {
+      let aux = await LogSequelize.create({
+        timeStamp: log.timeStamp,
+        logLevel: log.logLevel.toString(),
+        securityLevel: log.securityLevel.toString(),
+        logType: log.logType.toString(),
+        description: log.description,
+        content: JSON.stringify(log.content)
+      });
+    }catch(error : any){
+      console.error("Failed to write log file: ", error);
+    }    
   }
 }
