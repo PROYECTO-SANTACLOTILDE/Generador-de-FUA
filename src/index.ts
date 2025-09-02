@@ -251,7 +251,7 @@ app.get('/demopdf', async (req, res) => {
 });
 
 //TESTING LOGGER DB
-app.get('/logger-db', async (req, res) => {
+app.get('/logger-db', async (req, res) => { //test in DB
   try {
     const aux = logger.testDB(auxLog);
     res.status(200).send('okay');

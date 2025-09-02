@@ -65,3 +65,23 @@ export class LoggerInstance {
     }    
   }
 }
+
+type target = {
+  name: string;
+  file?: string;
+}
+
+/*
+Logger.printLog( auxLog : Log, targets: [
+    {
+        name: "database" // testTerminal    
+    },
+    {
+        name: "terminal"  // TestFile
+    },
+    {
+        name: "file",   // TestDB
+        file: "./auxLog.log"
+    }
+])
+*/
