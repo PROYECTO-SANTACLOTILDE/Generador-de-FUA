@@ -29,6 +29,7 @@ import { Logger_LogLevel } from './utils/LegLevelEnum';
 import { Logger_SecurityLevel } from './middleware/logger/models/typescript/SecurityLevel';
 import { Logger_LogType } from './middleware/logger/models/typescript/LogType';
 
+
 // Parameters and other options
 const app = express();
 const port = process.env.PORT || 3000;
@@ -61,8 +62,8 @@ let auxLog = new Log({
   }
 });
 
-logger.testTerminal(auxLog);                  // test in terminal
-logger.testFile('./error3e.log', auxLog);     // test in file
+//logger.testTerminal(auxLog);                  // test in terminal
+//logger.testFile('./error3e.log', auxLog);     // test in file
 
 // Testing database connection
 // Consider to envelope main in a async function
@@ -253,7 +254,12 @@ app.get('/demopdf', async (req, res) => {
 //TESTING LOGGER DB
 app.get('/logger-db', async (req, res) => { //test in DB
   try {
-    const aux = logger.testDB(auxLog);
+    //const aux = logger.testDB(auxLog);
+    const aux = logger.printLog(auxLog, [
+    { name: "terminal" },
+    { name: "file", file: "./logs/auxLog.log" },
+    { name: "database" }
+    ]);
     res.status(200).send('okay');
   } catch (err: unknown) {
     console.error(err);
