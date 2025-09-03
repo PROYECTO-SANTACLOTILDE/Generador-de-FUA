@@ -1,13 +1,16 @@
+// Libraries
 import { Request, Response} from 'express';
-
 const fs = require('fs');
 const path = require('path');
 import { parse } from 'jsonc-parser';
-
 import FUAFormatFromSchemaService from '../services/FUAFormatFromSchemaService';
 
+// Other imports
+import { loggerInstance } from '../middleware/logger/models/typescript/Logger';
 
 const FUAFormatFromSchemaController = {
+
+    
 
     async create  (req: Request, res: Response): Promise<void>  {
         const controllerBody = req.body;
@@ -20,6 +23,7 @@ const FUAFormatFromSchemaController = {
 
         // Validation parsing validation pending needed
         
+
 
         let newFUAFormat = null;
         try {

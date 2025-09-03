@@ -10,7 +10,7 @@ import FUAFieldRowRouter from './FUAFieldRowRoutes';
 import FUAFieldCellRouter from './FUAFieldCellRoutes';
 import FUAFromVisitRouter from './FUAFromVisitRouter';
 import FUAFormatFromSchemaRouter from './FUAFormatFromSchemaRoutes';
-import { globalAgent } from 'http';
+
 
 const globalRouter = express.Router();
 

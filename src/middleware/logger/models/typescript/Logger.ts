@@ -4,6 +4,7 @@ import { Logger_EnvironmentType } from "./EnvironmentType";
 import { Log } from "./Log";
 import * as fs from "fs";
 import * as path from "path";
+require('dotenv').config();
 
 // Interfaces
 
@@ -39,12 +40,12 @@ function ensureParentDir(filePath: string) {
 }
 
 
-export class LoggerInstance {
-    public enviroment: Logger_EnvironmentType;
+export class Logger {
+    public enviroment: string;
     private name: string;
 
   constructor(
-    enviroment: Logger_EnvironmentType,
+    enviroment: string,
     name: string
   ) {
     this.enviroment = enviroment;
@@ -114,4 +115,8 @@ export class LoggerInstance {
 
 }
 
+export const loggerInstance = new Logger(
+  process.env.ENV ?? 'default enviroment',
+  'im a logger instance'
+);
 

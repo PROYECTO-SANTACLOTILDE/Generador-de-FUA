@@ -22,7 +22,7 @@ import { getPatient } from './services/fhirService';
 // Import Routes
 import globalRouter from './routes/indexRoutes';
 import { createDemoFormat } from './utils/utils';
-import { LoggerInstance } from './middleware/logger/models/typescript/Logger';
+import { Logger, loggerInstance } from './middleware/logger/models/typescript/Logger';
 import { Logger_EnvironmentType } from './middleware/logger/models/typescript/EnvironmentType';
 import { Log } from './middleware/logger/models/typescript/Log';
 import { Logger_LogLevel } from './utils/LegLevelEnum';
@@ -34,36 +34,7 @@ import { Logger_LogType } from './middleware/logger/models/typescript/LogType';
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Logger instance
-let logger = new LoggerInstance( Logger_EnvironmentType.DEV, 'xd');
 
-let auxLog = new Log({
-  // id
-  // uuid
-  timeStamp: new Date(),
-  logLevel: Logger_LogLevel.DEBUG,
-  securityLevel: Logger_SecurityLevel.Admin,
-  logType: Logger_LogType.CREATE,
-  environmentType: logger.enviroment,
-  // description,
-  content: {
-    object: {
-      type: "FUAFormat",
-      id: "uuid",
-      display: "asdasd"
-    },
-    objectsRelates: [
-      {
-        type: "mapping",
-        id: "asdasd",
-        relation: "mapping used to generate fua"
-      }
-    ]
-  }
-});
-
-//logger.testTerminal(auxLog);                  // test in terminal
-//logger.testFile('./error3e.log', auxLog);     // test in file
 
 // Testing database connection
 // Consider to envelope main in a async function
@@ -78,9 +49,22 @@ sequelize.authenticate()
   .then( () : void => {
     console.log('\nEnded syncronizing models ...\n');
   } );  
-
 })
 .catch((error: unknown): void => {
+  // Log in case of failure
+  let auxLog = new Log({
+    timeStamp: new Date(),
+    logLevel: Logger_LogLevel.ERROR,
+    securityLevel: Logger_SecurityLevel.Admin,
+    logType: Logger_LogType.CREATE,
+    environmentType: loggerInstance.enviroment.toString(),
+    description: 'DATABSE CONNECTTION FAILURE :('
+  });
+
+  loggerInstance.printLog(auxLog, [
+    { name: "terminal" },
+    { name: "file", file: "./logs/auxLog.log" }
+    ]);
   console.error('Unable to connect to the database: ');
   console.error(error);
 });
@@ -100,10 +84,6 @@ app.use('/ws', globalRouter);
 app.get('/', (req, res) => {
   res.send('¡Servidor Express en funcionamiento!');
 });
-
-
-  
-  
 
 
 // Ruta para obtener un paciente por ID

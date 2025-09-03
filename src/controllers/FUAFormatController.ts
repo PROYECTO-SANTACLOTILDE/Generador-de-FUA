@@ -2,13 +2,16 @@ import { Request, Response} from 'express';
 import FUAFormatService from '../services/FUAFormatService';
 
 
-const FUAFormatController = {
+class FUAFormatController {
+
+    private entityName : string = "FUAFormat";
 
     async createFUAFormat  (req: Request, res: Response): Promise<void>  {
         const payload = req.body;
         let newFUAFormat = null;
         try {
             newFUAFormat = await FUAFormatService.create(payload);
+            
             res.status(201).json(newFUAFormat);    
         } catch (err: any) {
             res.status(500).json({
@@ -17,8 +20,7 @@ const FUAFormatController = {
                 details: (err as any).details ?? null, 
             });
         }
-            
-    },
+    };
 
     // Pending pagination
     async listAllFUAFormats (req: Request, res: Response): Promise<void>  {
@@ -32,7 +34,7 @@ const FUAFormatController = {
                 details: (err as any).details ?? null, 
             });
         }    
-    },
+    };
 
     async getFUAFormatById (req: Request, res: Response): Promise<void>  {
         const payload = req.params.id;
@@ -59,7 +61,7 @@ const FUAFormatController = {
             });
         }
             
-    },
+    };
 
     // Render FUA Format by Id or UUID
     async render (req: Request, res: Response): Promise<void>  {
@@ -87,7 +89,7 @@ const FUAFormatController = {
             });
         }
             
-    },
+    };
 };
 
 export default FUAFormatController;

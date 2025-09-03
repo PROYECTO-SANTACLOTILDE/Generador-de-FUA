@@ -25,7 +25,7 @@ export class Log {
   logLevel: Logger_LogLevel;                // Severity of the log entry (e.g., INFO, WARN, ERROR, FATAL)
   securityLevel: Logger_SecurityLevel;      // Security classification (e.g., USER, ADMIN, SYSTEM)
   logType: Logger_LogType;                  // Type of action being logged (e.g., CREATE, READ, UPLOAD, DELETE)
-  environmentType: Logger_EnvironmentType;  // Environment where the log was generated (DEV, QUALITY, PROD)
+  environmentType: string;  // Environment where the log was generated (DEV, QUALITY, PROD)
   description?: string;                     // short human message
   content?: unknown;                        // any structured payload
 
@@ -36,7 +36,7 @@ export class Log {
     logLevel: Logger_LogLevel;
     securityLevel: Logger_SecurityLevel;
     logType: Logger_LogType;
-    environmentType: Logger_EnvironmentType;
+    environmentType: string;
     description?: string;
     content?: unknown;
   }) {
@@ -46,7 +46,7 @@ export class Log {
     this.logLevel = params.logLevel;
     this.securityLevel = params.securityLevel;
     this.logType = params.logType;
-    this.environmentType = params.environmentType;
+    this.environmentType = params.environmentType,toString();
     this.description = params.description;
     this.content = params.content;
 
