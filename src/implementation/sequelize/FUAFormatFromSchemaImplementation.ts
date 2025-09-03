@@ -1,4 +1,5 @@
 import FUAFormatFromSchemaModel from '../../modelsSequelize/FUAFormatFromSchemaModel';
+import { inspect } from "util";
 
 interface FUAFormatFromSchemaCreateInterface {
     // Data
@@ -29,10 +30,14 @@ class FUAFormatFromSchemaImplementation {
         let returnedFUAFormat = null;
         try {
             returnedFUAFormat = await FUAFormatFromSchemaModel.create(data);
-        } catch (err: unknown){
-            console.error('Error in FUA Format From Schema Sequelize Implementation: Couldnt create FUA Format From Schema in database using Sequelize. ', err);
-            (err as Error).message =  'Error in FUA Format From Schema Sequelize Implementation: Couldnt create FUA Format From Schema in database using Sequelize: ' + (err as Error).message;
-            throw err;
+        } catch (err: any){
+            const line =
+            "Error in FUA Format From Schema Sequelize Implementation: Couldn’t create FUA Format From Schema in database using Sequelize.\n" +
+            inspect(err, { depth: 10, colors: false });
+
+        console.error(line);       
+        err.consoleLine = line;     
+        throw err;
         }        
 
         return returnedFUAFormat;

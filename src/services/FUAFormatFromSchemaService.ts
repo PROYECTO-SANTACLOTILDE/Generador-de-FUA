@@ -5,6 +5,7 @@ import FUAFormatImplementation from '../implementation/sequelize/FUAFormatImplem
 import { isValidUUIDv4 } from "../utils/utils";
 import FUARenderingUtils from "../utils/FUARendering";
 import FUAFormatFromSchemaImplementation from "../implementation/sequelize/FUAFormatFromSchemaImplementation";
+import { inspect } from "util";
 
 // Schemas
 
@@ -70,9 +71,10 @@ class FUAFormatFromSchemaService {
                 // Audit Data
                 createdBy: data.createdBy,
             });
-        } catch (err: unknown){
-            console.error('Error in FUA Format From Schema Service: ', err);
-            (err as Error).message =  'Error in FUA Format From Schema Service: \n' + (err as Error).message;
+        } catch (err: any){
+            const line = "Error in FUA Format From Schema Service:\n" + inspect(err, { depth: 10, colors: false });
+            console.error(line);
+            err.consoleLine = err.consoleLine ?? line;
             throw err;
         }
 

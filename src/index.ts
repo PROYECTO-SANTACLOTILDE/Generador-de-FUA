@@ -232,7 +232,7 @@ app.get('/demopdf', async (req, res) => {
 });
 
 //TESTING LOGGER DB
-app.get('/logger-db', async (req, res) => { //test in DB
+/* app.get('/logger-db', async (req, res) => { //test in DB
   try {
     //const aux = logger.testDB(auxLog);
     const aux = logger.printLog(auxLog, [
@@ -249,5 +249,5 @@ app.get('/logger-db', async (req, res) => { //test in DB
       details: (err as any).details ?? null,
     });
   }
-});
+}); */
 

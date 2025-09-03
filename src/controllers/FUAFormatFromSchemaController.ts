@@ -4,9 +4,15 @@ const fs = require('fs');
 const path = require('path');
 import { parse } from 'jsonc-parser';
 import FUAFormatFromSchemaService from '../services/FUAFormatFromSchemaService';
+import { inspect } from "util";
 
 // Other imports
+import {Log} from '../middleware/logger/models/typescript/Log';
 import { loggerInstance } from '../middleware/logger/models/typescript/Logger';
+import { Logger_LogLevel } from '../middleware/logger/models/typescript/LogLevel';
+import { Logger_SecurityLevel } from '../middleware/logger/models/typescript/SecurityLevel';
+import { Logger_LogType } from '../middleware/logger/models/typescript/LogType';
+
 
 const FUAFormatFromSchemaController = {
 
@@ -42,8 +48,23 @@ const FUAFormatFromSchemaController = {
                 message: (err as (Error)).message,
                 details: (err as any).details ?? null, 
             });
-        }
-            
+
+            const line = err.consoleLine ?? ("Error in FUA Format From Schema Controller:\n" + inspect(err, { depth: 10, colors: false }));
+
+            let auxLog = new Log({
+                timeStamp: new Date(),
+                logLevel: Logger_LogLevel.ERROR,
+                securityLevel: Logger_SecurityLevel.Admin,
+                logType: Logger_LogType.CREATE,
+                environmentType: loggerInstance.enviroment.toString(),
+                //description: err.message + (err.details ?? '')
+                description: line
+            });
+            loggerInstance.printLog(auxLog, [
+                { name: "terminal" },
+                { name: "file", file: "logs/auxLog.log"}
+            ]);
+        }       
     },
 
     // Pending pagination
