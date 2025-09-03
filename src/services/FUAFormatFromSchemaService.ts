@@ -51,7 +51,7 @@ class FUAFormatFromSchemaService {
         // Object Validation
         const result = newFUAFormatFromSchemaZod.safeParse(data);
         if( !result.success ){
-            console.error('Error in FUA Format From Schema Service - createFUAFormat: ZOD validation. \n', result.error);
+            //console.error('Error in FUA Format From Schema Service - createFUAFormat: ZOD validation. \n', result.error);
             const newError = new Error('Error in FUA Format From Schema Service - createFUAFormat: ZOD validation. ');
             (newError as any).details = result.error;
             throw newError;
@@ -72,9 +72,7 @@ class FUAFormatFromSchemaService {
                 createdBy: data.createdBy,
             });
         } catch (err: any){
-            const line = "Error in FUA Format From Schema Service:\n" + inspect(err, { depth: 10, colors: false });
-            console.error(line);
-            err.consoleLine = err.consoleLine ?? line;
+            (err as Error).message =  'Error in FUA Format From Schema Service:  ' + (err as Error).message;
             throw err;
         }
 

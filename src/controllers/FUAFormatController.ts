@@ -6,7 +6,7 @@ class FUAFormatController {
 
     private entityName : string = "FUAFormat";
 
-    async createFUAFormat  (req: Request, res: Response): Promise<void>  {
+    static async createFUAFormat  (req: Request, res: Response): Promise<void>  {
         const payload = req.body;
         let newFUAFormat = null;
         try {
@@ -23,7 +23,7 @@ class FUAFormatController {
     };
 
     // Pending pagination
-    async listAllFUAFormats (req: Request, res: Response): Promise<void>  {
+    static async listAllFUAFormats (req: Request, res: Response): Promise<void>  {
         try {
             const listFUAFormats = await FUAFormatService.listAll();
             res.status(200).json(listFUAFormats);
@@ -36,7 +36,7 @@ class FUAFormatController {
         }    
     };
 
-    async getFUAFormatById (req: Request, res: Response): Promise<void>  {
+    static async getFUAFormatById (req: Request, res: Response): Promise<void>  {
         const payload = req.params.id;
 
         let searchedFUAFormat = null;
@@ -64,7 +64,7 @@ class FUAFormatController {
     };
 
     // Render FUA Format by Id or UUID
-    async render (req: Request, res: Response): Promise<void>  {
+    static async render (req: Request, res: Response): Promise<void>  {
         const payload = req.params.id;
         const { token = "---", visit = "---" } = req.body ?? {};
 

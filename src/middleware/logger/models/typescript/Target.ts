@@ -1,5 +1,5 @@
 // Targets.ts
-import { LoggerInstance } from "./Logger"; // <-- adapte le chemin si besoin
+import { Logger, loggerInstance } from "./Logger"; // <-- adapte le chemin si besoin
 import { Log } from "./Log";
 import * as fs from "fs";
 import * as path from "path";
@@ -28,7 +28,7 @@ function ensureParentDir(filePath: string) {
  * chaque résultat (succès/échec) est renvoyé dans le tableau de PrintResult.
  */
 export async function printLog(
-  logger: LoggerInstance,
+  logger: Logger,
   log: Log,
   targets: TargetSpec[]
 ): Promise<PrintResult[]> {

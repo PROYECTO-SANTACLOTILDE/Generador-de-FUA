@@ -49,16 +49,13 @@ const FUAFormatFromSchemaController = {
                 details: (err as any).details ?? null, 
             });
 
-            const line = err.consoleLine ?? ("Error in FUA Format From Schema Controller:\n" + inspect(err, { depth: 10, colors: false }));
-
             let auxLog = new Log({
                 timeStamp: new Date(),
                 logLevel: Logger_LogLevel.ERROR,
                 securityLevel: Logger_SecurityLevel.Admin,
                 logType: Logger_LogType.CREATE,
                 environmentType: loggerInstance.enviroment.toString(),
-                //description: err.message + (err.details ?? '')
-                description: line
+                description: (err.message ? (err.message+'\n') : '') + (err.details ?? '')
             });
             loggerInstance.printLog(auxLog, [
                 { name: "terminal" },

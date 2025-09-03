@@ -7,6 +7,7 @@ import FUAFormatController from "../controllers/FUAFormatController";
 const FUAFormatRouter = express.Router();
 
 
+
 // Create FUA Format
 FUAFormatRouter.post('/', FUAFormatController.createFUAFormat); 
 
