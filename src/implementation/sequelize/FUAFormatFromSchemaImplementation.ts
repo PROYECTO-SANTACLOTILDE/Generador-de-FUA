@@ -51,9 +51,11 @@ class FUAFormatFromSchemaImplementation {
                 }
             });
 
-        } catch (err: unknown){
-            console.error('Error in FUA Format From Schema Sequelize Implementation: Couldnt list all FUA Format From Schema in database using Sequelize. ', err);
+        } catch (err: any){
+            //console.error('Error in FUA Format From Schema Sequelize Implementation: Couldnt list all FUA Format From Schema in database using Sequelize. ', err);
             (err as Error).message =  'Error in FUA Format From Schema Sequelize Implementation: Couldnt list all FUA Format From Schema in database using Sequelize. ' + (err as Error).message;
+            const line = inspect(err, { depth: 100, colors: false });
+            err.details = line.replace(/^/gm, '\t');     
             throw err;
         }        
 
@@ -71,9 +73,10 @@ class FUAFormatFromSchemaImplementation {
                 }
             });
 
-        } catch (err: unknown){
-            console.error(`Error in FUA Format From Schema Implementation: Couldnt found FUA Format From Schema identified by UUID '${uuidReceived}' . `, err);
+        } catch (err: any){
             (err as Error).message =  `Error in FUA Format From Schema Implementation: Couldnt retrieve FUA Format From Schema identified by UUID '${uuidReceived}' . ` + (err as Error).message;
+            const line = inspect(err, { depth: 100, colors: false });
+            err.details = line.replace(/^/gm, '\t'); 
             throw err;
         }        
 
@@ -94,9 +97,10 @@ class FUAFormatFromSchemaImplementation {
             });
 
 
-        } catch (err: unknown){
-            console.error(`Error in FUA Format From Schema Sequelize Implementation: Couldnt retrieve FUA Format From Schema identified by Id "${idReceived}". `, err);
+        } catch (err: any){
             (err as Error).message =  `Error in FUA Format From Schema Sequelize Implementation: Couldnt retrieve FUA Format From Schema identified by Id "${idReceived}" . ` + (err as Error).message;
+            const line = inspect(err, { depth: 100, colors: false });
+            err.details = line.replace(/^/gm, '\t'); 
             throw err;
         }
      
@@ -122,14 +126,11 @@ class FUAFormatFromSchemaImplementation {
         try {
             searchedFUAFormat = await this.getByUUIDSequelize(data.uuid);
         } catch (err: unknown){
-            console.error(`Error in FUA Format From Schema Sequelize Implementation: Couldnt found FUA Format From Schema in database identified by UUID ${data.uuid} Sequelize. `, err);
             (err as Error).message =  `Error in FUA Format From Schema Sequelize Implementation: Couldnt found FUA Format From Schema in database identified by UUID ${data.uuid} Sequelize. ` + (err as Error).message;
             throw err;
         }
 
         if(searchedFUAFormat === null){
-            // In case a FUA Format wasnt found
-            console.error(`Error in FUA Format From Schema Sequelize Implementation: Couldnt found FUA Format by UUID '${data.uuid}' sent in database using Sequelize. `);
             throw new Error(`Error in FUA Format From Schema Sequelize Implementation: Couldnt found FUA Format by UUID '${data.uuid}' sent in database using Sequelize. `);
         }
         
@@ -141,9 +142,10 @@ class FUAFormatFromSchemaImplementation {
         returnedFUAFormat = searchedFUAFormat.set(data);
         try {
             aux = await returnedFUAFormat.save();
-        } catch (err: unknown){
-            console.error('Error in FUA Format From Schema Sequelize Implementation: Couldnt save FUA Format From Schema in database using Sequelize. ', err);
+        } catch (err: any){
             (err as Error).message =  'Error in FUA Format From Schema Sequelize Implementation: Couldnt save FUA Format From Schema in database using Sequelize: ' + (err as Error).message;
+            const line = inspect(err, { depth: 100, colors: false });
+            err.details = line.replace(/^/gm, '\t'); 
             throw err;
         }
 

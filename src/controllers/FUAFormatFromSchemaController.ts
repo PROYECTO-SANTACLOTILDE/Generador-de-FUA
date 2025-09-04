@@ -28,7 +28,6 @@ const FUAFormatFromSchemaController = {
         const parsed = parse(jsoncContent);
 
         // Validation parsing validation pending needed
-        
 
 
         let newFUAFormat = null;
@@ -39,9 +38,21 @@ const FUAFormatFromSchemaController = {
                 codeName: controllerBody.name  ?? controllerBody.name.toString(),
                 versionTag: controllerBody.versionTag ?? controllerBody.name.toString() + '_1',
                 versionNumber: controllerBody.versionNumber ?? 1,
-                createdBy: controllerBody.createdBy,
+                createdBy: controllerBody.createdBy,  
             });
-            res.status(201).json(newFUAFormat);    
+            res.status(201).json(newFUAFormat);   
+             let auxLog = new Log({
+                timeStamp: new Date(),
+                logLevel: Logger_LogLevel.INFO,
+                securityLevel: Logger_SecurityLevel.Admin,
+                logType: Logger_LogType.CREATE,
+                environmentType: loggerInstance.enviroment.toString(),
+                description: ("Creating FUA Format From Schema Successful")
+            });
+            loggerInstance.printLog(auxLog, [
+                { name: "terminal" },
+                { name: "file", file: "logs/auxLog.log"}
+            ]);   
         } catch (err: any) {
             res.status(500).json({
                 error: 'Failed to create FUA Format From Schema. (Controller)', 
@@ -61,7 +72,7 @@ const FUAFormatFromSchemaController = {
                 { name: "terminal" },
                 { name: "file", file: "logs/auxLog.log"}
             ]);
-        }       
+        }     
     },
 
     // Pending pagination
@@ -69,13 +80,37 @@ const FUAFormatFromSchemaController = {
         try {
             const listFUAFormats = await FUAFormatFromSchemaService.listAll();
             res.status(200).json(listFUAFormats);
+            let auxLog = new Log({
+                timeStamp: new Date(),
+                logLevel: Logger_LogLevel.INFO,
+                securityLevel: Logger_SecurityLevel.Admin,
+                logType: Logger_LogType.READ,
+                environmentType: loggerInstance.enviroment.toString(),
+                description: ("Listing all FUA Formats From Schema Successful")
+            });
+            loggerInstance.printLog(auxLog, [
+                { name: "terminal" },
+                { name: "file", file: "logs/auxLog.log"}
+            ]);   
         } catch (err: any) {
             res.status(500).json({
                 error: 'Failed to list FUA Formats From Schema. (Controller)', 
                 message: (err as (Error)).message,
                 details: (err as any).details ?? null, 
             });
-        }    
+            let auxLog = new Log({
+                timeStamp: new Date(),
+                logLevel: Logger_LogLevel.ERROR,
+                securityLevel: Logger_SecurityLevel.Admin,
+                logType: Logger_LogType.READ,
+                environmentType: loggerInstance.enviroment.toString(),
+                description: (err.message ? (err.message+'\n') : '') + (err.details ?? '')
+            });
+            loggerInstance.printLog(auxLog, [
+                { name: "terminal" },
+                { name: "file", file: "logs/auxLog.log"}
+            ]);
+        } 
     },
 
     async getById (req: Request, res: Response): Promise<void>  {
@@ -101,7 +136,31 @@ const FUAFormatFromSchemaController = {
                 message: (err as (Error)).message,
                 details: (err as any).details ?? null, 
             });
+            let auxLog = new Log({
+                timeStamp: new Date(),
+                logLevel: Logger_LogLevel.ERROR,
+                securityLevel: Logger_SecurityLevel.Admin,
+                logType: Logger_LogType.READ,
+                environmentType: loggerInstance.enviroment.toString(),
+                description: (err.message ? (err.message+'\n') : '') + (err.details ?? '')
+            });
+            loggerInstance.printLog(auxLog, [
+                { name: "terminal" },
+                { name: "file", file: "logs/auxLog.log"}
+            ]);
         }
+        let auxLog = new Log({
+                timeStamp: new Date(),
+                logLevel: Logger_LogLevel.INFO,
+                securityLevel: Logger_SecurityLevel.Admin,
+                logType: Logger_LogType.READ,
+                environmentType: loggerInstance.enviroment.toString(),
+                description: ("Getting FUA Format by Id or UUID Successful")
+            });
+            loggerInstance.printLog(auxLog, [
+                { name: "terminal" },
+                { name: "file", file: "logs/auxLog.log"}
+            ]);
             
     },
 
@@ -120,15 +179,38 @@ const FUAFormatFromSchemaController = {
                 });
                 return;
             }                
-            res.status(200).send(htmlContent);    
+            res.status(200).send(htmlContent); 
+            let auxLog = new Log({
+                timeStamp: new Date(),
+                logLevel: Logger_LogLevel.INFO,
+                securityLevel: Logger_SecurityLevel.Admin,
+                logType: Logger_LogType.SYSTEM,
+                environmentType: loggerInstance.enviroment.toString(),
+                description: ("Rendering FUA Format by Id or UUID Successful")
+            });
+            loggerInstance.printLog(auxLog, [
+                { name: "terminal" },
+                { name: "file", file: "logs/auxLog.log"}
+            ]);   
         } catch (err: any) {
             res.status(500).json({
                 error: 'Failed to render FUA Format. (Controller)', 
                 message: (err as (Error)).message,
                 details: (err as any).details ?? null, 
             });
-        }
-            
+            let auxLog = new Log({
+                timeStamp: new Date(),
+                logLevel: Logger_LogLevel.ERROR,
+                securityLevel: Logger_SecurityLevel.Admin,
+                logType: Logger_LogType.SYSTEM,
+                environmentType: loggerInstance.enviroment.toString(),
+                description: (err.message ? (err.message+'\n') : '') + (err.details ?? '')
+            });
+            loggerInstance.printLog(auxLog, [
+                { name: "terminal" },
+                { name: "file", file: "logs/auxLog.log"}
+            ]);
+        }   
     },
 
     async edit (req: Request, res: Response): Promise<void>  {
@@ -141,7 +223,6 @@ const FUAFormatFromSchemaController = {
         const parsed = parse(jsoncContent);
 
         // Validation parsing validation pending needed
-        
 
         let editFUAFormat = null;
         try {
@@ -160,13 +241,37 @@ const FUAFormatFromSchemaController = {
                 });
                 return;
             }
-            res.status(200).json(editFUAFormat);    
+            res.status(200).json(editFUAFormat);  
+            let auxLog = new Log({
+                timeStamp: new Date(),
+                logLevel: Logger_LogLevel.ERROR,
+                securityLevel: Logger_SecurityLevel.Admin,
+                logType: Logger_LogType.EDIT,
+                environmentType: loggerInstance.enviroment.toString(),
+                description: ("Editing FUA Format From Schema Successful")
+            });
+            loggerInstance.printLog(auxLog, [
+                { name: "terminal" },
+                { name: "file", file: "logs/auxLog.log"}
+            ]);  
         } catch (err: any) {
             res.status(500).json({
                 error: 'Failed to edit FUA Format From Schema. (Controller)', 
                 message: (err as (Error)).message,
                 details: (err as any).details ?? null, 
             });
+            let auxLog = new Log({
+                timeStamp: new Date(),
+                logLevel: Logger_LogLevel.ERROR,
+                securityLevel: Logger_SecurityLevel.Admin,
+                logType: Logger_LogType.EDIT,
+                environmentType: loggerInstance.enviroment.toString(),
+                description: (err.message ? (err.message+'\n') : '') + (err.details ?? '')
+            });
+            loggerInstance.printLog(auxLog, [
+                { name: "terminal" },
+                { name: "file", file: "logs/auxLog.log"}
+            ]);
         }
             
     }
