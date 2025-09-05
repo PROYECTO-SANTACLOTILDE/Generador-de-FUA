@@ -19,18 +19,19 @@ class FUAFormatFromSchemaController {
     private readonly entityName: string = "FUAFormatFromSchema";
 
     create = async (req: Request, res: Response): Promise<void> => {
-        const controllerBody = req.body;
-        const files = req.files as { [fieldname: string]: Express.Multer.File[] };
-
-        const file = files['formatPayload']?.[0];
-         
-        const jsoncContent = file.buffer.toString('utf-8');
-        const parsed = parse(jsoncContent);
-
-        // Validation parsing validation pending needed
-
-        let newFUAFormat = null;
+        
         try {
+            const controllerBody = req.body;
+            const files = req.files as { [fieldname: string]: Express.Multer.File[] };
+
+            const file = files['formatPayload']?.[0];
+            
+            const jsoncContent = file.buffer.toString('utf-8');
+            const parsed = parse(jsoncContent);
+
+            // Validation parsing validation pending needed
+
+            let newFUAFormat = null;
             newFUAFormat = await FUAFormatFromSchemaService.create({
                 name: controllerBody.name,
                 content: jsoncContent,
@@ -56,7 +57,8 @@ class FUAFormatFromSchemaController {
             });
             loggerInstance.printLog(auxLog, [
                 { name: "terminal" },
-                { name: "file", file: "logs/auxLog.log"}
+                { name: "file", file: "logs/auxLog.log"},
+                { name: "database" }
             ]);   
 
             res.status(201).json(newFUAFormat);   
@@ -77,7 +79,8 @@ class FUAFormatFromSchemaController {
             });
             loggerInstance.printLog(auxLog, [
                 { name: "terminal" },
-                { name: "file", file: "logs/auxLog.log"}
+                { name: "file", file: "logs/auxLog.log"},
+                { name: "database" }
             ]);
         }     
     };
@@ -94,8 +97,8 @@ class FUAFormatFromSchemaController {
                 logType: Logger_LogType.READ,
                 environmentType: loggerInstance.enviroment.toString(),
                 content: {
+                    objectName: this.entityName,
                     object: listFUAFormats.map( (auxFuaFormat : any) => ({
-                        name: this.entityName,
                         uuid:  auxFuaFormat.uuid
                     }))
                 },
@@ -103,7 +106,8 @@ class FUAFormatFromSchemaController {
             });
             loggerInstance.printLog(auxLog, [
                 { name: "terminal" },
-                { name: "file", file: "logs/auxLog.log"}
+                { name: "file", file: "logs/auxLog.log"}, 
+                { name: "database" }
             ]);   
 
             res.status(200).json(listFUAFormats);
@@ -123,7 +127,8 @@ class FUAFormatFromSchemaController {
             });
             loggerInstance.printLog(auxLog, [
                 { name: "terminal" },
-                { name: "file", file: "logs/auxLog.log"}
+                { name: "file", file: "logs/auxLog.log"},
+                { name: "database" }
             ]);
         } 
     };
@@ -161,7 +166,8 @@ class FUAFormatFromSchemaController {
             });
             loggerInstance.printLog(auxLog, [
                 { name: "terminal" },
-                { name: "file", file: "logs/auxLog.log"}
+                { name: "file", file: "logs/auxLog.log"},
+                { name: "database" }
             ]);
         }
         let auxLog = new Log({
@@ -174,7 +180,8 @@ class FUAFormatFromSchemaController {
             });
             loggerInstance.printLog(auxLog, [
                 { name: "terminal" },
-                { name: "file", file: "logs/auxLog.log"}
+                { name: "file", file: "logs/auxLog.log"},
+                { name: "database" }
             ]);
             
     };
@@ -205,7 +212,8 @@ class FUAFormatFromSchemaController {
             });
             loggerInstance.printLog(auxLog, [
                 { name: "terminal" },
-                { name: "file", file: "logs/auxLog.log"}
+                { name: "file", file: "logs/auxLog.log"},
+                { name: "database" }
             ]);   
         } catch (err: any) {
             res.status(500).json({
@@ -223,7 +231,8 @@ class FUAFormatFromSchemaController {
             });
             loggerInstance.printLog(auxLog, [
                 { name: "terminal" },
-                { name: "file", file: "logs/auxLog.log"}
+                { name: "file", file: "logs/auxLog.log"},
+                { name: "database" }
             ]);
         }   
     };
@@ -267,7 +276,8 @@ class FUAFormatFromSchemaController {
             });
             loggerInstance.printLog(auxLog, [
                 { name: "terminal" },
-                { name: "file", file: "logs/auxLog.log"}
+                { name: "file", file: "logs/auxLog.log"},
+                { name: "database" }
             ]);  
         } catch (err: any) {
             res.status(500).json({
@@ -285,7 +295,8 @@ class FUAFormatFromSchemaController {
             });
             loggerInstance.printLog(auxLog, [
                 { name: "terminal" },
-                { name: "file", file: "logs/auxLog.log"}
+                { name: "file", file: "logs/auxLog.log"},
+                { name: "database" }
             ]);
         }
             
