@@ -29,6 +29,12 @@ class FUAFormatFromSchemaController {
             const jsoncContent = file.buffer.toString('utf-8');
             const parsed = parse(jsoncContent);
 
+            // Parsed payload wasn't a jsonc object
+            if(parsed === undefined){
+                let auxError = new Error('Error in FUA Format From Schema Controller - create: File sent wasnt jsonc compliant (parsing error). ');
+                throw auxError;
+            }
+
             // Validation parsing validation pending needed
 
             let newFUAFormat = null;
