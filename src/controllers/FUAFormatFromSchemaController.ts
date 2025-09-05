@@ -14,11 +14,11 @@ import { Logger_SecurityLevel } from '../middleware/logger/models/typescript/Sec
 import { Logger_LogType } from '../middleware/logger/models/typescript/LogType';
 
 
-const FUAFormatFromSchemaController = {
+class FUAFormatFromSchemaController {
+    // Private attribute holding the entity name
+    private readonly entityName: string = "FUAFormatFromSchema";
 
-    
-
-    async create  (req: Request, res: Response): Promise<void>  {
+    create = async (req: Request, res: Response): Promise<void> => {
         const controllerBody = req.body;
         const files = req.files as { [fieldname: string]: Express.Multer.File[] };
 
@@ -28,7 +28,6 @@ const FUAFormatFromSchemaController = {
         const parsed = parse(jsoncContent);
 
         // Validation parsing validation pending needed
-
 
         let newFUAFormat = null;
         try {
@@ -40,19 +39,27 @@ const FUAFormatFromSchemaController = {
                 versionNumber: controllerBody.versionNumber ?? 1,
                 createdBy: controllerBody.createdBy,  
             });
-            res.status(201).json(newFUAFormat);   
-             let auxLog = new Log({
+            
+            let auxLog = new Log({
                 timeStamp: new Date(),
                 logLevel: Logger_LogLevel.INFO,
                 securityLevel: Logger_SecurityLevel.Admin,
                 logType: Logger_LogType.CREATE,
                 environmentType: loggerInstance.enviroment.toString(),
+                content: {
+                    object: {
+                        name: this.entityName,
+                        uuid: newFUAFormat.uuid ?? '---'                        
+                    }
+                },
                 description: ("Creating FUA Format From Schema Successful")
             });
             loggerInstance.printLog(auxLog, [
                 { name: "terminal" },
                 { name: "file", file: "logs/auxLog.log"}
             ]);   
+
+            res.status(201).json(newFUAFormat);   
         } catch (err: any) {
             res.status(500).json({
                 error: 'Failed to create FUA Format From Schema. (Controller)', 
@@ -73,25 +80,33 @@ const FUAFormatFromSchemaController = {
                 { name: "file", file: "logs/auxLog.log"}
             ]);
         }     
-    },
+    };
 
     // Pending pagination
-    async listAll (req: Request, res: Response): Promise<void>  {
+    listAll = async (req: Request, res: Response): Promise<void> => {
         try {
+            
             const listFUAFormats = await FUAFormatFromSchemaService.listAll();
-            res.status(200).json(listFUAFormats);
             let auxLog = new Log({
                 timeStamp: new Date(),
                 logLevel: Logger_LogLevel.INFO,
                 securityLevel: Logger_SecurityLevel.Admin,
                 logType: Logger_LogType.READ,
                 environmentType: loggerInstance.enviroment.toString(),
+                content: {
+                    object: listFUAFormats.map( (auxFuaFormat : any) => ({
+                        name: this.entityName,
+                        uuid:  auxFuaFormat.uuid
+                    }))
+                },
                 description: ("Listing all FUA Formats From Schema Successful")
             });
             loggerInstance.printLog(auxLog, [
                 { name: "terminal" },
                 { name: "file", file: "logs/auxLog.log"}
             ]);   
+
+            res.status(200).json(listFUAFormats);
         } catch (err: any) {
             res.status(500).json({
                 error: 'Failed to list FUA Formats From Schema. (Controller)', 
@@ -111,9 +126,9 @@ const FUAFormatFromSchemaController = {
                 { name: "file", file: "logs/auxLog.log"}
             ]);
         } 
-    },
+    };
 
-    async getById (req: Request, res: Response): Promise<void>  {
+    getById = async (req: Request, res: Response): Promise<void> => {
         const payload = req.params.id;
 
         let searchedFUAFormat = null;
@@ -162,10 +177,10 @@ const FUAFormatFromSchemaController = {
                 { name: "file", file: "logs/auxLog.log"}
             ]);
             
-    },
+    };
 
     // Render FUA Format by Id or UUID
-    async render (req: Request, res: Response): Promise<void>  {
+    render = async (req: Request, res: Response): Promise<void> => {
         const formatidentifier = req.params.id;
         const visitpayload = req.body.payload;
      
@@ -211,9 +226,9 @@ const FUAFormatFromSchemaController = {
                 { name: "file", file: "logs/auxLog.log"}
             ]);
         }   
-    },
+    };
 
-    async edit (req: Request, res: Response): Promise<void>  {
+    edit = async (req: Request, res: Response): Promise<void> => {
         const controllerBody = req.body;
         const files = req.files as { [fieldname: string]: Express.Multer.File[] };
 
@@ -274,8 +289,7 @@ const FUAFormatFromSchemaController = {
             ]);
         }
             
-    }
-};
+    };
+}
 
-export default FUAFormatFromSchemaController;
-
+export default new FUAFormatFromSchemaController();
