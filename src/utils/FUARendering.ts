@@ -10,6 +10,7 @@ import FUASectionService from "../services/FUASectionService";
 import { dedentCustom, removeBackgroundColor } from "./utils";
 import FUAFieldColumnService from "../services/FUAFieldColumnService";
 import { col } from "sequelize";
+import FUAField from "../modelsTypeScript/FUAField";
 
 
 
@@ -258,7 +259,7 @@ class FUARenderingUtils {
                     padding-left: ${auxFUAPage.padding_left.toFixed(1)}mm;
                 }
             </style>
-            <div id="fua-page-${pageIndex.toString()}" class="fua-page ${printMode ? 'format-related-print' : ''}" ${auxFUAPage.extraStyle !== undefined ? `style="${auxFUAPage.extraStyle}"` : ""}>
+            <div id="fua-page-${pageIndex.toString()}" class="fua-page ${printMode ? 'format-related-print' : ''}" ${auxFUAPage.extraStyles !== undefined ? `style="${auxFUAPage.extraStyles}"` : ""}>
                     ${ pageContent }
             </div>
      
@@ -335,6 +336,28 @@ class FUARenderingUtils {
                 break;
         }
         return result;
+    }
+
+    public static renderFUAFieldFromSchema_renderLabel( auxFUAField : FUAField, prefix: string, printMode: boolean, fieldIndex: number) : string {
+        let label = '';
+        if(auxFUAField.showLabel == true){
+            label = `
+                <style>
+                    #${prefix}-field-${fieldIndex}-caption {
+                        ${this.eraseBorderOfFieldCaption(auxFUAField.captionSide)}
+                        font-weight: bold;
+                        background-color: lightgray;
+                        ${auxFUAField.labelHeight ? `height: ${auxFUAField.labelHeight.toFixed(1)}mm;` : ''}
+                        ${auxFUAField.labelHeight ? `line-height: ${auxFUAField.labelHeight.toFixed(1)}mm;` : ''}
+                        ${auxFUAField.labelExtraStyles ? (printMode == true ? removeBackgroundColor(auxFUAField.labelExtraStyles) : auxFUAField.labelExtraStyles) : ``}
+                    }
+                </style>
+                <caption id="${prefix}-field-${fieldIndex}-caption" class="field-border text-container ${printMode ? 'format-related-print' : ''}">
+                    ${auxFUAField.label}
+                </caption>
+            `;            
+        }
+        return label;
     }
 
     // Render FUA Field from jsonc schema
@@ -435,7 +458,7 @@ class FUARenderingUtils {
     };
 
     // Render FUA Field row from jsonc schema
-    private static renderFUAFieldTableRowFromSchema( auxRow : any, index : number, colAmount : number, prefix: string, printMode : boolean) : string {
+    public static renderFUAFieldTableRowFromSchema( auxRow : any, index : number, colAmount : number, prefix: string, printMode : boolean) : string {
         let htmlContent = '';
         // no columns, return ''
         if( colAmount === 0 ) return '';
