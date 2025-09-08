@@ -22,10 +22,19 @@ import { getPatient } from './services/fhirService';
 // Import Routes
 import globalRouter from './routes/indexRoutes';
 import { createDemoFormat } from './utils/utils';
+import { Logger, loggerInstance } from './middleware/logger/models/typescript/Logger';
+import { Logger_EnvironmentType } from './middleware/logger/models/typescript/EnvironmentType';
+import { Log } from './middleware/logger/models/typescript/Log';
+import { Logger_LogLevel } from './utils/LegLevelEnum';
+import { Logger_SecurityLevel } from './middleware/logger/models/typescript/SecurityLevel';
+import { Logger_LogType } from './middleware/logger/models/typescript/LogType';
+
 
 // Parameters and other options
 const app = express();
 const port = process.env.PORT || 3000;
+
+
 
 // Testing database connection
 // Consider to envelope main in a async function
@@ -35,17 +44,32 @@ sequelize.authenticate()
   console.log(`\nConnection has been established with database successfully.\n`);  
   // Syncronize models
   console.log('\n Syncronizing models ... \n');
-  //sequelize.sync({ force: true })
-  sequelize.sync({ alter: true })
+  sequelize.sync({ force: true })
+  //sequelize.sync({ alter: true })
   .then( () : void => {
     console.log('\nEnded syncronizing models ...\n');
   } );  
-
 })
 .catch((error: unknown): void => {
+  // Log in case of failure
+  let auxLog = new Log({
+    timeStamp: new Date(),
+    logLevel: Logger_LogLevel.ERROR,
+    securityLevel: Logger_SecurityLevel.Admin,
+    logType: Logger_LogType.CREATE,
+    environmentType: loggerInstance.enviroment.toString(),
+    description: 'DATABSE CONNECTTION FAILURE :('
+  });
+
+  loggerInstance.printLog(auxLog, [
+    { name: "terminal" },
+    { name: "file", file: "./logs/auxLog.log" }
+    ]);
   console.error('Unable to connect to the database: ');
   console.error(error);
 });
+
+
 
 // Importing utilities for Express
 app.use(express.static(path.resolve(__dirname, './public')));
@@ -60,6 +84,7 @@ app.use('/ws', globalRouter);
 app.get('/', (req, res) => {
   res.send('¡Servidor Express en funcionamiento!');
 });
+
 
 // Ruta para obtener un paciente por ID
 app.get('/patient/:id', async (req, res) => {
@@ -205,4 +230,24 @@ app.get('/demopdf', async (req, res) => {
     });
   }
 });
+
+//TESTING LOGGER DB
+/* app.get('/logger-db', async (req, res) => { //test in DB
+  try {
+    //const aux = logger.testDB(auxLog);
+    const aux = logger.printLog(auxLog, [
+    { name: "terminal" },
+    { name: "file", file: "./logs/auxLog.log" },
+    { name: "database" }
+    ]);
+    res.status(200).send('okay');
+  } catch (err: unknown) {
+    console.error(err);
+    res.status(500).json({
+      error: 'Failed to create log. ', 
+      message: (err as (Error)).message,
+      details: (err as any).details ?? null,
+    });
+  }
+}); */
 

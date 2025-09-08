@@ -1,6 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import dedent from 'dedent';
+import { inspect } from "util";
 
 // Services
 import FUAFieldService from "../services/FUAFieldService";
@@ -24,6 +25,7 @@ class FUARenderingUtils {
             console.error("Error in FUA Rendering Utils - getCSSStyles: Could not read FUA_Previsualization.css from public directory. ", err);
             throw new Error("Error in FUA Rendering Utils - getCSSStyles: Could not read FUA_Previsualization.css from public directory. ");
         }
+        
     }
 
 
@@ -202,8 +204,7 @@ class FUARenderingUtils {
         try{
             cssStyles = await this.getCSSStyles();
         }catch(error: unknown){
-            console.error('Error in FUA Rendering Utils - renderFUAFormat: ', error);
-            (error as Error).message =  'Error in FUA Rendering Utils - renderFUAFormat: ' + (error as Error).message;
+            (error as Error).message =  'Error in FUA Rendering Utils - renderFUAFormat: ' + (error as Error).message; 
             throw error;
         }
 

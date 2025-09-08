@@ -5,6 +5,7 @@ import FUAFormatImplementation from '../implementation/sequelize/FUAFormatImplem
 import { isValidUUIDv4 } from "../utils/utils";
 import FUARenderingUtils from "../utils/FUARendering";
 import FUAFormatFromSchemaImplementation from "../implementation/sequelize/FUAFormatFromSchemaImplementation";
+import { inspect } from "util";
 
 // Schemas
 
@@ -50,7 +51,6 @@ class FUAFormatFromSchemaService {
         // Object Validation
         const result = newFUAFormatFromSchemaZod.safeParse(data);
         if( !result.success ){
-            console.error('Error in FUA Format From Schema Service - createFUAFormat: ZOD validation. \n', result.error);
             const newError = new Error('Error in FUA Format From Schema Service - createFUAFormat: ZOD validation. ');
             (newError as any).details = result.error;
             throw newError;
@@ -70,9 +70,8 @@ class FUAFormatFromSchemaService {
                 // Audit Data
                 createdBy: data.createdBy,
             });
-        } catch (err: unknown){
-            console.error('Error in FUA Format From Schema Service: ', err);
-            (err as Error).message =  'Error in FUA Format From Schema Service: \n' + (err as Error).message;
+        } catch (err: any){
+            (err as Error).message =  'Error in FUA Format From Schema Service:  ' + (err as Error).message;
             throw err;
         }
 
@@ -88,8 +87,7 @@ class FUAFormatFromSchemaService {
         try {
             returnedFUAFormats = await FUAFormatFromSchemaImplementation.listAllSequelize();
 
-        } catch (err: unknown){
-            console.error('Error in FUA Format From Schema Service: ', err);
+        } catch (err: any){
             (err as Error).message =  'Error in FUA Format From Schema Service: ' + (err as Error).message;
             throw err;
         }        
@@ -111,7 +109,6 @@ class FUAFormatFromSchemaService {
                 returnedFUAFormat = await FUAFormatFromSchemaImplementation.getByIdSequelize(id);
 
             } catch (err: unknown){
-                console.error('Error in FUA Format From Schema Service: ', err);
                 (err as Error).message =  'Error in FUA Format From SchemaFUA Format From Schema Service: ' + (err as Error).message;
                 throw err;
             }     
@@ -119,7 +116,6 @@ class FUAFormatFromSchemaService {
             // Get id by UUID
             //Validate UUID Format        
             if (!isValidUUIDv4(idReceived) ) {
-                console.error('Error in FUA Format From Schema Service: Invalid UUID format. ');
                 throw new Error("Error in FUA Format From Schema Service: Invalid UUID format. ");
             }
             try {
@@ -127,7 +123,6 @@ class FUAFormatFromSchemaService {
                 returnedFUAFormat = await FUAFormatFromSchemaImplementation.getByUUIDSequelize(idReceived);
 
             } catch (err: unknown){
-                console.error('Error in FUA Format From Schema Service: ', err);
                 (err as Error).message =  'Error in FUA Format From Schema Service: ' + (err as Error).message;
                 throw err;
             }
@@ -183,8 +178,9 @@ class FUAFormatFromSchemaService {
         try{
             htmlContent = await FUARenderingUtils.renderFUAFormatFromSchema(parsedContent, false);
         } catch(error: any){
-            console.error('Error in FUA Format Service - renderById: ', error);
             (error as Error).message =  'Error in FUA Format Service - renderById: ' + (error as Error).message;
+            const line = inspect(error, { depth: 100, colors: false });
+            error.details = line.replace(/^/gm, '\t');
             throw error;
         }
         
@@ -209,7 +205,6 @@ class FUAFormatFromSchemaService {
         // Object Validation
         const result = editFUAFormatFromSchemaZod.safeParse(data);
         if( !result.success ){
-            console.error('Error in FUA Format From Schema Service - editFUAFormat: ZOD validation. \n', result.error);
             const newError = new Error('Error in FUA Format From Schema Service - editFUAFormat: ZOD validation. ');
             (newError as any).details = result.error;
             throw newError;
@@ -231,7 +226,6 @@ class FUAFormatFromSchemaService {
                 createdBy: data.createdBy,
             });
         } catch (err: unknown){
-            console.error('Error in FUA Format From Schema Service: ', err);
             (err as Error).message =  'Error in FUA Format From Schema Service: \n' + (err as Error).message;
             throw err;
         }

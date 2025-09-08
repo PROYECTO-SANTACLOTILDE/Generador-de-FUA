@@ -9,6 +9,7 @@ import { authenticate } from '../middleware/authentication';
 // Creating router
 const FUAFormatFromSchemaRouter = express.Router();
 
+
 // Create FUA Format
 let createUpload = upload.fields([{ name: 'formatPayload', maxCount: 1 }, { name: 'name', maxCount: 1 }, { name: 'token', maxCount: 1}]);
 FUAFormatFromSchemaRouter.post(

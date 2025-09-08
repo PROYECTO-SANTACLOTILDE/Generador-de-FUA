@@ -2,13 +2,16 @@ import { Request, Response} from 'express';
 import FUAFormatService from '../services/FUAFormatService';
 
 
-const FUAFormatController = {
+class FUAFormatController {
 
-    async createFUAFormat  (req: Request, res: Response): Promise<void>  {
+    private entityName : string = "FUAFormat";
+
+    static async createFUAFormat  (req: Request, res: Response): Promise<void>  {
         const payload = req.body;
         let newFUAFormat = null;
         try {
             newFUAFormat = await FUAFormatService.create(payload);
+            
             res.status(201).json(newFUAFormat);    
         } catch (err: any) {
             res.status(500).json({
@@ -17,11 +20,10 @@ const FUAFormatController = {
                 details: (err as any).details ?? null, 
             });
         }
-            
-    },
+    };
 
     // Pending pagination
-    async listAllFUAFormats (req: Request, res: Response): Promise<void>  {
+    static async listAllFUAFormats (req: Request, res: Response): Promise<void>  {
         try {
             const listFUAFormats = await FUAFormatService.listAll();
             res.status(200).json(listFUAFormats);
@@ -32,9 +34,9 @@ const FUAFormatController = {
                 details: (err as any).details ?? null, 
             });
         }    
-    },
+    };
 
-    async getFUAFormatById (req: Request, res: Response): Promise<void>  {
+    static async getFUAFormatById (req: Request, res: Response): Promise<void>  {
         const payload = req.params.id;
 
         let searchedFUAFormat = null;
@@ -59,10 +61,10 @@ const FUAFormatController = {
             });
         }
             
-    },
+    };
 
     // Render FUA Format by Id or UUID
-    async render (req: Request, res: Response): Promise<void>  {
+    static async render (req: Request, res: Response): Promise<void>  {
         const payload = req.params.id;
         const { token = "---", visit = "---" } = req.body ?? {};
 
@@ -87,7 +89,7 @@ const FUAFormatController = {
             });
         }
             
-    },
+    };
 };
 
 export default FUAFormatController;
