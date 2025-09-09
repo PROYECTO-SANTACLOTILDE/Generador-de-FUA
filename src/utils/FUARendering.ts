@@ -360,7 +360,7 @@ class FUARenderingUtils {
         return label;
     }
 
-    /* public static renderFUAFieldFromSchema_renderFieldContent( auxFUAField : FUAField, prefix: string, printMode: boolean, fieldIndex: number, label: string, colgroups: string) : string {
+    public static renderFUAFieldFromSchema_renderFieldContent( auxFUAField : FUAField, prefix: string, printMode: boolean, fieldIndex: number, label: string, colgroups: string) : string {
         let fieldContent = '';
         fieldContent = `
             <style>
@@ -377,7 +377,9 @@ class FUARenderingUtils {
                 ${fieldContent}
             </table>
         `;
-    } */
+
+        return fieldContent;
+    }
 
     // Render FUA Field from jsonc schema
     public static renderFUAFieldFromSchema( auxFUAField : any, fieldIndex: number, prefix: string, printMode : boolean): string {
@@ -455,7 +457,8 @@ class FUARenderingUtils {
                 </tr>
             `;
         }
-
+        
+        
         fieldContent = `
             <style>
                 #${prefix}-field-${fieldIndex} {

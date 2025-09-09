@@ -33,6 +33,12 @@ interface FUAField_BoxInterface extends FUAFieldInterface {
     text: string;
 };
 
+interface FUAField_FieldInterface extends FUAFieldInterface {
+    valueType: "Field";
+    fields: Array<FUAField_Field | FUAField_Box | FUAField_Table>; 
+};
+
+
 function tablerenderer_row( auxRow : any, index : number, colAmount : number, prefix: string, printMode : boolean) : string {
     let htmlContent = '';
     // no columns, return ''
@@ -125,7 +131,7 @@ abstract class FUAField extends BaseFieldFormEntity {
     left: number;
     width: number;
     height: number;
-    extraStyles?: string;
+    extraStyles?: string; // <- stated by .json.c file, we cant touch them
     showLabel: boolean;
     labelHeight: number;
     label: string;
@@ -201,15 +207,34 @@ abstract class FUAField extends BaseFieldFormEntity {
         return FUARenderingUtils.renderFUAFieldFromSchema_renderLabel(this, this.prefix, this.printMode, this.fieldIndex);
     }
 
-    renderExtraStyles() : string {
-
-        return 'string';
+    renderContent(fieldIndex: number, prefix: string, printMode : boolean, label : string) : string {        
+        let logicAditionalStyles = { value: '' };
+        let fieldContent = this.render(fieldIndex, prefix, printMode, logicAditionalStyles)
+        let labelContent = this.renderLabel();
+        
+        let finalContent = ``;
+        
+        finalContent = `
+            <style>
+                #${prefix}-field-${fieldIndex} {
+                    top:    ${this.top.toFixed(1)}mm;
+                    left:   ${this.left.toFixed(1)}mm;
+                    ${this.extraStyles} 
+                    ${logicAditionalStyles} 
+                }
+            </style>
+            <table id="${prefix}-field-${fieldIndex}" class="table-field ${printMode ? 'format-related-print' : ''}" >
+                ${labelContent}
+                ${fieldContent}
+            </table>
+        `;
+        return finalContent;
     }
 
 
 
     // Overwrite methods
-    abstract render(fieldIndex: number, prefix: string, printMode: boolean): string;
+    abstract render(fieldIndex: number, prefix: string, printMode: boolean, logicAditionalStyles : { value: string; }): string;
     
 
 }
@@ -233,17 +258,18 @@ class FUAField_Box extends FUAField {
     }
 
     //Overriden method
-    render(fieldIndex: number, prefix: string, printMode: boolean): string {
+    render(fieldIndex: number, prefix: string, printMode: boolean, logicAditionalStyles : { value: string; }): string {
+        // Dont forget to add width in logicAditionalStyles
         let fieldContent = `
             <tr>
                 <td class="text-container ${printMode ? 'format-related-print' : ''}"> ${this.text ?? ''} <td>
             </tr>
         `;
-        let extraStyles = `
-                    width:  ${this.width.toFixed(1)}mm;    
-                    height: ${this.height.toFixed(1)}mm;  
-                `;
-        return "<!-- Box HTML -->";
+        logicAditionalStyles.value = `
+            width:  ${this.width.toFixed(1)}mm;    
+            height: ${this.height.toFixed(1)}mm;  
+        `;
+        return fieldContent;
     }
 }
 
@@ -271,7 +297,7 @@ class FUAField_Table extends FUAField {
     }
 
     //Overriden method
-    render(fieldIndex: number, prefix: string, printMode: boolean): string {        
+    render(fieldIndex: number, prefix: string, printMode: boolean, logicAditionalStyles : { value: string; }): string {        
         let auxWidthValue = 0.0;
         // Define colgroups
         let auxColumns = this.columns.map((item: any) => `<col style="width: ${item.width.toFixed(1)}mm;" />` );          
@@ -286,17 +312,49 @@ class FUAField_Table extends FUAField {
         let auxRows = this.rows.sort( (a: any, b: any) => ( a.index - b.index ) );
         // Process row renderFUAFieldTableRowFromSchema
         auxRows = auxRows.map( (row: any, index: number) => tablerenderer_row(row, index, auxColumns.length ,`${prefix}-field-${fieldIndex}`, printMode) );
-        return auxRows.join('');       
+        
+        return colgroups + auxRows.join('');      
     }
 }
 
+
+
+
+
 class FUAField_Field extends FUAField {
 
-    //private text: string = "";
+    private fields: Array<FUAField_Field | FUAField_Box | FUAField_Table>; 
+
+    constructor(aux: FUAField_FieldInterface) {
+        super(aux as FUAFieldInterface);
+        this.fields = aux.fields;
+    }
+    
+    get getFields(): Array<FUAField_Field | FUAField_Box | FUAField_Table> {
+        return this.fields;
+    }
+    set setFields(value: Array<FUAField_Field | FUAField_Box | FUAField_Table>) {
+        this.fields = value;   
+    }
 
     //Overriden method
     render(): string {
-        return "im a box";
+        let auxFields = this.fields;
+            let finalContent = auxFields.map( (item: any, index: number) => this.render( item, index, `${prefix}-field-${fieldIndex}`, printMode) ).join('');
+            extraStyles = `
+                width:  ${auxFUAField.width.toFixed(1)}mm;    
+                height: ${auxFUAField.height.toFixed(1)}mm;  
+            `;
+            fieldContent = `
+                <tr>
+                    <td style="padding: 0px;" class="field-content ${printMode ? 'format-related-print' : ''}"> 
+
+                            ${finalContent}
+
+                    <td>
+                </tr>
+            `;
+        return fieldContent;
     }
 }
 

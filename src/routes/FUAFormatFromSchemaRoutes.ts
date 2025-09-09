@@ -42,11 +42,11 @@ FUAFormatFromSchemaRouter.get(
 );
 
 // Edit FUA Format
-let edit = upload.fields([{ name: 'formatPayload', maxCount: 1 }, { name: 'name', maxCount: 1 }, { name: 'token', maxCount: 1}]);
+let edit = upload.fields([{ name: 'formatPayload', maxCount: 1 }, { name: 'name', maxCount: 1 }]);
 FUAFormatFromSchemaRouter.put(
     '/:id',
     authenticate,
-    edit,    
+    multerErrorHandler(edit, "edit - FUAFormatFromSchemaRoute"),    
     FUAFormatFromSchemaController.edit
 ); 
 
