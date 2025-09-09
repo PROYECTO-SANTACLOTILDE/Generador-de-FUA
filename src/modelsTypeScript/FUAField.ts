@@ -220,7 +220,7 @@ abstract class FUAField extends BaseFieldFormEntity {
                     top:    ${this.top.toFixed(1)}mm;
                     left:   ${this.left.toFixed(1)}mm;
                     ${this.extraStyles} 
-                    ${logicAditionalStyles} 
+                    ${logicAditionalStyles.value} 
                 }
             </style>
             <table id="${prefix}-field-${fieldIndex}" class="table-field ${printMode ? 'format-related-print' : ''}" >
@@ -265,7 +265,7 @@ class FUAField_Box extends FUAField {
                 <td class="text-container ${printMode ? 'format-related-print' : ''}"> ${this.text ?? ''} <td>
             </tr>
         `;
-        logicAditionalStyles.value = `
+        logicAditionalStyles.value += `
             width:  ${this.width.toFixed(1)}mm;    
             height: ${this.height.toFixed(1)}mm;  
         `;
@@ -307,7 +307,10 @@ class FUAField_Table extends FUAField {
             </colgroup>
         `;
         auxWidthValue = this.columns.reduce((auxWidthValue: number, obj: any) => auxWidthValue + parseFloat(obj.float || 0), 0);
-        let auxWidth = 'width: ' + auxWidthValue.toFixed(1)+'mm;'
+        logicAditionalStyles.value += `
+            width: ${auxWidthValue.toFixed(1)}mm; 
+        `;
+
         // Defining rows, ordered by 'index' attribute
         let auxRows = this.rows.sort( (a: any, b: any) => ( a.index - b.index ) );
         // Process row renderFUAFieldTableRowFromSchema
@@ -338,18 +341,19 @@ class FUAField_Field extends FUAField {
     }
 
     //Overriden method
-    render(): string {
+    render(fieldIndex: number, prefix: string, printMode: boolean, logicAditionalStyles : { value: string; }): string {
         let auxFields = this.fields;
-            let finalContent = auxFields.map( (item: any, index: number) => this.render( item, index, `${prefix}-field-${fieldIndex}`, printMode) ).join('');
-            extraStyles = `
-                width:  ${auxFUAField.width.toFixed(1)}mm;    
-                height: ${auxFUAField.height.toFixed(1)}mm;  
+            let fieldContent = auxFields.map( (item: any, index: number) => item.render(index, `${prefix}-field-${fieldIndex}`, printMode, logicAditionalStyles) ).join('');
+            logicAditionalStyles.value += `
+            width:  ${this.width.toFixed(1)}mm; 
+            height: ${this.height.toFixed(1)}mm;  
             `;
+            
             fieldContent = `
                 <tr>
                     <td style="padding: 0px;" class="field-content ${printMode ? 'format-related-print' : ''}"> 
 
-                            ${finalContent}
+                            ${fieldContent}
 
                     <td>
                 </tr>
