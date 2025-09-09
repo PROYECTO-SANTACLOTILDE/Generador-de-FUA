@@ -36,6 +36,7 @@ class BaseEntity {
         this.inactiveReason = aux.inactiveReason;
     }
 
+
     get getId() { return this.id; }
     //set setId(value: number) { this.id = value; }
 

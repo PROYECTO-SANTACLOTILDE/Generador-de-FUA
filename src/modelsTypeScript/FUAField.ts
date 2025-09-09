@@ -1,5 +1,6 @@
 import { Field } from "multer";
 import BaseFieldFormEntity, { BaseFieldFormEntityInterface } from "./BaseFieldFormEntity";
+import FUARenderingUtils from "../utils/FUARendering";
 
 export interface FUAFieldInterface extends BaseFieldFormEntityInterface{
     fieldIndex: number;
@@ -7,6 +8,7 @@ export interface FUAFieldInterface extends BaseFieldFormEntityInterface{
     left: number;
     width: number;
     height: number;
+    extraStyles?: string;
     showLabel: boolean;
     labelHeight: number;
     label: string;
@@ -19,22 +21,14 @@ export interface FUAFieldInterface extends BaseFieldFormEntityInterface{
     //fields: Array<Field>; //
 };
 
-export interface FUAFieldRenderer {
-    field: FUAFieldBase; 
-    fieldIndex: number; 
-    prefix: string; 
-    printMode: boolean;
-};
 
-export type FUAFieldBase = FUAField_Table | FUAField_Box ;
-
-interface FUAField_Table extends FUAFieldInterface {
+interface FUAField_TableInterface extends FUAFieldInterface {
     valueType: "Table";
     columns: Array<any>;
     rows: Array<any>;
 };
 
-interface FUAField_Box extends FUAFieldInterface {
+interface FUAField_BoxInterface extends FUAFieldInterface {
     valueType: "Box";
     text: string;
 };
@@ -80,49 +74,12 @@ function tablerenderer_row( auxRow : any, index : number, colAmount : number, pr
     return htmlContent;
 };
 
-function tableRenderer (field: FUAField_Table, fieldIndex: number, prefix: string, printMode: boolean) : string {
-    let auxWidthValue = 0.0;
-    // Define colgroups
-    let auxColumns = field.columns.map((item: any) => `<col style="width: ${item.width.toFixed(1)}mm;" />` );          
-    let colgroups  = `
-        <colgroup>
-            ${auxColumns.join('')}
-        </colgroup>
-    `;
-    auxWidthValue = field.columns.reduce((auxWidthValue: number, obj: any) => auxWidthValue + parseFloat(obj.float || 0), 0);
-    let auxWidth = 'width: '+auxWidthValue.toFixed(1)+'mm;'
-    // Defining rows, ordered by 'index' attribute
-    let auxRows = field.rows.sort( (a: any, b: any) => ( a.index - b.index ) );
-    // Process row renderFUAFieldTableRowFromSchema
-    auxRows = auxRows.map( (row: any, index: number) => tablerenderer_row(row, index, auxColumns.length ,`${prefix}-field-${fieldIndex}`, printMode) );
-    return auxRows.join('');
-};
-
-function boxRenderer (field: FUAField_Box, fieldIndex: number, prefix: string, printMode: boolean) : string {
-    let fieldContent = `
-                <tr>
-                    <td class="text-container ${printMode ? 'format-related-print' : ''}"> ${field.text ?? ''} <td>
-                </tr>
-            `;
-    let extraStyles = `
-                width:  ${field.width.toFixed(1)}mm;    
-                height: ${field.height.toFixed(1)}mm;  
-            `;
-    return "<!-- Box HTML -->";
-};
 
 function fieldRenderer(field: FUAField, fieldIndex: number, prefix: string, printMode: boolean) : string {
     // ...field rendering logic...
     return "<!-- Field HTML -->";
 };
 
-
-function FUAFieldRenderingSelector( param : FUAFieldRenderer) : string {
-    if( param.field.valueType == "Table" ) return tableRenderer( param.field, param.fieldIndex, param.prefix, param.printMode );
-    if( param.field.valueType == "Box" ) return boxRenderer( param.field, param.fieldIndex, param.prefix, param.printMode );
-    //if( param.field.valueType == "Field" ) return fieldRenderer( param.field, param.fieldIndex, param.prefix, param.printMode );
-    return '<p> Error in rendering field </p>';
-}
 
 
 /*
@@ -152,19 +109,23 @@ renderTypeField(FUAField).render
 
 /*
     FINAL DESIRED FLOW
-    FUAFIELD .render
-        const a = .label
-        const b = .extraStyles
-        const c = .content (with dependency)
+    FUAFIELD .renderContent
+        const a = .label (renderLabel)
+        const b = .extraStyles (renderExtraStyles)
+        const c = .content (with dependency) (render)
         return a + b + c (string)
 */
 
-class FUAField extends BaseFieldFormEntity {
+//const aux = new FUAField();
+
+abstract class FUAField extends BaseFieldFormEntity {
+    // Label attributes
     fieldIndex: number;
     top: number;
     left: number;
     width: number;
     height: number;
+    extraStyles?: string;
     showLabel: boolean;
     labelHeight: number;
     label: string;
@@ -172,9 +133,7 @@ class FUAField extends BaseFieldFormEntity {
     prefix: string; 
     printMode: boolean;
     labelExtraStyles?: string;
-    valueType: string;
-
-    
+    valueType: string;    
 
     constructor(aux: FUAFieldInterface) {
         super(aux);
@@ -183,6 +142,7 @@ class FUAField extends BaseFieldFormEntity {
         this.left = aux.left;
         this.width = aux.width;
         this.height = aux.height;
+        this.extraStyles = aux.extraStyles;
         this.showLabel = aux.showLabel;
         this.labelHeight = aux.labelHeight;
         this.label = aux.label;
@@ -208,6 +168,9 @@ class FUAField extends BaseFieldFormEntity {
     get getHeight() { return this.height; }
     set setHeight(value: number) { this.height = value; }
 
+    get getExtrasStyles() { return this.extraStyles; }
+    set setExtrasStyles(value: string | undefined) { this.extraStyles = value; }
+
     get getShowLabel() { return this.showLabel; }
     set setShowLabel(value: boolean) { this.showLabel = value; }
 
@@ -232,8 +195,109 @@ class FUAField extends BaseFieldFormEntity {
     get getValueType() { return this.valueType; }
     set setValueType(value: string) { this.valueType = value; }
 
+    // Common methods
+    renderLabel() : string {
+        
+        return FUARenderingUtils.renderFUAFieldFromSchema_renderLabel(this, this.prefix, this.printMode, this.fieldIndex);
+    }
+
+    renderExtraStyles() : string {
+
+        return 'string';
+    }
+
+
+
+    // Overwrite methods
+    abstract render(fieldIndex: number, prefix: string, printMode: boolean): string;
     
 
+}
+
+class FUAField_Box extends FUAField {
+
+    //private valueType: "Box";
+    private text: string;
+
+    constructor(aux: FUAField_BoxInterface) {
+        super(aux as FUAFieldInterface);
+        this.valueType = aux.valueType;
+        this.text = aux.text;
+    }
+
+    get getText(): string {
+        return this.text;
+    }
+    set setText(value: string) {
+        this.text = value;
+    }
+
+    //Overriden method
+    render(fieldIndex: number, prefix: string, printMode: boolean): string {
+        let fieldContent = `
+            <tr>
+                <td class="text-container ${printMode ? 'format-related-print' : ''}"> ${this.text ?? ''} <td>
+            </tr>
+        `;
+        let extraStyles = `
+                    width:  ${this.width.toFixed(1)}mm;    
+                    height: ${this.height.toFixed(1)}mm;  
+                `;
+        return "<!-- Box HTML -->";
+    }
+}
+
+class FUAField_Table extends FUAField {
+
+    // Special Attributes
+    // valueType is "Table"
+    private columns: Array<any>;
+    private rows: Array<any>;
+
+    // Constructor
+    constructor(aux: FUAField_Table) {
+        super(aux as FUAFieldInterface);
+        this.columns = aux.columns;
+        this.rows = aux.rows;
+    }
+
+    // Methods
+    get getColumns(): any {
+        return this.columns;
+    }
+
+    set setColumns(value: any){
+        this.columns = value;
+    }
+
+    //Overriden method
+    render(fieldIndex: number, prefix: string, printMode: boolean): string {        
+        let auxWidthValue = 0.0;
+        // Define colgroups
+        let auxColumns = this.columns.map((item: any) => `<col style="width: ${item.width.toFixed(1)}mm;" />` );          
+        let colgroups  = `
+            <colgroup>
+                ${auxColumns.join('')}
+            </colgroup>
+        `;
+        auxWidthValue = this.columns.reduce((auxWidthValue: number, obj: any) => auxWidthValue + parseFloat(obj.float || 0), 0);
+        let auxWidth = 'width: ' + auxWidthValue.toFixed(1)+'mm;'
+        // Defining rows, ordered by 'index' attribute
+        let auxRows = this.rows.sort( (a: any, b: any) => ( a.index - b.index ) );
+        // Process row renderFUAFieldTableRowFromSchema
+        auxRows = auxRows.map( (row: any, index: number) => tablerenderer_row(row, index, auxColumns.length ,`${prefix}-field-${fieldIndex}`, printMode) );
+        return auxRows.join('');       
+    }
+}
+
+class FUAField_Field extends FUAField {
+
+    //private text: string = "";
+
+    //Overriden method
+    render(): string {
+        return "im a box";
+    }
 }
 
 export default FUAField;

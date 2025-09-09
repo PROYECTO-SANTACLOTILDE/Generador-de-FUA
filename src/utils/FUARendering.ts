@@ -344,7 +344,7 @@ class FUARenderingUtils {
             label = `
                 <style>
                     #${prefix}-field-${fieldIndex}-caption {
-                        ${this.eraseBorderOfFieldCaption(auxFUAField.captionSide)}
+                        ${this.eraseBorderOfFieldCaption(auxFUAField.captionSide ?? "top")}
                         font-weight: bold;
                         background-color: lightgray;
                         ${auxFUAField.labelHeight ? `height: ${auxFUAField.labelHeight.toFixed(1)}mm;` : ''}
@@ -359,6 +359,25 @@ class FUARenderingUtils {
         }
         return label;
     }
+
+    /* public static renderFUAFieldFromSchema_renderFieldContent( auxFUAField : FUAField, prefix: string, printMode: boolean, fieldIndex: number, label: string, colgroups: string) : string {
+        let fieldContent = '';
+        fieldContent = `
+            <style>
+                #${prefix}-field-${fieldIndex} {
+                    top:    ${auxFUAField.top.toFixed(1)}mm;
+                    left:   ${auxFUAField.left.toFixed(1)}mm;
+                    ${auxFUAField.extraStyles}
+                    ${auxFUAField.width}
+                }
+            </style>
+            <table id="${prefix}-field-${fieldIndex}" class="table-field ${printMode ? 'format-related-print' : ''}" >
+                ${label}
+                ${colgroups}
+                ${fieldContent}
+            </table>
+        `;
+    } */
 
     // Render FUA Field from jsonc schema
     public static renderFUAFieldFromSchema( auxFUAField : any, fieldIndex: number, prefix: string, printMode : boolean): string {
