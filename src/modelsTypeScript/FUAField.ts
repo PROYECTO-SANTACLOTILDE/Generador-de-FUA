@@ -1,6 +1,7 @@
 import { Field } from "multer";
 import BaseFieldFormEntity, { BaseFieldFormEntityInterface } from "./BaseFieldFormEntity";
 import FUARenderingUtils from "../utils/FUARendering";
+import {z} from "zod";
 
 export interface FUAFieldInterface extends BaseFieldFormEntityInterface{
     fieldIndex: number;
@@ -21,6 +22,24 @@ export interface FUAFieldInterface extends BaseFieldFormEntityInterface{
     //fields: Array<Field>; //
 };
 
+export const FUAFieldSchema = z.object({
+  fieldIndex: z.number(),
+  top: z.number(),
+  left: z.number(),
+  width: z.number(),
+  height: z.number(),
+  extraStyles: z.string().optional(),
+  showLabel: z.boolean(),
+  labelHeight: z.number(),
+  label: z.string(),
+  labelPosition: z.string().optional(),
+  prefix: z.string(),
+  printMode: z.boolean(),
+  labelExtraStyles: z.string().optional(),
+  valueType: z.string(),
+});
+
+
 
 interface FUAField_TableInterface extends FUAFieldInterface {
     valueType: "Table";
@@ -37,6 +56,26 @@ interface FUAField_FieldInterface extends FUAFieldInterface {
     valueType: "Field";
     fields: Array<FUAField_Field | FUAField_Box | FUAField_Table>; 
 };
+
+export const FUAFieldTableSchema = FUAFieldSchema.extend({
+    valueType: z.literal("Table"),
+    columns: z.array(z.any()),
+    rows: z.array(z.any()),
+});
+
+export const FUAFieldBoxSchema = FUAFieldSchema.extend({
+    valueType: z.literal("Box"),
+    text: z.string(),
+});
+
+export const FUAFieldFieldSchema = FUAFieldSchema.extend({
+        valueType: z.literal("Field"),
+        fields: z.array(z.union([
+            FUAFieldBoxSchema,
+            FUAFieldTableSchema,
+            z.lazy((): z.ZodTypeAny => FUAFieldFieldSchema)
+        ])),
+});
 
 
 function tablerenderer_row( auxRow : any, index : number, colAmount : number, prefix: string, printMode : boolean) : string {
@@ -142,6 +181,13 @@ abstract class FUAField extends BaseFieldFormEntity {
     valueType: string;    
 
     constructor(aux: FUAFieldInterface) {
+        const result = FUAFieldSchema.safeParse(aux);
+        if (!result.success) {
+            const newError = new Error('Error in FUA Field (FUARendering) - Invalid FUAFieldIterface');
+            (newError as any).details = result.error;
+            throw newError;
+        }
+        
         super(aux);
         this.fieldIndex = aux.fieldIndex;
         this.top = aux.top;
@@ -245,6 +291,12 @@ class FUAField_Box extends FUAField {
     private text: string;
 
     constructor(aux: FUAField_BoxInterface) {
+        const result = FUAFieldBoxSchema.safeParse(aux);
+        if (!result.success) {
+            const newError = new Error('Error in FUA Field (FUARendering) - Invalid FUAFieldBoxInterface');
+            (newError as any).details = result.error;
+            throw newError;
+        }
         super(aux as FUAFieldInterface);
         this.valueType = aux.valueType;
         this.text = aux.text;
@@ -282,6 +334,12 @@ class FUAField_Table extends FUAField {
 
     // Constructor
     constructor(aux: FUAField_Table) {
+        const result = FUAFieldTableSchema.safeParse(aux);
+        if (!result.success) {
+            const newError = new Error('Error in FUA Field (FUARendering) - Invalid FUAFieldTableInterface');
+            (newError as any).details = result.error;
+            throw newError;
+        }
         super(aux as FUAFieldInterface);
         this.columns = aux.columns;
         this.rows = aux.rows;
@@ -329,6 +387,12 @@ class FUAField_Field extends FUAField {
     private fields: Array<FUAField_Field | FUAField_Box | FUAField_Table>; 
 
     constructor(aux: FUAField_FieldInterface) {
+        const result = FUAFieldFieldSchema.safeParse(aux);
+        if (!result.success) {
+            const newError = new Error('Error in FUA Field (FUARendering) - Invalid FUAFieldFieldInterface');
+            (newError as any).details = result.error;
+            throw newError;
+        }
         super(aux as FUAFieldInterface);
         this.fields = aux.fields;
     }
