@@ -286,11 +286,10 @@ class FUARenderingUtils {
         if( auxFUAField.valueType === "Box"){
             fieldContent = `
                 <tr>
-                    <td class="text-container ${printMode ? 'format-related-print' : ''}"> ${auxFUAField.text ?? ''} <td>
+                    <td class="text-container ${printMode ? 'format-related-print' : ''}" > ${auxFUAField.text ?? ''} </td>
                 </tr>
             `;
             extraStyles = `
-                width:  ${auxFUAField.width.toFixed(1)}mm;    
                 height: ${auxFUAField.height.toFixed(1)}mm;  
             `;
         }
@@ -304,9 +303,9 @@ class FUARenderingUtils {
             `;
             fieldContent = `
                 <tr>
-                    <td style="padding: 0px;" class="field-content ${printMode ? 'format-related-print' : ''}">
+                    <td style="padding: 0px; position: relative;" class="field-content ${printMode ? 'format-related-print' : ''}">
                         ${finalContent}
-                    <td>
+                    </td>
                 </tr>
             `;
         }
@@ -317,14 +316,16 @@ class FUARenderingUtils {
                 #${prefix}-field-${fieldIndex} {
                     top:    ${auxFUAField.top.toFixed(1)}mm;
                     left:   ${auxFUAField.left.toFixed(1)}mm;
-                    ${extraStyles}
                     ${auxWidth}
                     position: absolute;
                 }
+                #${prefix}-field-${fieldIndex}-content {
+                    ${extraStyles}                    
+                }
             </style>
-            <div id="${prefix}-field-${fieldIndex}" class="table-field ${printMode ? 'format-related-print' : ''}" style="width: min-content; border: none; padding: 0; background: none; display: flex; ${flexDir ? `flex-direction: ${flexDir};` : ''}">
-                ${auxFUAField.labelPosition === 'Top' || auxFUAField.labelPosition === 'Left' ? label : ''}
-                <table  class="table-field" style="width: fit-content;">                    
+            <div id="${prefix}-field-${fieldIndex}" class="${printMode ? 'format-related-print' : ''}" style="width: ${auxFUAField.valueType === 'Table' ? 'min-content;' : auxFUAField.width.toFixed(1)+'mm;'} border: none; padding: 0; background: none; display: flex; ${flexDir ? `flex-direction: ${flexDir};` : ''}">
+                ${ auxFUAField.labelPosition === 'Top' || auxFUAField.labelPosition === 'Left' ? label : ''}
+                <table id="${prefix}-field-${fieldIndex}-content" class="table-field" style="${auxFUAField.height ? auxFUAField.height.toFixed(1)+'mm; ' : ''} width: ${ auxFUAField.valueType === 'Table' ? 'fit-content' : ''};">                    
                     ${colgroups}
                     ${fieldContent}
                 </table>
