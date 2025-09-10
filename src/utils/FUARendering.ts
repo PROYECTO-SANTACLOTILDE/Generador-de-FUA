@@ -27,163 +27,6 @@ class FUARenderingUtils {
     }
 
 
-    //Render a FUA Document using HTML header and body
-    public static async renderFUAFormat( FUAFormat : any ) : Promise<string> {
-
-        let formatContent = '';
-
-        // FUAFormat.sections is at least a []
-        if( FUAFormat.pages.length === 0 ){
-            formatContent = `
-                <div> <p>No hay paginas en este formato FUA</p> </div>
-            `;
-        }else{   
-            let htmlPages = null;
-
-            try {
-                htmlPages = await Promise.all( FUAFormat.pages.map((item: any, index: number) => this.renderFUAPage(item, index)));
-            }catch (error: any) {
-                console.error('Error in FUA Rendering Utils - renderFUAFormat: ', error);
-                (error as Error).message =  'Error in FUA Rendering Utils - renderFUAFormat: ' + (error as Error).message;
-                throw error;
-            }
-            
-
-            formatContent = ( htmlPages ? htmlPages.map( page => `
-                <div class="fua-page">
-                    ${ page }
-                </div>
-            `).join('') : '' );
-        }
-
-        // Get CSS style from public folder
-        let cssStyles = '';
-        try{
-            cssStyles = await this.getCSSStyles();
-        }catch(error: unknown){
-            console.error('Error in FUA Rendering Utils - renderFUAFormat: ', error);
-            (error as Error).message =  'Error in FUA Rendering Utils - renderFUAFormat: ' + (error as Error).message;
-            throw error;
-        }
-
-        let htmlContent = dedentCustom(`
-            <!DOCTYPE html>
-            <html lang="es">
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>Previsualizacion de FUA</title>
-                    <style>
-                        ${cssStyles}
-                    </style>
-                </head>
-                <body>
-                    <div id="fua-render-container">
-                        ${ formatContent }
-                    </div>                    
-                </body>
-            </html>
-        `);
-
-        return htmlContent;
-    }
-
-    public static async renderFUAPage( FUAPage : any, index: number ): Promise<string> {
-        
-        let htmlContent = '';
-        let auxPageSections: Array<any> = [];
-
-        // Get FUA Format Sections
-        try {
-            auxPageSections = await FUAPageService.getFUASectionsByIdOrUUID(FUAPage.id);
-        }catch(error: any){
-            console.error('Error in FUA Rendering Utils - getFUASectionsByIdOrUUID: ', error);
-            (error as Error).message =  'Error in FUA Rendering Utils - getFUASectionsByIdOrUUID: ' + (error as Error).message;
-            throw error;
-        }
-
-        FUAPage.sections = auxPageSections;
-
-        // FUAFormat.sections is at least a []
-        if( auxPageSections.length === 0 ){
-            htmlContent = `
-                <div> <p>No hay secciones en este pagina FUA</p> </div>
-            `;
-        }else{
-
-            let sectionsContent = null;
-            try {
-                sectionsContent = await Promise.all( FUAPage.sections.map( (item: any, index: number)  => this.renderFUASection(item, index)));
-            }catch (error: any) {
-                console.error('Error in FUA Rendering Utils - renderFUAPage: ', error);
-                (error as Error).message =  'Error in FUA Rendering Utils - renderFUAPage: ' + (error as Error).message;
-                throw error;
-            }
-
-            htmlContent = ( sectionsContent ? sectionsContent.join('') : '' );    
-           
-        }
-
-        return htmlContent;
-    }
-
-    public static async renderFUASection( FUASection : any, sectionIndex: number ): Promise<string> {
-        let auxSectionFields: Array<any> = [];
-
-        // Get FUA Fields of FUA Section
-        try {
-            auxSectionFields = await FUASectionService.getFUAFieldsById(FUASection.id.toString());
-        }catch(error: any){
-            console.error('Error in FUA Rendering Utils - getFUASectionsByIdOrUUID: ', error);
-            (error as Error).message =  'Error in FUA Rendering Utils - getFUASectionsByIdOrUUID: ' + (error as Error).message;
-            throw error;
-        }
-
-        FUASection.fields = auxSectionFields;
-        
-        let fieldsContent: string[] = [];
-        try {
-            fieldsContent = await Promise.all( FUASection.fields.map( (field: any, index: number) => this.renderFUAField(field, index) ) );  
-        }catch(error: any){
-            console.error('Error in FUA Rendering Utils - renderFUASection: ', error);
-            (error as Error).message =  'Error in FUA Rendering Utils - renderFUASection: ' + (error as Error).message;
-            throw error;
-        }
-        
-        // title, showTitle
-        let title = '';
-        if(FUASection.showTitle == true){
-            title = `
-                <tr>
-                    <th class="section-header" style="height: ${FUASection.titleHeight.toFixed(1)}mm;"> ${FUASection.title ?? ''} </th>
-                </tr>
-            `;            
-        }
-
-        //let fieldsHtmlContent = fieldsContent.length == 0 ? `<p> No hay campos en esta seccion <p>` : fieldsContent.join('');
-
-        let htmlContent = `
-            <table id="section-${sectionIndex.toString()}" class="table-section" style="height: ${FUASection.bodyHeight.toFixed(1)}mm;">
-                  
-                ${title}
-
-                <tr>                    
-                    <td class="section-content">
-                        ${""}
-                    </td>
-                </tr>                    
-            </table>
-        `;
-
-        return htmlContent;
-    }
-
-    public static async renderFUAField( auxFUAField : any, index: number ): Promise<string> {
-        
-        return "";
-    }
-
-    
     // Render a FUA Format using HTML header and body from jsonc schema
     // Pending to validate
     public static async renderFUAFormatFromSchema( FUAFormat : any ) : Promise<string> {
@@ -312,52 +155,62 @@ class FUARenderingUtils {
 
 
     //Erase the border by the position of the label
-    private static eraseBorderOfFieldCaption(captionSide: string): string{
-        let result = `
-            border-bottom: none;
-        `;
+    private static eraseBorderOfFieldCaption(captionSide: string): any{
+        let baseStyle = 'display: flex; justify-content: center; align-items: center;'
+        let captionStyle = 'border-bottom: none';
+        let flexDir = 'column';
 
         switch(captionSide){
-            case `top`:
-                result = `
-                    caption-side: top;
-                    border-bottom: none;
-                `;
+            case `Top`:
+                captionStyle = 'border-bottom: none; ' + baseStyle;
                 break;
-            case `bottom`:
-                result = `
-                    caption-side: bottom;
-                    border-top: none;
-                `;
+            case 'Left':
+                flexDir = 'row';
+                captionStyle = 'border-right: none; ' + baseStyle;
+                break;
+            case 'Right':
+                flexDir = 'row';
+                captionStyle = 'border-left:none; ' + baseStyle;
+                break;
+            case `Bottom`:
+                captionStyle = 'border-top: none; ' + baseStyle;
                 break;
             default:
                 break;
         }
-        return result;
+        return { 
+            captionStyle: captionStyle,
+            flexDir: flexDir
+        };
     }
 
     // Render FUA Field from jsonc schema
     public static renderFUAFieldFromSchema( auxFUAField : any, fieldIndex: number, prefix: string): string {
         let fieldContent = '';
         let extraStyles = '';
-        let auxWidth = '';
+        let auxWidth = '100%;';
+        let flexDir = null;
         
         let label = '';
         if(auxFUAField.showLabel == true){
+            const aux = this.eraseBorderOfFieldCaption(auxFUAField.labelPosition);
+            flexDir = aux.flexDir;
+            const captionStyle = aux.captionStyle;
             label = `
                 <style>
                     #${prefix}-field-${fieldIndex}-caption {
-                        ${this.eraseBorderOfFieldCaption(auxFUAField.captionSide)}
+                        ${captionStyle}             
+                        ${(auxFUAField.labelPosition === 'Left' || auxFUAField.labelPosition === 'Right') ? `width: ${auxFUAField.labelWidth.toFixed(1)}mm;` : ''}   
+                        ${(auxFUAField.labelPosition === 'Left' || auxFUAField.labelPosition === 'Right') ? '' : (auxFUAField.labelHeight ? `height: ${auxFUAField.labelHeight.toFixed(1)}mm;` : 'height: 2.0mm;' )}
+                        ${auxFUAField.labelHeight ? `line-height: ${auxFUAField.labelHeight.toFixed(1)}mm;` : 'height: 2.0mm;'}        
                         font-weight: bold;
                         background-color: lightgray;
-                        ${auxFUAField.labelHeight ? `height: ${auxFUAField.labelHeight.toFixed(1)}mm;` : ''}
-                        ${auxFUAField.labelHeight ? `line-height: ${auxFUAField.labelHeight.toFixed(1)}mm;` : ''}
                         ${auxFUAField.labelExtraStyles ?? ``}
                     }
                 </style>
-                <caption id="${prefix}-field-${fieldIndex}-caption" class="field-border text-container">
+                <div id="${prefix}-field-${fieldIndex}-caption" class="field-border text-container">
                     ${auxFUAField.label}
-                </caption>
+                </div>
             `;            
         }
 
@@ -405,9 +258,7 @@ class FUARenderingUtils {
             fieldContent = `
                 <tr>
                     <td style="padding: 0px;" class="field-content"> 
-
-                            ${finalContent}
-
+                        ${finalContent}
                     <td>
                 </tr>
             `;
@@ -420,13 +271,17 @@ class FUARenderingUtils {
                     left:   ${auxFUAField.left.toFixed(1)}mm;
                     ${extraStyles}
                     ${auxWidth}
+                    position: absolute;
                 }
             </style>
-            <table id="${prefix}-field-${fieldIndex}" class="table-field" >
-                ${label}
-                ${colgroups}
-                ${fieldContent}
-            </table>
+            <div id="${prefix}-field-${fieldIndex}" style="width: min-content; border: none; padding: 0; background: none; display: flex; ${flexDir ? `flex-direction: ${flexDir};` : ''}">
+                ${auxFUAField.labelPosition === 'Top' || auxFUAField.labelPosition === 'Left' ? label : ''}
+                <table  class="table-field" style="width: fit-content;">                    
+                    ${colgroups}
+                    ${fieldContent}
+                </table>
+                ${auxFUAField.labelPosition === 'Bottom' || auxFUAField.labelPosition === 'Right' ? label : ''}
+            </div>
         `;
 
 

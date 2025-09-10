@@ -54,7 +54,6 @@ table {
 .table-field {
     border: 1px solid black;
     border-collapse: collapse;
-    position: absolute;
     overflow: visible;
     box-sizing: content-box;
 }
