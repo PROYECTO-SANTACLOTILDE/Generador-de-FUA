@@ -12,7 +12,7 @@ export interface FUAFieldInterface extends BaseFieldFormEntityInterface{
     showLabel: boolean;
     labelHeight: number;
     label: string;
-    captionSide?: string;
+    labelPosition?: string;
     prefix: string; 
     printMode: boolean;
     labelExtraStyles?: string;
@@ -135,7 +135,7 @@ abstract class FUAField extends BaseFieldFormEntity {
     showLabel: boolean;
     labelHeight: number;
     label: string;
-    captionSide?: string;
+    labelPosition?: string;
     prefix: string; 
     printMode: boolean;
     labelExtraStyles?: string;
@@ -152,7 +152,7 @@ abstract class FUAField extends BaseFieldFormEntity {
         this.showLabel = aux.showLabel;
         this.labelHeight = aux.labelHeight;
         this.label = aux.label;
-        this.captionSide = aux.captionSide;
+        this.labelPosition = aux.labelPosition;
         this.prefix = aux.prefix;
         this.printMode = aux.printMode;
         this.labelExtraStyles = aux.labelExtraStyles;
@@ -186,8 +186,8 @@ abstract class FUAField extends BaseFieldFormEntity {
     get getLabel() { return this.label; }
     set setLabel(value: string) { this.label = value; }
 
-    get getCaptionSide() { return this.captionSide; }
-    set setCaptionSide(value: string | undefined) { this.captionSide = value; }
+    get getlabelPosition() { return this.labelPosition; }
+    set setlabelPosition(value: string | undefined) { this.labelPosition = value; }
 
     get getPrefix() { return this.prefix; }
     set setPrefix(value: string) { this.prefix = value; }
