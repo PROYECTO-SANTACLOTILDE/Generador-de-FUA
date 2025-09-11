@@ -1,0 +1,38 @@
+{
+  // Base Field Form Attribute
+  "codeName": "FUA test",
+  "versionTag": "1.1",
+  // Format Attributes
+  "name": "Ficha Única de Atención",
+  // Format pages
+  "pages":[
+    {
+      // Base Field Form Attribute
+      "codeName": "pagina_1",
+      "versionTag": "1.2",
+      // Page Attributes
+      "pageNumber": 1,
+      "height": 306.0,
+      "width": 210.0,
+      "padding_top": 12.0,
+      "padding_left": 11.0,
+      "extraStyles":  "",
+      // Page sections
+      "sections": [
+        {
+          "codeName": "content table",
+          "versionTag": "1.3",
+          // Section Atributes
+          "title": "",
+          "showTitle": false,
+          "bodyHeight": 100.0,
+          "bodyWidth": 205.0,
+          "left": 0.0,
+          "top": 0.0,
+          "extraStyles": "", 
+          "fields": []          
+        }
+      ]
+    }
+  ]
+}

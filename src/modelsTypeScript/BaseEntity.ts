@@ -1,17 +1,6 @@
-interface BaseEntityInterface {
-    id: number;
-    uuid: string;
-    createdAt: Date;
-    createdBy: string;
-    updatedAt: Date;
-    updatedby?: Date;
-    active: boolean;
-    inactiveBy?: string;
-    inactiveAt?: Date;
-    inactiveReason?: string;
-};
+import {z} from "zod";
 
-class BaseEntity {
+interface BaseEntityInterface {
     id: number;
     uuid: string;
     createdAt: Date;
@@ -22,8 +11,41 @@ class BaseEntity {
     inactiveBy?: string;
     inactiveAt?: Date;
     inactiveReason?: string;
+};
+
+export const BaseEntitySchema = z.object({
+  id: z.number().default(-1), // If the object was generated outsie of the DB, is going to have -1 as id
+  uuid: z.string().default('---'),
+  createdAt: z.date().default(new Date()),
+  createdBy: z.string().default('system'),
+  updatedAt: z.date().optional(),
+  updatedby: z.date().optional(),
+  active: z.boolean().default(true),
+  inactiveBy: z.string().optional(),
+  inactiveAt: z.date().optional(),
+  inactiveReason: z.string().optional(),
+});
+
+
+class BaseEntity {
+    id?: number;
+    uuid?: string;
+    createdAt: Date;
+    createdBy: string;
+    updatedAt?: Date;
+    updatedby?: Date;
+    active: boolean;
+    inactiveBy?: string;
+    inactiveAt?: Date;
+    inactiveReason?: string;
 
     constructor(aux: BaseEntityInterface){
+        const result = BaseEntitySchema.safeParse(aux);
+        if (!result.success) {
+            const newError = new Error('Error in FUA Format (object) - Invalid FUAFormatInterface - constructor');
+            (newError as any).details = result.error;
+            throw newError;
+        }
         this.id = aux.id;
         this.uuid = aux.uuid;
         this.createdAt = new Date(aux.createdAt);

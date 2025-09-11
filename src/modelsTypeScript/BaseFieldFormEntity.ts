@@ -1,28 +1,43 @@
 import BaseEntity from "./BaseEntity";
 import { BaseEntityInterface } from "./BaseEntity";
+import { z } from "zod";
+
 
 export interface BaseFieldFormEntityInterface extends BaseEntityInterface {
-    codename: string;
+    codeName: string;
     versionTag: string;
     versionNumber: number;
-};
+}
+
+export const BaseFieldFormEntitySchema = z.object({
+    codeName: z.string(),
+    versionTag: z.string(),
+    versionNumber: z.number().default(1),
+});
+
 
 
 
 class BaseFieldFormEntity extends BaseEntity {
-    codename: string;
+    codeName: string;
     versionTag: string;
     versionNumber: number;
 
     constructor(aux: BaseFieldFormEntityInterface){
+        const result = BaseFieldFormEntitySchema.safeParse(aux);
+        if (!result.success) {
+            const newError = new Error('Error in BaseFieldFormEntity - Invalid BaseFieldFormEntityInterface - constructor'+(aux.versionTag ? aux.versionTag +' ' : ''));
+            (newError as any).details = result.error;
+            throw newError;
+        }
         super(aux);
-        this.codename = aux.codename;
+        this.codeName = aux.codeName;
         this.versionTag = aux.versionTag;
         this.versionNumber = aux.versionNumber;
     }
 
-    get getCodename() { return this.codename; }
-    set setCodename(value: string) { this.codename = value; }
+    get getCodeName() { return this.codeName; }
+    set setCodeName(value: string) { this.codeName = value; }
 
     get getVersionTag() { return this.versionTag; }
     set setVersionTag(value: string) { this.versionTag = value; }

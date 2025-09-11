@@ -10,6 +10,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { parse } from 'jsonc-parser';
 import FUARenderingUtils from "./FUARendering";
+import FUAFormat from "../modelsTypeScript/FUAFormat";
 
 
 /**
@@ -74,19 +75,22 @@ export async function fillSection2(auxUser: string, auxVersion: string, sectionU
 };
 
 export async function createDemoFormat(printMode : boolean){
-  const jsoncPath = path.resolve(process.cwd(), "./src/utils/FUA_Schema_Examples/FUA_1.0.jsonc");
-  const jsoncContent = fs.readFileSync(jsoncPath, 'utf-8');
-  const parsed = parse(jsoncContent);
-
-  let html : string = '';
   try{
+    const jsoncPath = path.resolve(process.cwd(), "./src/utils/FUA_Schema_Examples/Constructor_Test.jsonc");
+    const jsoncContent = fs.readFileSync(jsoncPath, 'utf-8');
+    const parsed = parse(jsoncContent);
+    let auxFormat = await new FUAFormat(parsed);
+
+    let html : string = '';
+  
     html = await FUARenderingUtils.renderFUAFormatFromSchema(parsed, printMode);
+    return html
   }catch(error: unknown){
     console.error('Error in Utils - createDemoFormat: ', error);
     (error as Error).message =  'Error in Utils - createDemoFormat: ' + (error as Error).message;
     throw error;
   }
-  return html;
+  ;
 };
 
 // Dedent tabulations for strings declared with ´´
