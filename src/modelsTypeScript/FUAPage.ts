@@ -1,4 +1,7 @@
+
 import BaseFieldFormEntity, { BaseFieldFormEntityInterface } from "./BaseFieldFormEntity";
+import { z } from "zod";
+
 
 export interface FUAPageInterface extends BaseFieldFormEntityInterface{
     pageNumber: number;
@@ -8,6 +11,15 @@ export interface FUAPageInterface extends BaseFieldFormEntityInterface{
     padding_left?: number;
     extraStyles?: string; 
 };
+
+export const FUAPageSchema = z.object({
+    pageNumber: z.number(),
+    height: z.number(),
+    width: z.number(),
+    padding_top: z.number().optional(),
+    padding_left: z.number().optional(),
+    extraStyles: z.string().optional(),
+});
 
 
 
@@ -20,6 +32,12 @@ class FUAPage extends BaseFieldFormEntity {
     extraStyles?: string;
 
     constructor(aux: FUAPageInterface) {
+        const result = FUAPageSchema.safeParse(aux);
+        if (!result.success) {
+            const newError = new Error('Error in FUA Page (object) - Invalid FUAPageInterface - constructor');
+            (newError as any).details = result.error;
+            throw newError;
+        }
         super(aux);
         this.pageNumber = aux.pageNumber;
         this.height = aux.height;
@@ -27,7 +45,6 @@ class FUAPage extends BaseFieldFormEntity {
         this.extraStyles = aux.extraStyles;
         this.padding_top = aux.padding_top;
         this.padding_left = aux.padding_left;
-
     }
 
     get getPageNumber() { return this.pageNumber; }

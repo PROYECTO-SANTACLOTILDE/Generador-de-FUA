@@ -183,7 +183,7 @@ abstract class FUAField extends BaseFieldFormEntity {
     constructor(aux: FUAFieldInterface) {
         const result = FUAFieldSchema.safeParse(aux);
         if (!result.success) {
-            const newError = new Error('Error in FUA Field (FUARendering) - Invalid FUAFieldIterface');
+            const newError = new Error('Error in FUA Field (object) - Invalid FUAFieldIterface - constructor');
             (newError as any).details = result.error;
             throw newError;
         }
@@ -293,7 +293,7 @@ class FUAField_Box extends FUAField {
     constructor(aux: FUAField_BoxInterface) {
         const result = FUAFieldBoxSchema.safeParse(aux);
         if (!result.success) {
-            const newError = new Error('Error in FUA Field (FUARendering) - Invalid FUAFieldBoxInterface');
+            const newError = new Error('Error in FUA Field (object) - Invalid FUAFieldBoxInterface - constructor');
             (newError as any).details = result.error;
             throw newError;
         }
@@ -336,7 +336,7 @@ class FUAField_Table extends FUAField {
     constructor(aux: FUAField_Table) {
         const result = FUAFieldTableSchema.safeParse(aux);
         if (!result.success) {
-            const newError = new Error('Error in FUA Field (FUARendering) - Invalid FUAFieldTableInterface');
+            const newError = new Error('Error in FUA Field (object) - Invalid FUAFieldTableInterface - constructor');
             (newError as any).details = result.error;
             throw newError;
         }
@@ -389,7 +389,7 @@ class FUAField_Field extends FUAField {
     constructor(aux: FUAField_FieldInterface) {
         const result = FUAFieldFieldSchema.safeParse(aux);
         if (!result.success) {
-            const newError = new Error('Error in FUA Field (FUARendering) - Invalid FUAFieldFieldInterface');
+            const newError = new Error('Error in FUA Field (object) - Invalid FUAFieldFieldInterface - constructor');
             (newError as any).details = result.error;
             throw newError;
         }

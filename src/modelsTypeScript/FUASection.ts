@@ -1,5 +1,7 @@
 import { Field } from "multer";
 import BaseFieldFormEntity, { BaseFieldFormEntityInterface } from "./BaseFieldFormEntity";
+import { z } from "zod";
+import {FUAFieldSchema} from "./FUAField";
 
 export interface FUASectionInterface extends BaseFieldFormEntityInterface{
     sectionIndex: number;
@@ -15,6 +17,21 @@ export interface FUASectionInterface extends BaseFieldFormEntityInterface{
     fields: Array<any>;
     extraStyles?: string;
 };
+
+export const FUASectionSchema = z.object({
+    sectionIndex: z.number(),
+    top: z.number(),
+    left: z.number(),
+    bodyHeight: z.number(),
+    bodyWidth: z.number(),
+    titleHeight: z.number().optional(),
+    title: z.string().optional(),
+    showTitle: z.boolean().optional(),
+    prefix: z.string(),
+    printMode: z.boolean(),
+    fields: z.array(FUAFieldSchema),
+    extraStyles: z.string().optional(),
+});
 
 
 
@@ -34,6 +51,12 @@ class FUASection extends BaseFieldFormEntity {
     extraStyles?: string;
 
     constructor(aux: FUASectionInterface) {
+        const result = FUASectionSchema.safeParse(aux);
+        if (!result.success) {
+            const newError = new Error('Error in FUA Section (object) - Invalid FUASectionInterface - constructor');
+            (newError as any).details = result.error;
+            throw newError;
+        }
         super(aux);
         this.sectionIndex = aux.sectionIndex;
         this.top = aux.top;
@@ -47,7 +70,6 @@ class FUASection extends BaseFieldFormEntity {
         this.printMode = aux.printMode;
         this.fields = aux.fields;
         this.extraStyles = aux.extraStyles;
-
     }
 
     get getSectionIndex() { return this.sectionIndex; }
