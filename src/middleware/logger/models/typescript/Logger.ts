@@ -87,47 +87,40 @@ export class Logger {
         content: JSON.stringify(log.content)
       });
     }catch(error : any){
-      console.error("Failed to write log file: ", error);
+      console.log("Logger could not print in the DB.");
+      log.logLevel = Logger_LogLevel.ERROR,
+      log.securityLevel = Logger_SecurityLevel.Admin;
+      log.logType = Logger_LogType.SYSTEM;
+      const line = inspect(error, { depth: 100, colors: false }); 
+      log.description = line.replace(/^/gm, '\t');
+      this.printLog(log, [
+        { name: "terminal" },
+        { name: "file", file: "logs/auxLog.log"},
+      ]);
     }    
   };
 
   public printLog(log: Log, targets: TargetSpec[]) {
     for (const t of targets) {
-      try {
-        if (t.name === "terminal") {
-          this.testTerminal(log);
-        } 
-        else if (t.name === "file") {
-          if (!t.file || typeof t.file !== "string" || t.file.trim() === "") {
-            console.error("Invalid file path.");
-            continue;
-          }
-          ensureParentDir(t.file);
-          this.testFile(t.file, log);
-        } 
-        else if (t.name === "database") {
-            this.testDB(log);
-        } 
-        else {
-          console.error(`Unknown target: ${(t as any).name}`);
+      if (t.name === "terminal") {
+        this.testTerminal(log);
+      } 
+      else if (t.name === "file") {
+        if (!t.file || typeof t.file !== "string" || t.file.trim() === "") {
+          console.error("Invalid file path.");
+          continue;
         }
-      } catch (err) {
-        console.error(`Failed to log in target ${t.name}:`, err);
-        console.log("TESTTTTTTTTTTTTT");
-        console.error("Logger could not print in the DB.");
-        log.logLevel = Logger_LogLevel.ERROR,
-        log.securityLevel = Logger_SecurityLevel.Admin;
-        log.logType = Logger_LogType.SYSTEM;
-        const line = inspect(err, { depth: 100, colors: false }); 
-        log.description = line.replace(/^/gm, '\t');
-        this.printLog(log, [
-          { name: "terminal" },
-          { name: "file", file: "logs/auxLog.log"},
-        ]);
-      }
+        ensureParentDir(t.file);
+        this.testFile(t.file, log);
+      } 
+      else if (t.name === "database") {
+        this.testDB(log);
+      } 
+      else {
+        console.error(`Unknown target: ${(t as any).name}`);
+      }      
     }
   }
-
 }
 
 export const loggerInstance = new Logger(

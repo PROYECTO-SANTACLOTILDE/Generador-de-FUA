@@ -66,6 +66,7 @@ sequelize.authenticate()
     { name: "file", file: "./logs/auxLog.log" }
     ]);
   console.error('Unable to connect to the database: ');
+  console.log("CALLED BY INDEX, NOT ANY OTHER PART");
   console.error(error);
 });
 
