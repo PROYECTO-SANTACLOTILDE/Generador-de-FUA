@@ -1,9 +1,13 @@
 // Imported libraries
+import { Logger_LogLevel } from "./LogLevel";
 import { LogSequelize } from "../sequelize";
 import { Logger_EnvironmentType } from "./EnvironmentType";
 import { Log } from "./Log";
 import * as fs from "fs";
 import * as path from "path";
+import { Logger_SecurityLevel } from "./SecurityLevel";
+import { Logger_LogType } from "./LogType";
+import { inspect } from "util";
 require('dotenv').config();
 
 // Interfaces
@@ -102,13 +106,24 @@ export class Logger {
           this.testFile(t.file, log);
         } 
         else if (t.name === "database") {
-          this.testDB(log);
+            this.testDB(log);
         } 
         else {
           console.error(`Unknown target: ${(t as any).name}`);
         }
       } catch (err) {
         console.error(`Failed to log in target ${t.name}:`, err);
+        console.log("TESTTTTTTTTTTTTT");
+        console.error("Logger could not print in the DB.");
+        log.logLevel = Logger_LogLevel.ERROR,
+        log.securityLevel = Logger_SecurityLevel.Admin;
+        log.logType = Logger_LogType.SYSTEM;
+        const line = inspect(err, { depth: 100, colors: false }); 
+        log.description = line.replace(/^/gm, '\t');
+        this.printLog(log, [
+          { name: "terminal" },
+          { name: "file", file: "logs/auxLog.log"},
+        ]);
       }
     }
   }

@@ -192,7 +192,7 @@ class FUARenderingUtils {
             label = `
                 <style>
                     #${prefix}-field-${fieldIndex}-caption {
-                        ${this.eraseBorderOfFieldCaption(auxFUAField.captionSide ?? "top")}
+                        ${this.eraseBorderOfFieldCaption("top")}
                         font-weight: bold;
                         background-color: lightgray;
                         ${auxFUAField.labelHeight ? `height: ${auxFUAField.labelHeight.toFixed(1)}mm;` : ''}
