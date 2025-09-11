@@ -11,7 +11,8 @@ export interface FUAFieldInterface extends BaseFieldFormEntityInterface{
     height: number;
     extraStyles?: string;
     showLabel: boolean;
-    labelHeight: number;
+    labelHeight?: number;
+    labelWidth?: number;
     label: string;
     labelPosition?: string;
     prefix: string; 
@@ -172,7 +173,8 @@ abstract class FUAField extends BaseFieldFormEntity {
     height: number;
     extraStyles?: string; // <- stated by .json.c file, we cant touch them
     showLabel: boolean;
-    labelHeight: number;
+    labelWidth?: number;
+    labelHeight?: number;
     label: string;
     labelPosition?: string;
     prefix: string; 
@@ -196,6 +198,7 @@ abstract class FUAField extends BaseFieldFormEntity {
         this.height = aux.height;
         this.extraStyles = aux.extraStyles;
         this.showLabel = aux.showLabel;
+        this.labelWidth = aux.labelWidth;
         this.labelHeight = aux.labelHeight;
         this.label = aux.label;
         this.labelPosition = aux.labelPosition;
@@ -228,6 +231,9 @@ abstract class FUAField extends BaseFieldFormEntity {
 
     get getLabelHeight() { return this.labelHeight; }
     set setLabelHeight(value: number) { this.labelHeight = value; }
+
+    get getLabelWidth() { return this.labelWidth; }
+    set setLabelWidth(value: number) { this.labelWidth = value; }
 
     get getLabel() { return this.label; }
     set setLabel(value: string) { this.label = value; }

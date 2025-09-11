@@ -157,7 +157,8 @@ class FUARenderingUtils {
 
 
     //Erase the border by the position of the label
-    private static eraseBorderOfFieldCaption(captionSide: string): any{
+    private static eraseBorderOfFieldCaption(captionSide?: string): any{
+        if(captionSide == undefined) return null; // Should always come with something if showLabel is True
         let baseStyle = 'display: flex; justify-content: center; align-items: center;'
         let captionStyle = 'border-bottom: none';
         let flexDir = 'column';
@@ -178,6 +179,7 @@ class FUARenderingUtils {
                 captionStyle = 'border-top: none; ' + baseStyle;
                 break;
             default:
+                return null;
                 break;
         }
         return { 
@@ -189,10 +191,17 @@ class FUARenderingUtils {
     public static renderFUAFieldFromSchema_renderLabel( auxFUAField : FUAField, prefix: string, printMode: boolean, fieldIndex: number) : string {
         let label = '';
         if(auxFUAField.showLabel == true){
+            const aux = this.eraseBorderOfFieldCaption(auxFUAField.labelPosition);
+            const flexDir = aux.flexDir;
+            const captionStyle = aux.captionStyle;
             label = `
                 <style>
                     #${prefix}-field-${fieldIndex}-caption {
-                        ${this.eraseBorderOfFieldCaption("top")}
+                        ${captionStyle}             
+                        ${(auxFUAField.labelPosition === 'Left' || auxFUAField.labelPosition === 'Right') ? `width: ${auxFUAField.labelWidth ? auxFUAField.labelWidth.toFixed(1) : ''}mm;` : '100%;'}   
+                        ${(auxFUAField.labelPosition === 'Left' || auxFUAField.labelPosition === 'Right') ? '' : (auxFUAField.labelHeight ? `height: ${auxFUAField.labelHeight.toFixed(1)}mm;` : 'height: 2.0mm;' )}
+                        ${auxFUAField.labelHeight ? `line-height: ${auxFUAField.labelHeight.toFixed(1)}mm;` : 'height: 2.0mm;'}        
+                        
                         font-weight: bold;
                         background-color: lightgray;
                         ${auxFUAField.labelHeight ? `height: ${auxFUAField.labelHeight.toFixed(1)}mm;` : ''}
