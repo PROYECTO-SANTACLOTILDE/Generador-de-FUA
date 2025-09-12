@@ -1,7 +1,8 @@
 import { Field } from "multer";
 import BaseFieldFormEntity, { BaseFieldFormEntityInterface } from "./BaseFieldFormEntity";
 import { z } from "zod";
-import {FUAFieldSchema} from "./FUAField";
+import FUAField, {FUAField_Box, FUAField_Field, FUAField_Table, FUAFieldSchema} from "./FUAField";
+import { FUAPageInterface } from "./FUAPage";
 
 export interface FUASectionInterface extends BaseFieldFormEntityInterface{
     top: number;
@@ -23,7 +24,7 @@ export const FUASectionSchema = z.object({
     titleHeight: z.number().optional(),
     title: z.string().optional(),
     showTitle: z.boolean().optional(),
-    fields: z.array(FUAFieldSchema),
+    fields: z.array(z.any()),
     extraStyles: z.string().optional(),
 });
 
@@ -56,8 +57,16 @@ class FUASection extends BaseFieldFormEntity {
         this.titleHeight = aux.titleHeight;
         this.title = aux.title;
         this.showTitle = aux.showTitle;
-        this.fields = aux.fields;
+        this.fields = new Array<FUAField_Field | FUAField_Box | FUAField_Table>();
         this.extraStyles = aux.extraStyles;
+        // Build the sons objects
+        if(aux.fields){
+            // We assume is an array            
+            for( const auxField of aux.fields){
+                const auxNewField = FUAField.buildFUAField(auxField);
+                this.fields.push(auxNewField);
+            }            
+        }
     }
 
 

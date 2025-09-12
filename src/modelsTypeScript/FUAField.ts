@@ -64,12 +64,8 @@ export const FUAFieldBoxSchema = FUAFieldSchema.extend({
 });
 
 export const FUAFieldFieldSchema = FUAFieldSchema.extend({
-        valueType: z.literal("Field"),
-        fields: z.array(z.union([
-            FUAFieldBoxSchema,
-            FUAFieldTableSchema,
-            z.lazy((): z.ZodTypeAny => FUAFieldFieldSchema)
-        ])),
+    valueType: z.literal("Field"),
+    fields: z.array(z.any())
 });
 
 
@@ -158,7 +154,7 @@ renderTypeField(FUAField).render
 
 //const aux = new FUAField();
 
-abstract class FUAField extends BaseFieldFormEntity {
+export abstract class FUAField extends BaseFieldFormEntity  {
     // Label attributes
     top: number;
     left: number;
@@ -267,10 +263,25 @@ abstract class FUAField extends BaseFieldFormEntity {
     // Overwrite methods
     abstract render(fieldIndex: number, prefix: string, printMode: boolean, logicAditionalStyles : { value: string; }): string;
     
-
+    static buildFUAField( newField : any ) : FUAField_Field | FUAField_Box | FUAField_Table | null {
+        switch(newField.valueType){
+            case "Table":
+                return new FUAField_Table(newField as FUAField_TableInterface);
+                break;
+            case "Box":
+                return new FUAField_Box(newField as FUAField_BoxInterface);
+                break;
+            case "Field":
+                return new FUAField_Field(newField as FUAField_FieldInterface);
+                break;
+            default:
+                return null;
+                break;
+        }
+    }
 }
 
-class FUAField_Box extends FUAField {
+export class FUAField_Box extends FUAField {
 
     //private valueType: "Box";
     private text: string;
@@ -310,7 +321,7 @@ class FUAField_Box extends FUAField {
     }
 }
 
-class FUAField_Table extends FUAField {
+export class FUAField_Table extends FUAField {
 
     // Special Attributes
     // valueType is "Table"
@@ -318,9 +329,9 @@ class FUAField_Table extends FUAField {
     private rows: Array<any>;
 
     // Constructor
-    constructor(aux: FUAField_Table) {
-        (aux as FUAFieldInterface).width = 0;
-        (aux as FUAFieldInterface).height = 0;
+    constructor(aux: FUAField_TableInterface) {
+        (aux as FUAFieldInterface).width = 0.0;
+        (aux as FUAFieldInterface).height = 0.0;
         const result = FUAFieldTableSchema.safeParse(aux);
         if (!result.success) {
             const newError = new Error('Error in FUA Field (object) - Invalid FUAFieldTableInterface - constructor');
@@ -330,6 +341,7 @@ class FUAField_Table extends FUAField {
         super(aux as FUAFieldInterface);
         this.columns = aux.columns;
         this.rows = aux.rows;
+        
     }
 
     // Methods
@@ -369,7 +381,7 @@ class FUAField_Table extends FUAField {
 
 
 
-class FUAField_Field extends FUAField {
+export class FUAField_Field extends FUAField {
 
     private fields: Array<FUAField_Field | FUAField_Box | FUAField_Table>; 
 
@@ -381,7 +393,16 @@ class FUAField_Field extends FUAField {
             throw newError;
         }
         super(aux as FUAFieldInterface);
-        this.fields = aux.fields;
+        this.fields = new Array<FUAField_Field | FUAField_Box | FUAField_Table>
+        // Build the children objects
+        if(aux.fields){
+            // We assume is an array            
+            for( const auxField of aux.fields){
+                const auxNewField = FUAField.buildFUAField(auxField);
+                if(auxNewField === null) throw new Error('Invalid value type. ');
+                this.fields.push(auxNewField);
+            }            
+        }
     }
     
     get getFields(): Array<FUAField_Field | FUAField_Box | FUAField_Table> {

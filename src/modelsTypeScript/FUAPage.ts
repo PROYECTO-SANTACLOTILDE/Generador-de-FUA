@@ -1,7 +1,7 @@
 
 import BaseFieldFormEntity, { BaseFieldFormEntityInterface } from "./BaseFieldFormEntity";
 import { z } from "zod";
-import FUASection from "./FUASection";
+import FUASection, { FUASectionInterface } from "./FUASection";
 import {FUASectionSchema} from "./FUASection";
 
 
@@ -22,7 +22,7 @@ export const FUAPageSchema = z.object({
     padding_top: z.number().optional(),
     padding_left: z.number().optional(),
     extraStyles: z.string().optional(),
-    sections: z.array(FUASectionSchema), 
+    sections: z.array(z.any()), 
 });
 
 
@@ -51,7 +51,15 @@ class FUAPage extends BaseFieldFormEntity {
         this.extraStyles = aux.extraStyles;
         this.padding_top = aux.padding_top ?? 0;
         this.padding_left = aux.padding_left ?? 0;
-        this.sections = aux.sections;
+        this.sections = new Array<FUASection>();
+        // Build the sons objects
+        if(aux.sections){
+            // We assume is an array            
+            for( const auxSection of aux.sections){
+                const auxNewSection = new FUASection(auxSection as FUASectionInterface);
+                this.sections.push(auxNewSection);
+            }            
+        }
     }
 
     get getPageNumber() { return this.pageNumber; }

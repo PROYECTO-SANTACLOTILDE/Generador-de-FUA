@@ -1,7 +1,7 @@
 
 import BaseFieldFormEntity, { BaseFieldFormEntityInterface } from "./BaseFieldFormEntity";
-import FUAPage from "./FUAPage";
-import { z } from "zod";
+import FUAPage, { FUAPageInterface } from "./FUAPage";
+import { any, z } from "zod";
 import { FUAPageSchema } from "./FUAPage";
 
 
@@ -13,7 +13,7 @@ interface FUAFormatInterface extends BaseFieldFormEntityInterface{
 
 export const FUAFormatSchema = z.object({
     name: z.string(),
-    pages: z.array(FUAPageSchema).optional(),
+    pages: z.array(z.any()).optional(),
 });
 
 
@@ -31,7 +31,19 @@ class FUAFormat extends BaseFieldFormEntity {
         }
         super(aux);
         this.name = aux.name;
-        this.pages = aux.pages ?? new Array<FUAPage>();
+        this.pages = new Array<FUAPage>(); 
+        // Build the sons objects
+        if(aux.pages){
+            aux.pages.forEach( (auxPage : any, index : number) => {
+
+            })
+            // We assume is an array            
+            for( const auxPage of aux.pages){
+
+                const auxNewpage = new FUAPage(auxPage as FUAPageInterface);
+                this.pages.push(auxNewpage);
+            }            
+        }
     }
 
     get getName() { return this.name; }
