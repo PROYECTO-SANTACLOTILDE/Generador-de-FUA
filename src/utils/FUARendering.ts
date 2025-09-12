@@ -102,8 +102,6 @@ class FUARenderingUtils {
                 #fua-page-${pageIndex.toString()} {
                     width: ${auxFUAPage.width.toFixed(1)}mm;
                     height: ${auxFUAPage.height.toFixed(1)}mm;
-                    padding-top: ${auxFUAPage.padding_top.toFixed(1)}mm;
-                    padding-left: ${auxFUAPage.padding_left.toFixed(1)}mm;
                 }
             </style>
             <div id="fua-page-${pageIndex.toString()}" class="fua-page ${printMode ? 'format-related-print' : ''}" ${auxFUAPage.extraStyles !== undefined ? `style="${auxFUAPage.extraStyles}"` : ""}>
@@ -221,7 +219,7 @@ class FUARenderingUtils {
         return label;
     }
 
-    public static renderFUAFieldFromSchema_renderFieldContent( auxFUAField : FUAField, prefix: string, printMode: boolean, fieldIndex: number, label: string, colgroups: string) : string {
+    /* public static renderFUAFieldFromSchema_renderFieldContent( auxFUAField : FUAField, prefix: string, printMode: boolean, fieldIndex: number, label: string, colgroups: string) : string {
         let fieldContent = '';
         fieldContent = `
             <style>
@@ -240,7 +238,7 @@ class FUARenderingUtils {
         `;
 
         return fieldContent;
-    }
+    } */
 
     // Render FUA Field from jsonc schema
     public static renderFUAFieldFromSchema( auxFUAField : any, fieldIndex: number, prefix: string, printMode : boolean): string {

@@ -319,6 +319,8 @@ class FUAField_Table extends FUAField {
 
     // Constructor
     constructor(aux: FUAField_Table) {
+        (aux as FUAFieldInterface).width = 0;
+        (aux as FUAFieldInterface).height = 0;
         const result = FUAFieldTableSchema.safeParse(aux);
         if (!result.success) {
             const newError = new Error('Error in FUA Field (object) - Invalid FUAFieldTableInterface - constructor');
