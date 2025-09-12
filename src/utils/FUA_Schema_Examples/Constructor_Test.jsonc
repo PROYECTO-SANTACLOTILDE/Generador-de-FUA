@@ -30,7 +30,191 @@
           "left": 0.0,
           "top": 0.0,
           "extraStyles": "", 
-          "fields": []          
+          "fields": [
+            {
+              // Base Field Form Attribute
+              "codeName": "Visit Date",
+              "versionTag": "1.0",
+              // Field data
+              "top": 2.4,
+              "left": 0,
+              "labelPosition": "Top",
+              "label": "FECHA DE ATENCIÓN",
+              "showLabel": true,
+              "labelOrientation": "Horizontal",
+              "labelHeight": 2.5,
+              "valueType": "Table",
+              "columns": [
+                { "width": 1.1},
+                { "width": 10.7},
+                { "width": 29.2}
+              ],
+              "rows": [
+                {
+                  // Row 1
+                  "index": 1,
+                  "height": 3.2,
+                  "isHeader": true,
+                  "cells": [
+                    {
+                      "text": "DIA",
+                      "extraStyles": "background-color: #F0F0F0;"
+                    },
+                    {
+                      "text": "MES",
+                      "extraStyles": "background-color: #F0F0F0;"
+                    },
+                    {
+                      "text": "AÑO",
+                      "extraStyles": "background-color: #F0F0F0;"
+                    }
+                  ]
+                },
+                {
+                  // Row 2
+                  "index": 2,
+                  "height": 4.0,
+                  "isHeader": false,
+                  "cells": [
+                    {
+                      "text": "03"
+                    },
+                    {
+                      "text": "06"
+                    },
+                    {
+                      "text": "2024"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              // Base Field Form Attribute
+              "codeName": "Visit Time",
+              "versionTag": "1.0",
+              // Field data
+              "top": 2.4,
+              "left": 52.0,
+              "label": "HORA",
+              "showLabel": true,
+              "labelOrientation": "Horizontal",
+              "labelPosition": "Top",
+              "labelHeight": 5.6,
+              "valueType": "Box",
+              "width": 15.5,
+              "height": 4.0,
+              "text": "15:33"
+            },
+            {
+              // Base Field Form Attribute
+              "codeName": "Provider Type",
+              "versionTag": "1.0",
+              // Field data
+              "top": 28.0,
+              "left": 0.0,
+              "label": "PERSONAL QUE ATIENDE",
+              "showLabel": true,
+              "labelOrientation": "Horizontal",
+              "labelPosition": "Top",
+              "labelHeight": 4.0,
+              "valueType": "Field",
+              "width": 52.5,
+              "height": 22.5,
+              "fields": [
+                {
+                  //Field 1
+                  // Base Field Form Attribute
+                  "codeName": "Provider Type",
+                  "versionTag": "1.0",
+                  // Field data
+                  "top": 0.0,
+                  "left": 0.0,
+                  "showLabel": false,
+                  "label": "CÓDIGO DE LA OFERTA FLEXIBLE",
+                  "valueType": "Table",
+                  "labelOrientation": "Horizontal",
+                  "labelPosition": "Top",
+                  "labelHeight": 5.6,
+                  "columns": [
+                    { "width": 18.0},
+                    { "width": 5.0}
+                  ],
+                  "rows": [
+                    {
+                      // Row 1
+                      "index": 1,
+                      "height": 4.0,
+                      "isHeader": false,
+                      "cells": [
+                        { "text": "DE LA IPRESS" },
+                        { "text": "X" }
+                      ]
+                    },
+                    {
+                      // Row 2
+                      "index": 2,
+                      "height": 4.0,
+                      "isHeader": false,
+                      "cells": [
+                        {
+                          "text": "ITINERANTE"
+                        }
+                      ]
+                    },
+                    {
+                      // Row 3
+                      "index": 3,
+                      "height": 4.0,
+                      "isHeader": false,
+                      "cells": [
+                        {
+                          "text": "PLAN MAS SALUD"
+                        }
+                      ]
+                    },
+                    {
+                      // Row 4
+                      "index": 4,
+                      "height": 4.0,
+                      "isHeader": false,
+                      "cells": [
+                        {
+                          "text": "OFERTA FLEXIBLE"
+                        }
+                      ]
+                    },
+                    {
+                      // Row 5
+                      "index": 5,
+                      "height": 4.0,
+                      "isHeader": false,
+                      "cells": [
+                        {
+                          "text": ""
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "codeName": "Oferta Flexible Code",
+                  "versionTag": "1.0",
+                  // Field data
+                  "top": 0.0,
+                  "left": 23.0,
+                  "showLabel": true,
+                  "label": "CÓDIGO DE LA OFERTA FLEXIBLE",
+                  "labelPosition": "Top",
+                  "labelHeight": 4.0,
+                  "valueType": "Box",
+                  "width": 28.7,
+                  "height": 17.7,
+                  "text": "---"                  
+                }
+              ]
+            }
+          ]          
         }
       ]
     }

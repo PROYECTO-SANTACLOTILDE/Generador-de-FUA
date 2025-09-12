@@ -1,6 +1,8 @@
 
 import BaseFieldFormEntity, { BaseFieldFormEntityInterface } from "./BaseFieldFormEntity";
 import { z } from "zod";
+import FUASection from "./FUASection";
+import {FUASectionSchema} from "./FUASection";
 
 
 export interface FUAPageInterface extends BaseFieldFormEntityInterface{
@@ -10,6 +12,7 @@ export interface FUAPageInterface extends BaseFieldFormEntityInterface{
     padding_top?: number;
     padding_left?: number;
     extraStyles?: string; 
+    sections: Array<FUASection>;
 };
 
 export const FUAPageSchema = z.object({
@@ -19,7 +22,9 @@ export const FUAPageSchema = z.object({
     padding_top: z.number().optional(),
     padding_left: z.number().optional(),
     extraStyles: z.string().optional(),
+    sections: z.array(FUASectionSchema), 
 });
+
 
 
 
@@ -27,9 +32,10 @@ class FUAPage extends BaseFieldFormEntity {
     pageNumber: number;
     height: number;
     width: number;
-    padding_top?: number;
-    padding_left?: number;
+    padding_top: number;
+    padding_left: number;
     extraStyles?: string;
+    sections: Array<FUASection>;
 
     constructor(aux: FUAPageInterface) {
         const result = FUAPageSchema.safeParse(aux);
@@ -43,8 +49,9 @@ class FUAPage extends BaseFieldFormEntity {
         this.height = aux.height;
         this.width = aux.width;
         this.extraStyles = aux.extraStyles;
-        this.padding_top = aux.padding_top;
-        this.padding_left = aux.padding_left;
+        this.padding_top = aux.padding_top ?? 0;
+        this.padding_left = aux.padding_left ?? 0;
+        this.sections = aux.sections;
     }
 
     get getPageNumber() { return this.pageNumber; }
@@ -64,6 +71,9 @@ class FUAPage extends BaseFieldFormEntity {
 
     get getExtraStyle() { return this.extraStyles; }
     set setExtraStyle(value: string | undefined) { this.extraStyles = value; }
+
+    get getSections() { return this.sections; }
+    set setSections(value: Array<FUASection>) { this.sections = value; }
 }
 
 export default FUAPage;

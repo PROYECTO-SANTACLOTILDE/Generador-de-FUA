@@ -4,7 +4,6 @@ import FUARenderingUtils from "../utils/FUARendering";
 import {z} from "zod";
 
 export interface FUAFieldInterface extends BaseFieldFormEntityInterface{
-    fieldIndex: number;
     top: number;
     left: number;
     width: number;
@@ -15,8 +14,6 @@ export interface FUAFieldInterface extends BaseFieldFormEntityInterface{
     labelWidth?: number;
     label: string;
     labelPosition?: string;
-    prefix: string; 
-    printMode: boolean;
     labelExtraStyles?: string;
     valueType: string; //
     //columns: number; //
@@ -24,7 +21,6 @@ export interface FUAFieldInterface extends BaseFieldFormEntityInterface{
 };
 
 export const FUAFieldSchema = z.object({
-  fieldIndex: z.number(),
   top: z.number(),
   left: z.number(),
   width: z.number(),
@@ -34,8 +30,6 @@ export const FUAFieldSchema = z.object({
   labelHeight: z.number(),
   label: z.string(),
   labelPosition: z.string().optional(),
-  prefix: z.string(),
-  printMode: z.boolean(),
   labelExtraStyles: z.string().optional(),
   valueType: z.string(),
 });
@@ -166,7 +160,6 @@ renderTypeField(FUAField).render
 
 abstract class FUAField extends BaseFieldFormEntity {
     // Label attributes
-    fieldIndex: number;
     top: number;
     left: number;
     width: number;
@@ -177,8 +170,6 @@ abstract class FUAField extends BaseFieldFormEntity {
     labelHeight?: number;
     label: string;
     labelPosition?: string;
-    prefix: string; 
-    printMode: boolean;
     labelExtraStyles?: string;
     valueType: string;    
 
@@ -191,7 +182,6 @@ abstract class FUAField extends BaseFieldFormEntity {
         }
         
         super(aux);
-        this.fieldIndex = aux.fieldIndex;
         this.top = aux.top;
         this.left = aux.left;
         this.width = aux.width;
@@ -202,14 +192,9 @@ abstract class FUAField extends BaseFieldFormEntity {
         this.labelHeight = aux.labelHeight;
         this.label = aux.label;
         this.labelPosition = aux.labelPosition;
-        this.prefix = aux.prefix;
-        this.printMode = aux.printMode;
         this.labelExtraStyles = aux.labelExtraStyles;
         this.valueType = aux.valueType;
     }
-
-    get getFieldIndex() { return this.fieldIndex; }
-    set setFieldIndex(value: number) { this.fieldIndex = value; }
 
     get getTop() { return this.top; }
     set setTop(value: number) { this.top = value; }
@@ -241,12 +226,6 @@ abstract class FUAField extends BaseFieldFormEntity {
     get getlabelPosition() { return this.labelPosition; }
     set setlabelPosition(value: string | undefined) { this.labelPosition = value; }
 
-    get getPrefix() { return this.prefix; }
-    set setPrefix(value: string) { this.prefix = value; }
-
-    get getPrintMode() { return this.printMode; }
-    set setPrintMode(value: boolean) { this.printMode = value; }
-
     get getLabelExtraStyles() { return this.labelExtraStyles; }
     set setLabelExtraStyles(value: string | undefined) { this.labelExtraStyles = value; }
 
@@ -254,15 +233,15 @@ abstract class FUAField extends BaseFieldFormEntity {
     set setValueType(value: string) { this.valueType = value; }
 
     // Common methods
-    renderLabel() : string {
+    renderLabel(prefix : string, printMode : boolean, fieldIndex : number) : string {
         
-        return FUARenderingUtils.renderFUAFieldFromSchema_renderLabel(this, this.prefix, this.printMode, this.fieldIndex);
+        return FUARenderingUtils.renderFUAFieldFromSchema_renderLabel(this, prefix, printMode, fieldIndex);
     }
 
     renderContent(fieldIndex: number, prefix: string, printMode : boolean, label : string) : string {        
         let logicAditionalStyles = { value: '' };
         let fieldContent = this.render(fieldIndex, prefix, printMode, logicAditionalStyles)
-        let labelContent = this.renderLabel();
+        let labelContent = this.renderLabel(prefix, printMode, fieldIndex);
         
         let finalContent = ``;
         

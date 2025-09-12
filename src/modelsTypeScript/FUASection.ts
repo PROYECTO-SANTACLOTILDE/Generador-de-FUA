@@ -4,7 +4,6 @@ import { z } from "zod";
 import {FUAFieldSchema} from "./FUAField";
 
 export interface FUASectionInterface extends BaseFieldFormEntityInterface{
-    sectionIndex: number;
     top: number;
     left: number;
     bodyHeight: number;
@@ -12,14 +11,11 @@ export interface FUASectionInterface extends BaseFieldFormEntityInterface{
     titleHeight?: number;
     title?: string;
     showTitle?: boolean;
-    prefix: string;
-    printMode: boolean;
     fields: Array<any>;
     extraStyles?: string;
 };
 
 export const FUASectionSchema = z.object({
-    sectionIndex: z.number(),
     top: z.number(),
     left: z.number(),
     bodyHeight: z.number(),
@@ -27,8 +23,6 @@ export const FUASectionSchema = z.object({
     titleHeight: z.number().optional(),
     title: z.string().optional(),
     showTitle: z.boolean().optional(),
-    prefix: z.string(),
-    printMode: z.boolean(),
     fields: z.array(FUAFieldSchema),
     extraStyles: z.string().optional(),
 });
@@ -37,7 +31,6 @@ export const FUASectionSchema = z.object({
 
 class FUASection extends BaseFieldFormEntity {
     
-    sectionIndex: number;
     top: number;
     left: number;
     bodyHeight: number;
@@ -45,8 +38,6 @@ class FUASection extends BaseFieldFormEntity {
     titleHeight?: number;
     title?: string;
     showTitle?: boolean;
-    prefix: string;
-    printMode: boolean;
     fields: Array<any>;
     extraStyles?: string;
 
@@ -58,7 +49,6 @@ class FUASection extends BaseFieldFormEntity {
             throw newError;
         }
         super(aux);
-        this.sectionIndex = aux.sectionIndex;
         this.top = aux.top;
         this.left = aux.left;
         this.bodyHeight = aux.bodyHeight;
@@ -66,14 +56,10 @@ class FUASection extends BaseFieldFormEntity {
         this.titleHeight = aux.titleHeight;
         this.title = aux.title;
         this.showTitle = aux.showTitle;
-        this.prefix = aux.prefix;
-        this.printMode = aux.printMode;
         this.fields = aux.fields;
         this.extraStyles = aux.extraStyles;
     }
 
-    get getSectionIndex() { return this.sectionIndex; }
-    set setSectionIndex(value: number) { this.sectionIndex = value; }
 
     get getTop() { return this.top; }
     set setTop(value: number) { this.top = value; }
@@ -95,13 +81,7 @@ class FUASection extends BaseFieldFormEntity {
 
     get getShowTitle() { return this.showTitle; }
     set setShowTitle(value: boolean | undefined) { this.showTitle = value; }
-
-    get getPrefix() { return this.prefix; }
-    set setPrefix(value: string) { this.prefix = value; }
-
-    get getPrintMode() { return this.printMode; }
-    set setPrintMode(value: boolean) { this.printMode = value; }
-
+    
     get getFields() { return this.fields; }
     set setFields(value: Array<any>) { this.fields = value; }
 

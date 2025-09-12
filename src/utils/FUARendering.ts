@@ -11,6 +11,10 @@ import { dedentCustom, removeBackgroundColor } from "./utils";
 import FUAFieldColumnService from "../services/FUAFieldColumnService";
 import { col } from "sequelize";
 import FUAField from "../modelsTypeScript/FUAField";
+import FUAFormat from "../modelsTypeScript/FUAFormat";
+import FUAPage from "../modelsTypeScript/FUAPage";
+
+
 
 
 
@@ -32,7 +36,7 @@ class FUARenderingUtils {
 
     // Render a FUA Format using HTML header and body from jsonc schema
     // Pending to validate
-    public static async renderFUAFormatFromSchema( FUAFormat : any, printMode : boolean ) : Promise<string> {
+    public static async renderFUAFormatFromSchema( FUAFormat : FUAFormat, printMode : boolean ) : Promise<string> {
 
         let formatContent = '';
 
@@ -75,7 +79,7 @@ class FUARenderingUtils {
     };
 
     // Render FUA Page from jsonc schema
-    public static renderFUAPageFromSchema( auxFUAPage : any, pageIndex: number, printMode: boolean ): string {
+    public static renderFUAPageFromSchema( auxFUAPage : FUAPage, pageIndex: number, printMode: boolean ): string {
         
         let pageContent = '';
    
