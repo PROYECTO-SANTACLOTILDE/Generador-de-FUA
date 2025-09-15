@@ -3,6 +3,7 @@ import BaseFieldFormEntity, { BaseFieldFormEntityInterface } from "./BaseFieldFo
 import FUAPage, { FUAPageInterface } from "./FUAPage";
 import { any, z } from "zod";
 import { FUAPageSchema } from "./FUAPage";
+import FUARenderingUtils from "../utils/FUARendering";
 
 
 
@@ -51,6 +52,16 @@ class FUAFormat extends BaseFieldFormEntity {
 
     get getPages() { return this.pages; }
     set setPages(value: Array<FUAPage>) { this.pages = value; }
+
+    public async renderHtmlContent(printMode : boolean) : Promise<string> {
+        try{
+            const content =  await FUARenderingUtils.renderFUAFormatFromSchema(this, printMode);
+            return content;
+        }catch(err : any){
+            console.error(err);
+            throw err;
+        }
+    }
 }
 
 export default FUAFormat;

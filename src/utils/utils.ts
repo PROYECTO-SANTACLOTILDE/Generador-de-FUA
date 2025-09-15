@@ -82,6 +82,8 @@ export async function createDemoFormat(printMode : boolean){
     let auxFormat = await new FUAFormat(parsed);
 
     let html : string = '';
+
+    //htm
   
     html = await FUARenderingUtils.renderFUAFormatFromSchema(parsed, printMode);
     return html

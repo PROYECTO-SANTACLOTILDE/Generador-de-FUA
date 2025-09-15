@@ -15,7 +15,7 @@
       "height": 306.0,
       "width": 210.0,
       "padding_top": 12.0,
-      "padding_left": 11.0,
+      "padding_left": 5.0,
       "extraStyles":  "",
       // Page sections
       "sections": [
@@ -23,10 +23,11 @@
           "codeName": "content table",
           "versionTag": "1.3",
           // Section Atributes
-          "title": "",
-          "showTitle": false,
+          "showTitle": true,
+          "title": "im a title",
+          "titleHeight": 1.0,
           "bodyHeight": 100.0,
-          "bodyWidth": 205.0,
+          "bodyWidth": 100.0,
           "left": 0.0,
           "top": 0.0,
           "extraStyles": "", 

@@ -38,7 +38,7 @@ class FUASection extends BaseFieldFormEntity {
     bodyWidth: number;
     titleHeight?: number;
     title?: string;
-    showTitle?: boolean;
+    showTitle: boolean;
     fields: Array<any>;
     extraStyles?: string;
 
@@ -54,9 +54,17 @@ class FUASection extends BaseFieldFormEntity {
         this.left = aux.left;
         this.bodyHeight = aux.bodyHeight;
         this.bodyWidth = aux.bodyWidth;
-        this.titleHeight = aux.titleHeight;
-        this.title = aux.title;
-        this.showTitle = aux.showTitle;
+        this.showTitle = aux.showTitle ?? false;
+        // Validate title related fields
+        if(aux.showTitle === true){
+            const checkingTitleHeight = typeof(aux.titleHeight);
+            if(checkingTitleHeight !== 'number') throw new Error('Attribute titleHeight is not number when showTitle is true. '); 
+            this.titleHeight = aux.titleHeight;
+        
+            const checkingTitle = typeof(aux.title);
+            if(checkingTitle !== 'string') throw new Error('Attribute title is not string when showTitle is true. '); 
+            this.title = aux.title;
+        } 
         this.fields = new Array<FUAField_Field | FUAField_Box | FUAField_Table>();
         this.extraStyles = aux.extraStyles;
         // Build the sons objects
@@ -89,7 +97,7 @@ class FUASection extends BaseFieldFormEntity {
     set setTitle(value: string | undefined) { this.title = value; }
 
     get getShowTitle() { return this.showTitle; }
-    set setShowTitle(value: boolean | undefined) { this.showTitle = value; }
+    set setShowTitle(value: boolean ) { this.showTitle = value; }
     
     get getFields() { return this.fields; }
     set setFields(value: Array<any>) { this.fields = value; }

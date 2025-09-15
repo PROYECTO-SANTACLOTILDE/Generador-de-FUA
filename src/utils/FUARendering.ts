@@ -13,10 +13,14 @@ import { col } from "sequelize";
 import FUAField from "../modelsTypeScript/FUAField";
 import FUAFormat from "../modelsTypeScript/FUAFormat";
 import FUAPage from "../modelsTypeScript/FUAPage";
+import FUASection from "../modelsTypeScript/FUASection";
 
 
 
-
+type auxPaddings = {
+    padding_top: number;
+    padding_left: number;
+}
 
 class FUARenderingUtils {
     
@@ -42,7 +46,7 @@ class FUARenderingUtils {
 
         // Validate pages
         if( FUAFormat.pages.length === 0 ){
-            formatContent = ``;
+            formatContent = `<p> No pages detected. </p>`;
         }else{   
             formatContent = FUAFormat.pages.map((item: any, index: number) => this.renderFUAPageFromSchema(item, index+1, printMode)).join('');            
         }
@@ -82,15 +86,16 @@ class FUARenderingUtils {
     public static renderFUAPageFromSchema( auxFUAPage : FUAPage, pageIndex: number, printMode: boolean ): string {
         
         let pageContent = '';
+        
    
         // Get FUA Format Sections
         let auxFUASections = auxFUAPage.sections;
 
         // Validate sections
-        if( auxFUASections === undefined || auxFUASections.length === 0){
+        if( auxFUASections.length === 0){
             pageContent = ``;
         }else{            
-            const paddings = {
+            const paddings : auxPaddings = {
                 padding_top:    auxFUAPage.padding_top,
                 padding_left:   auxFUAPage.padding_left,
             };
@@ -105,7 +110,7 @@ class FUARenderingUtils {
                 }
             </style>
             <div id="fua-page-${pageIndex.toString()}" class="fua-page ${printMode ? 'format-related-print' : ''}" ${auxFUAPage.extraStyles !== undefined ? `style="${auxFUAPage.extraStyles}"` : ""}>
-                    ${ pageContent }
+                ${ pageContent }
             </div>
      
         `;
@@ -114,16 +119,16 @@ class FUARenderingUtils {
     };
 
     // Render FUA Section from jsonc schema
-    public static renderFUASectionFromSchema( auxFUASection : any, sectionIndex: number, prefix: string, paddings: any , printMode : boolean): string {
+    public static renderFUASectionFromSchema( auxFUASection : FUASection, sectionIndex: number, prefix: string, paddings: auxPaddings , printMode : boolean): string {
         
         let sectionContent = '';
-      
+        
         // title, showTitle
         let title = '';
-        if(auxFUASection.showTitle == true){
+        if(auxFUASection.showTitle === true){ 
             title = `
                 <tr>
-                    <th class="section-header text-container ${printMode ? 'format-related-print' : ''}" style="height: ${auxFUASection.titleHeight.toFixed(1)}mm;"> ${auxFUASection.title ?? ''} </th>
+                    <th class="section-header text-container ${printMode ? 'format-related-print' : ''}" style="height: ${auxFUASection.titleHeight?.toFixed(1)}mm;" > ${auxFUASection.title ?? ''} </th>
                 </tr>
             `;            
         }
@@ -140,17 +145,17 @@ class FUARenderingUtils {
                 #${prefix}-section-${sectionIndex.toString()} {
                     ${ Number.isFinite(auxFUASection.top)  ? `top: ${ (paddings.padding_top + auxFUASection.top ).toFixed(1)}mm;` : ''}
                     ${ Number.isFinite(auxFUASection.left) ? `left: ${ ( paddings.padding_left + auxFUASection.left ).toFixed(1)}mm;` : ''}
-                    height: ${ ( auxFUASection.bodyHeight + (auxFUASection.showTitle ? auxFUASection.titleHeight : 0.0 ) ).toFixed(1)}mm;
                     width: ${ auxFUASection.bodyWidth ? `${auxFUASection.bodyWidth.toFixed(1)}mm;` : '100%;'}
+                    ${auxFUASection.extraStyles}
                 }
             </style>
             <table id="${prefix}-section-${sectionIndex.toString()}" class="table-section ${printMode ? 'format-related-print' : ''}" >                  
-                ${title}
-                <tr>                    
+                ${title}    
+                <tr style="height: ${auxFUASection.bodyHeight.toFixed(1)}mm;">                    
                     <td class="section-content">
                         ${sectionContent}
                     </td>
-                </tr>                    
+                </tr>                           
             </table>
         `;
 
