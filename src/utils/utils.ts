@@ -135,3 +135,25 @@ export function removeBackgroundColor(inlineStyle?: string): string {
     .filter(rule => rule.length > 0 && !/^background-color\s*:/i.test(rule))
     .join("; ");
 }
+
+
+export function generateSHA256Hash(input: string): string {
+  return crypto.createHash('sha256').update(input, "utf8").digest('hex')
+}
+
+export function verifyHash(content: string, expectedHash: string): boolean {
+  const hash = crypto.createHash("sha256").update(content, "utf8").digest("hex");
+  return hash === expectedHash;
+}
+
+
+//Tests of hash functions
+
+/* const record = { patientId: "123", name: "Alice" };
+
+const hash = generateSHA256Hash(JSON.stringify(record));
+
+console.log("Hash:", hash);
+console.log("Verify:", verifyHash(JSON.stringify(record), hash)); // true
+console.log("Verify with wrong content:", verifyHash(JSON.stringify({ patientId: "456" }), hash)); // false
+ */

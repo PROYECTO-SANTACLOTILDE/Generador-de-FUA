@@ -30,3 +30,5 @@ class BaseEntityVersionModel extends BaseEntityModel {
 }
 
 module.exports = BaseEntityVersionModel;
+
+
