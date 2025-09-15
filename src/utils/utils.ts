@@ -83,7 +83,7 @@ export async function createDemoFormat(printMode : boolean){
 
     let html : string = '';
 
-    //htm
+    //html
   
     html = await FUARenderingUtils.renderFUAFormatFromSchema(parsed, printMode);
     return html
@@ -138,11 +138,11 @@ export function removeBackgroundColor(inlineStyle?: string): string {
 
 
 export function generateSHA256Hash(input: string): string {
-  return crypto.createHash('sha256').update(input, "utf8").digest('hex')
+  return crypto.createHash('sha256').update(input, "utf8").digest('hex');
 }
 
 export function verifyHash(content: string, expectedHash: string): boolean {
-  const hash = crypto.createHash("sha256").update(content, "utf8").digest("hex");
+  const hash = crypto.createHash("sha256").update(content, "utf8").digest('hex');
   return hash === expectedHash;
 }
 
