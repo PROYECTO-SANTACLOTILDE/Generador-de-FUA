@@ -61,7 +61,7 @@ class FUAFormat extends BaseFieldFormEntity {
             console.error(err);
             throw err;
         }
-    }
+    } 
 }
 
 export default FUAFormat;

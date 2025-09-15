@@ -16,6 +16,8 @@ import FUAFieldCell from './FUAFieldCell';
 
 import FUAFromVisit from './FUAFromVisit.js';
 
+import BaseEntityVersionModel from "./BaseEntityVersionModel.js";
+
 
 // Foreign keys
 
@@ -77,6 +79,15 @@ FUAFieldCell.hasMany(FUAField, {
 });
 FUAField.belongsTo(FUAFieldCell);
 
+BaseEntityVersionModel.belongsToMany(BaseEntityVersionModel, { 
+    as: 'VersioningRelation',    
+    through: 'BaseEntityVersion_Middle',
+    foreignKey: 'baseEntityId',
+    otherKey: 'relatedEntityId', // FK in the join table pointing to the related model
+    allowNull: true,
+});
+
+
 //Exports
 export {    
     User,
@@ -89,4 +100,5 @@ export {
     FUAFieldRow,
     FUAFieldCell,
     FUAFromVisit,
+    BaseEntityVersionModel
 };
