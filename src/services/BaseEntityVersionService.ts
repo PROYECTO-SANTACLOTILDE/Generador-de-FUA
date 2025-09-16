@@ -1,13 +1,20 @@
 import {z} from "zod";
 import { parse } from 'jsonc-parser';
+require('dotenv').config();
 
 import FUAFormatImplementation from '../implementation/sequelize/FUAFormatImplementation';
-import { isValidUUIDv4 } from "../utils/utils";
+import { generateSHA256Hash, isValidUUIDv4 } from "../utils/utils";
 import FUARenderingUtils from "../utils/FUARendering";
 import FUAFormatFromSchemaImplementation from "../implementation/sequelize/FUAFormatFromSchemaImplementation";
 import { inspect } from "util";
-import BaseEntityVersionService from "./BaseEntityVersionService";
-import FUAFormat, { FUAFormatSchema } from "../modelsTypeScript/FUAFormat";
+import BaseEntityVersionImplementation, { relatedEntity } from "../implementation/sequelize/BaseEntityVersionImplementation";
+import { generateHMAC } from "../modelsSequelize/utils";
+import BaseEntity from "../modelsTypeScript/BaseEntity";
+
+
+function isBaseEntity(obj: unknown): obj is BaseEntity {
+  return obj instanceof BaseEntity;
+}
 
 // Schemas
 
@@ -23,7 +30,7 @@ const newFUAFormatFromSchemaZod = z.object({
     createdBy: z.string(),
 });
 
-const editFUAFormatFromSchemaZod = z.object({
+const editBaseEntityVersionFromSchemaZod = z.object({
     // Format Data
     uuid: z.string(),
     name: z.string(),
@@ -36,62 +43,59 @@ const editFUAFormatFromSchemaZod = z.object({
     createdBy: z.string(),
 });
 
-class FUAFormatFromSchemaService {
+class BaseEntityVersionService {
 
-    // Creation of FUA Format
-    async create(data: {
-        // Format Data
-        name: string;
-        content: string;
-        // Version Data
-        codeName: string;
-        versionTag: string; 
-        versionNumber: number;
-        // Audit Data
-        createdBy: string;
-    }) {
+    // Creation of BaseEntityVersion
+    async create(        
+        data : any,                         // Generic entity that comes from BaseEntity, pending to change
+        type : string,                  
+        action: string,
+        newRelatedEntities? : Array<relatedEntity>
+    ) {
+        if(!isBaseEntity(data)){
+            let auxError = new Error('Object received doesnt come form BaseEntity. ');
+            throw auxError;
+        }
+        /*
+        class FUAMapping extends BaseEntity{
+        
+        }
+        */
+        data = (data as BaseEntity);
         // Object Validation
-        const result = newFUAFormatFromSchemaZod.safeParse(data);
+
+        /* const result = newFUAFormatFromSchemaZod.safeParse(data);
         if( !result.success ){
-            const newError = new Error('Error in FUA Format From Schema Service - createFUAFormat: ZOD validation. ');
+            const newError = new Error('Error in BaseEntityVersion Service - create: ZOD validation. ');
             (newError as any).details = result.error;
             throw newError;
-        }
+        } */
         
-        // FUAFormat creation
-        let returnedFUAFormat = null;
+        // Gedatanerate Hash
+        let newHash = generateSHA256Hash(data.timestamp+data.content+data.action+(process.env.HMAC_SECRET ?? 'fuagenerator'));
+        
+        // BaseEnitityVersion creation
+
+        let newData = {
+            ...data,
+            uuidEntity: data.uuid,
+            versionCounter: 1, // Hardcoded value
+            type: type,
+            hash: newHash,
+            action: action,
+            content: JSON.stringify(data),
+            relatedEntities: newRelatedEntities,
+        }
+        let newVersion = null;
         try {
-            returnedFUAFormat = await FUAFormatFromSchemaImplementation.createSequelize({
-                // Format Data
-                name: data.name,
-                content: data.content,
-                // Version Data
-                codeName: data.codeName,
-                versionTag: data.versionTag , 
-                versionNumber: data.versionNumber,
-                // Audit Data
-                createdBy: data.createdBy,
-            });
+            newVersion = await BaseEntityVersionImplementation.createSequelize(newData);
         } catch (err: any){
-            (err as Error).message =  'Error in FUA Format From Schema Service:  ' + (err as Error).message;
+            (err as Error).message =  'Error in BaseEntityVersion Service:  ' + (err as Error).message;
             throw err;
         }
 
-        // Insert version
-        try{
-            let newVersion = await BaseEntityVersionService.create(
-                new FUAFormat(returnedFUAFormat.dataValues),
-                "FUAFormatFromSchema",
-                "CREATE",
-                undefined
-            );
-        }catch(error: any){
-            (error as Error).message =  'Error in FUA Format From Schema Service:  ' + (error as Error).message;
-            throw error;
-        }
-
         return {
-            uuid: returnedFUAFormat.uuid
+            uuid: newVersion.uuid
         };
     };
 
@@ -204,54 +208,6 @@ class FUAFormatFromSchemaService {
     }
 
 
-    // Edit of FUA format
-    async edit(data: {
-        // Format Data
-        uuid: string;
-        name: string;
-        content: string;
-        // Version Data
-        codeName: string;
-        versionTag: string; 
-        versionNumber: number;
-        // Audit Data
-        createdBy: string;
-    }) {
-        // Object Validation
-        const result = editFUAFormatFromSchemaZod.safeParse(data);
-        if( !result.success ){
-            const newError = new Error('Error in FUA Format From Schema Service - editFUAFormat: ZOD validation. ');
-            (newError as any).details = result.error;
-            throw newError;
-        }
-        
-        // FUAFormat edit
-        let returnedFUAFormat = null;
-        try {
-            returnedFUAFormat = await FUAFormatFromSchemaImplementation.editSequelize({
-                // Format Data
-                uuid: data.uuid,
-                name: data.name,
-                content: data.content,
-                // Version Data
-                codeName: data.codeName,
-                versionTag: data.versionTag , 
-                versionNumber: data.versionNumber,
-                // Audit Data
-                createdBy: data.createdBy,
-            });
-        } catch (err: unknown){
-            (err as Error).message =  'Error in FUA Format From Schema Service: \n' + (err as Error).message;
-            throw err;
-        }
-        if (returnedFUAFormat == null){
-            return null;
-        }
-    
-        return {
-            uuid: returnedFUAFormat.uuid
-        };
-    };
 };
 
-export default new FUAFormatFromSchemaService();
+export default new BaseEntityVersionService();

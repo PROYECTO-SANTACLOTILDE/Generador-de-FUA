@@ -1,6 +1,6 @@
 import {z} from "zod";
 
-interface BaseEntityInterface {
+export interface BaseEntityInterface {
     id: number;
     uuid: string;
     createdAt: Date;
@@ -21,9 +21,9 @@ export const BaseEntitySchema = z.object({
   updatedAt: z.date().optional(),
   updatedby: z.date().optional(),
   active: z.boolean().default(true),
-  inactiveBy: z.string().optional(),
-  inactiveAt: z.date().optional(),
-  inactiveReason: z.string().optional(),
+  inactiveBy: z.string().nullish(),
+  inactiveAt: z.date().nullish(),
+  inactiveReason: z.string().nullish(),
 });
 
 
@@ -90,7 +90,5 @@ class BaseEntity {
     //set setUpdatedAt(value: Date) { this.updatedAt = value; }
 };
 
-export {
-    BaseEntityInterface,
-};
+
 export default BaseEntity;

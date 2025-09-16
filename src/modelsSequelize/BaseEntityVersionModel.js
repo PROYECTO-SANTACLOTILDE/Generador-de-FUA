@@ -15,17 +15,21 @@ const BaseEntityVersionModel = sequelize.define(
     ...BaseEntityModel.commonAttributes(),
 
     // Base Entity attributes 
-    uuidObject: {
+    uuidEntity: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       allowNull: false
     },
-    nameObject: {
+    versionCounter: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    type: {
       type: DataTypes.STRING,
       allowNull: false
     },
     hash: {
-      type: DataTypes.STRING(64),
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     action: {
