@@ -120,7 +120,7 @@ app.get('/demo', async (req, res) => {
       message: (err as (Error)).message,
       details: (err as any).details ?? null,
     });
-  }
+  }   
 });
 
 //TESTING Puppeteer

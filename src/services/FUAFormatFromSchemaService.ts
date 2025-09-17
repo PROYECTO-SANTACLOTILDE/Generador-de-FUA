@@ -247,6 +247,22 @@ class FUAFormatFromSchemaService {
         if (returnedFUAFormat == null){
             return null;
         }
+
+        // Insert version
+        try{
+            let newVersion = await BaseEntityVersionService.create(
+                new FUAFormat(returnedFUAFormat.dataValues),
+                "FUAFormatFromSchema",
+                "EDIT",
+                undefined
+            );
+        }catch(error: any){
+            (error as Error).message = 'Error in FUA Format From Schema Service:  ' + (error as Error).message;
+            const long = inspect(error, { depth: 10, colors: false });
+            (error as any).details = (error as any).details ?? long;
+            throw error;
+        }
+
     
         return {
             uuid: returnedFUAFormat.uuid
