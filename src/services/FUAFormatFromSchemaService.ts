@@ -32,8 +32,6 @@ const editFUAFormatFromSchemaZod = z.object({
     codeName: z.string(),    
     versionTag: z.string(),
     versionNumber: z.number().int().positive(), // must be a positive integer
-    // Audit Data
-    createdBy: z.string(),
 });
 
 class FUAFormatFromSchemaService {
@@ -214,8 +212,6 @@ class FUAFormatFromSchemaService {
         codeName: string;
         versionTag: string; 
         versionNumber: number;
-        // Audit Data
-        createdBy: string;
     }) {
         // Object Validation
         const result = editFUAFormatFromSchemaZod.safeParse(data);
@@ -237,8 +233,6 @@ class FUAFormatFromSchemaService {
                 codeName: data.codeName,
                 versionTag: data.versionTag , 
                 versionNumber: data.versionNumber,
-                // Audit Data
-                createdBy: data.createdBy,
             });
         } catch (err: unknown){
             (err as Error).message =  'Error in FUA Format From Schema Service: \n' + (err as Error).message;

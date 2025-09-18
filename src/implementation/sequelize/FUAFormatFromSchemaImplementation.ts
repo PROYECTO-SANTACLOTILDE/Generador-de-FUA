@@ -117,7 +117,6 @@ class FUAFormatFromSchemaImplementation {
         codeName: string; 
         versionTag: string;
         versionNumber: number;
-        createdBy: string;
     }){
 
         // Find the object to edit

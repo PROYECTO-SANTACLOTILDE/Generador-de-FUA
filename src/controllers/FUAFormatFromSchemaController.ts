@@ -262,8 +262,7 @@ class FUAFormatFromSchemaController {
                 content: jsoncContent,
                 codeName: controllerBody.name  ?? controllerBody.name.toString(),
                 versionTag: controllerBody.versionTag ?? controllerBody.name.toString() + '_1',
-                versionNumber: controllerBody.versionNumber ?? 1,
-                createdBy: controllerBody.createdBy,
+                versionNumber: controllerBody.versionNumber ?? 1
             });
             if (editFUAFormat == null){
                 res.status(304).json({
