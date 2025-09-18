@@ -37,14 +37,14 @@ class FUAPage extends BaseFieldFormEntity {
     extraStyles?: string;
     sections: Array<FUASection>;
 
-    constructor(aux: FUAPageInterface) {
+    constructor(aux: FUAPageInterface, index? : number ) {
         const result = FUAPageSchema.safeParse(aux);
         if (!result.success) {
             const newError = new Error('Error in FUA Page (object) - Invalid FUAPageInterface - constructor');
             (newError as any).details = result.error;
             throw newError;
         }
-        super(aux);
+        super(aux, index);
         this.pageNumber = aux.pageNumber;
         this.height = aux.height;
         this.width = aux.width;

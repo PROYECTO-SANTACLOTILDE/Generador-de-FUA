@@ -112,7 +112,7 @@ class FUAFormatFromSchemaImplementation {
         // Data
         uuid: string;
         name: string;
-        content: string;
+        content?: string;
         //Field Form Data
         codeName: string; 
         versionTag: string;

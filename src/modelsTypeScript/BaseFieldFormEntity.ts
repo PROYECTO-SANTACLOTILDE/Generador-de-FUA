@@ -23,10 +23,10 @@ class BaseFieldFormEntity extends BaseEntity {
     versionTag: string;
     versionNumber: number;
 
-    constructor(aux: BaseFieldFormEntityInterface){
+    constructor(aux: BaseFieldFormEntityInterface, index? : number){
         const result = BaseFieldFormEntitySchema.safeParse(aux);
         if (!result.success) {
-            const newError = new Error('Error in BaseFieldFormEntity - Invalid BaseFieldFormEntityInterface - constructor'+(aux.versionTag ? aux.versionTag +' ' : ''));
+            const newError = new Error('Error in BaseFieldFormEntity - Invalid BaseFieldFormEntityInterface - constructor '+(aux.versionTag ? aux.versionTag + ' ' : '')+' in element '+(index ?? 'null')  );
             (newError as any).details = result.error;
             throw newError;
         }

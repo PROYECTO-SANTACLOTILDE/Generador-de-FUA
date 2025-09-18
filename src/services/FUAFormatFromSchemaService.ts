@@ -207,7 +207,7 @@ class FUAFormatFromSchemaService {
         // Format Data
         uuid: string;
         name: string;
-        content: string;
+        content?: string;
         // Version Data
         codeName: string;
         versionTag: string; 
