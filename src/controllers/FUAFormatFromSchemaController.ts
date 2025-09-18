@@ -12,6 +12,7 @@ import { loggerInstance } from '../middleware/logger/models/typescript/Logger';
 import { Logger_LogLevel } from '../middleware/logger/models/typescript/LogLevel';
 import { Logger_SecurityLevel } from '../middleware/logger/models/typescript/SecurityLevel';
 import { Logger_LogType } from '../middleware/logger/models/typescript/LogType';
+import { transactionInst } from '../middleware/globalTransaction';
 
 
 class FUAFormatFromSchemaController {
@@ -256,6 +257,7 @@ class FUAFormatFromSchemaController {
 
         let editFUAFormat = null;
         try {
+            transactionInst.renewTransaction()
             editFUAFormat = await FUAFormatFromSchemaService.edit({
                 uuid: req.params.id,
                 name: controllerBody.name,
@@ -270,7 +272,7 @@ class FUAFormatFromSchemaController {
                 });
                 return;
             }
-            res.status(200).json(editFUAFormat);  
+              
             let auxLog = new Log({
                 timeStamp: new Date(),
                 logLevel: Logger_LogLevel.ERROR,
@@ -284,7 +286,10 @@ class FUAFormatFromSchemaController {
                 { name: "file", file: "logs/auxLog.log"},
                 { name: "database" }
             ]);  
+            transactionInst.confirmTransaction();
+            res.status(200).json(editFUAFormat);
         } catch (err: any) {
+            transactionInst.unconfirmTransaction();
             res.status(500).json({
                 error: 'Failed to edit FUA Format From Schema. (Controller)', 
                 message: (err as (Error)).message,

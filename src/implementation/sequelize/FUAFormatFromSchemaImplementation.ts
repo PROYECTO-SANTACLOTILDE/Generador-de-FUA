@@ -1,3 +1,4 @@
+import { transactionInst } from '../../middleware/globalTransaction';
 import FUAFormatFromSchemaModel from '../../modelsSequelize/FUAFormatFromSchemaModel';
 import { inspect } from "util";
 
@@ -140,7 +141,7 @@ class FUAFormatFromSchemaImplementation {
         let aux = null;
         returnedFUAFormat = searchedFUAFormat.set(data);
         try {
-            aux = await returnedFUAFormat.save();
+            aux = await returnedFUAFormat.save({transaction: transactionInst.transaction});
         } catch (err: any){
             (err as Error).message =  'Error in FUA Format From Schema Sequelize Implementation: Couldnt save FUA Format From Schema in database using Sequelize: ' + (err as Error).message;
             const line = inspect(err, { depth: 100, colors: false });

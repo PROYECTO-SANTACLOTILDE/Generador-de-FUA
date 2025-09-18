@@ -3,6 +3,7 @@ import { inspect } from "util";
 import { BaseEntityInterface } from '../../modelsTypeScript/BaseEntity';
 import BaseEntityModel from '../../modelsSequelize/BaseEntityModel';
 import { BaseEntityVersion_MiddleTableModel, BaseEntityVersionModel } from '../../modelsSequelize';
+import { transactionInst } from '../../middleware/globalTransaction';
 
 export type relatedEntity = {
     type: string;
@@ -41,7 +42,7 @@ class BaseEntityVersionImplementation {
                     uuidEntity: data.uuidEntity,
                     type: data.type,
                     active: true,
-                }
+                },
             });
             lastVersions = lastVersions.count + 1;
         }catch(err : any){
@@ -81,7 +82,7 @@ class BaseEntityVersionImplementation {
         let newVersion = null;
         data.versionCounter = lastVersions;
         try {
-            newVersion = await BaseEntityVersionModel.create(data);
+            newVersion = await BaseEntityVersionModel.create(data, {transaction: transactionInst.transaction});
         } catch (err: any){
             (err as Error).message =  'Error in BaseEntityVersion Sequelize Implementation: Couldnt create BaseEntityVersion in database using Sequelize: ' + (err as Error).message;
             const line = inspect(err, { depth: 100, colors: false });
@@ -96,7 +97,9 @@ class BaseEntityVersionImplementation {
                 newMiddleTableEntry = await BaseEntityVersion_MiddleTableModel.create({
                     mainEntity: newVersion.id,
                     relatedEntity: auxRelEnt,
-                });
+                }, 
+                {transaction: transactionInst.transaction}
+            );
             }catch(err : any){
                 (err as Error).message =  'Error in BaseEntityVersion Sequelize Implementation: Couldnt create BaseEntityVersion in database using Sequelize: ' + (err as Error).message;
                 const line = inspect(err, { depth: 100, colors: false });
