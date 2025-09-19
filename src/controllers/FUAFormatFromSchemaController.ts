@@ -13,7 +13,6 @@ import { Logger_LogLevel } from '../middleware/logger/models/typescript/LogLevel
 import { Logger_SecurityLevel } from '../middleware/logger/models/typescript/SecurityLevel';
 import { Logger_LogType } from '../middleware/logger/models/typescript/LogType';
 import { transactionInst } from '../middleware/globalTransaction';
-import { isStrictIntegerString } from '../utils/utils';
 
 
 class FUAFormatFromSchemaController {
@@ -97,29 +96,12 @@ class FUAFormatFromSchemaController {
     listAll = async (req: Request, res: Response): Promise<void> => {
         try {
 
-            let page : number = 1;
-            let pageSize : number = 10;
-
-            if(req.query.page !== undefined){
-                if (!isStrictIntegerString(req.query.page as string)) throw new Error("Bad 'page' argument.");
-                else page = parseInt(req.query.page as string);  // default 1
-            }
-
-            if(req.query.pageSize !== undefined){
-                if (!isStrictIntegerString(req.query.pageSize as string)) throw new Error("Bad 'pageSize' argument.");
-                else pageSize = parseInt(req.query.pageSize as string); // default 10
-            }      
-            
-
-            if (!(page>0)) throw new Error("Bad 'page' value. ");
-            if (!(pageSize>0)) throw new Error("Bad 'pageSize' value. ");
-            
-            const listFUAFormats = await FUAFormatFromSchemaService.listAll(
-                {
-                    page: page,
-                    pageSize: pageSize
-                }
-            );
+            const paginationParams = {
+                page: req.query.page,
+                pageSize: req.query.pageSize
+            };
+        
+            const listFUAFormats = await FUAFormatFromSchemaService.listAll(paginationParams);
             let auxLog = new Log({
                 timeStamp: new Date(),
                 logLevel: Logger_LogLevel.INFO,
@@ -142,8 +124,8 @@ class FUAFormatFromSchemaController {
 
             res.status(200).json({
                 results: listFUAFormats.rows,
-                page: page,
-                pageSize: pageSize,
+                page: paginationParams.page,
+                pageSize: paginationParams.pageSize,
                 totalPages: listFUAFormats.pages,
                 totalResults: listFUAFormats.results
             });

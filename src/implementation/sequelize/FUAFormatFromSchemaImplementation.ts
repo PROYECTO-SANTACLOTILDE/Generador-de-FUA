@@ -49,13 +49,12 @@ class FUAFormatFromSchemaImplementation {
         page: number;
         pageSize: number;
     }) {
-        
         try {
             const where = { active: true };
             const res = await paginateSimple(FUAFormatFromSchemaModel, {
                 page: pagination.page,
                 pageSize: pagination.pageSize,
-                maxPageSize: 10,
+                maxPageSize: 100,
                 where,
                 order: [['createdAt', 'ASC']]
             });
@@ -67,9 +66,7 @@ class FUAFormatFromSchemaImplementation {
 
         } catch (err: any){
             //console.error('Error in FUA Format From Schema Sequelize Implementation: Couldnt list all FUA Format From Schema in database using Sequelize. ', err);
-            (err as Error).message =  'Error in FUA Format From Schema Sequelize Implementation: Couldnt list all FUA Format From Schema in database using Sequelize. ' + (err as Error).message;
-            const line = inspect(err, { depth: 100, colors: false });
-            err.details = line.replace(/^/gm, '\t');     
+            (err as Error).message =  'Error in FUA Format From Schema Sequelize Implementation: Couldnt list all FUA Format From Schema in database using Sequelize. ' + (err as Error).message;   
             throw err;
         }        
 

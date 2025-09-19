@@ -97,8 +97,8 @@ class FUAFormatFromSchemaService {
     // List FUA Formats
     // Pending to paginate results
     async listAll( pagination:{
-        page: number;
-        pageSize: number;
+        page: any;
+        pageSize: any;
     }) {
         
         let returnedFUAFormats = null;

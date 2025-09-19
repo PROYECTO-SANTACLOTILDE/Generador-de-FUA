@@ -87,12 +87,12 @@ export class Logger {
         content: JSON.stringify(log.content)
       });
     }catch(error : any){
-      console.log("Logger could not print in the DB.");
       log.logLevel = Logger_LogLevel.ERROR,
       log.securityLevel = Logger_SecurityLevel.Admin;
       log.logType = Logger_LogType.SYSTEM;
+      log.description = "Logger could not print in the DB. " + log.description;
       const line = inspect(error, { depth: 100, colors: false }); 
-      log.description = line.replace(/^/gm, '\t');
+      log.description += line.replace(/^/gm, '\t');
       this.printLog(log, [
         { name: "terminal" },
         { name: "file", file: "logs/auxLog.log"},
