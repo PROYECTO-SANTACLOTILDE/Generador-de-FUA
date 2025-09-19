@@ -97,7 +97,6 @@ class FUAFormatFromSchemaController {
     listAll = async (req: Request, res: Response): Promise<void> => {
         try {
 
-
             let page : number = 1;
             let pageSize : number = 10;
 

@@ -1,6 +1,8 @@
 import { transactionInst } from '../../middleware/globalTransaction';
 import FUAFormatFromSchemaModel from '../../modelsSequelize/FUAFormatFromSchemaModel';
 import { inspect } from "util";
+import { paginateSimple } from '../../utils/paginationWrapper';
+
 
 interface FUAFormatFromSchemaCreateInterface {
     // Data
@@ -47,22 +49,21 @@ class FUAFormatFromSchemaImplementation {
         page: number;
         pageSize: number;
     }) {
-        const offset = (pagination.page - 1) * pagination.pageSize;
-        let returnedFUAFormats = null;
-        let pages = 0;
+        
         try {
-            returnedFUAFormats = await FUAFormatFromSchemaModel.findAndCountAll({
-                where: {
-                    active: true,
-                },
-                limit: pagination.pageSize,
-                offset: offset,
+            const where = { active: true };
+            const res = await paginateSimple(FUAFormatFromSchemaModel, {
+                page: pagination.page,
+                pageSize: pagination.pageSize,
+                maxPageSize: 10,
+                where,
+                order: [['createdAt', 'ASC']]
             });
-            // returned FUAFormats will have { count (integer), rows(array) }
-            pages = Math.ceil(returnedFUAFormats.count / pagination.pageSize);
-            if(pagination.page > (pages == 0 ? 1 : pages)){
-                throw new Error("FUAFormatFromSchemaImpelementation - listAllSequelize: Error at pagination. Page number too big");
-            }
+              return {
+                rows: res.rows,
+                pages: res.pages,
+                results: res.total
+            };
 
         } catch (err: any){
             //console.error('Error in FUA Format From Schema Sequelize Implementation: Couldnt list all FUA Format From Schema in database using Sequelize. ', err);
@@ -72,11 +73,6 @@ class FUAFormatFromSchemaImplementation {
             throw err;
         }        
 
-        return {
-            rows:   returnedFUAFormats.rows,
-            pages:  pages,
-            results: returnedFUAFormats.count
-        }
     };
 
     // Get FUA Format Id by UUID
