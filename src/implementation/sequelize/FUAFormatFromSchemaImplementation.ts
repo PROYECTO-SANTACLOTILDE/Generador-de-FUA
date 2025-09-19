@@ -43,14 +43,26 @@ class FUAFormatFromSchemaImplementation {
 
     // List FUA Formats
     // Pending to paginate results
-    async listAllSequelize( ) {
-        let returnedFUAFormats = [];
+    async listAllSequelize( pagination:{
+        page: number;
+        pageSize: number;
+    }) {
+        const offset = (pagination.page - 1) * pagination.pageSize;
+        let returnedFUAFormats = null;
+        let pages = 0;
         try {
-            returnedFUAFormats = await FUAFormatFromSchemaModel.findAll({
+            returnedFUAFormats = await FUAFormatFromSchemaModel.findAndCountAll({
                 where: {
                     active: true,
-                }
+                },
+                limit: pagination.pageSize,
+                offset: offset,
             });
+            // returned FUAFormats will have { count (integer), rows(array) }
+            pages = Math.ceil(returnedFUAFormats.count / pagination.pageSize);
+            if(pagination.page > (pages == 0 ? 1 : pages)){
+                throw new Error("FUAFormatFromSchemaImpelementation - listAllSequelize: Error at pagination. Page number too big");
+            }
 
         } catch (err: any){
             //console.error('Error in FUA Format From Schema Sequelize Implementation: Couldnt list all FUA Format From Schema in database using Sequelize. ', err);
@@ -60,7 +72,11 @@ class FUAFormatFromSchemaImplementation {
             throw err;
         }        
 
-        return returnedFUAFormats;
+        return {
+            rows:   returnedFUAFormats.rows,
+            pages:  pages,
+            results: returnedFUAFormats.count
+        }
     };
 
     // Get FUA Format Id by UUID

@@ -8,6 +8,7 @@ import FUAFormatFromSchemaImplementation from "../implementation/sequelize/FUAFo
 import { inspect } from "util";
 import BaseEntityVersionService from "./BaseEntityVersionService";
 import FUAFormat, { FUAFormatSchema } from "../modelsTypeScript/FUAFormat";
+import { off } from "process";
 
 // Schemas
 
@@ -95,17 +96,25 @@ class FUAFormatFromSchemaService {
 
     // List FUA Formats
     // Pending to paginate results
-    async listAll( ) {
-        let returnedFUAFormats = [];
+    async listAll( pagination:{
+        page: number;
+        pageSize: number;
+    }) {
+        
+        let returnedFUAFormats = null;
         try {
-            returnedFUAFormats = await FUAFormatFromSchemaImplementation.listAllSequelize();
+            returnedFUAFormats = await FUAFormatFromSchemaImplementation.listAllSequelize(pagination);
 
         } catch (err: any){
             (err as Error).message =  'Error in FUA Format From Schema Service: ' + (err as Error).message;
             throw err;
         }        
 
-        return returnedFUAFormats;
+        return { 
+            rows: returnedFUAFormats.rows,
+            pages: returnedFUAFormats.pages,
+            results: returnedFUAFormats.results
+        }
     };
 
     // Get FUA Format by Id (Id or UUID)

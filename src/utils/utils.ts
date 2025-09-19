@@ -146,6 +146,11 @@ export function verifyHash(content: string, expectedHash: string): boolean {
   return hash === expectedHash;
 }
 
+export function isStrictIntegerString(value: string): boolean {
+    // Checks for optional leading minus, then digits, and nothing else
+    return /^-?\d+$/.test(value);
+}
+
 
 //Tests of hash functions
 

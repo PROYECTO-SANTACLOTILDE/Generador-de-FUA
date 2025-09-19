@@ -10,6 +10,7 @@ import { inspect } from "util";
 import BaseEntityVersionImplementation, { relatedEntity } from "../implementation/sequelize/BaseEntityVersionImplementation";
 import { generateHMAC } from "../modelsSequelize/utils";
 import BaseEntity from "../modelsTypeScript/BaseEntity";
+import BaseEntityModel from "../modelsSequelize/BaseEntityModel";
 
 
 function isBaseEntity(obj: unknown): obj is BaseEntity {
@@ -110,12 +111,12 @@ class BaseEntityVersionService {
         };
     };
 
-    // List FUA Formats
+    // List Base Enitties Versions
     // Pending to paginate results
-    async listAll( ) {
-        let returnedFUAFormats = [];
+    /* async listAll( ) {
+        let returnedFUAFormats = ;
         try {
-            returnedFUAFormats = await FUAFormatFromSchemaImplementation.listAllSequelize();
+            returnedFUAFormats = await BaseEntityModel.listAllSequelize();
 
         } catch (err: any){
             (err as Error).message =  'Error in FUA Format From Schema Service: ' + (err as Error).message;
@@ -123,7 +124,7 @@ class BaseEntityVersionService {
         }        
 
         return returnedFUAFormats;
-    };
+    }; */
 
     // Get FUA Format by Id (Id or UUID)
     async getByIdOrUUID( idReceived: string ) {
