@@ -50,5 +50,12 @@ FUAFormatFromSchemaRouter.put(
     FUAFormatFromSchemaController.edit
 ); 
 
+// Delete FUA Format
+FUAFormatFromSchemaRouter.delete(
+    '/:id',
+    authenticate,
+    FUAFormatFromSchemaController.delete
+); 
+
 
 export default FUAFormatFromSchemaRouter;

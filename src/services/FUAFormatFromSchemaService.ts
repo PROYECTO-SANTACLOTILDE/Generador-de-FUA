@@ -35,6 +35,16 @@ const editFUAFormatFromSchemaZod = z.object({
     versionNumber: z.number().int().positive(), // must be a positive integer
 });
 
+
+const deleteFUAFormatFromSchemaZod = z.object({
+    // Format Data
+    uuid: z.string(),
+    // Delete Data
+    active : z.boolean(),
+    inactiveBy: z.string(),
+    inactiveReason: z.string()
+});
+
 class FUAFormatFromSchemaService {
 
     // Creation of FUA Format
@@ -267,6 +277,62 @@ class FUAFormatFromSchemaService {
         }
 
     
+        return {
+            uuid: returnedFUAFormat.uuid
+        };
+    };
+
+    // Delete of FUA format
+    async delete(data: {
+        // Format Data
+         uuid: string;
+        active: boolean;
+        inactiveBy: string;
+        inactiveReason: string;
+    }) {
+        // Object Validation
+        const result = deleteFUAFormatFromSchemaZod.safeParse(data);
+        if( !result.success ){
+            const newError = new Error('Error in FUA Format From Schema Service - deleteFUAFormat: ZOD validation. ');
+            (newError as any).details = result.error;
+            throw newError;
+        }
+        
+        // FUAFormat delete (edit of the delete related attributs)
+        let returnedFUAFormat = null;
+        try {
+            returnedFUAFormat = await FUAFormatFromSchemaImplementation.editDeleteVersionSequelize({
+                // Format Data
+                uuid: data.uuid,
+                // Delete Data
+                active: data.active,
+                inactiveBy: data.inactiveBy,
+                inactiveReason: data.inactiveReason,
+
+            });
+        } catch (err: unknown){
+            (err as Error).message =  'Error in FUA Format From Schema Service: \n' + (err as Error).message;
+            throw err;
+        }
+        if (returnedFUAFormat == null){
+            return null;
+        }
+
+         // Insert version
+        try{
+            let newVersion = await BaseEntityVersionService.create(
+                new FUAFormat(returnedFUAFormat.dataValues),
+                "FUAFormatFromSchema",
+                "DELETE",
+                undefined
+            );
+        }catch(error: any){
+            (error as Error).message = 'Error in FUA Format From Schema Service:  ' + (error as Error).message;
+            const long = inspect(error, { depth: 10, colors: false });
+            (error as any).details = (error as any).details ?? long;
+            throw error;
+        }
+
         return {
             uuid: returnedFUAFormat.uuid
         };

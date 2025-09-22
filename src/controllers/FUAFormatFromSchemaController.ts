@@ -323,6 +323,73 @@ class FUAFormatFromSchemaController {
         }
             
     };
+
+    delete = async (req: Request, res: Response): Promise<void> => {
+        const controllerBody = req.body;
+        //const files = req.files as { [fieldname: string]: Express.Multer.File[] };
+
+        //const file = files['formatPayload']?.[0];
+         
+        //const jsoncContent = file.buffer.toString('utf-8');
+        //const parsed = parse(jsoncContent);
+
+        // Validation parsing validation pending needed
+
+        let deleteFUAFormat = null;
+        try {
+            transactionInst.renewTransaction()
+            deleteFUAFormat = await FUAFormatFromSchemaService.delete({
+                uuid: req.params.id,
+                active: false,
+                inactiveBy: controllerBody.inactiveBy,
+                inactiveReason: controllerBody.inactiveReason
+            });
+
+            if (deleteFUAFormat == null){
+                res.status(304).json({
+                    error: `FUA Field by UUID '${controllerBody.uuid}' couldnt be found. `,
+                });
+                return;
+            }
+              
+            let auxLog = new Log({
+                timeStamp: new Date(),
+                logLevel: Logger_LogLevel.ERROR,
+                securityLevel: Logger_SecurityLevel.Admin,
+                logType: Logger_LogType.DELETE,
+                environmentType: loggerInstance.enviroment.toString(),
+                description: ("Deleting FUA Format From Schema Successful")
+            });
+            loggerInstance.printLog(auxLog, [
+                { name: "terminal" },
+                { name: "file", file: "logs/auxLog.log"},
+                { name: "database" }
+            ]);  
+            transactionInst.confirmTransaction();
+            res.status(200).json(deleteFUAFormat);
+        } catch (err: any) {
+            transactionInst.unconfirmTransaction();
+            res.status(500).json({
+                error: 'Failed to delete FUA Format From Schema. (Controller)', 
+                message: (err as (Error)).message,
+                details: (err as any).details ?? null, 
+            });
+            let auxLog = new Log({
+                timeStamp: new Date(),
+                logLevel: Logger_LogLevel.ERROR,
+                securityLevel: Logger_SecurityLevel.Admin,
+                logType: Logger_LogType.DELETE,
+                environmentType: loggerInstance.enviroment.toString(),
+                description: (err.message ? (err.message+'\n') : '') + (err.details ?? '')
+            });
+            loggerInstance.printLog(auxLog, [
+                { name: "terminal" },
+                { name: "file", file: "logs/auxLog.log"},
+                { name: "database" }
+            ]);
+        }
+            
+    };
 }
 
 export default new FUAFormatFromSchemaController();
