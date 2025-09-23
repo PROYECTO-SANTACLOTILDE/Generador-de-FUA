@@ -106,14 +106,26 @@ class FUAFormatFromSchemaService {
 
     // List FUA Formats
     // Pending to paginate results
-    async listAll( pagination:{
-        page: any;
-        pageSize: any;
-    }) {
+    async listAll( 
+        pagination:{
+            page: any;
+            pageSize: any;
+        },
+        baseEntityPaginationParams:{
+            id: any,
+            uuid: any,
+            createdBy: any,
+            updatedBy: any,
+            active: any,
+            inactiveBy: any,
+            beforeInactiveAt: any,
+            afterInactiveAt: any,
+            inactiveReason: any
+        }) {
         
         let returnedFUAFormats = null;
         try {
-            returnedFUAFormats = await FUAFormatFromSchemaImplementation.listAllSequelize(pagination);
+            returnedFUAFormats = await FUAFormatFromSchemaImplementation.listAllSequelize(pagination, baseEntityPaginationParams);
 
         } catch (err: any){
             (err as Error).message =  'Error in FUA Format From Schema Service: ' + (err as Error).message;

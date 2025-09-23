@@ -1,13 +1,15 @@
 import { inspect } from 'util';
 import { isStrictIntegerString } from '../utils/utils';
+import { Op } from 'sequelize';
+require('dotenv').config();
 
 
 export type SimplePaginationParams = {
+  baseEntityPaginationParams?: any;
   page?: number;      
   pageSize?: number;
-  maxPageSize?: number;
-  where?: any;      
-  order?: any;      
+  maxPageSize?: number;    
+  order?: any;    
 };
 
 export type SimplePaginationResult = {
@@ -21,7 +23,8 @@ export type SimplePaginationResult = {
 
 const DEFAULT_PAGE = 1;
 const DEFAULT_PAGE_SIZE = 10;
-const DEFAULT_MAX_PAGE_SIZE = 100;
+let DEFAULT_MAX_PAGE_SIZE = 100;
+
 
 
 function parsePageParam(raw: string | number | undefined, defaultValue: number, paramName: "page" | "pageSize"): number {
@@ -46,6 +49,14 @@ function parsePageParam(raw: string | number | undefined, defaultValue: number, 
 
 export async function paginateSimple(model: any, options: SimplePaginationParams = {}): Promise<SimplePaginationResult> {
 
+    if(process.env.DEFAULT_MAX_PAGINATION_PAGE_SIZE != undefined){
+      if (Number.isNaN(parseInt(process.env.DEFAULT_MAX_PAGINATION_PAGE_SIZE))){
+        throw new Error(`DEFAULT_MAX_PAGINATION_PAGE_SIZE env. variable is not a number.`);
+      }else {
+        DEFAULT_MAX_PAGE_SIZE = parseInt(process.env.DEFAULT_MAX_PAGINATION_PAGE_SIZE);
+      }
+    }
+
     const pageParsed = parsePageParam(options.page, DEFAULT_PAGE, "page");
     let pageSizeParsed = parsePageParam(options.pageSize, DEFAULT_PAGE_SIZE, "pageSize");
 
@@ -54,9 +65,22 @@ export async function paginateSimple(model: any, options: SimplePaginationParams
 
     const offset = (pageParsed - 1) * pageSizeParsed;
     const order = options.order ?? [['createdAt', 'ASC']];
+    
+
+    if (options.baseEntityPaginationParams.afterInactiveAt != null && options.baseEntityPaginationParams.beforeInactiveAt != null){
+      const range = {[Op.lt]: new Date(options.baseEntityPaginationParams.afterInactiveAt), [Op.gt]: new Date(options.baseEntityPaginationParams.beforeInactiveAt)}
+      options.baseEntityPaginationParams.inactiveAt = range;
+    }
+  
+    options.baseEntityPaginationParams.afterInactiveAt = null;
+    options.baseEntityPaginationParams.beforeInactiveAt = null;
+    const filteredBaseEntityPaginationParams = Object.fromEntries(
+      Object.entries(options.baseEntityPaginationParams).filter(([_, v]) => v != null)
+    );
+
 
     const findOptions: any = {
-        where: options.where ?? {},
+        where: filteredBaseEntityPaginationParams,
         limit: pageSizeParsed,
         offset,
         order,

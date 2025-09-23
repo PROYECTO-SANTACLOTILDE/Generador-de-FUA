@@ -48,14 +48,24 @@ class FUAFormatFromSchemaImplementation {
     async listAllSequelize( pagination:{
         page: number;
         pageSize: number;
+    },
+    baseEntityPaginationParams:{
+        id: number;
+        uuid: string;
+        createdBy: string;
+        updatedBy: string;
+        active: boolean;
+        inactiveBy: string;
+        beforeInactiveAt: string;
+        afterInactiveAt: string;
+        inactiveReason: string;
     }) {
         try {
-            const where = { active: true };
             const res = await paginateSimple(FUAFormatFromSchemaModel, {
+                baseEntityPaginationParams,
                 page: pagination.page,
                 pageSize: pagination.pageSize,
                 maxPageSize: 100,
-                where,
                 order: [['createdAt', 'ASC']]
             });
               return {

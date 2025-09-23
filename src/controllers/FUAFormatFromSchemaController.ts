@@ -13,6 +13,7 @@ import { Logger_LogLevel } from '../middleware/logger/models/typescript/LogLevel
 import { Logger_SecurityLevel } from '../middleware/logger/models/typescript/SecurityLevel';
 import { Logger_LogType } from '../middleware/logger/models/typescript/LogType';
 import { transactionInst } from '../middleware/globalTransaction';
+import { UUID } from 'sequelize';
 
 
 class FUAFormatFromSchemaController {
@@ -96,12 +97,27 @@ class FUAFormatFromSchemaController {
     listAll = async (req: Request, res: Response): Promise<void> => {
         try {
 
+            // pagination object (passed through listAll)
             const paginationParams = {
                 page: req.query.page,
-                pageSize: req.query.pageSize
+                pageSize: req.query.pageSize,
             };
+
+            const baseEntityPaginationParams = {
+                id: req.query.id,
+                uuid: req.query.uuid,
+                createdBy: req.query.createdBy,
+                updatedBy: req.query.updatedBy,
+                active: req.query.active,
+                inactiveBy: req.query.inactiveBy,
+                inactiveAt: req.query.inactiveAt,
+                beforeInactiveAt: req.query.beforeInactiveAt,
+                afterInactiveAt: req.query.afterInactiveAt,
+                inactiveReason: req.query.inactiveReason
+            };
+
         
-            const listFUAFormats = await FUAFormatFromSchemaService.listAll(paginationParams);
+            const listFUAFormats = await FUAFormatFromSchemaService.listAll(paginationParams, baseEntityPaginationParams);
             let auxLog = new Log({
                 timeStamp: new Date(),
                 logLevel: Logger_LogLevel.INFO,
