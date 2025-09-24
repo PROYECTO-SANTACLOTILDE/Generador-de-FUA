@@ -70,7 +70,15 @@ export async function paginateSimple(model: any, options: SimplePaginationParams
     if (options.baseEntityPaginationParams.afterInactiveAt != null && options.baseEntityPaginationParams.beforeInactiveAt != null){
       const range = {[Op.between]: [new Date(options.baseEntityPaginationParams.afterInactiveAt), new Date(options.baseEntityPaginationParams.beforeInactiveAt)]}
       options.baseEntityPaginationParams.inactiveAt = range;
+    }else if (options.baseEntityPaginationParams.afterInactiveAt != null) {
+      const range = {[Op.gte]: new Date(options.baseEntityPaginationParams.afterInactiveAt)};
+      options.baseEntityPaginationParams.inactiveAt = range;
+    }else if (options.baseEntityPaginationParams.beforeInactiveAt != null){
+      const range = {[Op.lte]: new Date(options.baseEntityPaginationParams.beforeInactiveAt)};
+      options.baseEntityPaginationParams.inactiveAt = range;
     }
+
+
   
     options.baseEntityPaginationParams.afterInactiveAt = null;
     options.baseEntityPaginationParams.beforeInactiveAt = null;
