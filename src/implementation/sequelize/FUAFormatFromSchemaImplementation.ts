@@ -55,6 +55,7 @@ class FUAFormatFromSchemaImplementation {
         createdBy: string;
         updatedBy: string;
         active: boolean;
+        includeInactive : boolean;
         inactiveBy: string;
         beforeInactiveAt: string;
         afterInactiveAt: string;

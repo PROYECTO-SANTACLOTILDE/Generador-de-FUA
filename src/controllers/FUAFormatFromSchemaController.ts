@@ -109,6 +109,7 @@ class FUAFormatFromSchemaController {
                 createdBy: req.query.createdBy,
                 updatedBy: req.query.updatedBy,
                 active: req.query.active,
+                includeInactive : req.query.includeInactive,
                 inactiveBy: req.query.inactiveBy,
                 inactiveAt: req.query.inactiveAt,
                 beforeInactiveAt: req.query.beforeInactiveAt,

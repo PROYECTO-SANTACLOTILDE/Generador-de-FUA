@@ -106,6 +106,68 @@ class FUAFormatFromSchemaService {
 
     // List FUA Formats
     // Pending to paginate results
+
+    /*
+    string ->
+        string
+        boolean
+        integerNumber
+
+        let f = new QueryFactory();
+
+        includeInactive ("true")
+
+        {
+            {"id", "integer"}
+            {"includeInactive", "boolean"}
+        }
+
+        foreach(){
+            includeInactive = f.build("boolean",includeInactive)
+            catch ...
+
+            includeInactive = f.build("integer",includeInactive)
+            catch ...
+        }
+
+        Controller -> Query Parameters (pagination, baseEntity, specific query parameters) -> service
+    */
+    // (query param)  
+    //Controller -> (Wrapper only query parameters) (pagination,serachParameters) ->  (funtion to porcess query) Service -> Implementation -> Wrapper
+
+    /*
+    x -> serviceOfWthatever()
+
+    return
+
+
+    ||||
+
+    QueryWrapper(params, service to call)
+
+    function Wrapper(params, service FUAFormarmatDFromSchemaService.listAll / FUAService.listAll){
+    
+        let sanitizedParams = ..(params)
+        let answer = service(sanitizedParams (paginationParams, baseEntityParams,entitityParams) )
+        let finalAnswer = paginationWrapper(answer)
+        return finalAnswer    
+    }
+
+    //Controller -> Wrapper (query, and database return) -> Service -> Implementation    
+
+    */
+
+    /*
+    array of something
+
+    {
+        results: array
+        count: length(array)
+    }
+
+    */
+        
+        
     async listAll( 
         pagination:{
             page: any;
@@ -117,6 +179,7 @@ class FUAFormatFromSchemaService {
             createdBy: any,
             updatedBy: any,
             active: any,
+            includeInactive : any,
             inactiveBy: any,
             beforeInactiveAt: any,
             afterInactiveAt: any,

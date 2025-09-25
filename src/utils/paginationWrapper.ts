@@ -46,7 +46,7 @@ function parsePageParam(raw: string | number | undefined, defaultValue: number, 
   throw new Error(`Bad '${paramName}' argument type.`);
 }
 
-
+// wrapper who receives a sequelize who receive parameters from the controller and prepares a sequelize object for findAndCountAll()
 export async function paginateSimple(model: any, options: SimplePaginationParams = {}): Promise<SimplePaginationResult> {
 
     if(process.env.DEFAULT_MAX_PAGINATION_PAGE_SIZE != undefined){
@@ -66,7 +66,7 @@ export async function paginateSimple(model: any, options: SimplePaginationParams
     const offset = (pageParsed - 1) * pageSizeParsed;
     const order = options.order ?? [['createdAt', 'ASC']];
     
-
+    // creation of the time range according to the afterInactive and beforeInactive parameters 
     if (options.baseEntityPaginationParams.afterInactiveAt != null && options.baseEntityPaginationParams.beforeInactiveAt != null){
       const range = {[Op.between]: [new Date(options.baseEntityPaginationParams.afterInactiveAt), new Date(options.baseEntityPaginationParams.beforeInactiveAt)]}
       options.baseEntityPaginationParams.inactiveAt = range;
@@ -78,14 +78,28 @@ export async function paginateSimple(model: any, options: SimplePaginationParams
       options.baseEntityPaginationParams.inactiveAt = range;
     }
 
+    console.log(options.baseEntityPaginationParams.includeInactive);
+    // default value for the active parameter with the includeInactive condition
+    if (options.baseEntityPaginationParams.includeInactive == true){
+      options.baseEntityPaginationParams.active = null;
+      console.log(options.baseEntityPaginationParams.includeInactive);
+      console.log(options.baseEntityPaginationParams.active);
+      console.log(1);
+    }
+    else {
+      options.baseEntityPaginationParams.active = options.baseEntityPaginationParams.active ?? true;
+      console.log(options.baseEntityPaginationParams.active);
+      console.log(2);
+    }
 
-  
+    // we erase those parameters because not recognize by sequelize (not present in the database)
+    options.baseEntityPaginationParams.includeInactive = null;
     options.baseEntityPaginationParams.afterInactiveAt = null;
     options.baseEntityPaginationParams.beforeInactiveAt = null;
+
     const filteredBaseEntityPaginationParams = Object.fromEntries(
       Object.entries(options.baseEntityPaginationParams).filter(([_, v]) => v != null)
     );
-
 
     const findOptions: any = {
         where: filteredBaseEntityPaginationParams,
