@@ -162,3 +162,47 @@ console.log("Hash:", hash);
 console.log("Verify:", verifyHash(JSON.stringify(record), hash)); // true
 console.log("Verify with wrong content:", verifyHash(JSON.stringify({ patientId: "456" }), hash)); // false
  */
+
+
+
+
+export type FactoryTypesTarget = 'integer' | 'boolean' | 'string';
+/**
+ * Convertit une chaîne en un type primitif précis ou lève une erreur si invalide.
+ * - 'integer' : accepte uniquement des entiers stricts (optionnel '-' + chiffres), plage SafeInteger.
+ * - 'boolean' : accepte uniquement "true" ou "false" (insensible à la casse).
+ * - 'string'  : retourne la chaîne trim().
+ */
+
+export function parseAs(value: string, target: FactoryTypesTarget): number | boolean | string {
+  if (value === null || value === undefined) {
+    return value;
+  }
+
+  const trimmed = value.trim();
+
+  switch (target) {
+    case 'integer': {
+      if (!isStrictIntegerString(trimmed)) {
+        throw new Error(`parseAs: entier invalide: "${value}"`);
+      }
+      const n = Number(trimmed);
+      if (!Number.isSafeInteger(n)) {
+        throw new Error(`parseAs: entier hors de la plage sûre: "${value}"`);
+      }
+      return n;
+    }
+    case 'boolean': {
+      const lower = trimmed.toLowerCase();
+      if (lower === 'true') return true;
+      if (lower === 'false') return false;
+      throw new Error(`parseAs: booléen invalide: "${value}". Attendu "true" ou "false".`);
+    }
+    case 'string':
+      return trimmed;
+    default: {
+      const unreachable: never = target as never;
+      throw new Error(`parseAs: type non supporté: ${unreachable}`);
+    }
+  }
+}

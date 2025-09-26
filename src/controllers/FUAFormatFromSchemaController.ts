@@ -14,6 +14,7 @@ import { Logger_SecurityLevel } from '../middleware/logger/models/typescript/Sec
 import { Logger_LogType } from '../middleware/logger/models/typescript/LogType';
 import { transactionInst } from '../middleware/globalTransaction';
 import { UUID } from 'sequelize';
+import { paginationWrapper } from '../utils/newPaginationWrapper';
 
 
 class FUAFormatFromSchemaController {
@@ -117,8 +118,7 @@ class FUAFormatFromSchemaController {
                 inactiveReason: req.query.inactiveReason
             };
 
-        
-            const listFUAFormats = await FUAFormatFromSchemaService.listAll(paginationParams, baseEntityPaginationParams);
+            const listFUAFormats = await paginationWrapper(paginationParams, baseEntityPaginationParams);
             let auxLog = new Log({
                 timeStamp: new Date(),
                 logLevel: Logger_LogLevel.INFO,
@@ -144,7 +144,7 @@ class FUAFormatFromSchemaController {
                 page: paginationParams.page,
                 pageSize: paginationParams.pageSize,
                 totalPages: listFUAFormats.pages,
-                totalResults: listFUAFormats.results
+                totalResults: listFUAFormats.total
             });
         } catch (err: any) {
             res.status(500).json({

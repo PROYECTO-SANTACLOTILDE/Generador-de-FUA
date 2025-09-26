@@ -1,7 +1,6 @@
 import { transactionInst } from '../../middleware/globalTransaction';
 import FUAFormatFromSchemaModel from '../../modelsSequelize/FUAFormatFromSchemaModel';
 import { inspect } from "util";
-import { paginateSimple } from '../../utils/paginationWrapper';
 
 
 interface FUAFormatFromSchemaCreateInterface {
@@ -45,39 +44,21 @@ class FUAFormatFromSchemaImplementation {
 
     // List FUA Formats
     // Pending to paginate results
-    async listAllSequelize( pagination:{
-        page: number;
-        pageSize: number;
-    },
-    baseEntityPaginationParams:{
-        id: number;
-        uuid: string;
-        createdBy: string;
-        updatedBy: string;
-        active: boolean;
-        includeInactive : boolean;
-        inactiveBy: string;
-        beforeInactiveAt: string;
-        afterInactiveAt: string;
-        inactiveReason: string;
+    async listAllSequelize(findOptions : {
+        where: any,
+        limit: any,
+        offset: any,
+        order: any
     }) {
         try {
-            const res = await paginateSimple(FUAFormatFromSchemaModel, {
-                baseEntityPaginationParams,
-                page: pagination.page,
-                pageSize: pagination.pageSize,
-                maxPageSize: 100,
-                order: [['createdAt', 'ASC']]
-            });
-              return {
-                rows: res.rows,
-                pages: res.pages,
-                results: res.total
-            };
+            const res = await FUAFormatFromSchemaModel.findAndCountAll(findOptions);
+              return res;
 
         } catch (err: any){
             //console.error('Error in FUA Format From Schema Sequelize Implementation: Couldnt list all FUA Format From Schema in database using Sequelize. ', err);
-            (err as Error).message =  'Error in FUA Format From Schema Sequelize Implementation: Couldnt list all FUA Format From Schema in database using Sequelize. ' + (err as Error).message;   
+            (err as Error).message =  'Error in FUA Format From Schema Sequelize Implementation: Couldnt list all FUA Format From Schema in database using Sequelize. ' + (err as Error).message;
+            const line = inspect(err, { depth: 100, colors: false });
+            err.details = line.replace(/^/gm, '\t');     
             throw err;
         }        
 

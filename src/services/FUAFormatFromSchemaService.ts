@@ -9,6 +9,7 @@ import { inspect } from "util";
 import BaseEntityVersionService from "./BaseEntityVersionService";
 import FUAFormat, { FUAFormatSchema } from "../modelsTypeScript/FUAFormat";
 import { off } from "process";
+import { ParsedQs } from "qs";
 
 // Schemas
 
@@ -46,6 +47,9 @@ const deleteFUAFormatFromSchemaZod = z.object({
 });
 
 class FUAFormatFromSchemaService {
+    /* paginateSimple(paginationParams: { page: string | ParsedQs | (string | ParsedQs)[] | undefined; pageSize: string | ParsedQs | (string | ParsedQs)[] | undefined; }, baseEntityPaginationParams: { id: string | ParsedQs | (string | ParsedQs)[] | undefined; uuid: string | ParsedQs | (string | ParsedQs)[] | undefined; createdBy: string | ParsedQs | (string | ParsedQs)[] | undefined; updatedBy: string | ParsedQs | (string | ParsedQs)[] | undefined; active: string | ParsedQs | (string | ParsedQs)[] | undefined; includeInactive: string | ParsedQs | (string | ParsedQs)[] | undefined; inactiveBy: string | ParsedQs | (string | ParsedQs)[] | undefined; inactiveAt: string | ParsedQs | (string | ParsedQs)[] | undefined; beforeInactiveAt: string | ParsedQs | (string | ParsedQs)[] | undefined; afterInactiveAt: string | ParsedQs | (string | ParsedQs)[] | undefined; inactiveReason: string | ParsedQs | (string | ParsedQs)[] | undefined; }) {
+        throw new Error('Method not implemented.');
+    } */
 
     // Creation of FUA Format
     async create(data: {
@@ -168,38 +172,23 @@ class FUAFormatFromSchemaService {
     */
         
         
-    async listAll( 
-        pagination:{
-            page: any;
-            pageSize: any;
-        },
-        baseEntityPaginationParams:{
-            id: any,
-            uuid: any,
-            createdBy: any,
-            updatedBy: any,
-            active: any,
-            includeInactive : any,
-            inactiveBy: any,
-            beforeInactiveAt: any,
-            afterInactiveAt: any,
-            inactiveReason: any
-        }) {
+    async listAll(findOptions : {
+        where: any,
+        limit: any,
+        offset: any,
+        order: any
+    }) {
         
         let returnedFUAFormats = null;
         try {
-            returnedFUAFormats = await FUAFormatFromSchemaImplementation.listAllSequelize(pagination, baseEntityPaginationParams);
+            returnedFUAFormats = await FUAFormatFromSchemaImplementation.listAllSequelize(findOptions);
 
         } catch (err: any){
             (err as Error).message =  'Error in FUA Format From Schema Service: ' + (err as Error).message;
             throw err;
         }        
 
-        return { 
-            rows: returnedFUAFormats.rows,
-            pages: returnedFUAFormats.pages,
-            results: returnedFUAFormats.results
-        }
+        return returnedFUAFormats;
     };
 
     // Get FUA Format by Id (Id or UUID)
@@ -215,8 +204,8 @@ class FUAFormatFromSchemaService {
             try {
                 returnedFUAFormat = await FUAFormatFromSchemaImplementation.getByIdSequelize(id);
 
-            } catch (err: unknown){
-                (err as Error).message =  'Error in FUA Format From SchemaFUA Format From Schema Service: ' + (err as Error).message;
+            } catch (err: any){
+                (err as Error).message =  'Error in FUA Format From SchemaFUA Format From Schema Service: ' + (err as Error).message;   
                 throw err;
             }     
         }else{
