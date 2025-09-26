@@ -282,6 +282,7 @@ class FUAFormatFromSchemaController {
         const files = req.files as { [fieldname: string]: Express.Multer.File[] };
 
         const file = files['formatPayload']?.[0];
+
          
         const jsoncContent = file.buffer.toString('utf-8');
         const parsed = parse(jsoncContent);
@@ -297,7 +298,8 @@ class FUAFormatFromSchemaController {
                 content: jsoncContent,
                 codeName: controllerBody.name  ?? controllerBody.name.toString(),
                 versionTag: controllerBody.versionTag ?? controllerBody.name.toString() + '_1',
-                versionNumber: controllerBody.versionNumber ?? 1
+                versionNumber: controllerBody.versionNumber ?? 1,
+                updatedBy: controllerBody.updatedBy
             });
             if (editFUAFormat == null){
                 res.status(304).json({

@@ -6,7 +6,7 @@ export interface BaseEntityInterface {
     createdAt: Date;
     createdBy: string;
     updatedAt?: Date;
-    updatedby?: Date;
+    updatedBy?: string;
     active: boolean;
     inactiveBy?: string;
     inactiveAt?: Date;
@@ -19,7 +19,7 @@ export const BaseEntitySchema = z.object({
   createdAt: z.date().default(new Date()),
   createdBy: z.string().default('system'),
   updatedAt: z.date().optional(),
-  updatedby: z.date().optional(),
+  updatedBy: z.string().nullish(),
   active: z.boolean().default(true),
   inactiveBy: z.string().nullish(),
   inactiveAt: z.date().nullish(),
@@ -33,7 +33,7 @@ class BaseEntity {
     createdAt: Date;
     createdBy: string;
     updatedAt?: Date;
-    updatedby?: Date;
+    updatedBy?: string;
     active: boolean;
     inactiveBy?: string;
     inactiveAt?: Date;
@@ -51,7 +51,7 @@ class BaseEntity {
         this.createdAt = new Date(aux.createdAt);
         this.createdBy = aux.createdBy;
         this.updatedAt = aux.updatedAt ? new Date(aux.updatedAt) : undefined;
-        this.updatedby = aux.updatedby ? new Date(aux.updatedby) : undefined;
+        this.updatedBy = aux.updatedBy;
         this.active = aux.active;
         this.inactiveBy = aux.inactiveBy;
         this.inactiveAt = aux.inactiveAt ? new Date(aux.inactiveAt) : undefined;
@@ -68,8 +68,8 @@ class BaseEntity {
     get getCreatedBy() { return this.createdBy; }
     //set setCreatedBy(value: string) { this.createdBy = value; }
 
-    get getUpdatedby() { return this.updatedby; }
-    set setUpdatedby(value: Date | undefined) { this.updatedby = value; }
+    get getUpdatedBy() { return this.updatedBy; }
+    set setUpdatedBy(value: string | undefined) { this.updatedBy = value; }
 
     get getActive() { return this.active; }
     set setActive(value: boolean) { this.active = value; }

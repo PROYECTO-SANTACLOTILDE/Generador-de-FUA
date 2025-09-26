@@ -2,6 +2,10 @@ import {z} from "zod";
 
 import { isValidUUIDv4 } from "../utils/utils";
 import FUAFromVisitImplementation from "../implementation/sequelize/FUAFromVisitImplementation";
+import FUAFormatFromSchemaService from "./FUAFormatFromSchemaService";
+import BaseEntityVersionService from "./BaseEntityVersionService";
+import BaseEntity from "../modelsTypeScript/BaseEntity";
+import { Version_Actions } from "../utils/VersionConstants";
 
 
 // Schemas
@@ -10,7 +14,9 @@ const newFUAFromVisitSchema = z.object({
     payload: z.string(), 
     schemaType: z.string(),    
     // Audit Data
-    createdBy: z.string(),
+    outputType: z.string(),
+    FUAFormatFromSchemaId: z.string(),
+    createdBy: z.string()
 });
 
 
@@ -18,9 +24,12 @@ class FUAFromVisitService {
 
     // Creation of FUA Field
     async create(data: {
-        // FUA Data
+        // FUAFromVisit Data
         payload: string; 
         schemaType: string;
+        outputType: string;
+        // FUAFormatFromSchema Identifier
+        FUAFormatFromSchemaId: string;
         // Audit Data
         createdBy: string;
     }) {
@@ -34,22 +43,59 @@ class FUAFromVisitService {
             throw newError;
         }
 
-        // Check if FUA Format exists
+        // Check if FUAFormatFromSchema exists
+        let auxFUAFormat = null;
+        try {
+            auxFUAFormat = await FUAFormatFromSchemaService.getByIdOrUUID(data.FUAFormatFromSchemaId);
+        }catch(err: any){
+            console.error(`Error in FUA From Visit service - create - consultinf Format:  `, err);
+            throw new Error(`Error in FUA From Visit service - create- consultinf Format:  ` + (err as Error).message);
+        }
+
+        if(auxFUAFormat == null){
+            // FUAFromat sent doesnt exist
+            const newError = new Error(`Error in FUA From Visit Service - create: FUAFormat identified with ${data.FUAFormatFromSchemaId} doesnt exist. `);
+            throw newError;
+        }
 
         // Send data to create  
         let returnedFUA = null;
+
+        // TODO: update with a new fucntion in case of the putputType sent
+        // Auxiliar file
+        // Example: save a blob
+        const buffer = Buffer.from('Hello, I am stored as a blob!');
 
         try {
             returnedFUA = await FUAFromVisitImplementation.createSequelize({
                 payload: data.payload,
                 schemaType: data.schemaType,
+                outputType: data.outputType,
+                output: buffer,
+                FUAFormatFromSchemaId: auxFUAFormat.id,
                 // Audit Data
                 createdBy: data.createdBy,
             });
         } catch (err: unknown){
             console.error(`Error in FUA From Visit service - create:  `, err);
             throw new Error(`Error in FUA From Visit service - create:  ` + (err as Error).message);
-        }        
+        }
+        
+        // Insert version
+        try{
+            let newVersion = await BaseEntityVersionService.create(
+                new BaseEntity(returnedFUA.dataValues),
+                "FUAFormatFromSchema",
+                Version_Actions.CREATE,
+                [ {
+                    type: "FUAFormatFromSchema",
+                    uuid: auxFUAFormat.uuid
+                } ]
+            );
+        }catch(error: any){
+            (error as Error).message =  'Error in FUA Format From Schema Service:  ' + (error as Error).message;
+            throw error;
+        }
 
         return {
             uuid: returnedFUA.uuid

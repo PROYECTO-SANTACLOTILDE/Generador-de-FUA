@@ -10,6 +10,7 @@ import BaseEntityVersionService from "./BaseEntityVersionService";
 import FUAFormat, { FUAFormatSchema } from "../modelsTypeScript/FUAFormat";
 import { off } from "process";
 import { ParsedQs } from "qs";
+import { Version_Actions } from "../utils/VersionConstants";
 
 // Schemas
 
@@ -34,6 +35,7 @@ const editFUAFormatFromSchemaZod = z.object({
     codeName: z.string(),    
     versionTag: z.string(),
     versionNumber: z.number().int().positive(), // must be a positive integer
+    updatedBy: z.string()
 });
 
 
@@ -95,7 +97,7 @@ class FUAFormatFromSchemaService {
             let newVersion = await BaseEntityVersionService.create(
                 new FUAFormat(returnedFUAFormat.dataValues),
                 "FUAFormatFromSchema",
-                "CREATE",
+                Version_Actions.CREATE,
                 undefined
             );
         }catch(error: any){
@@ -295,6 +297,8 @@ class FUAFormatFromSchemaService {
         codeName: string;
         versionTag: string; 
         versionNumber: number;
+        // Audit Data
+        updatedBy: string;
     }) {
         // Object Validation
         const result = editFUAFormatFromSchemaZod.safeParse(data);
@@ -316,11 +320,13 @@ class FUAFormatFromSchemaService {
                 codeName: data.codeName,
                 versionTag: data.versionTag , 
                 versionNumber: data.versionNumber,
+                updatedBy: data.updatedBy
             });
         } catch (err: unknown){
             (err as Error).message =  'Error in FUA Format From Schema Service: \n' + (err as Error).message;
             throw err;
         }
+        
         if (returnedFUAFormat == null){
             return null;
         }
@@ -330,7 +336,7 @@ class FUAFormatFromSchemaService {
             let newVersion = await BaseEntityVersionService.create(
                 new FUAFormat(returnedFUAFormat.dataValues),
                 "FUAFormatFromSchema",
-                "EDIT",
+                Version_Actions.EDIT,
                 undefined
             );
         }catch(error: any){
@@ -387,7 +393,7 @@ class FUAFormatFromSchemaService {
             let newVersion = await BaseEntityVersionService.create(
                 new FUAFormat(returnedFUAFormat.dataValues),
                 "FUAFormatFromSchema",
-                "DELETE",
+                Version_Actions.DELETE,
                 undefined
             );
         }catch(error: any){

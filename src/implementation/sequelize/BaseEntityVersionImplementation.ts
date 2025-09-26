@@ -111,35 +111,35 @@ class BaseEntityVersionImplementation {
         return newVersion;
     };
 
-    // List FUA Formats
-    // Pending to paginate results
+    // List BaseEntityVersions
+    // TODO: Pending to paginate results
     async listAllSequelize( ) {
-        let returnedFUAFormats = [];
+        let returnedObjects = [];
         try {
-            returnedFUAFormats = await FUAFormatFromSchemaModel.findAll({
+            returnedObjects = await BaseEntityVersionModel.findAll({
                 where: {
                     active: true,
                 }
             });
 
         } catch (err: any){
-            //console.error('Error in FUA Format From Schema Sequelize Implementation: Couldnt list all FUA Format From Schema in database using Sequelize. ', err);
-            (err as Error).message =  'Error in FUA Format From Schema Sequelize Implementation: Couldnt list all FUA Format From Schema in database using Sequelize. ' + (err as Error).message;
+            (err as Error).message =  'Error in BaseEntityVersion Sequelize Implementation: Couldnt list all BaseEntityVersions in database using Sequelize. ' + (err as Error).message;
             const line = inspect(err, { depth: 100, colors: false });
             err.details = line.replace(/^/gm, '\t');     
             throw err;
         }        
 
-        return returnedFUAFormats;
+        return returnedObjects;
     };
 
     // Get FUA Format Id by UUID
-    async getByUUIDSequelize(uuidReceived: string){
+    async getByUUIDSequelize(uuidReceived: string, type: string){
         let returnFUAFormat = null;
         try {
-            returnFUAFormat = await FUAFormatFromSchemaModel.findOne({
+            returnFUAFormat = await BaseEntityVersionModel.findOne({
                 where: {
                     uuid: uuidReceived,
+                    type: type,
                     active: true,
                 }
             });
@@ -155,13 +155,14 @@ class BaseEntityVersionImplementation {
     };
 
     // Get FUA Format by id 
-    async getByIdSequelize(idReceived: number ) {
+    async getByIdSequelize(idReceived: number, type: string ) {
 
         let returnedFUAFormat = null;
         try {
-            returnedFUAFormat = await FUAFormatFromSchemaModel.findOne({
+            returnedFUAFormat = await BaseEntityVersionModel.findOne({
                 where: {
                     id: idReceived,
+                    type: type,
                     active: true,
                 },
                 raw: true, // Return raw data
@@ -177,7 +178,30 @@ class BaseEntityVersionImplementation {
      
 
         return returnedFUAFormat;
-    };   
+    };
+    
+    async getVersionsByUUID(data: {
+        uuid: string;
+        type: string;
+    }){
+        let returnedObjects = [];
+        try {
+            returnedObjects = await BaseEntityVersionModel.findAll({
+                where: {
+                    uuidEntity: data.uuid,
+                    type: data.type
+                }
+            });
+
+        } catch (err: any){
+            (err as Error).message =  'Error in BaseEntityVersion Sequelize Implementation: Couldnt list all BaseEntityVersions in database using Sequelize. ' + (err as Error).message;
+            const line = inspect(err, { depth: 100, colors: false });
+            err.details = line.replace(/^/gm, '\t');     
+            throw err;
+        }        
+
+        return returnedObjects;
+    }
 
 };
 

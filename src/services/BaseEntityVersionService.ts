@@ -11,6 +11,7 @@ import BaseEntityVersionImplementation, { relatedEntity } from "../implementatio
 import { generateHMAC } from "../modelsSequelize/utils";
 import BaseEntity from "../modelsTypeScript/BaseEntity";
 import BaseEntityModel from "../modelsSequelize/BaseEntityModel";
+import { Version_Actions } from "../utils/VersionConstants";
 
 
 function isBaseEntity(obj: unknown): obj is BaseEntity {
@@ -77,6 +78,34 @@ class BaseEntityVersionService {
         
         // BaseEnitityVersion creation
 
+        // CREATE
+        // EDIT
+        switch (action){
+            case Version_Actions.CREATE: {
+                data.updatedBy = null;
+                break;
+            };
+            case Version_Actions.EDIT: {
+                data.createdBy = data.updatedBy;
+                data.updatedBy = null;
+                break;
+            };
+            case Version_Actions.DELETE: {
+                data.createdBy = data.inactiveBy;
+                data.updatedBy = null;
+                data.inactiveBy = null;
+                break;
+            };
+            default: {
+                break;
+            }
+        };
+
+        /* // Defining the the FUA Update author as the Version creator
+        returnedFUAFormat.dataValues.createdBy = returnedFUAFormat.dataValues.updatedBy;
+        returnedFUAFormat.dataValues.updatedBy = null; */
+
+
         let newData = {
             ...data,
             uuidEntity: data.uuid,
@@ -113,31 +142,34 @@ class BaseEntityVersionService {
 
     // List Base Enitties Versions
     // Pending to paginate results
-    /* async listAll( ) {
-        let returnedFUAFormats = ;
+    async listAll( ) {
+        let returnedVersions = null;
         try {
-            returnedFUAFormats = await BaseEntityModel.listAllSequelize();
+            returnedVersions = await BaseEntityVersionImplementation.listAllSequelize();
 
         } catch (err: any){
             (err as Error).message =  'Error in FUA Format From Schema Service: ' + (err as Error).message;
             throw err;
         }        
 
-        return returnedFUAFormats;
-    }; */
+        return returnedVersions;
+    }; 
 
-    // Get FUA Format by Id (Id or UUID)
-    async getByIdOrUUID( idReceived: string ) {
+    // Get BaseEntityVersion by Id (Id or UUID)
+    async getByIdOrUUID( data: {
+            id: string; 
+            type: string;
+        } ) {
         let returnedFUAFormat = null;
 
         // Check if UUID or Id was sent
         let id = null;
-        const nuNumber = Number(idReceived);
+        const nuNumber = Number(data.id);
         if( Number.isInteger(nuNumber) ){
             id = nuNumber;
 
             try {
-                returnedFUAFormat = await FUAFormatFromSchemaImplementation.getByIdSequelize(id);
+                returnedFUAFormat = await BaseEntityVersionImplementation.getByIdSequelize(id, data.type);
 
             } catch (err: unknown){
                 (err as Error).message =  'Error in FUA Format From SchemaFUA Format From Schema Service: ' + (err as Error).message;
@@ -146,12 +178,12 @@ class BaseEntityVersionService {
         }else{
             // Get id by UUID
             //Validate UUID Format        
-            if (!isValidUUIDv4(idReceived) ) {
+            if (!isValidUUIDv4(data.id) ) {
                 throw new Error("Error in FUA Format From Schema Service: Invalid UUID format. ");
             }
             try {
 
-                returnedFUAFormat = await FUAFormatFromSchemaImplementation.getByUUIDSequelize(idReceived);
+                returnedFUAFormat = await BaseEntityVersionImplementation.getByUUIDSequelize(data.id, data.type);
 
             } catch (err: unknown){
                 (err as Error).message =  'Error in FUA Format From Schema Service: ' + (err as Error).message;
@@ -163,63 +195,31 @@ class BaseEntityVersionService {
         return returnedFUAFormat;
     };
 
-    // Get FUA Format Id by UUID
-    async getIdByUUID( uuidReceived: string){
-        let returnedFUAFormats = null;
+    // List Base Enitties Versions
+    // Pending to paginate results
+    async listVersions( data: {
+        uuid: string; 
+        type: string;
+    }) {
+        let returnedVersions = [];
+        // Check for existing versions of this object
 
+        // Get id by UUID
         //Validate UUID Format        
-        if (!isValidUUIDv4(uuidReceived) ) {
-            throw new Error("Error FUA Format From Schema Service - getIdByUUID: Invalid UUID format. ");
+        if (!isValidUUIDv4(data.uuid) ) {
+            throw new Error("Error in FUA Format From Schema Service: Invalid UUID format. ");
         }
-
         try {
-            returnedFUAFormats = await FUAFormatFromSchemaImplementation.getByUUIDSequelize(uuidReceived);
+
+            returnedVersions = await BaseEntityVersionImplementation.getVersionsByUUID(data);
 
         } catch (err: unknown){
-            console.error('Error in FUA Format From Schema Service - getIdByUUID: ', err);
-            (err as Error).message =  'Error in FUA Format From Schema Service- getIdByUUID: ' + (err as Error).message;
+            (err as Error).message =  'Error in FUA Format From Schema Service: ' + (err as Error).message;
             throw err;
         }
 
-        // If nothing was found, it will return a null
-        return returnedFUAFormats
-    }
-
-    // Render FUA Format by Id
-    async renderById( visitPayload: Object, idReceived: string ) {
-        // Get Format by Id or UUID
-        let auxFuaFormat = null;
-        try {
-            auxFuaFormat = await this.getByIdOrUUID(idReceived);
-        } catch (err: unknown){
-            console.error('Error in FUAFormat Service - renderById: ', err);
-            (err as Error).message =  'Error in FUAFormat Service - renderById: ' + (err as Error).message;
-            throw err;
-        }
-
-        // If nothing was found, it will return a null
-        if( auxFuaFormat === null){
-            return null;
-        } 
-
-        let htmlContent = ''; 
-
-        let parsedContent = parse(auxFuaFormat.content);
-
-        try{
-            htmlContent = await FUARenderingUtils.renderFUAFormatFromSchema(parsedContent, false);
-        } catch(error: any){
-            (error as Error).message =  'Error in FUA Format Service - renderById: ' + (error as Error).message;
-            const line = inspect(error, { depth: 100, colors: false });
-            error.details = line.replace(/^/gm, '\t');
-            throw error;
-        }
-        
-        
-        return htmlContent;   
-    }
-
-
+        return returnedVersions;
+    };
 };
 
 export default new BaseEntityVersionService();

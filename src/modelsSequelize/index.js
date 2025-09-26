@@ -14,10 +14,11 @@ import FUAFieldColumn from './FUAFieldColumn';
 import FUAFieldRow from './FUAFieldRow';
 import FUAFieldCell from './FUAFieldCell';
 
-import FUAFromVisit from './FUAFromVisit.js';
+import FUAFromVisitModel from './FUAFromVisitModel';
 
 import BaseEntityVersionModel from "./BaseEntityVersionModel.js";
 import BaseEntityVersion_MiddleTableModel from './BaseEntityVersion_MiddleTableModel.js';
+import FUAFormatFromSchemaModel from './FUAFormatFromSchemaModel';
 
 
 // Foreign keys
@@ -80,6 +81,15 @@ FUAFieldCell.hasMany(FUAField, {
 });
 FUAField.belongsTo(FUAFieldCell);
 
+// FK of FUAFromVisit with FUAFormatFromSchema
+FUAFormatFromSchemaModel.hasMany( FUAFromVisitModel,{
+    foreignKey: {
+        name: 'FUAFormatFromSchemaId',
+        allowNull: false,
+    }
+});
+FUAFromVisitModel.belongsTo( FUAFormatFromSchemaModel );
+
 
 BaseEntityVersionModel.belongsToMany(BaseEntityVersionModel, { 
     as: 'VersioningRelation',    
@@ -101,7 +111,7 @@ export {
     FUAFieldColumn,
     FUAFieldRow,
     FUAFieldCell,
-    FUAFromVisit,
+    FUAFromVisitModel,
     BaseEntityVersionModel,
     BaseEntityVersion_MiddleTableModel
 };

@@ -1,19 +1,23 @@
 import { raw } from "express";
-import { FUAFromVisit } from "../../modelsSequelize";
+import { FUAFromVisitModel } from "../../modelsSequelize";
 
 class FUAFromVisitImplementation {
 
     // Creation of FUA From Visit
     async createSequelize(data: {
-        // FUA Data
+        // FUAFromVisit Data
         payload: string; 
         schemaType: string;
+        outputType: string;
+        output: Buffer;
+        // FUAFormatFromSchema Identifier
+        FUAFormatFromSchemaId: number;
         // Audit Data
         createdBy: string;
     }) {
         let returnedFUA = null;
         try {
-            returnedFUA = await FUAFromVisit.create({...data, checksum: "-"});
+            returnedFUA = await FUAFromVisitModel.create({...data, checksum: "-"});
         } catch (err: unknown){
             console.error('Error in FUA From Visit Sequelize Implementation: Couldnt create FUA From Visit in database using Sequelize. ', err);
             (err as Error).message =  'Error in FUA From Visit Sequelize Implementation: Couldnt create FUA From Visit in database using Sequelize: ' + (err as Error).message;
@@ -28,7 +32,7 @@ class FUAFromVisitImplementation {
     async listAllSequelize( ) {
         let returnedFUAs = [];
         try {
-            returnedFUAs = await FUAFromVisit.findAll({
+            returnedFUAs = await FUAFromVisitModel.findAll({
                 where: {
                     active: true,
                 },
@@ -48,7 +52,7 @@ class FUAFromVisitImplementation {
 
         let returnedFUAFormat = null;
         try {
-            returnedFUAFormat = await FUAFromVisit.findOne({
+            returnedFUAFormat = await FUAFromVisitModel.findOne({
                 where: {
                     id: id,
                     active: true,
@@ -71,7 +75,7 @@ class FUAFromVisitImplementation {
 
         let returnedFUA = null;
         try {
-            returnedFUA = await FUAFromVisit.findOne({
+            returnedFUA = await FUAFromVisitModel.findOne({
                 where: {
                     uuid: uuid,
                     active: true,

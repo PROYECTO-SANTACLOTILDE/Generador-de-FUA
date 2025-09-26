@@ -8,10 +8,19 @@ const FUAFromVisitController = {
 
     async create  (req: Request, res: Response): Promise<void>  {
         const payload = req.body;
-        let newFUASection = null;
+        let newFUAFromVisit = null;
         try {
-            newFUASection = await FUAFromVisitService.create(payload);
-            res.status(201).json(newFUASection);    
+            newFUAFromVisit = await FUAFromVisitService.create({
+                // FUAFromVisit Data
+                payload: payload.payload,
+                schemaType: payload.schemaType,
+                outputType: payload.outputType,
+                // FUAFormatFromSchema Identifier
+                FUAFormatFromSchemaId: payload.FUAFormatFromSchemaId,
+                // Audit Data
+                createdBy: payload.createdBy
+            });
+            res.status(201).json(newFUAFromVisit);    
         } catch (err: any) {
             res.status(500).json({
                 error: 'Failed to create FUA From Visit. (Controller)', 
@@ -61,7 +70,7 @@ const FUAFromVisitController = {
             });
         }
             
-    },
+    }
 };
 
 export default FUAFromVisitController;
