@@ -115,7 +115,11 @@ class FUAFormatFromSchemaController {
                 inactiveAt: req.query.inactiveAt,
                 beforeInactiveAt: req.query.beforeInactiveAt,
                 afterInactiveAt: req.query.afterInactiveAt,
-                inactiveReason: req.query.inactiveReason
+                inactiveReason: req.query.inactiveReason,
+                beforeCreatedAt: req.query.beforeCreatedAt,
+                afterCreatedAt: req.query.afterCreatedAt,
+                beforeUpdatedAt: req.query.beforeUpdatedAt,
+                afterUpdatedAt: req.query.afterUpdatedAt
             };
 
             const listFUAFormats = await paginationWrapper(paginationParams, baseEntityPaginationParams);

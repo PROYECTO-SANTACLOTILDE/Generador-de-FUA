@@ -60,6 +60,10 @@ export async function paginationWrapper(paginationParams: paginationParams, base
     baseEntityPaginationParams.beforeInactiveAt = parseAs(baseEntityPaginationParams.beforeInactiveAt, 'string');
     baseEntityPaginationParams.afterInactiveAt = parseAs(baseEntityPaginationParams.afterInactiveAt, 'string');
     baseEntityPaginationParams.inactiveReason = parseAs(baseEntityPaginationParams.inactiveReason, 'string');
+    baseEntityPaginationParams.beforeCreatedAt =  parseAs(baseEntityPaginationParams.beforeCreatedAt, 'string');
+    baseEntityPaginationParams.afterCreatedAt =  parseAs(baseEntityPaginationParams.afterCreatedAt, 'string');
+    baseEntityPaginationParams.beforeUpdatedAt = parseAs(baseEntityPaginationParams.beforeUpdatedAt, 'string');
+    baseEntityPaginationParams.afterUpdatedAt = parseAs(baseEntityPaginationParams.afterUpdatedAt, 'string');
 
     if(process.env.DEFAULT_MAX_PAGINATION_PAGE_SIZE != undefined){
       if (Number.isNaN(parseInt(process.env.DEFAULT_MAX_PAGINATION_PAGE_SIZE))){
@@ -78,7 +82,7 @@ export async function paginationWrapper(paginationParams: paginationParams, base
     const offset = (pageParsed - 1) * pageSizeParsed;
     const order = paginationParams.order ?? [['createdAt', 'ASC']];
 
-    // creation of the time range according to the afterInactive and beforeInactive parameters 
+    // creation of the time range according to the afterInactiveAt and beforeInactiveAt parameters 
     if (baseEntityPaginationParams.afterInactiveAt != null && baseEntityPaginationParams.beforeInactiveAt != null){
       const range = {[Op.between]: [new Date(baseEntityPaginationParams.afterInactiveAt), new Date(baseEntityPaginationParams.beforeInactiveAt)]}
       baseEntityPaginationParams.inactiveAt = range;
@@ -88,6 +92,31 @@ export async function paginationWrapper(paginationParams: paginationParams, base
     }else if (baseEntityPaginationParams.beforeInactiveAt != null){
       const range = {[Op.lte]: new Date(baseEntityPaginationParams.beforeInactiveAt)};
       baseEntityPaginationParams.inactiveAt = range;
+    }
+
+
+    // creation of the time range according to the afterCreatedAt and beforeCreatedAt parameters 
+    if (baseEntityPaginationParams.afterCreatedAt != null && baseEntityPaginationParams.beforeICreatedAt != null){
+      const range = {[Op.between]: [new Date(baseEntityPaginationParams.afterCreatedAt), new Date(baseEntityPaginationParams.beforeCreatedAt)]}
+      baseEntityPaginationParams.createdAt = range;
+    }else if (baseEntityPaginationParams.afterCreatedAt != null) {
+      const range = {[Op.gte]: new Date(baseEntityPaginationParams.afterCreatedAt)};
+      baseEntityPaginationParams.createdAt = range;
+    }else if (baseEntityPaginationParams.beforeCreatedAt != null){
+      const range = {[Op.lte]: new Date(baseEntityPaginationParams.beforeCreatedAt)};
+      baseEntityPaginationParams.createdAt = range;
+    }
+
+    // creation of the time range according to the afterUpdatedAt and beforeUpdatedAt parameters 
+    if (baseEntityPaginationParams.afterUpdatedAt != null && baseEntityPaginationParams.beforeIUpdatedAt != null){
+      const range = {[Op.between]: [new Date(baseEntityPaginationParams.afterUpdatedAt), new Date(baseEntityPaginationParams.beforeUpdatedAt)]}
+      baseEntityPaginationParams.updatedAt = range;
+    }else if (baseEntityPaginationParams.afterUpdatedAt != null) {
+      const range = {[Op.gte]: new Date(baseEntityPaginationParams.afterUpdatedAt)};
+      baseEntityPaginationParams.updatedAt = range;
+    }else if (baseEntityPaginationParams.beforeUpdatedAt != null){
+      const range = {[Op.lte]: new Date(baseEntityPaginationParams.beforeUpdatedAt)};
+      baseEntityPaginationParams.updatedAt = range;
     }
 
 
@@ -102,6 +131,10 @@ export async function paginationWrapper(paginationParams: paginationParams, base
     baseEntityPaginationParams.includeInactive = null;
     baseEntityPaginationParams.afterInactiveAt = null;
     baseEntityPaginationParams.beforeInactiveAt = null;
+    baseEntityPaginationParams.afterCreatedAt = null;
+    baseEntityPaginationParams.beforeCreatedAt = null;
+    baseEntityPaginationParams.afterUpdatedAt = null;
+    baseEntityPaginationParams.beforeUpdatedAt = null;
 
     const filteredBaseEntityPaginationParams = Object.fromEntries(
       Object.entries(baseEntityPaginationParams).filter(([_, v]) => v != null)
