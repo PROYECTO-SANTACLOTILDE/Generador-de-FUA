@@ -167,12 +167,6 @@ console.log("Verify with wrong content:", verifyHash(JSON.stringify({ patientId:
 
 
 export type FactoryTypesTarget = 'integer' | 'boolean' | 'string';
-/**
- * Convertit une chaîne en un type primitif précis ou lève une erreur si invalide.
- * - 'integer' : accepte uniquement des entiers stricts (optionnel '-' + chiffres), plage SafeInteger.
- * - 'boolean' : accepte uniquement "true" ou "false" (insensible à la casse).
- * - 'string'  : retourne la chaîne trim().
- */
 
 export function parseAs(value: string, target: FactoryTypesTarget): number | boolean | string {
   if (value === null || value === undefined) {

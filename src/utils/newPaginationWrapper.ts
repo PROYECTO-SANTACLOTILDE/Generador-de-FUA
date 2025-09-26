@@ -27,7 +27,7 @@ const DEFAULT_PAGE = 1;
 const DEFAULT_PAGE_SIZE = 10;
 let DEFAULT_MAX_PAGE_SIZE = 100;
 
-// query attrubutes wraping function
+
 function parsePageParam(raw: string | number | undefined, defaultValue: number, paramName: "page" | "pageSize"): number {
   if (raw === undefined || raw === null) return defaultValue;
 
@@ -47,7 +47,7 @@ function parsePageParam(raw: string | number | undefined, defaultValue: number, 
   throw new Error(`Bad '${paramName}' argument type.`);
 }
 
-
+// query attrubutes wraping function
 export async function paginationWrapper(paginationParams: paginationParams, baseEntityPaginationParams: any): Promise<SimplePaginationResult>{
     
     baseEntityPaginationParams.id = parseAs(baseEntityPaginationParams.id, 'integer');
