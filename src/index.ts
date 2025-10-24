@@ -3,6 +3,8 @@ require('dotenv').config();
 import express from 'express';
 const path = require('path');
 import fs from "fs";
+const crypto = require('crypto');
+
 
 // PDF Generation
 import puppeteer, { Browser } from "puppeteer";
@@ -195,32 +197,84 @@ app.get('/demopdf', async (req, res) => {
 
     await page.close(); 
 
-    // 4.1) sign PDF 
-    // Retrieve signature content 
-    const certPath = path.resolve(process.cwd(), "./src/certificate/certificate.p12");
-    const passphrase = "password";
-    // Sign PDF with signature content
-    const p12Buffer = fs.readFileSync(certPath);
-    // Create a P12 signer instance 
+    // Temporary PDF HASH signing solution 
+  const { PDFDocument } = require('pdf-lib');
+
+  async function addKeyAndHashToPDF(pdfBuffer : any, secretKey : any) {
+      // Append the secret key to the binary content of the PDF
+      const pdfWithKey = new Uint8Array([...new Uint8Array(pdfBuffer), ...Buffer.from(secretKey)]);
+
+      // Calculate the hash of the PDF + secret key
+      const hash = crypto.createHash('sha256').update(pdfWithKey).digest('hex');
+
+      // Load the original PDF (without the key) and add the hash to the metadata
+      const pdfDoc = await PDFDocument.load(pdfBuffer);
+      pdfDoc.setCustomMetadata('IntegrityHash', hash);
+
+      // Save the modified PDF (without including the key in the final file)
+      const modifiedPDF = await pdfDoc.save();
+      //await fs.promises.writeFile(outputPath, modifiedPDF);
+
+      console.log(`Hash added to metadata: ${hash}`);
+      return modifiedPDF;
+  };
+
+  async function verifyPDFIntegrity(pdfFile : any, secretKey :any) {
+      // Read the PDF
+      const pdfBytes = await fs.promises.readFile(pdfFile);
+      const pdfDoc = await PDFDocument.load(pdfBytes);
+
+      // Extract the hash stored in the metadata
+      const storedHash = pdfDoc.context.obj.get('CustomMetadata')?.get('IntegrityHash');
+      if (!storedHash) {
+          throw new Error("The IntegrityHash field is not found in the metadata.");
+      }
+
+      // Create a temporary PDF without the IntegrityHash metadata
+      pdfDoc.context.obj.get('CustomMetadata')?.delete('IntegrityHash');
+      const pdfWithoutHash = await pdfDoc.save();
+
+      // Append the secret key to the PDF for hash calculation
+      const pdfWithKey = new Uint8Array([...new Uint8Array(pdfWithoutHash), ...Buffer.from(secretKey)]);
+
+      // Recalculate the hash of the PDF + secret key
+      const calculatedHash = crypto.createHash('sha256').update(pdfWithKey).digest('hex');
+
+      // Compare the hashes
+      const isValid = (calculatedHash === storedHash);
+      console.log(`Integrity check: ${isValid ? 'OK' : 'FAIL'}`);
+      return isValid;
+  };
+
+
+
+    // // 4.1) sign PDF 
+    // // Retrieve signature content 
+    // const certPath = path.resolve(process.cwd(), "./src/certificate/certificate.p12");
+    // const passphrase = "password";
+    // // Sign PDF with signature content
+    // const p12Buffer = fs.readFileSync(certPath);
+    // // Create a P12 signer instance 
       
-    // Create placeholder
-    const pdfWithPlaceholder = plainAddPlaceholder({
-      pdfBuffer: Buffer.isBuffer(pdfBuffer) ? pdfBuffer : Buffer.from(pdfBuffer),
-      reason: "Approval",
-      contactInfo: "backend@example.com",
-      name: "My Server",
-      location: "Datacenter"
-    });
+    // // Create placeholder
+    // const pdfWithPlaceholder = plainAddPlaceholder({
+    //   pdfBuffer: Buffer.isBuffer(pdfBuffer) ? pdfBuffer : Buffer.from(pdfBuffer),
+    //   reason: "Approval",
+    //   contactInfo: "backend@example.com",
+    //   name: "My Server",
+    //   location: "Datacenter"
+    // });
 
-    const signer = new P12Signer(p12Buffer, {passphrase});  
+    // const signer = new P12Signer(p12Buffer, {passphrase});  
 
-    const signedPdf = await signpdf.sign(pdfWithPlaceholder, signer);
+    // const signedPdf = await signpdf.sign(pdfWithPlaceholder, signer);
+
 
     // 5) Réponse HTTP (équivalent à ton pipe wkhtmltopdf)
     res.setHeader("Content-Type", "application/pdf");
     res.setHeader("X-Content-Type-Options", "nosniff");
     res.setHeader("Content-Disposition", 'inline; filename="demo.pdf"');
-    res.status(200).end(signedPdf);
+    res.status(200).end(await addKeyAndHashToPDF(pdfBuffer, "evan"));
 
   } catch (err: any) {
     console.error(err);
