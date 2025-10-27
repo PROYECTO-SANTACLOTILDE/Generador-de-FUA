@@ -4,6 +4,8 @@ import express from 'express';
 const path = require('path');
 import fs from "fs";
 const crypto = require('crypto');
+import { PDFDocument, PDFName, PDFString, PDFDict } from 'pdf-lib';
+import { signPdfBuffer } from './utils/PDF_HASH_Signature';
 
 
 // PDF Generation
@@ -198,55 +200,11 @@ app.get('/demopdf', async (req, res) => {
     await page.close(); 
 
     // Temporary PDF HASH signing solution 
-  const { PDFDocument } = require('pdf-lib');
 
-  async function addKeyAndHashToPDF(pdfBuffer : any, secretKey : any) {
-      // Append the secret key to the binary content of the PDF
-      const pdfWithKey = new Uint8Array([...new Uint8Array(pdfBuffer), ...Buffer.from(secretKey)]);
-
-      // Calculate the hash of the PDF + secret key
-      const hash = crypto.createHash('sha256').update(pdfWithKey).digest('hex');
-
-      // Load the original PDF (without the key) and add the hash to the metadata
-      const pdfDoc = await PDFDocument.load(pdfBuffer);
-      pdfDoc.setCustomMetadata('IntegrityHash', hash);
-
-      // Save the modified PDF (without including the key in the final file)
-      const modifiedPDF = await pdfDoc.save();
-      //await fs.promises.writeFile(outputPath, modifiedPDF);
-
-      console.log(`Hash added to metadata: ${hash}`);
-      return modifiedPDF;
-  };
-
-  async function verifyPDFIntegrity(pdfFile : any, secretKey :any) {
-      // Read the PDF
-      const pdfBytes = await fs.promises.readFile(pdfFile);
-      const pdfDoc = await PDFDocument.load(pdfBytes);
-
-      // Extract the hash stored in the metadata
-      const storedHash = pdfDoc.context.obj.get('CustomMetadata')?.get('IntegrityHash');
-      if (!storedHash) {
-          throw new Error("The IntegrityHash field is not found in the metadata.");
-      }
-
-      // Create a temporary PDF without the IntegrityHash metadata
-      pdfDoc.context.obj.get('CustomMetadata')?.delete('IntegrityHash');
-      const pdfWithoutHash = await pdfDoc.save();
-
-      // Append the secret key to the PDF for hash calculation
-      const pdfWithKey = new Uint8Array([...new Uint8Array(pdfWithoutHash), ...Buffer.from(secretKey)]);
-
-      // Recalculate the hash of the PDF + secret key
-      const calculatedHash = crypto.createHash('sha256').update(pdfWithKey).digest('hex');
-
-      // Compare the hashes
-      const isValid = (calculatedHash === storedHash);
-      console.log(`Integrity check: ${isValid ? 'OK' : 'FAIL'}`);
-      return isValid;
-  };
+    const pdfBufferSigned = await signPdfBuffer(pdfBuffer, "evan");
 
 
+    //const FuaPdfOutput = await fs.promises.writeFile('signed.pdf', pdfBufferSigned);
 
     // // 4.1) sign PDF 
     // // Retrieve signature content 
@@ -274,7 +232,7 @@ app.get('/demopdf', async (req, res) => {
     res.setHeader("Content-Type", "application/pdf");
     res.setHeader("X-Content-Type-Options", "nosniff");
     res.setHeader("Content-Disposition", 'inline; filename="demo.pdf"');
-    res.status(200).end(await addKeyAndHashToPDF(pdfBuffer, "evan"));
+    res.status(200).end(await pdfBufferSigned);
 
   } catch (err: any) {
     console.error(err);
