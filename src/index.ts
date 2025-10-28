@@ -5,7 +5,12 @@ const path = require('path');
 import fs from "fs";
 const crypto = require('crypto');
 import { PDFDocument, PDFName, PDFString, PDFDict } from 'pdf-lib';
+
 import { signPdfBuffer } from './utils/PDF_HASH_Signature';
+import { verifyPdfBuffer } from './utils/PDF_HASH_Signature';
+import { pdfMetadataAccess } from './utils/PDF_HASH_Signature';
+import { pdfMetadataHashSignature } from './utils/PDF_HASH_Signature';
+
 
 
 // PDF Generation
@@ -201,8 +206,12 @@ app.get('/demopdf', async (req, res) => {
 
     // Temporary PDF HASH signing solution 
 
-    const pdfBufferSigned = await signPdfBuffer(pdfBuffer, "evan");
+    //const pdfBufferSigned = await signPdfBuffer(pdfBuffer, "evan");
+    //console.log(await verifyPdfBuffer(pdfBufferSigned, "evan"));
 
+    const pdfBufferSigned = await pdfMetadataHashSignature(pdfBuffer, "evan");
+
+    await pdfMetadataAccess(pdfBufferSigned);
 
     //const FuaPdfOutput = await fs.promises.writeFile('signed.pdf', pdfBufferSigned);
 
@@ -232,7 +241,7 @@ app.get('/demopdf', async (req, res) => {
     res.setHeader("Content-Type", "application/pdf");
     res.setHeader("X-Content-Type-Options", "nosniff");
     res.setHeader("Content-Disposition", 'inline; filename="demo.pdf"');
-    res.status(200).end(await pdfBufferSigned);
+    res.status(200).end(pdfBufferSigned);
 
   } catch (err: any) {
     console.error(err);

@@ -2,6 +2,8 @@
 // pdfSignedHash.ts
 import { PDFDocument, PDFName, PDFString, PDFDict } from 'pdf-lib';
 import crypto from 'crypto';
+import { readFileSync } from 'fs'
+import path from 'path';
 
 /**
  * Compute HMAC-SHA256 hex string of given bytes using secret key.
@@ -15,16 +17,24 @@ function computeHmacHex(bytes: Uint8Array | Buffer, secretKey: string): string {
  * If none exists, creates an empty dict and attaches it.
  */
 function ensureInfoDict(pdfDoc: PDFDocument): PDFDict {
-  const trailer = (pdfDoc as any).context.trailer; // pdf-lib internal
-  const infoRef = trailer.get(PDFName.of('Info'));
-  if (!infoRef) {
-    // create an empty dictionary object and set it as Info in the trailer
-    const emptyInfo = (pdfDoc as any).context.obj({});
-    trailer.set(PDFName.of('Info'), emptyInfo);
-    // lookup to return the dict object
-    return (pdfDoc as any).context.lookup(emptyInfo) as PDFDict;
+  const context = (pdfDoc as any).context;
+  
+  const trailerDict = context.lookup(context.trailer) ?? context.trailerDict ?? context.trailer;
+  if (!trailerDict) {
+    throw new Error('Impossible de récupérer le trailer dictionary du PDF.');
   }
-  return (pdfDoc as any).context.lookup(infoRef) as PDFDict;
+
+  let infoRef = trailerDict.get(PDFName.of('Info'));
+  let infoDict: PDFDict;
+
+  if (!infoRef) {
+    infoDict = context.obj({});
+    trailerDict.set(PDFName.of('Info'), infoDict);
+  } else {
+    infoDict = context.lookup(infoRef) as PDFDict;
+  }
+
+  return infoDict;
 }
 
 /**
@@ -144,4 +154,44 @@ import { signPdfBuffer, verifyPdfBuffer } from './pdfSignedHash';
 })();
 */
 
+
+// My own functions according to the pdf-lib documentation: 
+
+
+export async function pdfMetadataAccess(pdfBuffer : any){
+
+    const pdfDoc = await PDFDocument.load(pdfBuffer, { 
+        updateMetadata: true 
+    });
+
+    console.log('Title:', pdfDoc.getTitle());
+    console.log('Author:', pdfDoc.getAuthor());
+    console.log('Subject:', pdfDoc.getSubject());
+    console.log('Creator:', pdfDoc.getCreator());
+    console.log('Keywords:', pdfDoc.getKeywords());
+    console.log('Producer:', pdfDoc.getProducer());
+    console.log('Creation Date:', pdfDoc.getCreationDate());
+    console.log('Modification Date:', pdfDoc.getModificationDate());
+}
+
+
+// Attention ajouter gestion des erreurs avec try...
+
+export async function pdfMetadataHashSignature(pdfBuffer : any, secretKey : any){
+    
+    
+    const hmacHex = computeHmacHex(pdfBuffer, secretKey);    
+    
+    const pdfDoc = await PDFDocument.load(pdfBuffer, { 
+        updateMetadata: false
+    });
+
+    pdfDoc.setKeywords([hmacHex]);
+
+    const pdfBytesSigned = await pdfDoc.save();
+    
+    const pdfBufferSigned = pdfBytesSigned;
+
+    return pdfBufferSigned;
+}
 
