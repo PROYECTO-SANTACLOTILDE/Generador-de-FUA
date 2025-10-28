@@ -4,6 +4,7 @@ import { PDFDocument, PDFName, PDFString, PDFDict } from 'pdf-lib';
 import crypto from 'crypto';
 import { readFileSync } from 'fs'
 import path from 'path';
+import { unknown } from 'zod';
 
 /**
  * Compute HMAC-SHA256 hex string of given bytes using secret key.
@@ -158,9 +159,9 @@ import { signPdfBuffer, verifyPdfBuffer } from './pdfSignedHash';
 // My own functions according to the pdf-lib documentation: 
 
 
-export async function pdfMetadataAccess(pdfBuffer : any){
+export async function pdfMetadataAccess(pdfBytes : any){
 
-    const pdfDoc = await PDFDocument.load(pdfBuffer, { 
+    const pdfDoc = await PDFDocument.load(pdfBytes, { 
         updateMetadata: true 
     });
 
@@ -177,21 +178,45 @@ export async function pdfMetadataAccess(pdfBuffer : any){
 
 // Attention ajouter gestion des erreurs avec try...
 
-export async function pdfMetadataHashSignature(pdfBuffer : any, secretKey : any){
+export async function pdfMetadataHashSignature(pdfBytes : any, secretKey : any) : Promise<Uint8Array> {
+    // we open the doc to standardise 'empty' the metadata Keywords field
+    let pdfDoc = await PDFDocument.load(pdfBytes, { 
+        updateMetadata: false
+    });
+    pdfDoc.setKeywords(["empty"]);
+    const pdfBytesNoSignature = await pdfDoc.save();
     
-    
-    const hmacHex = computeHmacHex(pdfBuffer, secretKey);    
-    
-    const pdfDoc = await PDFDocument.load(pdfBuffer, { 
+    const hmacHex = computeHmacHex(pdfBytesNoSignature, secretKey);   
+
+    pdfDoc = await PDFDocument.load(pdfBytesNoSignature, { 
         updateMetadata: false
     });
 
     pdfDoc.setKeywords([hmacHex]);
-
-    const pdfBytesSigned = await pdfDoc.save();
     
-    const pdfBufferSigned = pdfBytesSigned;
+    const pdfBytesSigned = await pdfDoc.save();
 
-    return pdfBufferSigned;
+    return pdfBytesSigned;
 }
 
+export async function pdfMetadataHashSignatureVerification(pdfBytes : any, secretKey : any){
+
+    const pdfDoc = await PDFDocument.load(pdfBytes, { 
+        updateMetadata: false
+    });
+    const signature = pdfDoc.getKeywords();
+    pdfDoc.setKeywords(["empty"]);
+
+    const pdfBytesNoSignature = await pdfDoc.save();
+
+    const hmacHex = computeHmacHex(pdfBytesNoSignature, secretKey); 
+
+    console.log(signature);
+    console.log(hmacHex);
+
+    if (signature == hmacHex){
+        console.log("Same signature.");
+    }else{
+       console.log("Not the same signature."); 
+    }
+}

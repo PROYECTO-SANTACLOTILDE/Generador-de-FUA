@@ -10,7 +10,7 @@ import { signPdfBuffer } from './utils/PDF_HASH_Signature';
 import { verifyPdfBuffer } from './utils/PDF_HASH_Signature';
 import { pdfMetadataAccess } from './utils/PDF_HASH_Signature';
 import { pdfMetadataHashSignature } from './utils/PDF_HASH_Signature';
-
+import { pdfMetadataHashSignatureVerification } from './utils/PDF_HASH_Signature';
 
 
 // PDF Generation
@@ -181,7 +181,7 @@ app.get('/demopdf', async (req, res) => {
     //       et utiliser preferCSSPageSize: true
     const useCssPageSize = false;
 
-    const pdfBuffer = await page.pdf(
+    const pdfBytes = await page.pdf(
       useCssPageSize
         ? {
             printBackground: true,
@@ -209,9 +209,11 @@ app.get('/demopdf', async (req, res) => {
     //const pdfBufferSigned = await signPdfBuffer(pdfBuffer, "evan");
     //console.log(await verifyPdfBuffer(pdfBufferSigned, "evan"));
 
-    const pdfBufferSigned = await pdfMetadataHashSignature(pdfBuffer, "evan");
+    const pdfBytesSigned = await pdfMetadataHashSignature(pdfBytes, "evan");
 
-    await pdfMetadataAccess(pdfBufferSigned);
+    pdfMetadataHashSignatureVerification(pdfBytesSigned, "evan");
+
+    await pdfMetadataAccess(pdfBytesSigned);
 
     //const FuaPdfOutput = await fs.promises.writeFile('signed.pdf', pdfBufferSigned);
 
@@ -222,7 +224,7 @@ app.get('/demopdf', async (req, res) => {
     // // Sign PDF with signature content
     // const p12Buffer = fs.readFileSync(certPath);
     // // Create a P12 signer instance 
-      
+
     // // Create placeholder
     // const pdfWithPlaceholder = plainAddPlaceholder({
     //   pdfBuffer: Buffer.isBuffer(pdfBuffer) ? pdfBuffer : Buffer.from(pdfBuffer),
@@ -241,7 +243,7 @@ app.get('/demopdf', async (req, res) => {
     res.setHeader("Content-Type", "application/pdf");
     res.setHeader("X-Content-Type-Options", "nosniff");
     res.setHeader("Content-Disposition", 'inline; filename="demo.pdf"');
-    res.status(200).end(pdfBufferSigned);
+    res.status(200).end(pdfBytesSigned);
 
   } catch (err: any) {
     console.error(err);
