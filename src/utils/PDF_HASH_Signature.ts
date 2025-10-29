@@ -53,7 +53,7 @@ export async function pdfMetadataHashSignature(pdfBytes : any, secretKey : any) 
     return pdfBytesSigned;
 }
 
-export async function pdfMetadataHashSignatureVerification(pdfBytes : any, secretKey : any){
+export async function pdfMetadataHashSignatureVerification(pdfBytes : any, secretKey : any) : Promise<Boolean>{
 
     const pdfDoc = await PDFDocument.load(pdfBytes, { 
         updateMetadata: false
@@ -72,7 +72,9 @@ export async function pdfMetadataHashSignatureVerification(pdfBytes : any, secre
 
     if (signature == `${signaturePrefix}${hmacHex}`){
         console.log("Same signature.");
+        return true;
     }else{
        console.log("Not the same signature."); 
+       return false;
     }
 }

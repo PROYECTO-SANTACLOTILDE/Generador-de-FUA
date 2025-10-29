@@ -209,7 +209,7 @@ app.get('/demopdf', async (req, res) => {
 
     const pdfBytesSigned = await pdfMetadataHashSignature(pdfBytes, "evan");
 
-    pdfMetadataHashSignatureVerification(pdfBytesSigned, "evan");
+    const signatureVerificationResult = pdfMetadataHashSignatureVerification(pdfBytesSigned, "evan");
 
     await pdfMetadataAccess(pdfBytesSigned);
 

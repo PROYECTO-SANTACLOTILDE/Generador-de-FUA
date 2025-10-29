@@ -5,6 +5,7 @@ const path = require('path');
 import { parse } from 'jsonc-parser';
 import FUAFormatFromSchemaService from '../services/FUAFormatFromSchemaService';
 import { inspect } from "util";
+import { pdfMetadataHashSignatureVerification } from '../utils/PDF_HASH_Signature';
 
 // Other imports
 import {Log} from '../middleware/logger/models/typescript/Log';
@@ -413,6 +414,32 @@ class FUAFormatFromSchemaController {
         }
             
     };
+
+    async hashSignatureVerificationControllerTemporary (req: Request, res: Response): Promise<void>  {
+        try {
+            const files = req.files as { [fieldname: string]: Express.Multer.File[] } | undefined;
+            const file = files?.['pdf']?.[0]; 
+            const secretKey = "evan";
+
+            if (!file) {
+            res.status(400).json({ error: "No PDF provided (field 'pdf')." });
+            return;
+            }
+
+            const result = await pdfMetadataHashSignatureVerification(file.buffer, secretKey);
+            res.status(200).json(result);
+
+        } catch (err: any) {
+            console.error("Error in FUAFormatFromSchema Controller - pdfMetadataHashSignatureVerification:", err);
+            res.status(500).json({
+            error: "Failed to verify PDF signature. (Controller)",
+            message: (err as Error).message,
+            details: (err as any).details ?? null,
+            });
+        }
+    };
+
+
 }
 
 export default new FUAFormatFromSchemaController();
