@@ -36,7 +36,8 @@ export async function pdfMetadataHashSignature(pdfBytes : any, secretKey : any) 
     let pdfDoc = await PDFDocument.load(pdfBytes, { 
         updateMetadata: false
     });
-    pdfDoc.setKeywords(["empty"]);
+    const signaturePrefix = "SIH.SALUS - HASH: ";
+    pdfDoc.setSubject(`${signaturePrefix}`);
     const pdfBytesNoSignature = await pdfDoc.save();
     
     const hmacHex = computeHmacHex(pdfBytesNoSignature, secretKey);   
@@ -45,7 +46,7 @@ export async function pdfMetadataHashSignature(pdfBytes : any, secretKey : any) 
         updateMetadata: false
     });
 
-    pdfDoc.setKeywords([hmacHex]);
+    pdfDoc.setSubject(`${signaturePrefix}${hmacHex}`);
     
     const pdfBytesSigned = await pdfDoc.save();
 
@@ -57,17 +58,19 @@ export async function pdfMetadataHashSignatureVerification(pdfBytes : any, secre
     const pdfDoc = await PDFDocument.load(pdfBytes, { 
         updateMetadata: false
     });
-    const signature = pdfDoc.getKeywords();
-    pdfDoc.setKeywords(["empty"]);
+    const signature = pdfDoc.getSubject();
+    
+    const signaturePrefix = "SIH.SALUS - HASH: ";
+    pdfDoc.setSubject(`${signaturePrefix}`);
 
     const pdfBytesNoSignature = await pdfDoc.save();
 
     const hmacHex = computeHmacHex(pdfBytesNoSignature, secretKey); 
 
     console.log(signature);
-    console.log(hmacHex);
+    console.log(`${signaturePrefix}${hmacHex}`);
 
-    if (signature == hmacHex){
+    if (signature == `${signaturePrefix}${hmacHex}`){
         console.log("Same signature.");
     }else{
        console.log("Not the same signature."); 
