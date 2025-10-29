@@ -6,8 +6,6 @@ import fs from "fs";
 const crypto = require('crypto');
 import { PDFDocument, PDFName, PDFString, PDFDict } from 'pdf-lib';
 
-import { signPdfBuffer } from './utils/PDF_HASH_Signature';
-import { verifyPdfBuffer } from './utils/PDF_HASH_Signature';
 import { pdfMetadataAccess } from './utils/PDF_HASH_Signature';
 import { pdfMetadataHashSignature } from './utils/PDF_HASH_Signature';
 import { pdfMetadataHashSignatureVerification } from './utils/PDF_HASH_Signature';
