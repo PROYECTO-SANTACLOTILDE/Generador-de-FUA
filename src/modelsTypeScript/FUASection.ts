@@ -42,10 +42,10 @@ class FUASection extends BaseFieldFormEntity {
     fields: Array<any>;
     extraStyles?: string;
 
-    constructor(aux: FUASectionInterface) {
+    constructor(aux: FUASectionInterface, index?: number) {
         const result = FUASectionSchema.safeParse(aux);
         if (!result.success) {
-            const newError = new Error('Error in FUA Section (object) - Invalid FUASectionInterface - constructor');
+            const newError = new Error(`Error in FUA Section (constructor) - Invalid FUASectionInterface - constructor`);
             (newError as any).details = result.error;
             throw newError;
         }
@@ -70,9 +70,16 @@ class FUASection extends BaseFieldFormEntity {
         // Build the sons objects
         if(aux.fields){
             // We assume is an array            
-            for( const auxField of aux.fields){
-                const auxNewField = FUAField.buildFUAField(auxField);
-                this.fields.push(auxNewField);
+            for( let i = 0; i < aux.fields.length; i++){
+                try{
+                    const auxNewField = FUAField.buildFUAField(aux.fields[i], i );
+                    this.fields.push(auxNewField);
+                }catch(error: unknown){
+                    console.error(`Error in FUASection constructor (section: ${index} - field: ${i}) - creatingFields: `, error);
+                    (error as Error).message =  `Error in FUASection constructor (section: ${index} - field: ${i}) - creatingFields: ` + (error as Error).message;
+                    throw error;
+                }
+                
             }            
         }
     }

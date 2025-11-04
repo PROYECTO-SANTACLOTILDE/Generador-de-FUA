@@ -30,11 +30,14 @@
           "bodyHeight": 10.0,
           "bodyWidth": 192.0,
           "top": 0.0,
-          "extraStyles": ""
+          "left": 0.0,
+          "extraStyles": "",
+          "fields": []
         },
         {
           // Base Field Form Attribute
           "codeName": "IPRESS Data",
+          "versionTag": "1.0",
           // Section Atributes
           "title": "FORMATO UNICO DE ATENCIÓN - FUA",
           "showTitle": true,
@@ -42,6 +45,7 @@
           "bodyHeight": 58.0,
           "bodyWidth": 192.0,
           "top": 7.7,
+          "left": 0.0,
           "extraStyles": "",
           // Section fields
           "fields": [
@@ -413,6 +417,7 @@
         {
           // Base Field Form Attribute
           "codeName": "Patient Data",
+          "versionTag": "1.0",
           // Section Atributes
           "title": "DEL ASEGURADO USUARIO",
           "showTitle": true,
@@ -420,6 +425,7 @@
           "bodyHeight": 55.7,
           "bodyWidth": 192.0,
           "top": 70.0,
+          "left": 0.0,
           "extraStyles": "",
           "fields": [
             {
@@ -673,6 +679,7 @@
               "labelPosition": "Top",
               "labelHeight": 2.5,
               "valueType": "Box",
+              "text": "",
               "width": 37.3,
               "height": 6.7
             },
@@ -690,7 +697,8 @@
               "labelHeight": 2.5,
               "valueType": "Box",
               "width": 3.95,
-              "height": 6.7
+              "height": 6.7,
+              "text": ""
             },
             {
               // Base Field Form Attribute
@@ -888,6 +896,7 @@
         {
           // Base Field Form Attribute
           "codeName": "Visit Data",
+          "versionTag": "1.0",
           // Section Atributes
           "title": "DE LA ATENCIÓN",
           "showTitle": true,
@@ -895,6 +904,7 @@
           "bodyHeight": 37.5,
           "bodyWidth": 200.0,
           "top": 130.0,
+          "left": 0.0,
           "extraStyles": "",
           "fields": [
             {
@@ -911,7 +921,8 @@
               "labelHeight": 4.8,
               "valueType": "Box",
               "width": 8.2,
-              "height": 9.0
+              "height": 9.0,
+              "text": ""
             },
             {
               // Base Field Form Attribute
@@ -929,7 +940,8 @@
               "labelHeight": 4.8,
               "valueType": "Box",
               "width": 15.2,
-              "height": 9.0
+              "height": 9.0,
+              "text": ""
             },
             {
               // Base Field Form Attribute
@@ -946,7 +958,8 @@
               "labelextraStyles": "line-height: 2.0mm; font-size: 1.5mm; vertical-align: middle;",
               "valueType": "Box",
               "width": 26.5,
-              "height": 9.0
+              "height": 9.0,
+              "text": ""
             },
             {
               // Base Field Form Attribute
@@ -1372,6 +1385,7 @@
         {
           // Base Field Form Attribute
           "codeName": "Reference Data",
+          "versionTag": "1.0",
           // Section Atributes
           "title": "DEL DESTINO DEL ASEGURADO/USUARIO",
           "showTitle": true,
@@ -1379,6 +1393,7 @@
           "bodyHeight": 20.0,
           "bodyWidth": 201.6,
           "top": 171.0,
+          "left": 0.0,
           "extraStyles": "",
           "fields": [
             {
@@ -1603,6 +1618,7 @@
         {
           // Base Field Form Attribute
           "codeName": "Triages Data",
+          "versionTag": "1.0",
           // Section Atributes
           "title": "ACTIVIDADES PREVENTIVAS Y OTROS",
           "showTitle": true,
@@ -2093,6 +2109,7 @@
         {
           // Base Field Form Attribute
           "codeName": "Triages Data",
+          "versionTag": "1.0",
           // Section Atributes
           "title": "VACUNA Nº DE DOSIS",
           "showTitle": true,
@@ -2301,6 +2318,7 @@
         {
           // Base Field Form Attribute
           "codeName": "Diagnostics data",
+          "versionTag": "1.0",
           // Section Atributes
           "title": "DIAGNÓSTICOS",
           "showTitle": true,
@@ -2308,6 +2326,7 @@
           "bodyHeight": 24.0,
           "bodyWidth": 192.0,
           "top": 237.5,
+          "left": 0.0,
           "extraStyles": "",
           "fields": [
             {
@@ -2381,6 +2400,7 @@
         {
           // Base Field Form Attribute
           "codeName": "Provider data",
+          "versionTag": "1.0",
           // Section Atributes
           "title": "NOMBRE DEL RESPONSABLE DE LA ATENCIÓN",
           "showTitle": false,

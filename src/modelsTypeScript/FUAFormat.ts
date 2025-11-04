@@ -47,8 +47,14 @@ class FUAFormat extends BaseFieldFormEntity {
         // Build the sons objects
         if(aux.pages){
             aux.pages.forEach( (auxPage : FUAPage, index : number) => {
-                const auxNewpage = new FUAPage(auxPage as FUAPageInterface, index);
-                this.pages.push(auxNewpage);
+                try {
+                    const auxNewpage = new FUAPage(auxPage as FUAPageInterface, index);
+                    this.pages.push(auxNewpage);
+                }catch(error: unknown){
+                    console.error(`Error in FUAFormat constructor (page: ${index}) - creatingPages: `, error);
+                    (error as Error).message =  `Error in FUAFormat constructor (page: ${index}) - creatingPages: ` + (error as Error).message;
+                    throw error;
+                }                
             })         
         }
     }
