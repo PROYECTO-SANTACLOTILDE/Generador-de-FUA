@@ -76,7 +76,7 @@ export async function fillSection2(auxUser: string, auxVersion: string, sectionU
 
 export async function createDemoFormat(printMode : boolean){
   try{
-    const jsoncPath = path.resolve(process.cwd(), "./src/utils/FUA_Schema_Examples/Constructor_Test.jsonc");
+    const jsoncPath = path.resolve(process.cwd(), "./src/utils/FUA_Schema_Examples/FUA_1.0.jsonc");
     const jsoncContent = fs.readFileSync(jsoncPath, 'utf-8');
     const parsed = parse(jsoncContent);
     let auxFormat = await new FUAFormat(parsed);
@@ -85,7 +85,8 @@ export async function createDemoFormat(printMode : boolean){
 
     //html
   
-    html = await FUARenderingUtils.renderFUAFormatFromSchema(parsed, printMode);
+    //html = await FUARenderingUtils.renderFUAFormatFromSchema(parsed, printMode);
+    html  = await auxFormat.renderHtmlContent(false);
     return html
   }catch(error: unknown){
     console.error('Error in Utils - createDemoFormat: ', error);

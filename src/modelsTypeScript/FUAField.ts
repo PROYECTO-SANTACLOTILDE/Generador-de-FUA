@@ -60,7 +60,7 @@ export const FUAFieldTableSchema = FUAFieldSchema.extend({
 
 export const FUAFieldBoxSchema = FUAFieldSchema.extend({
     valueType: z.literal("Box"),
-    text: z.string(),
+    text: z.string().optional()
 });
 
 export const FUAFieldFieldSchema = FUAFieldSchema.extend({
@@ -169,10 +169,10 @@ export abstract class FUAField extends BaseFieldFormEntity  {
     labelExtraStyles?: string;
     valueType: string;    
 
-    constructor(aux: FUAFieldInterface) {
+    constructor(aux: FUAFieldInterface, index?: number) {
         const result = FUAFieldSchema.safeParse(aux);
         if (!result.success) {
-            const newError = new Error('Error in FUA Field (object) - Invalid FUAFieldIterface - constructor');
+            const newError = new Error(`Error in FUA Field (object) - Invalid FUAFieldIterface - constructor`);
             (newError as any).details = result.error;
             throw newError;
         }
@@ -229,15 +229,16 @@ export abstract class FUAField extends BaseFieldFormEntity  {
     set setValueType(value: string) { this.valueType = value; }
 
     // Common methods
-    renderLabel(prefix : string, printMode : boolean, fieldIndex : number) : string {
+    renderLabel(prefix : string, printMode : boolean, fieldIndex : number) : any {
         
         return FUARenderingUtils.renderFUAFieldFromSchema_renderLabel(this, prefix, printMode, fieldIndex);
     }
 
-    renderContent(fieldIndex: number, prefix: string, printMode : boolean, label : string) : string {        
+    renderContent(fieldIndex: number, prefix: string, printMode : boolean) : string {        
         let logicAditionalStyles = { value: '' };
         let fieldContent = this.render(fieldIndex, prefix, printMode, logicAditionalStyles)
-        let labelContent = this.renderLabel(prefix, printMode, fieldIndex);
+        let auxLabel = this.renderLabel(prefix, printMode, fieldIndex);
+        let labelContent = auxLabel.labelContent;
         
         let finalContent = ``;
         
@@ -246,50 +247,56 @@ export abstract class FUAField extends BaseFieldFormEntity  {
                 #${prefix}-field-${fieldIndex} {
                     top:    ${this.top.toFixed(1)}mm;
                     left:   ${this.left.toFixed(1)}mm;
-                    ${this.extraStyles} 
+                    ${this.extraStyles ?? ''} 
+                }
+                #${prefix}-field-${fieldIndex}-content {
                     ${logicAditionalStyles.value} 
                 }
             </style>
-            <table id="${prefix}-field-${fieldIndex}" class="table-field ${printMode ? 'format-related-print' : ''}" >
-                ${labelContent}
-                ${fieldContent}
-            </table>
+            <div id="${prefix}-field-${fieldIndex}" style="position: absolute; width: min-content; border: none; padding: 0; background: none; display: flex; ${auxLabel.flexDir ? `flex-direction: ${auxLabel.flexDir}; position: absolute;` : ''}" >
+                ${this.labelPosition === 'Top' || this.labelPosition === 'Left' ? labelContent : ''}
+                <table id="${prefix}-field-${fieldIndex}-content" class="table-field" >                    
+                    ${fieldContent}
+                </table>
+                ${this.labelPosition === 'Bottom' || this.labelPosition === 'Right' ? labelContent : ''}        
+                
+            </div>
         `;
         return finalContent;
     }
 
-
-
     // Overwrite methods
     abstract render(fieldIndex: number, prefix: string, printMode: boolean, logicAditionalStyles : { value: string; }): string;
     
-    static buildFUAField( newField : any ) : FUAField_Field | FUAField_Box | FUAField_Table | null {
-        switch(newField.valueType){
-            case "Table":
-                return new FUAField_Table(newField as FUAField_TableInterface);
-                break;
-            case "Box":
-                return new FUAField_Box(newField as FUAField_BoxInterface);
-                break;
-            case "Field":
-                return new FUAField_Field(newField as FUAField_FieldInterface);
-                break;
-            default:
-                return null;
-                break;
-        }
+    static buildFUAField( newField : any , index: number ) : FUAField_Box | FUAField_Field | FUAField_Table | null {
+        try{
+            switch(newField.valueType){
+                case "Table":
+                    return new FUAField_Table(newField as FUAField_TableInterface);
+                case "Box":
+                    return new FUAField_Box(newField as FUAField_BoxInterface);
+                case "Field":
+                    return  new FUAField_Field(newField as FUAField_FieldInterface, index);
+                default:
+                    return null;
+            }
+        }catch(error: unknown){
+            console.error(`Error in FUAField constructor - buildFUAField: `, error);
+            (error as Error).message =  `Error in FUAField constructor  - buildFUAField: ` + (error as Error).message;
+            throw error;
+        }        
     }
 }
 
 export class FUAField_Box extends FUAField {
 
     //private valueType: "Box";
-    private text: string;
+    private text?: string;
 
     constructor(aux: FUAField_BoxInterface) {
         const result = FUAFieldBoxSchema.safeParse(aux);
         if (!result.success) {
-            const newError = new Error('Error in FUA Field (object) - Invalid FUAFieldBoxInterface - constructor');
+            const newError = new Error('Error in FUA Field (constructor) - Invalid FUAFieldBoxInterface - constructor');
             (newError as any).details = result.error;
             throw newError;
         }
@@ -298,10 +305,10 @@ export class FUAField_Box extends FUAField {
         this.text = aux.text;
     }
 
-    get getText(): string {
+    get getText(): string | undefined {
         return this.text;
     }
-    set setText(value: string) {
+    set setText(value: string | undefined) {
         this.text = value;
     }
 
@@ -334,7 +341,7 @@ export class FUAField_Table extends FUAField {
         (aux as FUAFieldInterface).height = 0.0;
         const result = FUAFieldTableSchema.safeParse(aux);
         if (!result.success) {
-            const newError = new Error('Error in FUA Field (object) - Invalid FUAFieldTableInterface - constructor');
+            const newError = new Error('Error in FUA Field (constructor) - Invalid FUAFieldTableInterface - constructor');
             (newError as any).details = result.error;
             throw newError;
         }
@@ -377,18 +384,14 @@ export class FUAField_Table extends FUAField {
     }
 }
 
-
-
-
-
 export class FUAField_Field extends FUAField {
 
     private fields: Array<FUAField_Field | FUAField_Box | FUAField_Table>; 
 
-    constructor(aux: FUAField_FieldInterface) {
+    constructor(aux: FUAField_FieldInterface, index: number) {
         const result = FUAFieldFieldSchema.safeParse(aux);
         if (!result.success) {
-            const newError = new Error('Error in FUA Field (object) - Invalid FUAFieldFieldInterface - constructor');
+            const newError = new Error('Error in FUA Field (constructor) - Invalid FUAFieldFieldInterface - constructor');
             (newError as any).details = result.error;
             throw newError;
         }
@@ -397,10 +400,17 @@ export class FUAField_Field extends FUAField {
         // Build the children objects
         if(aux.fields){
             // We assume is an array            
-            for( const auxField of aux.fields){
-                const auxNewField = FUAField.buildFUAField(auxField);
-                if(auxNewField === null) throw new Error('Invalid value type. ');
-                this.fields.push(auxNewField);
+            for( let i = 0; i < aux.fields.length; i++){
+                try{
+                    const auxNewField = FUAField.buildFUAField(aux.fields[i], i);
+                    if(auxNewField === null) throw new Error('Invalid value type. ');
+                    this.fields.push(auxNewField);
+                }catch(error: unknown){
+                    console.error(`Error in FUAField Field object - creatingFields (field: ${index} - subfield: ${i}): `, error);
+                    (error as Error).message =  `Error in FUAField Field object - creatingFields (field: ${index} - subfield: ${i}): ` + (error as Error).message;
+                    throw error;
+                }
+                
             }            
         }
     }
@@ -415,7 +425,7 @@ export class FUAField_Field extends FUAField {
     //Overriden method
     render(fieldIndex: number, prefix: string, printMode: boolean, logicAditionalStyles : { value: string; }): string {
         let auxFields = this.fields;
-            let fieldContent = auxFields.map( (item: any, index: number) => item.render(index, `${prefix}-field-${fieldIndex}`, printMode, logicAditionalStyles) ).join('');
+            let fieldContent = auxFields.map( (item: any, index: number) => item.renderContent(index, `${prefix}-field-${fieldIndex}`, printMode, logicAditionalStyles) ).join('');
             logicAditionalStyles.value += `
             width:  ${this.width.toFixed(1)}mm; 
             height: ${this.height.toFixed(1)}mm;  

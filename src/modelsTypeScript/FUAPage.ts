@@ -40,7 +40,7 @@ class FUAPage extends BaseFieldFormEntity {
     constructor(aux: FUAPageInterface, index? : number ) {
         const result = FUAPageSchema.safeParse(aux);
         if (!result.success) {
-            const newError = new Error('Error in FUA Page (object) - Invalid FUAPageInterface - constructor');
+            const newError = new Error(`Error in FUA Page (constructor - index: ${index} ) - Invalid FUAPageInterface - constructor`);
             (newError as any).details = result.error;
             throw newError;
         }
@@ -55,9 +55,16 @@ class FUAPage extends BaseFieldFormEntity {
         // Build the sons objects
         if(aux.sections){
             // We assume is an array            
-            for( const auxSection of aux.sections){
-                const auxNewSection = new FUASection(auxSection as FUASectionInterface);
-                this.sections.push(auxNewSection);
+            for( let i = 0; i < aux.sections.length; i++){
+                try{
+                    const auxNewSection = new FUASection(aux.sections[i] as FUASectionInterface, i);
+                    this.sections.push(auxNewSection);
+                }catch(error: unknown){
+                    console.error(`Error in FUAPage constructor (page: ${index} - section: ${i}) - creatingSections: `, error);
+                    (error as Error).message =  `Error in FUAPage constructor (page: ${index} - section: ${i}) - creatingSections: ` + (error as Error).message;
+                    throw error;
+                }
+                
             }            
         }
     }

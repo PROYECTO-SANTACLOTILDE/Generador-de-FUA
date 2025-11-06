@@ -30,11 +30,14 @@
           "bodyHeight": 10.0,
           "bodyWidth": 192.0,
           "top": 0.0,
-          "extraStyles": ""
+          "left": 0.0,
+          "extraStyles": "",
+          "fields": []
         },
         {
           // Base Field Form Attribute
           "codeName": "IPRESS Data",
+          "versionTag": "1.0",
           // Section Atributes
           "title": "FORMATO UNICO DE ATENCIÓN - FUA",
           "showTitle": true,
@@ -42,6 +45,7 @@
           "bodyHeight": 58.0,
           "bodyWidth": 192.0,
           "top": 7.7,
+          "left": 0.0,
           "extraStyles": "",
           // Section fields
           "fields": [
@@ -59,7 +63,7 @@
               "labelHeight": 2.5,
               "valueType": "Table",
               "columns": [
-                { "width": 1.1},
+                { "width": 10.1},
                 { "width": 10.7},
                 { "width": 29.2}
               ],
@@ -89,17 +93,7 @@
                   "index": 2,
                   "height": 4.0,
                   "isHeader": false,
-                  "cells": [
-                    {
-                      "text": "03"
-                    },
-                    {
-                      "text": "06"
-                    },
-                    {
-                      "text": "2024"
-                    }
-                  ]
+                  "cells": [ ]
                 }
               ]
             },
@@ -114,11 +108,11 @@
               "showLabel": true,
               "labelOrientation": "Horizontal",
               "labelPosition": "Top",
-              "labelHeight": 5.6,
+              "labelHeight": 4.0,
               "valueType": "Box",
-              "width": 15.5,
+              "width": 10.5,
               "height": 4.0,
-              "text": "15:33"
+              "text": ""
             },
             {
               // Base Field Form Attribute
@@ -129,12 +123,13 @@
               "left": 69.0,
               "label": "DE LA INSTITUCIÒN PRESTADORA DE SERVICIOS DE SALUD",
               "showLabel": true,
+              "labelPosition": "Top",
               "labelOrientation": "Horizontal",
               "labelHeight": 2.4,
               "valueType": "Table",
               "columns": [
                 { "width": 41.0},
-                { "width": 82.0}
+                { "width": 80.0}
               ],
               "rows": [
                 {
@@ -153,8 +148,8 @@
                   "height": 4.0,
                   "isHeader": false,
                   "cells": [
-                    { "text": "xxxxxx" },
-                    { "text": "SANTA CLOTILDE" }
+                    { "text": "" },
+                    { "text": "" }
                   ]
                 }
               ]
@@ -165,14 +160,14 @@
               "versionTag": "1.0",
               // Field data
               "top": 28.0,
-              "left": 0.0,
+              "left": -0.3,
               "label": "PERSONAL QUE ATIENDE",
               "showLabel": true,
               "labelOrientation": "Horizontal",
               "labelPosition": "Top",
               "labelHeight": 4.0,
               "valueType": "Field",
-              "width": 52.5,
+              "width": 52.7,
               "height": 22.5,
               "fields": [
                 {
@@ -201,7 +196,7 @@
                       "isHeader": false,
                       "cells": [
                         { "text": "DE LA IPRESS" },
-                        { "text": "X" }
+                        { "text": "" }
                       ]
                     },
                     {
@@ -244,7 +239,7 @@
                       "isHeader": false,
                       "cells": [
                         {
-                          "text": ""
+                          "text": "TELESALUD"
                         }
                       ]
                     }
@@ -275,7 +270,7 @@
               "versionTag": "1.0",
               // Field data
               "top": 28.0,
-              "left": 52.0,
+              "left": 52.5,
               "label": "LUGAR DE ATENCIÓN",
               "showLabel": true,
               "labelOrientation": "Horizontal",
@@ -294,7 +289,7 @@
                   "isHeader": false,
                   "cells": [
                     { "text": "INTRAMURAL","extraStyles": "background-color: #F0F0F0;"},
-                    { "text": "X" }
+                    { "text": "" }
                   ]
                 },
                 {
@@ -336,7 +331,7 @@
                   "isHeader": false,
                   "cells": [
                     { "text": "AMBULATORIA", "extraStyles": "background-color: #F0F0F0;"},
-                    { "text": "X" }
+                    { "text": "" }
                   ]
                 },
                 {
@@ -381,7 +376,7 @@
               "columns": [
                 { "width": 20.5},
                 { "width": 51.0},
-                { "width": 18.0}
+                { "width": 17.0}
               ],
               "rows": [
                 {
@@ -401,9 +396,9 @@
                   "height": 16.0,
                   "isHeader": false,
                   "cells": [
-                    { "text": "----"},
-                    { "text": "----"},
-                    { "text": "----"}
+                    { "text": ""},
+                    { "text": ""},
+                    { "text": ""}
                   ]
                 }
               ]
@@ -413,6 +408,7 @@
         {
           // Base Field Form Attribute
           "codeName": "Patient Data",
+          "versionTag": "1.0",
           // Section Atributes
           "title": "DEL ASEGURADO USUARIO",
           "showTitle": true,
@@ -420,6 +416,7 @@
           "bodyHeight": 55.7,
           "bodyWidth": 192.0,
           "top": 70.0,
+          "left": 0.0,
           "extraStyles": "",
           "fields": [
             {
@@ -673,6 +670,7 @@
               "labelPosition": "Top",
               "labelHeight": 2.5,
               "valueType": "Box",
+              "text": "",
               "width": 37.3,
               "height": 6.7
             },
@@ -690,7 +688,8 @@
               "labelHeight": 2.5,
               "valueType": "Box",
               "width": 3.95,
-              "height": 6.7
+              "height": 6.7,
+              "text": ""
             },
             {
               // Base Field Form Attribute
@@ -888,6 +887,7 @@
         {
           // Base Field Form Attribute
           "codeName": "Visit Data",
+          "versionTag": "1.0",
           // Section Atributes
           "title": "DE LA ATENCIÓN",
           "showTitle": true,
@@ -895,6 +895,7 @@
           "bodyHeight": 37.5,
           "bodyWidth": 200.0,
           "top": 130.0,
+          "left": 0.0,
           "extraStyles": "",
           "fields": [
             {
@@ -911,7 +912,8 @@
               "labelHeight": 4.8,
               "valueType": "Box",
               "width": 8.2,
-              "height": 9.0
+              "height": 9.0,
+              "text": ""
             },
             {
               // Base Field Form Attribute
@@ -929,7 +931,8 @@
               "labelHeight": 4.8,
               "valueType": "Box",
               "width": 15.2,
-              "height": 9.0
+              "height": 9.0,
+              "text": ""
             },
             {
               // Base Field Form Attribute
@@ -946,7 +949,8 @@
               "labelextraStyles": "line-height: 2.0mm; font-size: 1.5mm; vertical-align: middle;",
               "valueType": "Box",
               "width": 26.5,
-              "height": 9.0
+              "height": 9.0,
+              "text": ""
             },
             {
               // Base Field Form Attribute
@@ -1372,6 +1376,7 @@
         {
           // Base Field Form Attribute
           "codeName": "Reference Data",
+          "versionTag": "1.0",
           // Section Atributes
           "title": "DEL DESTINO DEL ASEGURADO/USUARIO",
           "showTitle": true,
@@ -1379,6 +1384,7 @@
           "bodyHeight": 20.0,
           "bodyWidth": 201.6,
           "top": 171.0,
+          "left": 0.0,
           "extraStyles": "",
           "fields": [
             {
@@ -1603,6 +1609,7 @@
         {
           // Base Field Form Attribute
           "codeName": "Triages Data",
+          "versionTag": "1.0",
           // Section Atributes
           "title": "ACTIVIDADES PREVENTIVAS Y OTROS",
           "showTitle": true,
@@ -2093,6 +2100,7 @@
         {
           // Base Field Form Attribute
           "codeName": "Triages Data",
+          "versionTag": "1.0",
           // Section Atributes
           "title": "VACUNA Nº DE DOSIS",
           "showTitle": true,
@@ -2301,6 +2309,7 @@
         {
           // Base Field Form Attribute
           "codeName": "Diagnostics data",
+          "versionTag": "1.0",
           // Section Atributes
           "title": "DIAGNÓSTICOS",
           "showTitle": true,
@@ -2308,6 +2317,7 @@
           "bodyHeight": 24.0,
           "bodyWidth": 192.0,
           "top": 237.5,
+          "left": 0.0,
           "extraStyles": "",
           "fields": [
             {
@@ -2381,13 +2391,15 @@
         {
           // Base Field Form Attribute
           "codeName": "Provider data",
+          "versionTag": "1.0",
           // Section Atributes
           "title": "NOMBRE DEL RESPONSABLE DE LA ATENCIÓN",
           "showTitle": false,
           "titleHeight": 2.3,
-          "bodyHeight": 41.0,
+          "bodyHeight": 21.0,
           "bodyWidth": 192.0,
           "top": 266.0,
+          "left": 0.0,
           "extraStyles": "",
           "fields": [
             {
@@ -2538,6 +2550,7 @@
           "bodyHeight": 288.0,
           "bodyWidth": 192.0,
           "top": 0.0,
+          "left": 0.0,
           "extraStyles": "",
           "fields": [
             {
@@ -2547,7 +2560,7 @@
               // Field data
               "top": 0.0,
               "left": 132.8,
-              "label": "MFORMATO DE ATENCION N°",
+              "label": "FORMATO DE ATENCION N°",
               "showLabel": true,
               "labelOrientation": "Horizontal",
               "labelPosition": "Top",
@@ -10470,78 +10483,7 @@
                 }
               ]
             },
-            {
-              // Base Field Form Attribute
-              "codeName": "OBSERVATIONS",
-              "versionTag": "1.0",
-              // Field data
-              "top": 290.0,
-              "left": 0.0,
-              "label": "OBSERVACIONES",
-              "showLabel": true,
-              "labelOrientation": "Horizontal",
-              "labelPosition": "Top",
-              "labelHeight": 2.3,
-              "valueType": "Field",
-              "width": 191.0,
-              "height": 8.9,
-              "fields": [
-                {
-                  "codeName": "OBSERVATIONS",
-                  "versionTag": "1.0",
-                  // Field data
-                  "top": 0.0,
-                  "left": 0.0,
-                  "label": "OBSERVACIONES",
-                  "showLabel": false,
-                  "labelOrientation": "Horizontal",
-                  "labelPosition": "Up",
-                  "labelHeight": 2.3,
-                  "valueType": "Table",
-                  "columns": [
-                    {"width": 7.8},
-                    {"width": 183.3}
-                  ],
-                  "rows": [
-                    {
-                      // Row 1
-                      "index": 1,
-                      "height": 2.9,
-                      "isHeader": true,
-                      "cells": [
-                        {
-                          "text": ""
-                        }
-                      ]
-                    },
-                    {
-                      // Row 2
-                      "index": 2,
-                      "height": 2.9,
-                      "isHeader": true,
-                      "cells": [
-                        {
-                          "text": ""
-                        }
-                      ]
-                    },
-                    {
-                      // Row 3
-                      "index": 3,
-                      "height": 2.9,
-                      "isHeader": true,
-                      "cells": [
-                        {
-                          "text": ""
-                        }
-                      ]
-                    }
-                    
-                    
-                  ]
-                }
-              ]
-            },
+            
             {
               // Base Field Form Attribute
               "codeName": "PERFORMANCE SUBCOMPONENT Field",

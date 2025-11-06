@@ -16,6 +16,9 @@ import { Logger_LogType } from '../middleware/logger/models/typescript/LogType';
 import { transactionInst } from '../middleware/globalTransaction';
 import { UUID } from 'sequelize';
 import { paginationWrapper } from '../utils/newPaginationWrapper';
+import dotenv from "dotenv";
+import { log } from 'console';
+dotenv.config();
 
 
 class FUAFormatFromSchemaController {
@@ -419,7 +422,12 @@ class FUAFormatFromSchemaController {
         try {
             const files = req.files as { [fieldname: string]: Express.Multer.File[] } | undefined;
             const file = files?.['pdf']?.[0]; 
-            const secretKey = "evan";
+            
+            if (!process.env.SECRET_KEY) {
+                throw new Error("Missing SECRET_KEY environment variable");
+                }
+            const secretKey: string = process.env.SECRET_KEY;
+            console.log(secretKey);
 
             if (!file) {
             res.status(400).json({ error: "No PDF provided (field 'pdf')." });
