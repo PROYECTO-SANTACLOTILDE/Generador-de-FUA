@@ -123,6 +123,7 @@ class FUARenderingUtils {
         
         let sectionContent = '';
         
+
         // title, showTitle
         let title = '';
         if(auxFUASection.showTitle === true){ 
@@ -137,7 +138,8 @@ class FUARenderingUtils {
         if (!Array.isArray(auxFUASection.fields) || auxFUASection.fields.length === 0) {
             sectionContent = ``;
         }else{
-            sectionContent = auxFUASection.fields.map( (item: any, index: number) => this.renderFUAFieldFromSchema(item,index,`${prefix}-section-${sectionIndex.toString()}`,printMode) ).join('');
+            //sectionContent = auxFUASection.fields.map( (item: any, index: number) => this.renderFUAFieldFromSchema(item,index,`${prefix}-section-${sectionIndex.toString()}`,printMode) ).join('');
+            sectionContent = auxFUASection.fields.map( (field: FUAField, index: number) => field.renderContent(index,`${prefix}-section-${sectionIndex.toString()}`,printMode ) ).join('');
         }
 
         let htmlContent = `
@@ -164,9 +166,15 @@ class FUARenderingUtils {
 
 
     //Erase the border by the position of the label
-    private static eraseBorderOfFieldCaption(captionSide?: string): any{
-        if(captionSide == undefined) return null; // Should always come with something if showLabel is True
-        let baseStyle = 'display: flex; justify-content: center; align-items: center;'
+    public static eraseBorderOfFieldCaption(captionSide?: string): any {
+        if(captionSide == undefined) {
+            captionSide = 'Top'; // Assume Top aas default case
+        }
+        let baseStyle = `
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+        `;
         let captionStyle = 'border-bottom: none';
         let flexDir = 'column';
 
@@ -185,9 +193,6 @@ class FUARenderingUtils {
             case `Bottom`:
                 captionStyle = 'border-top: none; ' + baseStyle;
                 break;
-            default:
-                return null;
-                break;
         }
         return { 
             captionStyle: captionStyle,
@@ -195,17 +200,18 @@ class FUARenderingUtils {
         };
     }
 
-    public static renderFUAFieldFromSchema_renderLabel( auxFUAField : FUAField, prefix: string, printMode: boolean, fieldIndex: number) : string {
+    public static renderFUAFieldFromSchema_renderLabel( auxFUAField : FUAField, prefix: string, printMode: boolean, fieldIndex: number) : { labelContent: string; flexDir: string } {
         let label = '';
+        let flexDir = '';
         if(auxFUAField.showLabel == true){
             const aux = this.eraseBorderOfFieldCaption(auxFUAField.labelPosition);
-            const flexDir = aux.flexDir;
+            flexDir = aux.flexDir;
             const captionStyle = aux.captionStyle;
             label = `
                 <style>
                     #${prefix}-field-${fieldIndex}-caption {
                         ${captionStyle}             
-                        ${(auxFUAField.labelPosition === 'Left' || auxFUAField.labelPosition === 'Right') ? `width: ${auxFUAField.labelWidth ? auxFUAField.labelWidth.toFixed(1) : ''}mm;` : '100%;'}   
+                        ${(auxFUAField.labelPosition === 'Left' || auxFUAField.labelPosition === 'Right') ? `width: ${auxFUAField.labelWidth ? auxFUAField.labelWidth.toFixed(1)+' mm;' : '100%;'}` : ''}   
                         ${(auxFUAField.labelPosition === 'Left' || auxFUAField.labelPosition === 'Right') ? '' : (auxFUAField.labelHeight ? `height: ${auxFUAField.labelHeight.toFixed(1)}mm;` : 'height: 2.0mm;' )}
                         ${auxFUAField.labelHeight ? `line-height: ${auxFUAField.labelHeight.toFixed(1)}mm;` : 'height: 2.0mm;'}        
                         
@@ -216,12 +222,15 @@ class FUARenderingUtils {
                         ${auxFUAField.labelExtraStyles ? (printMode == true ? removeBackgroundColor(auxFUAField.labelExtraStyles) : auxFUAField.labelExtraStyles) : ``}
                     }
                 </style>
-                <caption id="${prefix}-field-${fieldIndex}-caption" class="field-border text-container ${printMode ? 'format-related-print' : ''}">
+                <div id="${prefix}-field-${fieldIndex}-caption" class="field-border text-container ${printMode ? 'format-related-print' : ''}">
                     ${auxFUAField.label}
-                </caption>
+                </div>
             `;            
         }
-        return label;
+        return {
+            labelContent: label,
+            flexDir: flexDir
+        };
     }
 
     /* public static renderFUAFieldFromSchema_renderFieldContent( auxFUAField : FUAField, prefix: string, printMode: boolean, fieldIndex: number, label: string, colgroups: string) : string {
