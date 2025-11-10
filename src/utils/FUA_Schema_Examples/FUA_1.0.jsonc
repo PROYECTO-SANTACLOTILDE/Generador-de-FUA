@@ -2526,16 +2526,17 @@
         }
       ]
     },
+    // FROM 24 - 00016695
     {
       // Base Field Form Attribute
       "codeName": "pagina_2",
       "versionTag": "1.0",
       // Page Attributes
       "pageNumber": 2,
-      "height": 306.0,
+      "height": 330.0,
       "width": 210.0,
-      "padding_top": 12.0,
-      "padding_left": 11.0,
+      "padding_top": 9.5,
+      "padding_left": 5.7,
       //"extraStyles":  "padding-top: 20px; padding-left: 20px; padding-bottom: 20px; padding-right: 20px;",
       // Page sections
       "sections": [
@@ -2605,8 +2606,8 @@
                   "codeName": "Medications list 1",
                   "versionTag": "1.0",
                   // Field data
-                  "top": 2.5,
-                  "left": 0.0,
+                  "top": -0.1,
+                  "left": -0.1,
                   "label": "MEDICAMENTOS 2",
                   "showLabel": false,
                   "labelOrientation": "Horizontal",
@@ -4836,7 +4837,7 @@
                   "codeName": "Medications list 2",
                   "versionTag": "1.0",
                   // Field data
-                  "top": 2.5,
+                  "top": -0.1,
                   "left": 96.0,
                   "label": "MEDICAMENTOS 2",
                   "showLabel": false,
@@ -7085,7 +7086,7 @@
                   "codeName": "COMPLEMENTARY SUPPLIES list 1",
                   "versionTag": "1.0",
                   // Field data
-                  "top": 2.5,
+                  "top": 0.0,
                   "left": 0.0,
                   "label": "INSUMOS COMPLEMENTARIOS 1",
                   "showLabel": false,
@@ -7121,7 +7122,7 @@
                           "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         },
                         {
-                          "text": "...",
+                          "text": "RES",
                           "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         },
                         {
@@ -7667,7 +7668,7 @@
                   "codeName": "COMPLEMENTARY SUPPLIES list 2",
                   "versionTag": "1.0",
                   // Field data
-                  "top": 2.5,
+                  "top": 0.0,
                   "left": 96.0,
                   "label": "INSUMOS COMPLEMENTARIOS 2",
                   "showLabel": false,
@@ -7699,11 +7700,11 @@
                           "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         },
                         {
-                          "text": "INB",
+                          "text": "IND",
                           "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         },
                         {
-                          "text": "...",
+                          "text": "EJE",
                           "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         },
                         {
@@ -7711,7 +7712,7 @@
                           "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         },
                         {
-                          "text": "...",
+                          "text": "RES",
                           "extraStyles" : "font-size: 1.4mm; background-color: lightgrey;"
                         }
                       ]
