@@ -11,6 +11,7 @@ import * as path from 'path';
 import { parse } from 'jsonc-parser';
 import FUARenderingUtils from "./FUARendering";
 import FUAFormat from "../modelsTypeScript/FUAFormat";
+import puppeteer from "puppeteer";
 
 
 /**
@@ -95,6 +96,7 @@ export async function createDemoFormat(printMode : boolean){
   ;
 };
 
+
 // Dedent tabulations for strings declared with ´´
 export function dedentCustom(str: string): string {
   if(str === null || str == undefined){
@@ -151,6 +153,22 @@ export function isStrictIntegerString(value: string): boolean {
     return /^-?\d+$/.test(value);
 }
 
+export function computeHmacHex(bytes: Uint8Array | Buffer, secretKey: string): string {
+  return crypto.createHmac('sha256', secretKey).update(Buffer.from(bytes)).digest('hex');
+}
+
+export async function getBrowser() {
+  let browserPromise = null;
+  if (!browserPromise) {
+    browserPromise = puppeteer.launch({
+      headless: true, 
+      defaultViewport: null,
+      args: ["--no-sandbox", "--font-render-hinting=none"],
+    });
+  }
+  return browserPromise;
+}
+
 
 //Tests of hash functions
 
@@ -199,4 +217,5 @@ export function parseAs(value: string, target: FactoryTypesTarget): number | boo
       throw new Error(`parseAs: type non supporté: ${unreachable}`);
     }
   }
+
 }

@@ -2,11 +2,14 @@ import { Request, Response} from 'express';
 import FUASectionService from '../services/FUASectionService';
 import FUAFromVisitService from '../services/FUAFromVisitService';
 
+import { getBrowser } from "../utils/utils";
+
+
 
 
 const FUAFromVisitController = {
 
-    async create  (req: Request, res: Response): Promise<void>  {
+    async create (req: Request, res: Response): Promise<void>  {
         const payload = req.body;
         let newFUAFromVisit = null;
         try {
@@ -27,8 +30,56 @@ const FUAFromVisitController = {
                 message: (err as (Error)).message,
                 details: (err as any).details ?? null, 
             });
-        }
+        }       
+    },
+
+    async hashSignatureVerification(req: Request, res: Response): Promise<void> {
+        try {
+            const files = req.files as { [fieldname: string]: Express.Multer.File[] } | undefined;
+            const file = files?.['pdf']?.[0]; 
             
+            if (!process.env.SECRET_KEY) {
+                throw new Error("Missing SECRET_KEY environment variable");
+                }
+            const secretKey: string = process.env.SECRET_KEY;
+            console.log(secretKey);
+
+            if (!file) {
+            res.status(400).json({ error: "No PDF provided (field 'pdf')." });
+            return;
+            }
+            const result = await FUAFromVisitService.hashSignatureVerification(file.buffer, secretKey);
+            res.status(200).json(result);
+
+        } catch (err: any) {
+            res.status(500).json({
+                error: 'Failed to verify the signature of a pdf in FUAFromVisit. (Controller)', 
+                message: (err as (Error)).message,
+                details: (err as any).details ?? null, 
+            });
+        }
+    },
+
+    async generateSignedPdf(req: Request, res: Response): Promise<void> {
+        let answer = '';
+        let pdfBytes = null;
+        
+        try {
+        pdfBytes = FUAFromVisitService.generatePdf(answer);
+        const pdfBytesSigned = await FUAFromVisitService.pdfMetadataHashSignature(pdfBytes, "evan");
+
+        res.setHeader("Content-Type", "application/pdf");
+        res.setHeader("X-Content-Type-Options", "nosniff");
+        res.setHeader("Content-Disposition", 'inline; filename="pdfsigned.pdf"');
+        res.status(200).end(pdfBytesSigned);
+    
+        } catch (err: any) {
+            res.status(500).json({
+                error: 'Failed to generate a pdf in FUAFromVisit. (Controller)', 
+                message: (err as (Error)).message,
+                details: (err as any).details ?? null, 
+            });
+        }
     },
 
     // Pending pagination
@@ -72,6 +123,8 @@ const FUAFromVisitController = {
             
     }
 };
+
+
 
 export default FUAFromVisitController;
 

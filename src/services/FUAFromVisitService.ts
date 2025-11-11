@@ -6,6 +6,11 @@ import FUAFormatFromSchemaService from "./FUAFormatFromSchemaService";
 import BaseEntityVersionService from "./BaseEntityVersionService";
 import BaseEntity from "../modelsTypeScript/BaseEntity";
 import { Version_Actions } from "../utils/VersionConstants";
+import { PDFDocument } from "pdf-lib";
+import { computeHmacHex } from "../utils/utils";
+import { getBrowser } from "../utils/utils";
+
+
 
 
 // Schemas
@@ -100,10 +105,96 @@ class FUAFromVisitService {
         return {
             uuid: returnedFUA.uuid
         };
+    };
+    
+    async hashSignatureVerification(pdfBytes : any, secretKey : any) : Promise<Boolean>{
+            const pdfDoc = await PDFDocument.load(pdfBytes, { 
+                updateMetadata: false
+            });
+            const signature = pdfDoc.getSubject();
+            
+            const signaturePrefix = "SIH.SALUS - HASH: ";
+            pdfDoc.setSubject(`${signaturePrefix}`);
+        
+            const pdfBytesNoSignature = await pdfDoc.save();
+        
+            const hmacHex = computeHmacHex(pdfBytesNoSignature, secretKey); 
+        
+            console.log(signature);
+            console.log(`${signaturePrefix}${hmacHex}`);
+        
+            if (signature == `${signaturePrefix}${hmacHex}`){
+                console.log("Same signature.");
+                return true;
+            }else{
+               console.log("Not the same signature."); 
+               return false;
+            }
+    };
+
+    async generatePdf(answer : string){
+        const browser = await getBrowser();
+        const page = await browser.newPage();
+    
+        await page.emulateMediaType("print");
+    
+        await page.setContent(answer, {
+            waitUntil: "networkidle0",
+        });
+
+        const useCssPageSize = false;
+        const pdfBytes = await page.pdf(
+            useCssPageSize
+            ? {
+                printBackground: true,
+                preferCSSPageSize: true,           // <-- respecte @page { size: ... }
+                margin: { top: "0mm", right: "0mm", bottom: "0mm", left: "0mm" },
+                pageRanges: "1-",
+                scale: 1,
+                }
+            : {
+                printBackground: true,
+                preferCSSPageSize: false,
+                width: "210mm",                    // <-- taille forcée côté Puppeteer
+                height: "297mm",
+                margin: { top: "0mm", right: "0mm", bottom: "0mm", left: "0mm" },
+                pageRanges: "1-",
+                displayHeaderFooter: false,
+                scale: 1,
+                }
+        );
+    
+        await page.close(); 
+
+        return pdfBytes;
+    };
+
+    async pdfMetadataHashSignature(pdfBytes : any, secretKey : any) : Promise<Uint8Array> {
+        // we open the doc to standardise 'empty' the metadata Keywords field
+        let pdfDoc = await PDFDocument.load(pdfBytes, { 
+            updateMetadata: false
+        });
+        const signaturePrefix = "SIH.SALUS - HASH: ";
+        pdfDoc.setSubject(`${signaturePrefix}`);
+        const pdfBytesNoSignature = await pdfDoc.save();
+        
+        const hmacHex = computeHmacHex(pdfBytesNoSignature, secretKey);   
+
+        pdfDoc = await PDFDocument.load(pdfBytesNoSignature, { 
+            updateMetadata: false
+        });
+
+        pdfDoc.setSubject(`${signaturePrefix}${hmacHex}`);
+        
+        const pdfBytesSigned = await pdfDoc.save();
+
+        return pdfBytesSigned;
     }
 
+
+
     // List all FUA Pages
-    async listAll( ){
+    async listAll(){
         let returnedFUAFields = [];
         try {
             returnedFUAFields = await FUAFromVisitImplementation.listAllSequelize();

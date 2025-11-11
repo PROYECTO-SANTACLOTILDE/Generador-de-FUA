@@ -2,6 +2,8 @@ import express from 'express';
 
 // Importing Controller
 import FUAFromVisitController from '../controllers/FUAFromVisitController';
+import { upload } from '../middleware/multerMemory';
+import { authenticate } from '../middleware/authentication';
 
 // Creating router
 const FUAFromVisitRouter = express.Router();
@@ -15,6 +17,14 @@ FUAFromVisitRouter.get('/:id', FUAFromVisitController.getById);
 
 // Get All FUA Formats
 FUAFromVisitRouter.get('/', FUAFromVisitController.listAll);
+
+const uploadPdf = upload.fields([{ name: 'pdf', maxCount: 1 }]);
+FUAFromVisitRouter.post(
+  '/check-signature',
+  authenticate,
+  uploadPdf,
+  FUAFromVisitRouter.hashSignatureVerification
+);
 
 
 export default FUAFromVisitRouter;
