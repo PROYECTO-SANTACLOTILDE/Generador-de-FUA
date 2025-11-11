@@ -49,7 +49,7 @@ const FUAFromVisitController = {
             return;
             }
             const result = await FUAFromVisitService.hashSignatureVerification(file.buffer, secretKey);
-            res.status(200).json(result);
+            res.status(200).json({result: result});
 
         } catch (err: any) {
             res.status(500).json({
@@ -65,7 +65,7 @@ const FUAFromVisitController = {
         let pdfBytes = null;
         
         try {
-        pdfBytes = FUAFromVisitService.generatePdf(answer);
+        pdfBytes = await FUAFromVisitService.generatePdf(answer);
         const pdfBytesSigned = await FUAFromVisitService.pdfMetadataHashSignature(pdfBytes, "evan");
 
         res.setHeader("Content-Type", "application/pdf");

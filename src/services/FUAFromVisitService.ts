@@ -108,6 +108,8 @@ class FUAFromVisitService {
     };
     
     async hashSignatureVerification(pdfBytes : any, secretKey : any) : Promise<Boolean>{
+        
+        try{
             const pdfDoc = await PDFDocument.load(pdfBytes, { 
                 updateMetadata: false
             });
@@ -118,77 +120,96 @@ class FUAFromVisitService {
         
             const pdfBytesNoSignature = await pdfDoc.save();
         
-            const hmacHex = computeHmacHex(pdfBytesNoSignature, secretKey); 
+            const hmacHex = computeHmacHex(pdfBytesNoSignature, secretKey);
         
             console.log(signature);
             console.log(`${signaturePrefix}${hmacHex}`);
         
-            if (signature == `${signaturePrefix}${hmacHex}`){
+            if (signature === `${signaturePrefix}${hmacHex}`){
                 console.log("Same signature.");
                 return true;
             }else{
-               console.log("Not the same signature."); 
-               return false;
+                console.log("Not the same signature."); 
+                return false;
             }
+        } catch(err: unknown){
+            console.error('Error in FUA From Visit Service - hashSignatureVerification : ', err);
+            (err as Error).message =  'Error in FUA From Visit Service - hashSignatureVerification : ' + (err as Error).message;
+            throw err; 
+        }
     };
 
     async generatePdf(answer : string){
-        const browser = await getBrowser();
-        const page = await browser.newPage();
-    
-        await page.emulateMediaType("print");
-    
-        await page.setContent(answer, {
-            waitUntil: "networkidle0",
-        });
+        try {
+            const browser = await getBrowser();
+            const page = await browser.newPage();
+        
+            await page.emulateMediaType("print");
+        
+            await page.setContent(answer, {
+                waitUntil: "networkidle0",
+            });
 
-        const useCssPageSize = false;
-        const pdfBytes = await page.pdf(
-            useCssPageSize
-            ? {
-                printBackground: true,
-                preferCSSPageSize: true,           // <-- respecte @page { size: ... }
-                margin: { top: "0mm", right: "0mm", bottom: "0mm", left: "0mm" },
-                pageRanges: "1-",
-                scale: 1,
-                }
-            : {
-                printBackground: true,
-                preferCSSPageSize: false,
-                width: "210mm",                    // <-- taille forcée côté Puppeteer
-                height: "297mm",
-                margin: { top: "0mm", right: "0mm", bottom: "0mm", left: "0mm" },
-                pageRanges: "1-",
-                displayHeaderFooter: false,
-                scale: 1,
-                }
-        );
-    
-        await page.close(); 
+            const useCssPageSize = false;
+            const pdfBytes = await page.pdf(
+                useCssPageSize
+                ? {
+                    printBackground: true,
+                    preferCSSPageSize: true,           // <-- respecte @page { size: ... }
+                    margin: { top: "0mm", right: "0mm", bottom: "0mm", left: "0mm" },
+                    pageRanges: "1-",
+                    scale: 1,
+                    }
+                : {
+                    printBackground: true,
+                    preferCSSPageSize: false,
+                    width: "210mm",                    // <-- taille forcée côté Puppeteer
+                    height: "297mm",
+                    margin: { top: "0mm", right: "0mm", bottom: "0mm", left: "0mm" },
+                    pageRanges: "1-",
+                    displayHeaderFooter: false,
+                    scale: 1,
+                    }
+            );
+        
+            await page.close(); 
 
-        return pdfBytes;
+            return pdfBytes;
+        
+        } catch (err: unknown){
+            console.error('Error in FUA From Visit Service - generatePDF: ', err);
+            (err as Error).message =  'Error in FUA From Visit Service - generatePDF: ' + (err as Error).message;
+            throw err;
+        }
     };
 
     async pdfMetadataHashSignature(pdfBytes : any, secretKey : any) : Promise<Uint8Array> {
         // we open the doc to standardise 'empty' the metadata Keywords field
-        let pdfDoc = await PDFDocument.load(pdfBytes, { 
+        try {
+            let pdfDoc = await PDFDocument.load(pdfBytes, { 
             updateMetadata: false
-        });
-        const signaturePrefix = "SIH.SALUS - HASH: ";
-        pdfDoc.setSubject(`${signaturePrefix}`);
-        const pdfBytesNoSignature = await pdfDoc.save();
-        
-        const hmacHex = computeHmacHex(pdfBytesNoSignature, secretKey);   
+            });
+            const signaturePrefix = "SIH.SALUS - HASH: ";
+            pdfDoc.setSubject(`${signaturePrefix}`);
+            const pdfBytesNoSignature = await pdfDoc.save();
+            
+            const hmacHex = computeHmacHex(pdfBytesNoSignature, secretKey);   
 
-        pdfDoc = await PDFDocument.load(pdfBytesNoSignature, { 
-            updateMetadata: false
-        });
+            pdfDoc = await PDFDocument.load(pdfBytesNoSignature, { 
+                updateMetadata: false
+            });
 
-        pdfDoc.setSubject(`${signaturePrefix}${hmacHex}`);
-        
-        const pdfBytesSigned = await pdfDoc.save();
+            pdfDoc.setSubject(`${signaturePrefix}${hmacHex}`);
+            
+            const pdfBytesSigned = await pdfDoc.save();
+            
+            return pdfBytesSigned;
 
-        return pdfBytesSigned;
+        } catch (err: unknown){
+            console.error('Error in FUA From Visit Service: ', err);
+            (err as Error).message =  'Error in FUA From Visit Service: ' + (err as Error).message;
+            throw err;
+        }        
     }
 
 

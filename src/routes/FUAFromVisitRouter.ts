@@ -26,7 +26,7 @@ FUAFromVisitRouter.post(
   FUAFromVisitController.hashSignatureVerification
 );
 
-FUAFromVisitRouter.get(
+FUAFromVisitRouter.post(
   '/generateSignedPdf',
   authenticate,
   FUAFromVisitController.generateSignedPdf
