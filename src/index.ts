@@ -31,11 +31,14 @@ import { Logger_LogLevel } from './utils/LegLevelEnum';
 import { Logger_SecurityLevel } from './middleware/logger/models/typescript/SecurityLevel';
 import { Logger_LogType } from './middleware/logger/models/typescript/LogType';
 
+import { Worker } from "worker_threads";
 
 // Parameters and other options
 const app = express();
 const port = process.env.PORT || 3000;
 
+const monitoredURL = "http://localhost:8080";
+let lastStatus = { url: monitoredURL, isUp: false, timestamp: new Date() };
 
 
 // Testing database connection
@@ -103,6 +106,25 @@ app.get('/patient/:id', async (req, res) => {
 app.listen(port, () => {
   console.log(`\nServidor corriendo en http://localhost:${port} \n`);
 });
+
+// Worker checking connection to SETISIS
+// Preload ts-node register so worker threads can execute TypeScript files in dev mode
+const worker = new Worker(path.resolve(process.cwd(), "src/workers/SetisisConnectionMonitor.ts"), {
+  workerData: monitoredURL,
+  // Preload ts-node so the child worker can run .ts files without prior compilation
+  execArgv: ['-r', 'ts-node/register/transpile-only'],
+});
+worker.on("message", (msg) => {
+  if (msg.isUp !== undefined) {
+    lastStatus = msg;
+    console.log(`[Worker] ${msg.url} is ${msg.isUp ? "UP" : "DOWN"}`);
+  } else if (msg.error) {
+    console.error("Worker error:", msg.error);
+  }
+});
+
+worker.on("error", (err) => console.error("Worker failed:", err));
+
 
 // Serve index.html
 app.get('/FUA', (req, res) => {
