@@ -86,7 +86,8 @@ export async function createDemoFormat(printMode : boolean){
 
     //html
   
-    html = await FUARenderingUtils.renderFUAFormatFromSchema(parsed, printMode);
+    //html = await FUARenderingUtils.renderFUAFormatFromSchema(parsed, printMode);
+    html  = await auxFormat.renderHtmlContent(false);
     return html
   }catch(error: unknown){
     console.error('Error in Utils - createDemoFormat: ', error);

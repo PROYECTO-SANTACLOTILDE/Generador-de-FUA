@@ -229,15 +229,16 @@ export abstract class FUAField extends BaseFieldFormEntity  {
     set setValueType(value: string) { this.valueType = value; }
 
     // Common methods
-    renderLabel(prefix : string, printMode : boolean, fieldIndex : number) : string {
+    renderLabel(prefix : string, printMode : boolean, fieldIndex : number) : any {
         
         return FUARenderingUtils.renderFUAFieldFromSchema_renderLabel(this, prefix, printMode, fieldIndex);
     }
 
-    renderContent(fieldIndex: number, prefix: string, printMode : boolean, label : string) : string {        
+    renderContent(fieldIndex: number, prefix: string, printMode : boolean) : string {        
         let logicAditionalStyles = { value: '' };
         let fieldContent = this.render(fieldIndex, prefix, printMode, logicAditionalStyles)
-        let labelContent = this.renderLabel(prefix, printMode, fieldIndex);
+        let auxLabel = this.renderLabel(prefix, printMode, fieldIndex);
+        let labelContent = auxLabel.labelContent;
         
         let finalContent = ``;
         
@@ -246,14 +247,20 @@ export abstract class FUAField extends BaseFieldFormEntity  {
                 #${prefix}-field-${fieldIndex} {
                     top:    ${this.top.toFixed(1)}mm;
                     left:   ${this.left.toFixed(1)}mm;
-                    ${this.extraStyles} 
+                    ${this.extraStyles ?? ''} 
+                }
+                #${prefix}-field-${fieldIndex}-content {
                     ${logicAditionalStyles.value} 
                 }
             </style>
-            <table id="${prefix}-field-${fieldIndex}" class="table-field ${printMode ? 'format-related-print' : ''}" >
-                ${labelContent}
-                ${fieldContent}
-            </table>
+            <div id="${prefix}-field-${fieldIndex}" style="position: absolute; width: min-content; border: none; padding: 0; background: none; display: flex; ${auxLabel.flexDir ? `flex-direction: ${auxLabel.flexDir}; position: absolute;` : ''}" >
+                ${this.labelPosition === 'Top' || this.labelPosition === 'Left' ? labelContent : ''}
+                <table id="${prefix}-field-${fieldIndex}-content" class="table-field" >                    
+                    ${fieldContent}
+                </table>
+                ${this.labelPosition === 'Bottom' || this.labelPosition === 'Right' ? labelContent : ''}        
+                
+            </div>
         `;
         return finalContent;
     }
@@ -266,16 +273,12 @@ export abstract class FUAField extends BaseFieldFormEntity  {
             switch(newField.valueType){
                 case "Table":
                     return new FUAField_Table(newField as FUAField_TableInterface);
-                    break;
                 case "Box":
                     return new FUAField_Box(newField as FUAField_BoxInterface);
-                    break;
                 case "Field":
                     return  new FUAField_Field(newField as FUAField_FieldInterface, index);
-                    break;
                 default:
                     return null;
-                    break;
             }
         }catch(error: unknown){
             console.error(`Error in FUAField constructor - buildFUAField: `, error);
@@ -381,10 +384,6 @@ export class FUAField_Table extends FUAField {
     }
 }
 
-
-
-
-
 export class FUAField_Field extends FUAField {
 
     private fields: Array<FUAField_Field | FUAField_Box | FUAField_Table>; 
@@ -426,7 +425,7 @@ export class FUAField_Field extends FUAField {
     //Overriden method
     render(fieldIndex: number, prefix: string, printMode: boolean, logicAditionalStyles : { value: string; }): string {
         let auxFields = this.fields;
-            let fieldContent = auxFields.map( (item: any, index: number) => item.render(index, `${prefix}-field-${fieldIndex}`, printMode, logicAditionalStyles) ).join('');
+            let fieldContent = auxFields.map( (item: any, index: number) => item.renderContent(index, `${prefix}-field-${fieldIndex}`, printMode, logicAditionalStyles) ).join('');
             logicAditionalStyles.value += `
             width:  ${this.width.toFixed(1)}mm; 
             height: ${this.height.toFixed(1)}mm;  
