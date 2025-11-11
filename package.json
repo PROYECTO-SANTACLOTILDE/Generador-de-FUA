@@ -27,7 +27,6 @@
   "dependencies": {
     "@types/fhir": "^0.0.41",
     "body-parser": "^2.2.0",
-    "c": "^1.1.1",
     "clean": "^4.0.2",
     "cors": "^2.8.5",
     "dedent": "^1.6.0",
@@ -37,7 +36,6 @@
     "fhir-kit-client": "^1.9.2",
     "jsonc-parser": "^3.3.1",
     "multer": "^2.0.1",
-    "node-signpdf": "^3.0.0",
     "pdf-lib": "^1.17.1",
     "pg": "^8.15.5",
     "pg-hstore": "^2.3.4",
