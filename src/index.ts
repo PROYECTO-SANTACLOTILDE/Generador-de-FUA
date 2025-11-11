@@ -13,10 +13,9 @@ import { pdfMetadataHashSignatureVerification } from './utils/PDF_HASH_Signature
 
 // PDF Generation
 import puppeteer, { Browser } from "puppeteer";
-//import signer, { pdfkitAddPlaceholder } from "node-signpdf";
-import { plainAddPlaceholder } from '@signpdf/placeholder-plain';
-import { P12Signer } from '@signpdf/signer-p12';
-import signpdf from '@signpdf/signpdf';
+// import { plainAddPlaceholder } from '@signpdf/placeholder-plain';
+// import { P12Signer } from '@signpdf/signer-p12';
+// import signpdf from '@signpdf/signpdf';
 
 
 
