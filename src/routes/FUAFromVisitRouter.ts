@@ -20,10 +20,16 @@ FUAFromVisitRouter.get('/', FUAFromVisitController.listAll);
 
 const uploadPdf = upload.fields([{ name: 'pdf', maxCount: 1 }]);
 FUAFromVisitRouter.post(
-  '/check-signature',
+  '/hashSignatureVerification',
   authenticate,
   uploadPdf,
-  FUAFromVisitRouter.hashSignatureVerification
+  FUAFromVisitController.hashSignatureVerification
+);
+
+FUAFromVisitRouter.get(
+  '/generateSignedPdf',
+  authenticate,
+  FUAFromVisitController.generateSignedPdf
 );
 
 
