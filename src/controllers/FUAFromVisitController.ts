@@ -83,7 +83,7 @@ const FUAFromVisitController = {
     },
 
     // Pending pagination
-    async listAll (req: Request, res: Response): Promise<void>  {
+    async listAll (req: Request, res: Response): Promise<void> {
         try {
             const listFUASection = await FUAFromVisitService.listAll();
             res.status(200).json(listFUASection);
@@ -96,7 +96,7 @@ const FUAFromVisitController = {
         }    
     },
 
-    async getById (req: Request, res: Response): Promise<void>  {
+    async getById (req: Request, res: Response): Promise<void> {
         const payload = req.params.id;
 
         let searchedFUA = null;
@@ -119,9 +119,38 @@ const FUAFromVisitController = {
                 message: (err as (Error)).message,
                 details: (err as any).details ?? null, 
             });
+        }     
+    },
+
+    async addFUAinQueue(req: Request, res: Response): Promise<void>{
+        const fuaUUID = req.params.uuid;
+        const fuaVisitUUID = req.params.visitUuid;
+        try{
+            FUAFromVisitService.addFUAinQueue(fuaUUID, fuaVisitUUID);
+            res.status(200).json({result : `FUA ${fuaUUID} added in the queue.`});
+        }catch (err: any) {
+            res.status(500).json({
+                error: 'Failed to add a FUA in the Queue. (Controller)', 
+                message: (err as (Error)).message,
+                details: (err as any).details ?? null, 
+            });
         }
-            
+    },
+    
+    async removeFUAFromQueue(req: Request, res: Response): Promise<void>{
+        const fuaUUID = req.params.uuid;
+        try{
+            const fuaReference = FUAFromVisitService.removeFUAfromQueue(fuaUUID);
+            res.status(200).json(fuaReference);
+        }catch (err: any) {
+            res.status(500).json({
+                error: 'Failed to remove FUA from the Queue. (Controller)', 
+                message: (err as (Error)).message,
+                details: (err as any).details ?? null, 
+            });
+        }
     }
+
 };
 
 

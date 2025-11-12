@@ -1,8 +1,7 @@
 import { isValidUUIDv4 } from "./utils";
 
 
-
-class FUAReference{
+export class FUAReference{
     private uuid: string;
     private visitUUID: string;
 
@@ -28,14 +27,12 @@ class FUAReference{
     
 }
 
-
-
 class FUAQueue{
     private queue: Array<FUAReference>;
     private numberOfFUA: number;
 
-    constructor(queue: Array<FUAReference> = []){
-        this.queue  = queue;
+    constructor(){
+        this.queue  = new Array<FUAReference>();
         this.numberOfFUA = this.queue.length;
     }
 
@@ -47,22 +44,23 @@ class FUAQueue{
         return this.numberOfFUA;
     }
 
-    public setQueue(newQueue : Array<FUAReference>) : void{
-        this.queue = newQueue;
-    }
-
-    // public setNumberOfFUA(newNumberOfFUA : number) : void{
-    //     this.numberOfFUA = newNumberOfFUA;
-    // }
-
     public enqueue(newFUAReference : FUAReference) : void{
         this.queue.push(newFUAReference);
+        this.numberOfFUA = this.queue.length
     }
 
-    public dequeue(newFUAReference : FUAReference) : FUAReference | undefined{
-        return this.queue.shift();
-    }
+public dequeue(targetfuaUUID: string): FUAReference | undefined {
 
+    const index = this.queue.findIndex(fua => fua.getUUID() === targetfuaUUID);
+    
+    if (index === -1) {
+        return undefined;
+    }
+    const removed = this.queue.splice(index, 1)[0];
+    this.numberOfFUA = this.queue.length;
+
+    return removed;
+}
 }
 
 // Singleton:

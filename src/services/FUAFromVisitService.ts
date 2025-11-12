@@ -10,6 +10,11 @@ import { PDFDocument } from "pdf-lib";
 import { computeHmacHex } from "../utils/utils";
 import { getBrowser } from "../utils/utils";
 
+import {FUAReference} from "../utils/queueImplementation";
+
+//Instance import 
+import fuaQueue from "../utils/queueImplementation";
+
 
 
 
@@ -206,8 +211,8 @@ class FUAFromVisitService {
             return pdfBytesSigned;
 
         } catch (err: unknown){
-            console.error('Error in FUA From Visit Service: ', err);
-            (err as Error).message =  'Error in FUA From Visit Service: ' + (err as Error).message;
+            console.error('Error in FUA From Visit Service - pdfMetadataHashSignature: ', err);
+            (err as Error).message =  'Error in FUA From Visit Service - pdfMetadataHashSignature: ' + (err as Error).message;
             throw err;
         }        
     }
@@ -267,6 +272,29 @@ class FUAFromVisitService {
         // If nothing was found, it will return a null
         return returnedFUAField;
     };
+
+    async addFUAinQueue(UUID : string, visitUUID : string) : Promise<void> {
+        try{
+            const fuaReference = new FUAReference(UUID, visitUUID);
+            fuaQueue.enqueue(fuaReference);
+
+        } catch(err: any){
+            console.error('Error in FUA From Visit Service - addFUAinQueue: ', err);
+            (err as Error).message =  'Error in FUA From Visit Service - addFUAinQueue: ' + (err as Error).message;
+            throw err;
+        };
+    }
+
+    async removeFUAfromQueue(UUID : string,) : Promise<FUAReference | undefined> {
+        try{
+            return fuaQueue.dequeue(UUID);
+        } catch(err: any){
+            console.error('Error in FUA From Visit Service - removeFUAfromQueue: ', err);
+            (err as Error).message =  'Error in FUA From Visit Service - removeFUAfromQueue: ' + (err as Error).message;
+            throw err;
+        };
+    }
+
 };
 
 export default new FUAFromVisitService();
