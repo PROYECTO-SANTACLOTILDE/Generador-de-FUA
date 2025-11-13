@@ -3,6 +3,7 @@ import FUASectionService from '../services/FUASectionService';
 import FUAFromVisitService from '../services/FUAFromVisitService';
 
 import { getBrowser } from "../utils/utils";
+import FUAFromVisitRouter from '../routes/FUAFromVisitRouter';
 
 
 
@@ -123,8 +124,8 @@ const FUAFromVisitController = {
     },
 
     async addFUAinQueue(req: Request, res: Response): Promise<void>{
-        const fuaUUID = req.params.uuid;
-        const fuaVisitUUID = req.params.visitUuid;
+        const fuaUUID = req.query.uuid;
+        const fuaVisitUUID = req.query.visitUuid;
         try{
             FUAFromVisitService.addFUAinQueue(fuaUUID, fuaVisitUUID);
             res.status(200).json({result : `FUA ${fuaUUID} added in the queue.`});
@@ -136,12 +137,37 @@ const FUAFromVisitController = {
             });
         }
     },
+
+    async addFUAinQueueFromDatabase(req: Request, res: Response): Promise<void>{
+        const fuaUUID = req.params.id;
+        let fuaVisitUUID = null;
+        try{
+            const fuaFromVisitFromDatabase = await FUAFromVisitService.getByIdOrUUID(fuaUUID as string);
+            if (fuaFromVisitFromDatabase === null){
+                res.status(404).json({
+                    error: `UUID '${fuaUUID}' couldnt be found in the database. `,
+                });
+            }
+            const fuaVisitUUIDPayload = fuaFromVisitFromDatabase.payload;
+            const fuaVisitUUIDParse = JSON.parse(fuaVisitUUIDPayload);
+            fuaVisitUUID = fuaVisitUUIDParse.uuid;
+            await FUAFromVisitService.addFUAinQueue(fuaUUID, fuaVisitUUID);
+            
+            res.status(200).json({result : `FUA ${fuaUUID} added in the queue.`});
+        }catch (err: any) {
+            res.status(500).json({
+                error: 'Failed to add a FUA in the Queue. (Controller)', 
+                message: (err as (Error)).message,
+                details: (err as any).details ?? null, 
+            });
+        }
+    },
     
     async removeFUAFromQueue(req: Request, res: Response): Promise<void>{
-        const fuaUUID = req.params.uuid;
+        const fuaUUID = req.query.uuid;
         try{
             const fuaReference = FUAFromVisitService.removeFUAfromQueue(fuaUUID);
-            res.status(200).json(fuaReference);
+            res.status(200).json({uuid: (await fuaReference).getUUID()});
         }catch (err: any) {
             res.status(500).json({
                 error: 'Failed to remove FUA from the Queue. (Controller)', 

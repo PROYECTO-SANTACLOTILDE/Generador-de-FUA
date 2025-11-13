@@ -6,7 +6,7 @@ import FUAFormatFromSchemaService from "./FUAFormatFromSchemaService";
 import BaseEntityVersionService from "./BaseEntityVersionService";
 import BaseEntity from "../modelsTypeScript/BaseEntity";
 import { Version_Actions } from "../utils/VersionConstants";
-import { PDFDocument } from "pdf-lib";
+const {PDFDocument} = require ('pdf-lib');
 import { computeHmacHex } from "../utils/utils";
 import { getBrowser } from "../utils/utils";
 
@@ -46,7 +46,7 @@ class FUAFromVisitService {
         
         // Object validation
         const result = newFUAFromVisitSchema.safeParse(data);
-        if( !result.success ){
+        if( !result.success){
             console.error('Error in FUA From Visit Service - create: ZOD validation. \n', result.error);
             const newError = new Error('Error in FUA From Visit Service - create: ZOD validation. ');
             (newError as any).details = result.error;
@@ -77,6 +77,9 @@ class FUAFromVisitService {
         const buffer = Buffer.from('Hello, I am stored as a blob!');
 
         try {
+            //Payload validation
+            const aux = JSON.parse(data.payload);
+
             returnedFUA = await FUAFromVisitImplementation.createSequelize({
                 payload: data.payload,
                 schemaType: data.schemaType,
@@ -217,8 +220,6 @@ class FUAFromVisitService {
         }        
     }
 
-
-
     // List all FUA Pages
     async listAll(){
         let returnedFUAFields = [];
@@ -235,8 +236,8 @@ class FUAFromVisitService {
     };
 
     // get FUA From Visit by Id (Id or UUID)
-    async getByIdOrUUID (idReceived: string) {
-        let returnedFUAField = null;
+    async getByIdOrUUID (idReceived: string){
+        let returnedFUAFromVisit = null;
 
         // Check if UUID or Id was sent
         let id = null;
@@ -245,7 +246,7 @@ class FUAFromVisitService {
             id = nuNumber;
 
             try {
-                returnedFUAField = await FUAFromVisitImplementation.getByIdSequelize(id);
+                returnedFUAFromVisit = await FUAFromVisitImplementation.getByIdSequelize(id);
 
             } catch (err: unknown){
                 console.error('Error in FUA From Visit Service - getByIdOrUUID: ', err);
@@ -261,7 +262,7 @@ class FUAFromVisitService {
                 throw new Error("Error in FUA From Visit: Invalid UUID format. ");
             }
             try {
-                returnedFUAField = await FUAFromVisitImplementation.getByUUIDSequelize(idReceived);
+                returnedFUAFromVisit = await FUAFromVisitImplementation.getByUUIDSequelize(idReceived);
             } catch (err: unknown){
                 console.error('Error in FUA From Visit Service: ', err);
                 (err as Error).message =  'Error in FUA From Visit Service: ' + (err as Error).message;
@@ -270,14 +271,13 @@ class FUAFromVisitService {
         }      
             
         // If nothing was found, it will return a null
-        return returnedFUAField;
+        return returnedFUAFromVisit;
     };
 
-    async addFUAinQueue(UUID : string, visitUUID : string) : Promise<void> {
+    async addFUAinQueue(UUID : any, visitUUID : any) : Promise<void> {
         try{
             const fuaReference = new FUAReference(UUID, visitUUID);
             fuaQueue.enqueue(fuaReference);
-
         } catch(err: any){
             console.error('Error in FUA From Visit Service - addFUAinQueue: ', err);
             (err as Error).message =  'Error in FUA From Visit Service - addFUAinQueue: ' + (err as Error).message;
@@ -285,7 +285,7 @@ class FUAFromVisitService {
         };
     }
 
-    async removeFUAfromQueue(UUID : string,) : Promise<FUAReference | undefined> {
+    async removeFUAfromQueue(UUID : any) : Promise<FUAReference> {
         try{
             return fuaQueue.dequeue(UUID);
         } catch(err: any){

@@ -4,7 +4,7 @@ import express from 'express';
 const path = require('path');
 import fs from "fs";
 const crypto = require('crypto');
-import { PDFDocument, PDFName, PDFString, PDFDict } from 'pdf-lib';
+const { PDFDocument, PDFName, PDFString, PDFDict } = require('pdf-lib');
 
 import { pdfMetadataAccess } from './utils/PDF_HASH_Signature';
 import { pdfMetadataHashSignature } from './utils/PDF_HASH_Signature';
@@ -50,8 +50,8 @@ sequelize.authenticate()
   console.log(`\nConnection has been established with database successfully.\n`);  
   // Syncronize models
   console.log('\n Syncronizing models ... \n');
-  sequelize.sync({ force: true })
-  //sequelize.sync({ alter: true })
+  //sequelize.sync({ force: true })
+  sequelize.sync({ alter: true })
   .then( () : void => {
     console.log('\nEnded syncronizing models ...\n');
   } );  
