@@ -13,6 +13,8 @@ import FUARenderingUtils from "./FUARendering";
 import FUAFormat from "../modelsTypeScript/FUAFormat";
 import puppeteer from "puppeteer";
 const archiver = require('archiver');
+import { PassThrough } from 'stream';
+
 
 
 /**
@@ -171,10 +173,120 @@ export async function getBrowser() {
   return browserPromise;
 }
 
+// ZIP Creation from txt attentionfiles
+export function generateTxtFiles(): Buffer[] {
+    const numFiles = 10;
+    const fileSizeMB = 0.1;
+    const fileSizeBytes = fileSizeMB * 1024 * 1024;
+    const files: Buffer[] = [];
+
+    // Contenu de base pour remplir le fichier
+    const chunk = Buffer.from('A'.repeat(1024)); // 1 Ko
+    const chunksNeeded = fileSizeBytes / chunk.length;
+
+    for (let i = 0; i < numFiles; i++) {
+        const fileBuffer = Buffer.alloc(0);
+        let combined = Buffer.alloc(0);
+
+        for (let j = 0; j < chunksNeeded; j++) {
+            combined = Buffer.concat([combined, chunk]);
+        }
+
+        files.push(combined);
+    }
+    return files;
+}
+
+export type TxtEntry = {
+  name: string;
+  content: Buffer;
+};
+
+function encryptBuffer(buffer: Buffer, password: string) {
+  const salt = crypto.randomBytes(16);
+  const iv = crypto.randomBytes(12); 
+
+  const key = crypto.pbkdf2Sync(password, salt, 100000, 32, 'sha256');
+
+  const cipher = crypto.createCipheriv('aes-256-gcm', key, iv);
+
+  const encrypted = Buffer.concat([cipher.update(buffer), cipher.final()]);
+  const authTag = cipher.getAuthTag();
+
+  return Buffer.concat([salt, iv, authTag, encrypted]);
+}
+
+export async function zipAndEncryptTxtFiles(
+  files: TxtEntry[],
+  password: string
+): Promise<Buffer> {
+  const zipBuffer = await new Promise<Buffer>((resolve, reject) => {
+    const stream = new PassThrough();
+    const archive = archiver('zip', { zlib: { level: 9 } });
+
+    const chunks: Buffer[] = [];
+
+    stream.on('data', (chunk) => chunks.push(chunk));
+    stream.on('close', () => resolve(Buffer.concat(chunks)));
+    stream.on('end', () => {});
+
+    archive.on('warning', (err: any) => {
+      if (err.code !== 'ENOENT') reject(err);
+    });
+    archive.on('error', (err: any) => reject(err));
+
+    archive.pipe(stream);
+
+    for (const f of files) {
+      archive.append(f.content, { name: f.name });
+    }
+
+    archive.finalize().catch(reject);
+  });
+
+  const encrypted = encryptBuffer(zipBuffer, password);
+
+  return encrypted;
+}
+
+export function decryptBuffer(encrypted: Buffer, password: string): Buffer {
+  const saltLen = 16;
+  const ivLen = 12;
+  const authTagLen = 16;
+
+  // Vérification minimale de la taille du buffer
+  if (encrypted.length < saltLen + ivLen + authTagLen + 1) {
+    throw new Error('Invalid encrypted data');
+  }
+
+  // Extraire les composants via subarray (évite l’avertissement de slice)
+  const salt = encrypted.subarray(0, saltLen);
+  const iv = encrypted.subarray(saltLen, saltLen + ivLen);
+  const authTag = encrypted.subarray(saltLen + ivLen, saltLen + ivLen + authTagLen);
+  const ciphertext = encrypted.subarray(saltLen + ivLen + authTagLen);
+
+  // Dérivation de la clé depuis le mot de passe + salt
+  const key = crypto.pbkdf2Sync(password, salt, 100000, 32, 'sha256');
+
+  // Création du decipher AES-256-GCM
+  const decipher = crypto.createDecipheriv('aes-256-gcm', key, iv);
+  decipher.setAuthTag(authTag); // Associer le tag d'authentification pour vérifier intégrité
+
+  // Déchiffrement
+  const plain = Buffer.concat([decipher.update(ciphertext), decipher.final()]);
+
+  return plain;
+}
+
+
+
+
+
+
+
 // export async function createZipFromAttentions(): Promise<void>{
 
 // }
-
 
 //Tests of hash functions
 

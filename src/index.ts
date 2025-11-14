@@ -1,6 +1,6 @@
 // Import Libraries
 require('dotenv').config();
-import express from 'express';
+import express, { Request, Response } from 'express';
 const path = require('path');
 import fs from "fs";
 const crypto = require('crypto');
@@ -9,7 +9,7 @@ const { PDFDocument, PDFName, PDFString, PDFDict } = require('pdf-lib');
 import { pdfMetadataAccess } from './utils/PDF_HASH_Signature';
 import { pdfMetadataHashSignature } from './utils/PDF_HASH_Signature';
 import { pdfMetadataHashSignatureVerification } from './utils/PDF_HASH_Signature';
-
+import * as utils from './utils/utils';
 
 // PDF Generation
 import puppeteer, { Browser } from "puppeteer";
@@ -34,10 +34,13 @@ import { Log } from './middleware/logger/models/typescript/Log';
 import { Logger_LogLevel } from './utils/LegLevelEnum';
 import { Logger_SecurityLevel } from './middleware/logger/models/typescript/SecurityLevel';
 import { Logger_LogType } from './middleware/logger/models/typescript/LogType';
+import { multerErrorHandler, upload } from './middleware/multerMemory';
 
 
 // Parameters and other options
 const app = express();
+
+
 const port = process.env.PORT || 3000;
 
 
@@ -251,6 +254,63 @@ app.get('/demopdf', async (req, res) => {
     });
   }
 });
+
+app.post('/demoZipTxt', async (req, res) => {
+  
+  try {
+    const rawBuffers = utils.generateTxtFiles();
+    const files : utils.TxtEntry[] = rawBuffers.map((b, i) => ({name: `file-${i}.txt`, content: b }));
+    const password = 'TestPassword123!';
+    const encrypted = await utils.zipAndEncryptTxtFiles(files, password);
+    
+    res.setHeader('Content-Type', 'application/octet-stream');
+    res.setHeader('Content-Disposition', `attachment; filename="secure.zip.enc"`);
+    res.send(encrypted);
+
+  } catch (err: unknown) {
+      console.error(err);
+      res.status(500).json({
+      error: 'Failed in demoZipTxt ', 
+      message: (err as (Error)).message,
+      details: (err as any).details ?? null,
+    });
+  }
+});
+
+app.post(
+  '/zip-decrypt',
+  multerErrorHandler(upload.single('encFile'), '/zip-decrypt'),
+  async (req, res) => {
+    try {
+      const file = req.file;
+      const password = req.body.password;
+
+      if (!file || !password) {
+        res.status(400).json({
+          error: 'Missing data',
+          message: 'File (.enc) and password are required'
+        });
+        return;
+      }
+
+      // file.buffer : Buffer du fichier uploadé (merci multer)
+      const decryptedZip = utils.decryptBuffer(file.buffer, password);
+
+      res.setHeader('Content-Type', 'application/zip');
+      res.setHeader('Content-Disposition', 'attachment; filename="decrypted.zip"');
+      res.send(decryptedZip);
+    } catch (err: any) {
+      console.error(err);
+      res.status(500).json({
+      error: 'Failed in zip-decrypt', 
+      message: (err as (Error)).message,
+      details: (err as any).details ?? null,
+      });
+    }
+  }
+);
+
+
 
 //TESTING LOGGER DB
 /* app.get('/logger-db', async (req, res) => { //test in DB
