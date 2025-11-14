@@ -12,6 +12,7 @@ import { parse } from 'jsonc-parser';
 import FUARenderingUtils from "./FUARendering";
 import FUAFormat from "../modelsTypeScript/FUAFormat";
 import puppeteer from "puppeteer";
+const archiver = require('archiver');
 
 
 /**
@@ -169,6 +170,10 @@ export async function getBrowser() {
   }
   return browserPromise;
 }
+
+// export async function createZipFromAttentions(): Promise<void>{
+
+// }
 
 
 //Tests of hash functions
