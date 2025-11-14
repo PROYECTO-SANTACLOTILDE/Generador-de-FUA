@@ -180,8 +180,8 @@ export function generateTxtFiles(): Buffer[] {
     const fileSizeBytes = fileSizeMB * 1024 * 1024;
     const files: Buffer[] = [];
 
-    // Contenu de base pour remplir le fichier
-    const chunk = Buffer.from('A'.repeat(1024)); // 1 Ko
+
+    const chunk = Buffer.from('A'.repeat(1024)); 
     const chunksNeeded = fileSizeBytes / chunk.length;
 
     for (let i = 0; i < numFiles; i++) {
@@ -254,25 +254,20 @@ export function decryptBuffer(encrypted: Buffer, password: string): Buffer {
   const ivLen = 12;
   const authTagLen = 16;
 
-  // Vérification minimale de la taille du buffer
   if (encrypted.length < saltLen + ivLen + authTagLen + 1) {
     throw new Error('Invalid encrypted data');
   }
 
-  // Extraire les composants via subarray (évite l’avertissement de slice)
   const salt = encrypted.subarray(0, saltLen);
   const iv = encrypted.subarray(saltLen, saltLen + ivLen);
   const authTag = encrypted.subarray(saltLen + ivLen, saltLen + ivLen + authTagLen);
   const ciphertext = encrypted.subarray(saltLen + ivLen + authTagLen);
 
-  // Dérivation de la clé depuis le mot de passe + salt
   const key = crypto.pbkdf2Sync(password, salt, 100000, 32, 'sha256');
 
-  // Création du decipher AES-256-GCM
   const decipher = crypto.createDecipheriv('aes-256-gcm', key, iv);
-  decipher.setAuthTag(authTag); // Associer le tag d'authentification pour vérifier intégrité
+  decipher.setAuthTag(authTag); 
 
-  // Déchiffrement
   const plain = Buffer.concat([decipher.update(ciphertext), decipher.final()]);
 
   return plain;

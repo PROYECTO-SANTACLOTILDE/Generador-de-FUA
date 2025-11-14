@@ -293,7 +293,6 @@ app.post(
         return;
       }
 
-      // file.buffer : Buffer du fichier uploadé (merci multer)
       const decryptedZip = utils.decryptBuffer(file.buffer, password);
 
       res.setHeader('Content-Type', 'application/zip');
