@@ -99,22 +99,22 @@ BaseEntityVersionModel.belongsToMany(BaseEntityVersionModel, {
     allowNull: true,
 });
 
-// FUAFromVisitModel.hasMany( FUAFromVisitPDFModel, {
-//     foreignKey: {
-//         name: 'FUAFormatFromVisitModelId',
-//         allowNull: false,
-//     }   
-// });
-// FUAFromVisitPDFModel.belongsTo( FUAFromVisitModel );
+FUAFromVisitModel.hasMany( FUAFromVisitPDFModel, {
+    foreignKey: {
+        name: 'FUAFormatFromVisitModelId',
+        allowNull: false,
+    }   
+});
+//FUAFromVisitPDFModel.belongsTo( FUAFromVisitModel );
 
 
-// FUAFromVisitPDFModel.hasOne( BaseEntityVersionModel, {
-//     foreignKey: {
-//         name: 'BaseEntityVersionModelId',
-//         allowNull: false
-//     }
-// });
-// BaseEntityVersionModel.belongsTo( FUAFromVisitPDFModel );
+BaseEntityVersionModel.hasOne( FUAFromVisitPDFModel, {
+    foreignKey: {
+        name: 'BaseEntityVersionModelId',
+        allowNull: false
+    }
+});
+//FUAFromVisitPDFModel.belongsTo( BaseEntityVersionModel );
 
 
 //Exports
