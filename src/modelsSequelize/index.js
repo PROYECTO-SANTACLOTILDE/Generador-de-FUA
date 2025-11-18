@@ -15,6 +15,7 @@ import FUAFieldRow from './FUAFieldRow';
 import FUAFieldCell from './FUAFieldCell';
 
 import FUAFromVisitModel from './FUAFromVisitModel';
+import FUAFromVisitPDFModel from './FUAFromVisitPDFModel';
 
 import BaseEntityVersionModel from "./BaseEntityVersionModel.js";
 import BaseEntityVersion_MiddleTableModel from './BaseEntityVersion_MiddleTableModel.js';
@@ -90,7 +91,6 @@ FUAFormatFromSchemaModel.hasMany( FUAFromVisitModel,{
 });
 FUAFromVisitModel.belongsTo( FUAFormatFromSchemaModel );
 
-
 BaseEntityVersionModel.belongsToMany(BaseEntityVersionModel, { 
     as: 'VersioningRelation',    
     through: BaseEntityVersion_MiddleTableModel,
@@ -98,6 +98,23 @@ BaseEntityVersionModel.belongsToMany(BaseEntityVersionModel, {
     otherKey: 'relatedEntity', // FK in the join table pointing to the related model
     allowNull: true,
 });
+
+// FUAFromVisitModel.hasMany( FUAFromVisitPDFModel, {
+//     foreignKey: {
+//         name: 'FUAFormatFromVisitModelId',
+//         allowNull: false,
+//     }   
+// });
+// FUAFromVisitPDFModel.belongsTo( FUAFromVisitModel );
+
+
+// FUAFromVisitPDFModel.hasOne( BaseEntityVersionModel, {
+//     foreignKey: {
+//         name: 'BaseEntityVersionModelId',
+//         allowNull: false
+//     }
+// });
+// BaseEntityVersionModel.belongsTo( FUAFromVisitPDFModel );
 
 
 //Exports
@@ -112,6 +129,7 @@ export {
     FUAFieldRow,
     FUAFieldCell,
     FUAFromVisitModel,
+    FUAFromVisitPDFModel,
     BaseEntityVersionModel,
     BaseEntityVersion_MiddleTableModel
 };

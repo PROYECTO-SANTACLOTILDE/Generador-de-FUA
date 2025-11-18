@@ -38,7 +38,7 @@ const FUAFromVisitModel = sequelize.define(
     },
     {
         sequelize,                  // We need to pass the connection instance,
-        timestamps: true,           // Adds createdAt/updatedAt       
+        timestamps: true            // Adds createdAt/updatedAt       
     },
 );
 
