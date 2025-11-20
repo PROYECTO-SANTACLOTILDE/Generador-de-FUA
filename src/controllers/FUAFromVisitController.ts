@@ -68,7 +68,7 @@ const FUAFromVisitController = {
         try {
         pdfBytes = await FUAFromVisitService.generatePdf(answer);
         const pdfBytesSigned = await FUAFromVisitService.pdfMetadataHashSignature(pdfBytes, "evan");
-
+            
         res.setHeader("Content-Type", "application/pdf");
         res.setHeader("X-Content-Type-Options", "nosniff");
         res.setHeader("Content-Disposition", 'inline; filename="pdfsigned.pdf"');

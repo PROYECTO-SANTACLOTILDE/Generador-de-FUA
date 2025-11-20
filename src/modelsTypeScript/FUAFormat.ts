@@ -8,7 +8,7 @@ import { parse } from "jsonc-parser";
 
 
 
-interface FUAFormatInterface extends BaseFieldFormEntityInterface{
+export interface FUAFormatInterface extends BaseFieldFormEntityInterface{
     name: string;
     pages?: Array<FUAPage>;
     content?: string; // Only from DB

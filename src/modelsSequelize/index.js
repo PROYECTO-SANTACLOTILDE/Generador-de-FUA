@@ -101,7 +101,7 @@ BaseEntityVersionModel.belongsToMany(BaseEntityVersionModel, {
 
 FUAFromVisitModel.hasMany( FUAFromVisitPDFModel, {
     foreignKey: {
-        name: 'FUAFormatFromVisitModelId',
+        name: 'FUAFromVisitModelId',
         allowNull: false,
     }   
 });

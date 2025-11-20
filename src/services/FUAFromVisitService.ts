@@ -9,7 +9,9 @@ import { Version_Actions } from "../utils/VersionConstants";
 const {PDFDocument} = require ('pdf-lib');
 import { computeHmacHex } from "../utils/utils";
 import { getBrowser } from "../utils/utils";
+import FUAFromVisitPDFService from "./FUAFromVisitPDFService";
 
+import FUAFormat, { FUAFormatInterface } from "../modelsTypeScript/FUAFormat";
 import {FUAReference} from "../utils/queueImplementation";
 
 //Instance import 
@@ -93,12 +95,13 @@ class FUAFromVisitService {
             console.error(`Error in FUA From Visit service - create:  `, err);
             throw new Error(`Error in FUA From Visit service - create:  ` + (err as Error).message);
         }
-        
+
         // Insert version
+        let newVersion = null;
         try{
-            let newVersion = await BaseEntityVersionService.create(
+                newVersion = await BaseEntityVersionService.create(
                 new BaseEntity(returnedFUA.dataValues),
-                "FUAFormatFromSchema",
+                "FUAFromVisit",
                 Version_Actions.CREATE,
                 [ {
                     type: "FUAFormatFromSchema",
@@ -106,8 +109,42 @@ class FUAFromVisitService {
                 } ]
             );
         }catch(error: any){
-            (error as Error).message =  'Error in FUA Format From Schema Service:  ' + (error as Error).message;
+            (error as Error).message =  'Error in FUA From Visit Service:  ' + (error as Error).message;
             throw error;
+        }
+
+        // Insert FUAFromVisitPDF
+        
+        // Get the html preview of the FUAFRomVisit:
+        // - FUAFormatFromSchema (Foreign Key)
+        // Call FUAFromSchemaService and get the html preview
+        // - Mapping // TODO
+        // - Payload // TODO
+
+        // Get the htmlPreview as a string using (FUAFormatFomSchema + Mapping + Payload)
+        // Use the htmlPreview to generate the PDF bytes this.generatePDF(htmlPreview)
+        
+        //let auxFormat = await FUAFormatFromSchemaService.getByIdOrUUID(data.FUAFormatFromSchemaId);
+
+        try{
+            const aux = new FUAFormat(auxFUAFormat as FUAFormatInterface);
+            const htmlPreview : string = await aux.renderHtmlContent(false);
+            const auxPDFBuffer = await this.generatePdf(htmlPreview); // Need the pdf byte stream
+
+            console.log(returnedFUA.dataValues.id);
+            let auxFUAFromVisitPDF = await FUAFromVisitPDFService.create({
+                // TODO set name mechanism
+                name: ( auxFUAFormat.uuid.toString()+'_PDF' ),
+                fileData: (auxPDFBuffer as Buffer),
+                versionTag: "1.0",
+                versionCounter: 1,
+                FUAFromVisitModelId: returnedFUA.dataValues.id,
+                BaseEntityVersionModelId: newVersion.uuid,
+                createdBy: data.createdBy
+            });            
+        } catch (err: unknown){
+            console.error(`Error in FUA From Visit service - create:  `, err);
+            throw new Error(`Error in FUA From Visit service - create:  ` + (err as Error).message);
         }
 
         return {
