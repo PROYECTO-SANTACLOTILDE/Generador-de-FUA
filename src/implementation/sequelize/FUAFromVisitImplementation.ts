@@ -29,7 +29,7 @@ class FUAFromVisitImplementation {
 
     // List FUA 
     // Pending to paginate results
-    async listAllSequelize( ) {
+    async listAllSequelize() {
         let returnedFUAs = [];
         try {
             returnedFUAs = await FUAFromVisitModel.findAll({
@@ -39,8 +39,8 @@ class FUAFromVisitImplementation {
             });
 
         } catch (err: unknown){
-            console.error('Error in FUA From Visit Sequelize Implementation: Couldnt list all FUA Formats in database using Sequelize. ', err);
-            (err as Error).message =  'Error in FUA From Visit Sequelize Implementation: Couldnt list all FUA Formats in database using Sequelize. ' + (err as Error).message;
+            console.error('Error in FUA From Visit Sequelize Implementation: Couldnt list all FUA From Visit in database using Sequelize. ', err);
+            (err as Error).message =  'Error in FUA From Visit Sequelize Implementation: Couldnt list all FUA From Visit in database using Sequelize. ' + (err as Error).message;
             throw err;
         }        
 

@@ -18,7 +18,9 @@ FUAFromVisitRouter.get('/:id', FUAFromVisitController.getById);
 FUAFromVisitRouter.get('/:id/addFUAinQueueFromDatabase', FUAFromVisitController.addFUAinQueueFromDatabase);
 
 // Get All FUA Formats
-FUAFromVisitRouter.get('/', FUAFromVisitController.listAll);
+FUAFromVisitRouter.get('/',
+  authenticate, 
+  FUAFromVisitController.listAll);
 
 const uploadPdf = upload.fields([{ name: 'pdf', maxCount: 1 }]);
 FUAFromVisitRouter.post(

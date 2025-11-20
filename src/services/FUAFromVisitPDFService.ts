@@ -4,6 +4,7 @@ import FUAFromVisitPDFImplementation from "../implementation/sequelize/FUAFromVi
 import BaseEntityVersionService from "./BaseEntityVersionService";
 import { Version_Actions } from "../utils/VersionConstants";
 import FUAFromVisitService from "./FUAFromVisitService";
+import { isValidUUIDv4 } from "../utils/utils";
 
 class FUAFromVisitPDFService {
 
@@ -82,6 +83,68 @@ class FUAFromVisitPDFService {
             uuid: returnedPDF.uuid
         };
     }
+
+    async getByIdOrUUID (idReceived: string){
+        let returnedFUAFromVisitPDF = null;
+
+        let id = null;
+        const nuNumber = Number(idReceived);
+        if (Number.isInteger(nuNumber)){
+            id = nuNumber;
+
+            try{
+                returnedFUAFromVisitPDF = await FUAFromVisitPDFImplementation.getByIdSequelize(id);
+
+            } catch (err: unknown){
+                console.error('Error in FUA From Visit PDF Service - getByIdOrUUID: ', err);
+                (err as Error).message =  'Error in FUA From Visit PDF Service - getByIdOrUUID: ' + (err as Error).message;
+                throw err;
+            }
+        }else{
+            if (!isValidUUIDv4(idReceived)){
+                console.error('Error in FUA From Visit PDF: Invalid UUID format. ');
+                throw new Error("Error in FUA From Visit PDF: Invalid UUID format. ");
+            }
+            try{
+                returnedFUAFromVisitPDF = await FUAFromVisitPDFImplementation.getByUUIDSequelize(idReceived);
+            } catch (err: unknown){
+                console.error('Error in FUA From Visit PDF Service: ', err);
+                (err as Error).message =  'Error in FUA From Visit PDF Service: ' + (err as Error).message;
+                throw err;
+            }  
+        }
+        // If nothing was found, it will return a null
+        return returnedFUAFromVisitPDF;
+
+    }
+
+    async listAll(){
+        let returnedFUAFromVisitPDFs = [];
+        try{
+            returnedFUAFromVisitPDFs = await FUAFromVisitPDFImplementation.listAllSequelize();
+
+        } catch (err: unknown){
+            console.error('Error in FUA From Visit PDF Service: ', err);
+            (err as Error).message =  'Error in FUA From Visit PDF Service: ' + (err as Error).message;
+            throw err;
+        } 
+        return returnedFUAFromVisitPDFs;
+    };
+
+    async getPDF(id: string){
+        let pdfBytes = null;
+        let FUAFromVisitPDF = null;
+        try{
+            FUAFromVisitPDF = await this.getByIdOrUUID(id);
+            pdfBytes = FUAFromVisitPDF.fileData;
+        } catch (err: unknown){
+            console.error('Error in FUA From Visit PDF Service - getPDF: ', err);
+            (err as Error).message =  'Error in FUA From Visit PDF Service - getPDF: ' + (err as Error).message;
+            throw err;
+        }
+        return pdfBytes;
+    }
+
 }
 
 export default new FUAFromVisitPDFService();
