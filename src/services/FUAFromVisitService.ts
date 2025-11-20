@@ -129,7 +129,8 @@ class FUAFromVisitService {
         try{
             const aux = new FUAFormat(auxFUAFormat as FUAFormatInterface);
             const htmlPreview : string = await aux.renderHtmlContent(false);
-            const auxPDFBuffer = await this.generatePdf(htmlPreview); // Need the pdf byte stream
+            const auxPDF_Uint8Array = await this.generatePdf(htmlPreview); // Need the pdf byte stream
+            const auxPDFBuffer = Buffer.from(auxPDF_Uint8Array);
 
             console.log(returnedFUA.dataValues.id);
             let auxFUAFromVisitPDF = await FUAFromVisitPDFService.create({
