@@ -9,7 +9,7 @@ FUAFromVisitPDFRouter.get('/',
     authenticate,
     FUAFromVisitPDFController.listAll);
 
-FUAFromVisitPDFRouter.get('/:id/getPDF', FUAFromVisitPDFController.getPDF);
+FUAFromVisitPDFRouter.get('/:id/getPDF',authenticate, FUAFromVisitPDFController.getPDF);
 
 
 export default FUAFromVisitPDFRouter;

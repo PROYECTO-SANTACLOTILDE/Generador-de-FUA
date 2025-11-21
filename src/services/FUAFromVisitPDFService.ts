@@ -5,6 +5,19 @@ import BaseEntityVersionService from "./BaseEntityVersionService";
 import { Version_Actions } from "../utils/VersionConstants";
 import FUAFromVisitService from "./FUAFromVisitService";
 import { isValidUUIDv4 } from "../utils/utils";
+import {z} from "zod";
+
+
+const newFUAFromVisitPDFSchema = z.object({
+    name: z.string(),
+    fileData: z.instanceof(Buffer),
+    versionTag: z.string().optional(),
+    versionCounter: z.number().int().positive().optional(),
+    FUAFromVisitModelId: z.number().int().positive(),
+    BaseEntityVersionModelId: z.string().or(z.number().int().positive()),
+    createdBy: z.string()
+})
+
 
 class FUAFromVisitPDFService {
 
@@ -18,6 +31,15 @@ class FUAFromVisitPDFService {
             createdBy: string;
         }
     ){
+        //Object validation
+        const result = newFUAFromVisitPDFSchema.safeParse(data);
+        if( !result.success ){
+            console.error('Error in FUAFromVisitPDF Service - createFUAPage: ZOD validation. \n', result.error);
+            const newError = new Error('Error in FUAFromVisitPDF Service - create: ZOD validation. ');
+            (newError as any).details = result.error;
+            throw newError;
+        }        
+
         // Check if FUAFormatFromVisitModel exists
         let auxFUAFromVisit = null;
         try {
@@ -133,9 +155,8 @@ class FUAFromVisitPDFService {
 
     async getPDF(id: string){
         let pdfBytes = null;
-        let FUAFromVisitPDF = null;
         try{
-            FUAFromVisitPDF = await this.getByIdOrUUID(id);
+            const FUAFromVisitPDF = await this.getByIdOrUUID(id);
             pdfBytes = FUAFromVisitPDF.fileData;
         } catch (err: unknown){
             console.error('Error in FUA From Visit PDF Service - getPDF: ', err);
@@ -144,7 +165,6 @@ class FUAFromVisitPDFService {
         }
         return pdfBytes;
     }
-
 }
 
 export default new FUAFromVisitPDFService();

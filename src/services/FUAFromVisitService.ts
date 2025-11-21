@@ -17,9 +17,6 @@ import {FUAReference} from "../utils/queueImplementation";
 //Instance import 
 import fuaQueue from "../utils/queueImplementation";
 
-
-
-
 // Schemas
 const newFUAFromVisitSchema = z.object({
     // FUA Data, checksum not needed
