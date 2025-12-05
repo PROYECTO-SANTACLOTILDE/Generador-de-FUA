@@ -40,7 +40,7 @@ class FUARenderingUtils {
 
     // Render a FUA Format using HTML header and body from jsonc schema
     // Pending to validate
-    public static async renderFUAFormatFromSchema( FUAFormat : FUAFormat, printMode : boolean ) : Promise<string> {
+    public static async renderFUAFormatFromSchema( FUAFormat : FUAFormat, printMode : boolean, mapping?: any ) : Promise<string> {
 
         let formatContent = '';
 
@@ -48,7 +48,12 @@ class FUARenderingUtils {
         if( FUAFormat.pages.length === 0 ){
             formatContent = `<p> No pages detected. </p>`;
         }else{   
-            formatContent = FUAFormat.pages.map((item: any, index: number) => this.renderFUAPageFromSchema(item, index+1, printMode)).join('');            
+            formatContent = FUAFormat.pages.map((item: any, index: number) => this.renderFUAPageFromSchema(
+                item, 
+                index+1, 
+                printMode, 
+                mapping?.pages[index]
+            )).join('');            
         }
 
         // Get CSS style from public folder
@@ -83,7 +88,7 @@ class FUARenderingUtils {
     };
 
     // Render FUA Page from jsonc schema
-    public static renderFUAPageFromSchema( auxFUAPage : FUAPage, pageIndex: number, printMode: boolean ): string {
+    public static renderFUAPageFromSchema( auxFUAPage : FUAPage, pageIndex: number, printMode: boolean, mapping?: any ): string {
         
         let pageContent = '';
         
@@ -99,7 +104,15 @@ class FUARenderingUtils {
                 padding_top:    auxFUAPage.padding_top,
                 padding_left:   auxFUAPage.padding_left,
             };
-            pageContent = auxFUASections.map( (item:any, index: number) => this.renderFUASectionFromSchema(item, index, `fua-page-${pageIndex.toString()}`,paddings, printMode)).join('');
+            // check if thres any mapping for the page
+            pageContent = auxFUASections.map( (item: FUASection, index: number) => this.renderFUASectionFromSchema(
+                item, 
+                index, 
+                `fua-page-${pageIndex.toString()}`,
+                paddings, 
+                printMode, 
+                mapping?.sections.find( (section: any) => section.codeName == item.codeName )
+            )).join('');
         }
 
         let htmlContent = `
@@ -119,7 +132,7 @@ class FUARenderingUtils {
     };
 
     // Render FUA Section from jsonc schema
-    public static renderFUASectionFromSchema( auxFUASection : FUASection, sectionIndex: number, prefix: string, paddings: auxPaddings , printMode : boolean): string {
+    public static renderFUASectionFromSchema( auxFUASection : FUASection, sectionIndex: number, prefix: string, paddings: auxPaddings , printMode : boolean, mapping?: any): string {
         
         let sectionContent = '';
         
@@ -139,7 +152,12 @@ class FUARenderingUtils {
             sectionContent = ``;
         }else{
             //sectionContent = auxFUASection.fields.map( (item: any, index: number) => this.renderFUAFieldFromSchema(item,index,`${prefix}-section-${sectionIndex.toString()}`,printMode) ).join('');
-            sectionContent = auxFUASection.fields.map( (field: FUAField, index: number) => field.renderContent(index,`${prefix}-section-${sectionIndex.toString()}`,printMode ) ).join('');
+            sectionContent = auxFUASection.fields.map( (field: FUAField, index: number) => field.renderContent(
+                index,
+                `${prefix}-section-${sectionIndex.toString()}`,
+                printMode,
+                mapping?.fields.find( (auxField: any) => auxField.codeName == field.codeName ) 
+            ) ).join('');
         }
 
         let htmlContent = `
@@ -406,88 +424,6 @@ class FUARenderingUtils {
 
 
     // Generate demo mappings from visit json payload
-    public static generateMappingsDemo(visitPayload : any) : Map<string, Object[]>{
-
-        // Fields mapping for section IPRESS Data
-        let IPRESSDataSectionMap = new Map();
-
-        let visitDateMappings = {
-            valueType: "Table",
-            values: new Array()
-        };
-        
-        // Fill Dia of Visit Time
-        visitDateMappings.values.push({
-            column: 1,
-            row: 1,
-            value: visitPayload.startDatetime?.slice(8, 10) ?? ''
-        });
-
-        // Fill Mes of Visit Time
-        visitDateMappings.values.push({
-            column: 2,
-            row: 1,
-            value: visitPayload.startDatetime?.slice(5, 7) ?? ''
-        });
-
-        // Fill Año of Visit Time
-        visitDateMappings.values.push({
-            column: 2,
-            row: 1,
-            value: visitPayload.startDatetime?.slice(0, 4) ?? ''
-        });
-
-        IPRESSDataSectionMap.set("Visit Date",visitDateMappings);
-
-
-        // Visit TIme Mapping
-        let visitTimeMappings = {
-            valueType: "Box",
-            value: ""
-        };
-
-        // Fill Hour of Visit Time
-        visitTimeMappings.value = visitPayload.startDatetime?.slice(11, 16) ?? '';
-
-        IPRESSDataSectionMap.set("Visit Time", visitTimeMappings);
-
-
-        // Fill IPRESS Provider
-        let ipressProviderMappings = {
-            valueType: "Table",
-            value: new Array()            
-        };
-
-        ipressProviderMappings.value.push({
-            column: 1,
-            row: 2,
-            value: "00000066"
-        });
-
-        ipressProviderMappings.value.push({
-            column: 2,
-            row: 2,
-            value: "SANTA CLOTILDE"
-        });
-
-        IPRESSDataSectionMap.set("Visit Time",visitDateMappings);
-
-        // Mapping of pagina_2
-        let page1Map = new Map();
-        page1Map.set("IPRESS Data", IPRESSDataSectionMap);
-
-
-        // Mapping of pagina_2
-        let page2Map = new Map();
-
-        // Mapping of FUA
-        let fuaMap = new Map();
-        fuaMap.set("pagina_1",page1Map);
-        fuaMap.set("pagina_2",page2Map);
-
-        return fuaMap;
-    }
-
 }
 
 export default FUARenderingUtils;

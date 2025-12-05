@@ -14,6 +14,8 @@ import FUAFormat from "../modelsTypeScript/FUAFormat";
 import puppeteer from "puppeteer";
 const archiver = require('archiver');
 import { PassThrough } from 'stream';
+import { importPayloadToMapping } from "./mappingUtils";
+import { map } from "zod";
 
 
 
@@ -85,18 +87,30 @@ export async function createDemoFormat(printMode : boolean){
     const parsed = parse(jsoncContent);
     let auxFormat = await new FUAFormat(parsed);
 
+    
+    const mappingPath = path.resolve(process.cwd(), "./src/utils/FUA_Mapping_Examples/FUA_Mapping_1.0.js");
+    const mappingContent = fs.readFileSync(mappingPath, 'utf-8');
+    const mappingObject = eval(`(${mappingContent})`);
+    
+    
+    const visitPath = path.resolve(process.cwd(), "./src/utils/VisitExamples/Visit1.json");
+    const visitContent = fs.readFileSync(visitPath, 'utf-8');
+
+    const procMapping = importPayloadToMapping(visitContent,mappingObject);
+
+
     let html : string = '';
 
     //html
   
     //html = await FUARenderingUtils.renderFUAFormatFromSchema(parsed, printMode);
-    html  = await auxFormat.renderHtmlContent(false);
+    html  = await auxFormat.renderHtmlContent(false, mappingObject);
     return html
   }catch(error: unknown){
     console.error('Error in Utils - createDemoFormat: ', error);
     (error as Error).message =  'Error in Utils - createDemoFormat: ' + (error as Error).message;
     throw error;
-  }
+  } 
   ;
 };
 

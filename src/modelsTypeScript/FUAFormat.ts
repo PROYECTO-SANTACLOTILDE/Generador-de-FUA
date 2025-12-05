@@ -79,9 +79,9 @@ class FUAFormat extends BaseFieldFormEntity {
     get getPages() { return this.pages; }
     set setPages(value: Array<FUAPage>) { this.pages = value; }
 
-    public async renderHtmlContent(printMode : boolean) : Promise<string> {
+    public async renderHtmlContent(printMode : boolean, mapping?: any ) : Promise<string> {
         try{
-            const content =  await FUARenderingUtils.renderFUAFormatFromSchema(this, printMode);
+            const content =  await FUARenderingUtils.renderFUAFormatFromSchema(this, printMode, mapping);
             return content;
         }catch(err : any){
             console.error(err);
