@@ -35,7 +35,7 @@ FUAFormatFromSchemaRouter.get(
 );
 
 // Render a FUA Format
-FUAFormatFromSchemaRouter.get(
+FUAFormatFromSchemaRouter.post(
     '/:id/render',
     authenticate, 
     FUAFormatFromSchemaController.render

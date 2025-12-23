@@ -324,7 +324,7 @@ export class FUAField_Box extends FUAField {
         // Dont forget to add width in logicAditionalStyles
         let fieldContent = `
             <tr>
-                <td class="text-container ${printMode ? 'format-related-print' : ''}"> ${this.text ?? ''} <td>
+                <td class="text-container ${printMode ? 'format-related-print' : ''}"> ${this.text ?? ''} ${mapping?.mappings?.[0]?.valueToPut ?? ''}</td>
             </tr>
         `;
         logicAditionalStyles.value += `
@@ -442,12 +442,12 @@ export class FUAField_Field extends FUAField {
     //Overriden method
     render(fieldIndex: number, prefix: string, printMode: boolean, logicAditionalStyles : { value: string; }, mapping?: any): string {
         let auxFields = this.fields;
-        console.log('before: ',mapping?.fields);
-        let fieldContent = auxFields.map( (item: any, index: number) => item.renderContent(
+        //console.log('before: ',mapping?.fields);
+        let fieldContent = auxFields.map( (item: FUAField, index: number) => item.renderContent(
             index, 
             `${prefix}-field-${fieldIndex}`, 
             printMode, 
-            mapping?.fields
+            mapping?.fields.find( (auxField: any) => item.codeName === auxField.codeName )
         ) ).join('');
         logicAditionalStyles.value += `
             width:  ${this.width.toFixed(1)}mm; 

@@ -34,10 +34,18 @@ export function importPayloadToMapping(payload: string, mapping: any): void {
 export function processFieldMappings(field: any, parsedPayload: any) : void {
     // Check if its a Field Type
     if(field.fieldType === "Field"){
-        processFieldMappings(field.fields, parsedPayload);
+        field.fields.forEach( (auxField: any) => {
+            processFieldMappings(auxField, parsedPayload);
+        } );
+        
     }else{
         // Iterate mappings
         field.mappings.forEach( (mapping: any) => {
+            // Check if target is needed
+            if(mapping.target === null){
+                mapping.valueToPut = mapping.value ?? '';
+                return;
+            }
             // Use targets and find value
             const aimTarget = getValueByPath(parsedPayload,mapping.target);
             if(aimTarget !== undefined){                 

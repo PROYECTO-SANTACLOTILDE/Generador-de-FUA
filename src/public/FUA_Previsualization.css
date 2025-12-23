@@ -2,8 +2,6 @@ html, body { margin: 0; padding: 0; }
   /* le conteneur principal de ta page */
   .fua-container {
     position: relative;
-    /* width: 210mm;
-    height: 310mm; */
     overflow: hidden;
     box-sizing: border-box;
     /* Si tu as un fond/bordure plein-bord, voir point 3 */
@@ -102,12 +100,9 @@ table {
     /* Prevent text from overflowing */
     overflow: hidden;
     white-space: nowrap;
-    text-overflow: hidden;
-    /* Container query support */
-    container-type: size;
-    container-name: card;
-    /* Dynamic font sizing */
-    font-size: clamp(3px, 0.9cqh, 100%);
+    text-overflow: clip;
+    /* Font sizing */
+    font-size: 2.0mm;
     /* Optional: force text to scale down if needed */
     line-height: 1;
 }

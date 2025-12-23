@@ -10,17 +10,19 @@ const {PDFDocument} = require ('pdf-lib');
 import { computeHmacHex } from "../utils/utils";
 import { getBrowser } from "../utils/utils";
 import FUAFromVisitPDFService from "./FUAFromVisitPDFService";
+import * as path from 'path';
 
 import FUAFormat, { FUAFormatInterface } from "../modelsTypeScript/FUAFormat";
 import {FUAReference} from "../utils/queueImplementation";
 
 //Instance import 
 import fuaQueue from "../utils/queueImplementation";
+import { importPayloadToMapping } from "../utils/mappingUtils";
 
 // Schemas
 const newFUAFromVisitSchema = z.object({
     // FUA Data, checksum not needed
-    payload: z.string(), 
+    payload: z.record(z.any()), 
     schemaType: z.string(),    
     // Audit Data
     outputType: z.string(),
@@ -34,7 +36,7 @@ class FUAFromVisitService {
     // Creation of FUA Field
     async create(data: {
         // FUAFromVisit Data
-        payload: string; 
+        payload: any; 
         schemaType: string;
         outputType: string;
         // FUAFormatFromSchema Identifier
@@ -77,10 +79,10 @@ class FUAFromVisitService {
 
         try {
             //Payload validation
-            const aux = JSON.parse(data.payload);
+            //const aux = JSON.parse(data.payload);
 
             returnedFUA = await FUAFromVisitImplementation.createSequelize({
-                payload: data.payload,
+                payload: JSON.stringify(data.payload),
                 schemaType: data.schemaType,
                 outputType: data.outputType,
                 output: buffer,
@@ -151,6 +153,38 @@ class FUAFromVisitService {
         };
     };
     
+    async getRender(id: string){
+        let html : string = '';
+        try {
+            let renderContent = null;
+            const FUAFromVisit = await this.getByIdOrUUID(id);
+            
+            let auxFUAFormat = await FUAFormatFromSchemaService.getByIdOrUUID(FUAFromVisit.FUAFormatFromSchemaId);
+            let auxFormat = await new FUAFormat(auxFUAFormat);
+
+            // TODO: replace generic mapping
+            const mappingPath = path.resolve(process.cwd(), "./src/utils/FUA_Mapping_Examples/FUA_Mapping_1.0.js");
+            const module = await import(mappingPath);
+            const mappingObject = module.default;
+
+            const visitContent = FUAFromVisit.payload;
+            const auxObject = {
+                payload: JSON.parse(visitContent)
+            };
+
+            const procMapping = importPayloadToMapping(JSON.stringify(auxObject),mappingObject);
+            
+            html  = await auxFormat.renderHtmlContent(false, mappingObject);
+        
+            return html
+        }catch(error: unknown){
+            console.error('Error in Utils - createDemoFormat: ', error);
+            (error as Error).message =  'Error in Utils - createDemoFormat: ' + (error as Error).message;
+            throw error;
+        } 
+        
+    };
+
     async hashSignatureVerification(pdfBytes : any, secretKey : any) : Promise<Boolean>{
         
         try{
@@ -194,21 +228,21 @@ class FUAFromVisitService {
                 waitUntil: "networkidle0",
             });
 
-            const useCssPageSize = false;
+            const useCssPageSize = true;
             const pdfBytes = await page.pdf(
                 useCssPageSize
                 ? {
                     printBackground: true,
                     preferCSSPageSize: true,           // <-- respecte @page { size: ... }
-                    margin: { top: "0mm", right: "0mm", bottom: "0mm", left: "0mm" },
+                    //margin: { top: "0mm", right: "0mm", bottom: "0mm", left: "0mm" },
                     pageRanges: "1-",
-                    scale: 1,
+                    //scale: 1,
                     }
                 : {
                     printBackground: true,
                     preferCSSPageSize: false,
-                    width: "210mm",                    // <-- taille forcée côté Puppeteer
-                    height: "297mm",
+                    //width: "210mm",                    // <-- taille forcée côté Puppeteer
+                    //height: "297mm",
                     margin: { top: "0mm", right: "0mm", bottom: "0mm", left: "0mm" },
                     pageRanges: "1-",
                     displayHeaderFooter: false,
@@ -217,6 +251,23 @@ class FUAFromVisitService {
             );
         
             await page.close(); 
+
+            return pdfBytes;
+        
+        } catch (err: unknown){
+            console.error('Error in FUA From Visit Service - generatePDF: ', err);
+            (err as Error).message =  'Error in FUA From Visit Service - generatePDF: ' + (err as Error).message;
+            throw err;
+        }
+    };
+
+    async generatePDFFromId(id : string){
+        let htmlContent = '';
+        try {
+            // Get html content
+            htmlContent = await this.getRender(id);
+
+            let pdfBytes = await this.generatePdf(htmlContent);
 
             return pdfBytes;
         

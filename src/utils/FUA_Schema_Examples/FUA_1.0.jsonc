@@ -103,16 +103,15 @@
               "versionTag": "1.0",
               // Field data
               "top": 2.4,
-              "left": 52.0,
+              "left": 54.0,
               "label": "HORA",
               "showLabel": true,
               "labelOrientation": "Horizontal",
               "labelPosition": "Top",
-              "labelHeight": 4.0,
+              "labelHeight": 5.6,
               "valueType": "Box",
-              "width": 10.5,
-              "height": 4.0,
-              "text": ""
+              "width": 12.0,
+              "height": 4.0
             },
             {
               // Base Field Form Attribute
@@ -176,10 +175,10 @@
                   "codeName": "Provider Type",
                   "versionTag": "1.0",
                   // Field data
-                  "top": 0.0,
-                  "left": 0.0,
+                  "top": -0.2,
+                  "left": -0.2,
                   "showLabel": false,
-                  "label": "CÓDIGO DE LA OFERTA FLEXIBLE",
+                  "label": "CÓDIGO DE LA OFERTA<br>FLEXIBLE",
                   "valueType": "Table",
                   "labelOrientation": "Horizontal",
                   "labelPosition": "Top",
@@ -192,54 +191,61 @@
                     {
                       // Row 1
                       "index": 1,
-                      "height": 4.0,
-                      "isHeader": false,
+                      "height": 4.38,
+                      "isHeader": false,                      
                       "cells": [
-                        { "text": "DE LA IPRESS" },
+                        {
+                          "text": "DE LA IPRESS", 
+                          "extraStyles": "font-size: 1.8mm; text-align: left;" 
+                        },
                         { "text": "" }
                       ]
                     },
                     {
                       // Row 2
                       "index": 2,
-                      "height": 4.0,
+                      "height": 4.5,
                       "isHeader": false,
                       "cells": [
                         {
-                          "text": "ITINERANTE"
+                          "text": "ITINERANTE",
+                          "extraStyles": "font-size: 1.8mm; text-align: left;"
                         }
                       ]
                     },
                     {
                       // Row 3
                       "index": 3,
-                      "height": 4.0,
+                      "height": 4.5,
                       "isHeader": false,
                       "cells": [
                         {
-                          "text": "PLAN MAS SALUD"
+                          "text": "PLAN MAS SALUD",
+                          "extraStyles": "font-size: 1.8mm; text-align: left;"
                         }
                       ]
                     },
                     {
                       // Row 4
                       "index": 4,
-                      "height": 4.0,
+                      "height": 4.5,
                       "isHeader": false,
                       "cells": [
                         {
-                          "text": "OFERTA FLEXIBLE"
+                          "text": "OFERTA FLEXIBLE",
+                          "extraStyles": "font-size: 1.8mm; text-align: left;"
                         }
                       ]
                     },
                     {
                       // Row 5
                       "index": 5,
-                      "height": 4.0,
+                      "height": 4.5,
                       "isHeader": false,
                       "cells": [
                         {
-                          "text": "TELESALUD"
+                          "text": "TELESALUD",
+                          "extraStyles": "font-size: 1.8mm; text-align: left;"
                         }
                       ]
                     }
@@ -251,16 +257,17 @@
                   "codeName": "Oferta Flexible Code",
                   "versionTag": "1.0",
                   // Field data
-                  "top": 0.0,
-                  "left": 23.0,
+                  "top": -0.2,
+                  "left": 22.8,
                   "showLabel": true,
-                  "label": "CÓDIGO DE LA OFERTA FLEXIBLE",
+                  "label": "CÓDIGO DE LA OFERTA<br>FLEXIBLE",
                   "labelPosition": "Top",
-                  "labelHeight": 4.0,
+                  "labelHeight": 4.2,
+                  "labelExtraStyles": "line-height: 1.9mm;",
                   "valueType": "Box",
-                  "width": 28.7,
-                  "height": 17.7,
-                  "text": "---"                  
+                  "width": 29.5,
+                  "height": 17.9,
+                  "text": ""                  
                 }
               ]
             },
@@ -387,7 +394,8 @@
                   "cells": [
                     { "text": "CÓD. RENAES", "extraStyles": "background-color: #F0F0F0;"},
                     { "text": "NOMBRE DE LA IPRESS U OFERTA FLEXIBLE", "extraStyles": "background-color: #F0F0F0;"},
-                    { "text": "Nº DE HOJA DE REFERENCIA", "extraStyles": "background-color: #F0F0F0;"}
+                    { "text": "Nº DE HOJA DE<br> REFERENCIA", 
+                    "extraStyles": "background-color: #F0F0F0; line-height: 2.0mm;"}
                   ]
                 },
                 {
@@ -431,7 +439,7 @@
               "label": "IDENTIFICACIÓN",
               "valueType": "Table",
               "labelOrientation": "Horizontal",
-              "labelPosition": "Up",
+              "labelPosition": "Top",
               "labelHeight": 2.3,
               "columns": [
                 { "width": 10.0},
@@ -453,10 +461,7 @@
                   "index": 2,
                   "height": 3.9,
                   "isHeader": false,
-                  "cells": [
-                    { "text": "DNI" },
-                    { "text": "12598361" }
-                  ]
+                  "cells": [ ]
                 }                
               ]
             },
@@ -472,7 +477,7 @@
               "label": "CÓDIGO DEL ASEGURADO SIS",
               "valueType": "Table",
               "labelOrientation": "Horizontal",
-              "labelPosition": "Up",
+              "labelPosition": "Top",
               "labelHeight": 2.3,
               "columns": [
                 { "width": 12.6},
@@ -485,7 +490,7 @@
                   "height": 3.8,
                   "isHeader": false,
                   "cells": [
-                    { "text": "DIRESA / OTROS", "extraStyles": "background-color: #F0F0F0;"},
+                    { "text": "DIRESA /<br>OTROS", "extraStyles": "background-color: #F0F0F0; line-height: 1.9mm;"},
                     { "text": "NÚMERO", "extraStyles": "background-color: #F0F0F0;"}
                   ]
                 },
@@ -494,10 +499,7 @@
                   "index": 2,
                   "height": 3.9,
                   "isHeader": false,
-                  "cells": [
-                    { "text": "XXXX" },
-                    { "text": "xxxxxxxx" }
-                  ]
+                  "cells": [ ]
                 }                
               ]
             },
@@ -515,8 +517,7 @@
               "labelHeight": 2.7,
               "valueType": "Box",
               "width": 96.0 ,
-              "height": 5.0,
-              "text": "DIBOS"
+              "height": 5.0
             },
             {
               // Base Field Form Attribute
@@ -532,8 +533,7 @@
               "labelHeight": 2.7,
               "valueType": "Box",
               "width": 92.0 ,
-              "height": 5.0,
-              "text": "GOMEZ"
+              "height": 5.0
             },
             {
               // Base Field Form Attribute
@@ -549,8 +549,7 @@
               "labelHeight": 2.7,
               "valueType": "Box",
               "width": 96.0 ,
-              "height": 5.0,
-              "text": "ROBERTO"
+              "height": 5.0
             },
             {
               // Base Field Form Attribute
@@ -566,8 +565,7 @@
               "labelHeight": 2.7,
               "valueType": "Box",
               "width": 92.0 ,
-              "height": 5.0,
-              "text": "MARIO"
+              "height": 5.0
             },
             {
               // Base Field Form Attribute
@@ -579,7 +577,7 @@
               "label": "SEXO",
               "showLabel": true,
               "labelOrientation": "Horizontal",
-              "labelPosition": "Up",
+              "labelPosition": "Top",
               "labelHeight": 2.5,
               "valueType": "Table",
               "columns": [
@@ -623,7 +621,7 @@
               "label": "SALUD MATERNA",
               "showLabel": true,
               "labelOrientation": "Horizontal",
-              "labelPosition": "Up",
+              "labelPosition": "Top",
               "labelHeight": 2.5,
               "valueType": "Table",
               "columns": [
@@ -687,9 +685,8 @@
               "labelPosition": "Top",
               "labelHeight": 2.5,
               "valueType": "Box",
-              "width": 3.95,
-              "height": 6.7,
-              "text": ""
+              "width": 40.3,
+              "height": 6.7
             },
             {
               // Base Field Form Attribute
@@ -840,8 +837,8 @@
               "labelHeight": 2.5,
               "valueType": "Table",
               "columns": [
-                { "width": 39.5},
-                { "width": 40.8}
+                { "width": 34.5},
+                { "width": 35.8}
               ],
               "rows": [
                 {
@@ -893,7 +890,7 @@
           "showTitle": true,
           "titleHeight": 2.4,
           "bodyHeight": 37.5,
-          "bodyWidth": 200.0,
+          "bodyWidth": 192.0,
           "top": 130.0,
           "left": 0.0,
           "extraStyles": "",
@@ -904,14 +901,14 @@
               "versionTag": "1.0",
               // Field data
               "top": 0.5,
-              "left": 7.3,
+              "left": 72.2,
               "label": "UPS",
               "showLabel": true,
               "labelOrientation": "Horizontal",
               "labelPosition": "Top",
               "labelHeight": 4.8,
               "valueType": "Box",
-              "width": 8.2,
+              "width": 11.0,
               "height": 9.0,
               "text": ""
             },
@@ -922,8 +919,8 @@
               // Field data
               "top": 0.5,
               "left": 84.9,
-              "label": "CÓDIGO <br> PRESTACIONAL",
-              "labelextraStyles": "font-size: 1.3mm;",
+              "label": "CÓDIGO <br>PRESTACIONAL",
+              "labelExtraStyles": "font-size: 1.8mm; line-height: 2.4mm;",
               "showLabel": true,
               "captionSide": "left",
               "labelOrientation": "Horizontal",
@@ -1016,7 +1013,7 @@
               "versionTag": "1.0",
               // Field data
               "top": 0.5,
-              "left": 140.0,
+              "left": 129.5,
               "label": "HOSPITALIZACIÓN",
               "showLabel": false,
               "labelOrientation": "Horizontal",
@@ -1103,7 +1100,7 @@
               "labelPosition": "Top",
               "labelHeight": 2.2,
               "valueType": "Field",
-              "width": 200.7,
+              "width": 190.0,
               "height": 12.0,
               "fields": [
                 {
@@ -1330,12 +1327,12 @@
                   "labelHeight": 2.3,
                   "valueType": "Table",
                   "columns": [
-                    { "width": 22.1},
-                    { "width": 9.2},
+                    { "width": 17.5},
+                    { "width": 8.5},
                     { "width": 12.7},
-                    { "width": 10.9},
+                    { "width": 8.5},
                     { "width": 9.0},
-                    { "width": 9.4}
+                    { "width": 8.5}
                   ],
                   "rows": [
                     {
@@ -1382,7 +1379,7 @@
           "showTitle": true,
           "titleHeight": 2.3,
           "bodyHeight": 20.0,
-          "bodyWidth": 201.6,
+          "bodyWidth": 192.0,
           "top": 171.0,
           "left": 0.0,
           "extraStyles": "",
@@ -1664,7 +1661,7 @@
               "versionTag": "1.0",
               // Field data
               "top": 4.1,
-              "left": 107.1,
+              "left": 102.1,
               "label": "<p style='line-height: 1.5mm; font-size: 1.6mm; padding: 0.1mm'>JOVEN Y <br> ADULTO</p>",
               "showLabel": true,
               "labelOrientation": "Horizontal",
@@ -1672,8 +1669,8 @@
               "labelHeight": 4.5,
               "valueType": "Table",
               "columns": [
-                { "width": 12.4},
-                { "width": 6.0}
+                { "width": 11.4},
+                { "width": 5.0}
               ],
               "rows": [
                 {
@@ -1683,9 +1680,8 @@
                   "isHeader": false,
                   "cells": [
                     { "text": "EVALUACIÓN <br> INTEGRAL",
-                  "extraStyles": "font-size: 1.4mm; padding: 0.3mm; background-color: #F0F0F0;"},
-                    { "text": "X" ,
-                  "extraStyles": "font-size: 1.6mm; padding: 0.3mm; "}
+                      "extraStyles": "font-size: 1.4mm; padding: 0.3mm; background-color: #F0F0F0;"
+                    }
                   ]
                 }                
               ]
@@ -1696,7 +1692,7 @@
               "versionTag": "1.0",
               // Field data
               "top": 15.0,
-              "left": 105.0,
+              "left": 103.0,
               "label": "<p style='line-height: 1.5mm; font-size: 1.6mm; padding: 0.1mm'>ADULTO MAYOR</p>",
               "showLabel": true,
               "labelOrientation": "Horizontal",
@@ -1738,6 +1734,7 @@
               "top": 4.1,
               "left": 0.0,
               "label": "DE LA<br>GESTANTE",
+              "labelExtraStyles": "line-height: 2.2mm;",
               "showLabel": true,
               "labelOrientation": "Horizontal",
               "labelPosition": "Top",
@@ -1807,7 +1804,7 @@
               // Field data
               "top": 4.1,
               "left": 19.3,
-              "label": "DEL RECIEN NAIDO",
+              "label": "DEL RECIEN NACIDO",
               "showLabel": true,
               "labelOrientation": "Horizontal",
               "labelPosition": "Top",
@@ -2126,12 +2123,12 @@
               "labelHeight": 4.5,
               "valueType": "Table",
               "columns": [
-                { "width": 15.9},
-                { "width": 12.5},
+                { "width": 13.9},
+                { "width": 7.5},
                 { "width": 16.6},
-                { "width": 12.7},
+                { "width": 7.5},
                 { "width": 16.7},
-                { "width": 11.3}
+                { "width": 7.5}
               ],
               "rows": [
                 {
@@ -2279,8 +2276,8 @@
               "valueType": "Table",
               "columns": [
                 { "width": 19.8},
-                { "width": 8.9},
-                { "width": 51.0}
+                { "width": 5.0},
+                { "width": 45.0}
               ],
               "rows": [
                 {
@@ -2291,14 +2288,14 @@
                   "cells": [
                     {
                       "text": "GRUPO DE RIESGO<br>HVB",
-                      "extraStyles": "font-size: 1.8mm; padding: 0.3mm; background-color: #F0F0F0;"
+                      "extraStyles": "font-size: 1.8mm; background-color: #F0F0F0;"
                     },
                     {
                       "text": ""
                     },
                     {
                       "text": "GRUPO DE RIESGO HVB: 1. TRABAJADOR DE SALUD 2. TRABAJAD<br>SEXUALES 3. HSH 4. PRIVADO LIBERTAD 5. FF. AA. 6. POLICIA<br>NACIONAL 7. ESTUDIANTES DE SALUD 8. POLITRANFUNDIDOS 9.<br>DROGO DEPENDIENTES",
-                      "extraStyles": "font-size: 1.4mm; padding: 0.3mm;"
+                      "extraStyles": "font-size: 1.2mm;"
                     } 
                   ]
                 } 
@@ -2335,17 +2332,17 @@
               "valueType": "Table",
               "columns": [
                 { "width": 4.8},
-                { "width": 115.0},
-                { "width": 13.2}, 
+                { "width": 110.0},
+                { "width": 14.2}, 
                 { "width": 24.2},
-                { "width": 10.6},
+                { "width": 14.2},
                 { "width": 23.4}
               ],
               "rows": [
                 {
                   // Row 1
                   "index": 1,
-                  "height": 4.0,
+                  "height": 4.4,
                   "isHeader": true,
                   "cells": [
                     { "text": "Nº" },
@@ -2363,11 +2360,11 @@
                   "isHeader": true,
                   "cells": [
                     { "text": "1" },
-                    { "text": "Influenza debida a virus de la gripe identificado con otras manifestaciones respiratorias. " },
-                    { "text": "P" },
-                    { "text": "J10.1" },
-                    { "text": "D" },
-                    { "text": "J10.1" },
+                    { "text": "" },
+                    { "text": "" },
+                    { "text": "" },
+                    { "text": "" },
+                    { "text": "" },
                   ]
                 },
                 {
@@ -2377,11 +2374,53 @@
                   "isHeader": true,
                   "cells": [
                     { "text": "2" },
-                    { "text": "Rinofaringitis aguda (resfriado común). " },
-                    { "text": "P" },
-                    { "text": "J00" },
-                    { "text": "D" },
-                    { "text": "J00" },
+                    { "text": "" },
+                    { "text": "" },
+                    { "text": "" },
+                    { "text": "" },
+                    { "text": "" },
+                  ]
+                },
+                {
+                  // Row 4
+                  "index": 4,
+                  "height": 3.8,
+                  "isHeader": true,
+                  "cells": [
+                    { "text": "3" },
+                    { "text": "" },
+                    { "text": "" },
+                    { "text": "" },
+                    { "text": "" },
+                    { "text": "" },
+                  ]
+                },
+                {
+                  // Row 5
+                  "index": 5,
+                  "height": 3.8,
+                  "isHeader": true,
+                  "cells": [
+                    { "text": "4" },
+                    { "text": "" },
+                    { "text": "" },
+                    { "text": "" },
+                    { "text": "" },
+                    { "text": "" },
+                  ]
+                },
+                {
+                  // Row 6
+                  "index": 6,
+                  "height": 3.8,
+                  "isHeader": true,
+                  "cells": [
+                    { "text": "5" },
+                    { "text": "" },
+                    { "text": "" },
+                    { "text": "" },
+                    { "text": "" },
+                    { "text": "" },
                   ]
                 }
               ]
@@ -2417,7 +2456,7 @@
               "valueType": "Table",
               "columns": [
                 { "width": 40.6},
-                { "width": 119.2},
+                { "width": 105.2},
                 { "width": 40.5}
               ],
               "rows": [
@@ -2476,8 +2515,8 @@
               "columns": [
                 { "width": 40.6},
                 { "width": 7.7},
-                { "width": 21.9},
-                { "width": 57.3},
+                { "width": 18.9},
+                { "width": 52.3},
                 { "width": 15.8},
                 { "width": 15.2},
                 { "width": 30.7},

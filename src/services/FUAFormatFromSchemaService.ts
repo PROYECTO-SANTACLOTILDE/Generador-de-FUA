@@ -253,7 +253,7 @@ class FUAFormatFromSchemaService {
     }
 
     // Render FUA Format by Id
-    async renderById( visitPayload: Object, idReceived: string ) {
+    async renderById( idReceived: string ) {
         // Get Format by Id or UUID
         let auxFuaFormat = null;
         try {
@@ -274,7 +274,8 @@ class FUAFormatFromSchemaService {
         let parsedContent = parse(auxFuaFormat.content);
 
         try{
-            htmlContent = await FUARenderingUtils.renderFUAFormatFromSchema(parsedContent, false);
+            let auxFormat = await new FUAFormat(parsedContent);
+            htmlContent = await auxFormat.renderHtmlContent(false, null);
         } catch(error: any){
             (error as Error).message =  'Error in FUA Format Service - renderById: ' + (error as Error).message;
             const line = inspect(error, { depth: 100, colors: false });

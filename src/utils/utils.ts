@@ -89,9 +89,12 @@ export async function createDemoFormat(printMode : boolean){
 
     
     const mappingPath = path.resolve(process.cwd(), "./src/utils/FUA_Mapping_Examples/FUA_Mapping_1.0.js");
+    const module = await import(mappingPath);
+    const mappingObject = module.default;
+    /*
     const mappingContent = fs.readFileSync(mappingPath, 'utf-8');
     const mappingObject = eval(`(${mappingContent})`);
-    
+    */
     
     const visitPath = path.resolve(process.cwd(), "./src/utils/VisitExamples/Visit1.json");
     const visitContent = fs.readFileSync(visitPath, 'utf-8');

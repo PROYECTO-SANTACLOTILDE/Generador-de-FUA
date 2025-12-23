@@ -3,6 +3,7 @@ import {z} from "zod";
 import FUAFormatImplementation from '../implementation/sequelize/FUAFormatImplementation';
 import { isValidUUIDv4 } from "../utils/utils";
 import FUARenderingUtils from "../utils/FUARendering";
+import FUAFormat from "../modelsTypeScript/FUAFormat";
 
 // Schemas
 
@@ -178,6 +179,7 @@ class FUAFormatService {
         } 
 
         // Get FUA Pages
+        /*
         auxFuaFormat.pages = [];
         try {
             auxFuaFormat.pages = await this.getFUAPagesByIdOrUUID(auxFuaFormat.id);
@@ -186,12 +188,14 @@ class FUAFormatService {
             (err as Error).message =  'Error in FUA Format Service - renderById: ' + (err as Error).message;
             throw err;
         }
+        */ 
 
         // Render FUA Pages of FUA Format
-        let htmlContent = null;
+        let htmlContent = "";
 
         try{
-            htmlContent = await FUARenderingUtils.renderFUAFormatFromSchema(auxFuaFormat, false);
+            let auxFormat = await new FUAFormat(auxFuaFormat);
+            htmlContent = await auxFormat.renderHtmlContent(false, null);
         } catch(error: any){
             console.error('Error in FUA Format Service - renderById: ', error);
             (error as Error).message =  'Error in FUA Format Service - renderById: ' + (error as Error).message;

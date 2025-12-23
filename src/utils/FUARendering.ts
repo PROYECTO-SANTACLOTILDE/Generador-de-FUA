@@ -43,6 +43,9 @@ class FUARenderingUtils {
     public static async renderFUAFormatFromSchema( FUAFormat : FUAFormat, printMode : boolean, mapping?: any ) : Promise<string> {
 
         let formatContent = '';
+        let pageSizes = {
+            value: ''
+        };
 
         // Validate pages
         if( FUAFormat.pages.length === 0 ){
@@ -50,7 +53,8 @@ class FUARenderingUtils {
         }else{   
             formatContent = FUAFormat.pages.map((item: any, index: number) => this.renderFUAPageFromSchema(
                 item, 
-                index+1, 
+                index+1,
+                pageSizes, 
                 printMode, 
                 mapping?.pages[index]
             )).join('');            
@@ -74,12 +78,13 @@ class FUARenderingUtils {
                     <title>Previsualizacion de FUA</title>
                     <style>
                         ${cssStyles}
+                        ${pageSizes.value}
                     </style>
                 </head>
                 <body>
-                    <div id="fua-render-container">
+                    
                         ${ formatContent }
-                    </div>                    
+                                        
                 </body>
             </html>
         `);
@@ -88,7 +93,7 @@ class FUARenderingUtils {
     };
 
     // Render FUA Page from jsonc schema
-    public static renderFUAPageFromSchema( auxFUAPage : FUAPage, pageIndex: number, printMode: boolean, mapping?: any ): string {
+    public static renderFUAPageFromSchema( auxFUAPage : FUAPage, pageIndex: number, pageSizes: { value: string} ,printMode: boolean, mapping?: any ): string {
         
         let pageContent = '';
         
@@ -115,13 +120,24 @@ class FUARenderingUtils {
             )).join('');
         }
 
+        // Get page sizes
+        let auxPageSizes: string = `
+            @page fua-page-size-${pageIndex.toString()} {
+                margin: 0;
+                size: ${auxFUAPage.width.toFixed(1)}mm ${auxFUAPage.height.toFixed(1)}mm;
+            }
+
+            #fua-page-${pageIndex.toString()} {
+                page: fua-page-size-${pageIndex.toString()};
+                width: ${auxFUAPage.width.toFixed(1)}mm;
+                height: ${auxFUAPage.height.toFixed(1)}mm;
+                page-break-after: always;
+            }
+        `;
+        pageSizes.value += auxPageSizes;
+
         let htmlContent = `
-            <style>
-                #fua-page-${pageIndex.toString()} {
-                    width: ${auxFUAPage.width.toFixed(1)}mm;
-                    height: ${auxFUAPage.height.toFixed(1)}mm;
-                }
-            </style>
+
             <div id="fua-page-${pageIndex.toString()}" class="fua-page ${printMode ? 'format-related-print' : ''}" ${auxFUAPage.extraStyles !== undefined ? `style="${auxFUAPage.extraStyles}"` : ""}>
                 ${ pageContent }
             </div>

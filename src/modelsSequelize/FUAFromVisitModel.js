@@ -19,7 +19,7 @@ const FUAFromVisitModel = sequelize.define(
         
         // Define FuaFormat atributes
         payload: {        // OpenMRS API payload
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: false
         },
         schemaType: {        // Shows what type of scheme whas use (HL7, API, Etc)

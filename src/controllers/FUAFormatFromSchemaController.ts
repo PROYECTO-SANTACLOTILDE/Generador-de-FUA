@@ -238,7 +238,7 @@ class FUAFormatFromSchemaController {
         let htmlContent = null;
 
         try {
-            htmlContent = await FUAFormatFromSchemaService.renderById(visitpayload, formatidentifier);
+            htmlContent = await FUAFormatFromSchemaService.renderById(formatidentifier);
             if(htmlContent === null){
                 res.status(404).json({
                     error: `FUA Format by Id or UUID '${formatidentifier}' couldnt be found. `, 

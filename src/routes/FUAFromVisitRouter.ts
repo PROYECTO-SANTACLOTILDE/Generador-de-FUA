@@ -22,6 +22,12 @@ FUAFromVisitRouter.get('/',
   authenticate, 
   FUAFromVisitController.listAll);
 
+FUAFromVisitRouter.post(
+  '/:id/render',
+  authenticate,
+  FUAFromVisitController.render
+);
+
 const uploadPdf = upload.fields([{ name: 'pdf', maxCount: 1 }]);
 FUAFromVisitRouter.post(
   '/hashSignatureVerification',
@@ -31,7 +37,7 @@ FUAFromVisitRouter.post(
 );
 
 FUAFromVisitRouter.post(
-  '/generateSignedPdf',
+  '/:id/generatePDF',
   authenticate,
   FUAFromVisitController.generateSignedPdf
 );

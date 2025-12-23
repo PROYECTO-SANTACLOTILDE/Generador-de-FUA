@@ -6,6 +6,9 @@ import { Version_Actions } from "../utils/VersionConstants";
 import FUAFromVisitService from "./FUAFromVisitService";
 import { isValidUUIDv4 } from "../utils/utils";
 import {z} from "zod";
+import FUAFormat from "../modelsTypeScript/FUAFormat";
+import * as path from 'path';
+import { importPayloadToMapping } from "../utils/mappingUtils";
 
 
 const newFUAFromVisitPDFSchema = z.object({
@@ -152,6 +155,8 @@ class FUAFromVisitPDFService {
         } 
         return returnedFUAFromVisitPDFs;
     };
+
+    
 
     async getPDF(id: string){
         let pdfBytes = null;
