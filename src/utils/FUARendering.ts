@@ -245,9 +245,9 @@ class FUARenderingUtils {
                 <style>
                     #${prefix}-field-${fieldIndex}-caption {
                         ${captionStyle}             
-                        ${(auxFUAField.labelPosition === 'Left' || auxFUAField.labelPosition === 'Right') ? `width: ${auxFUAField.labelWidth ? auxFUAField.labelWidth.toFixed(1)+' mm;' : '100%;'}` : ''}   
-                        ${(auxFUAField.labelPosition === 'Left' || auxFUAField.labelPosition === 'Right') ? '' : (auxFUAField.labelHeight ? `height: ${auxFUAField.labelHeight.toFixed(1)}mm;` : 'height: 2.0mm;' )}
-                        ${auxFUAField.labelHeight ? `line-height: ${auxFUAField.labelHeight.toFixed(1)}mm;` : 'height: 2.0mm;'}        
+                        ${(auxFUAField.labelPosition === 'Left' || auxFUAField.labelPosition === 'Right') ? `width: ${auxFUAField.labelWidth ? auxFUAField.labelWidth.toFixed(1)+'mm;' : '100%;'}` : ''}   
+                        ${(auxFUAField.labelPosition === 'Top' || auxFUAField.labelPosition === 'Bottom') ? (auxFUAField.labelHeight ? `height: ${auxFUAField.labelHeight.toFixed(1)}mm;` : 'height: 2.0mm;' ) : ''}
+     
                         
                         font-weight: bold;
                         background-color: lightgray;

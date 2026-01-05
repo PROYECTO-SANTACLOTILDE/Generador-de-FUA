@@ -87,16 +87,22 @@ export async function createDemoFormat(printMode : boolean){
     const parsed = parse(jsoncContent);
     let auxFormat = await new FUAFormat(parsed);
 
-    
+    /*
     const mappingPath = path.resolve(process.cwd(), "./src/utils/FUA_Mapping_Examples/FUA_Mapping_1.0.js");
     const module = await import(mappingPath);
     const mappingObject = module.default;
+    */ 
+
+    const mappingPath = path.resolve(process.cwd(), "./src/utils/FUA_Mapping_Examples/FUA_Mapping_1.0.js");
+    delete require.cache[mappingPath];  // Clears cache for reloading
+    const mappingObject = require(mappingPath);
+    
     /*
     const mappingContent = fs.readFileSync(mappingPath, 'utf-8');
     const mappingObject = eval(`(${mappingContent})`);
     */
     
-    const visitPath = path.resolve(process.cwd(), "./src/utils/VisitExamples/Visit1.json");
+    const visitPath = path.resolve(process.cwd(), "./src/utils/VisitExamples/Visit2.json");
     const visitContent = fs.readFileSync(visitPath, 'utf-8');
 
     const procMapping = importPayloadToMapping(visitContent,mappingObject);

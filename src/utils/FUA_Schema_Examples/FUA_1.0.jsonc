@@ -504,7 +504,7 @@
               ]
             },
             {
-              // Base Field Form Attribute
+              // Paternal Lastname
               "codeName": "Paternal Lastname",
               "versionTag": "1.0",
               // Field data
@@ -971,15 +971,15 @@
               "versionTag": "1.0",
               // Field data
               "top": 15.0,
-              "left": 28.2,
+              "left": -0.2,
               "label": "REPORTE VINCULADO",
-              "showLabel": false,
+              "showLabel": true,
               "labelOrientation": "Horizontal",
-              "labelPosition": "Top",
-              "labelHeight": 2.3,
+              "labelPosition": "Left",
+              "labelWidth": 30.5,
               "valueType": "Table",
               "columns": [
-                { "width": 42.8}
+                { "width": 40.8}
               ],
               "rows": [
                 {
@@ -989,7 +989,7 @@
                   "isHeader": true,
                   "cells": [
                     {
-                      "text": "Cód. AUTHORIZACIóN",
+                      "text": "CÓD. AUTORIZACIÓN",
                       "extraStyles": "font-size: 1.7mm;"
                     }    
                   ]
@@ -1108,7 +1108,7 @@
                   "codeName": "Direction Attention",
                   "versionTag": "1.0",
                   // Field data
-                  "top": 2.4,
+                  "top": -0.2,
                   "left": 0.0,
                   "label": "ATENCIÓN DIRECTA",
                   "showLabel": false,
@@ -1118,7 +1118,7 @@
                   "valueType": "Table",
                   "columns": [
                     { "width": 14.5},
-                    { "width": 6.7}
+                    { "width": 7.2}
                   ],
                   "rows": [
                     {
@@ -1143,7 +1143,7 @@
                   "codeName": "Extaordinary COB",
                   "versionTag": "1.0",
                   // Field data
-                  "top": 2.4,
+                  "top": -0.2,
                   "left": 21.6,
                   "label": "COB EXTRAORDINARIA",
                   "showLabel": true,
@@ -1178,7 +1178,7 @@
                   "codeName": "Amount",
                   "versionTag": "1.0",
                   // Field data
-                  "top": 8.7,
+                  "top": 6.0,
                   "left": 21.6,
                   "label": "Monto S/.",
                   "showLabel": false,
@@ -1194,7 +1194,7 @@
                     {
                       // Row 1
                       "index": 1,
-                      "height": 5.6,
+                      "height": 5.8,
                       "isHeader": true,
                       "cells": [
                         {
@@ -1213,7 +1213,7 @@
                   "codeName": "Warranty card",
                   "versionTag": "1.0",
                   // Field data
-                  "top": 2.4,
+                  "top": -0.2,
                   "left": 65.1,
                   "label": "CARTA DE GARANTIA",
                   "showLabel": true,
@@ -1248,7 +1248,7 @@
                   "codeName": "Amount2",
                   "versionTag": "1.0",
                   // Field data
-                  "top": 8.7,
+                  "top": 6.0,
                   "left": 65.1,
                   "label": "Monto S/.",
                   "showLabel": false,
@@ -1283,7 +1283,7 @@
                   "codeName": "Transfer",
                   "versionTag": "1.0",
                   // Field data
-                  "top": 2.4,
+                  "top": -0.2,
                   "left": 103.6,
                   "label": "TRASLADO",
                   "showLabel": false,
@@ -1318,7 +1318,7 @@
                   "codeName": "Burial",
                   "versionTag": "1.0",
                   // Field data
-                  "top": 2.4,
+                  "top": -0.2,
                   "left": 124.2,
                   "label": "SEPELIO",
                   "showLabel": true,
@@ -1332,7 +1332,7 @@
                     { "width": 12.7},
                     { "width": 8.5},
                     { "width": 9.0},
-                    { "width": 8.5}
+                    { "width": 9.2}
                   ],
                   "rows": [
                     {
@@ -1443,7 +1443,7 @@
               "versionTag": "1.0",
               // Field data
               "top": 0.3,
-              "left": 58.35,
+              "left": 58.0,
               "label": "REFERIDO",
               "showLabel": true,
               "labelOrientation": "Horizontal",
@@ -1451,11 +1451,11 @@
               "labelHeight": 2.0,
               "valueType": "Table",
               "columns": [
-                { "width": 7.3},
+                { "width": 12.0},
                 { "width": 8.5},
-                { "width": 11.7},
+                { "width": 17.0},
                 { "width": 8.1},
-                { "width": 23.8},
+                { "width": 13.8},
                 { "width": 7.9}
               ],
               "rows": [
@@ -1480,7 +1480,7 @@
                       "text": ""
                     },
                     {
-                      "text": "APOYO AL<br>ALDIAGNÓSTICO",
+                      "text": "APOYO AL<br>DIAGNÓSTICO",
                       "extraStyles": "font-size: 1.5mm; padding: 0.2mm;"
                     },
                     {
@@ -1558,7 +1558,7 @@
               "valueType": "Table",
               "columns": [
                 { "width": 40.0},
-                { "width": 12.0},
+                { "width": 99.0},
                 { "width": 52.0}
               ],
               "rows": [
@@ -1646,11 +1646,11 @@
                   "isHeader": true,
                   "cells": [
                     { "text": "PESO (kg)", "extraStyles": "background-color: #F0F0F0;"},
-                    { "text": "72.0" },
+                    { "text": "" },
                     { "text": "TALLA (cm)", "extraStyles": "background-color: #F0F0F0;"},
-                    { "text": "165" },
+                    { "text": "" },
                     { "text": "P.A. (mmHg)", "extraStyles": "background-color: #F0F0F0;"},
-                    { "text": "115 / 75" },
+                    { "text": "" },
                   ]
                 }
               ]

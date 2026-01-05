@@ -2334,6 +2334,7 @@
                     ],
                     "encounterType": {
                         "uuid": "67a71486-1a54-468f-ac3e-7091a9a79584",
+                        "name": "Triaje",
                         "display": "Triaje",
                         "viewPrivilege": null,
                         "editPrivilege": null
