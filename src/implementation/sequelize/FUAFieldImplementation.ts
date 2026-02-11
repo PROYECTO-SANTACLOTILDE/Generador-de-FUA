@@ -1,5 +1,5 @@
-import { FUAField, FUASection } from "../../modelsSequelize";
-import { isValidUUIDv4 } from "../../utils/utils";
+import { FUAField } from "../../modelsSequelize";
+
 
 class FUAFieldImplementation {
 

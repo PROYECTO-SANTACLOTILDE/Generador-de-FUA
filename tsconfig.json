@@ -11,7 +11,7 @@
       "resolveJsonModule": true,           // Permite importar archivos JSON como módulos
       "sourceMap": true,                   // Genera archivos de mapa de origen para depuración
     },
-    "include": ["src/**/*.ts"],             // Los archivos de código fuente
+    "include": ["src/**/*"],             // Incluir todos los archivos bajo src (ts, js, json, assets)
     "exclude": ["node_modules", "dist"]     // Archivos y directorios a excluir
   }
   

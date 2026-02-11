@@ -221,12 +221,12 @@ class FUAFormatFromSchemaController {
                 logType: Logger_LogType.READ,
                 environmentType: loggerInstance.enviroment.toString(),
                 description: ("Getting FUA Format by Id or UUID Successful")
-            });
-            loggerInstance.printLog(auxLog, [
-                { name: "terminal" },
-                { name: "file", file: "logs/auxLog.log"},
-                { name: "database" }
-            ]);
+        });
+        loggerInstance.printLog(auxLog, [
+            { name: "terminal" },
+            { name: "file", file: "logs/auxLog.log"},
+            { name: "database" }
+        ]);
             
     };
 

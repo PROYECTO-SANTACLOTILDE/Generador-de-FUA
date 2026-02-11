@@ -1,0 +1,43 @@
+FROM node:22.22-slim AS builder
+WORKDIR /FUA_Generator
+COPY . /FUA_Generator
+RUN npm ci
+
+
+FROM node:22.22-slim 
+
+WORKDIR /FUA_Generator
+
+ENV NODE_ENV=production
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+ENV PUPPETEER_EXECUTABLE_PATH="/usr/bin/chromium"
+
+# Install minimal dependencies required by Chromium/Puppeteer
+RUN apt update \
+  && apt install -y --no-install-recommends \
+    fonts-liberation \
+    libasound2 \
+    libatk-bridge2.0-0 \
+    libatk1.0-0 \
+    libcups2 \
+    libdrm2 \
+    libgbm1 \
+    libgtk-3-0 \
+    libnspr4 \
+    libnss3 \
+    libx11-xcb1 \
+    libxcomposite1 \
+    libxdamage1 \
+    libxrandr2 \
+    xdg-utils \
+    libu2f-udev \
+    libxshmfence1 \
+    libglu1-mesa \
+    chromium \
+  && rm -rf /var/lib/apt/lists/*
+
+# Copy app files and node_modules from builder stage
+COPY --from=builder /FUA_Generator /FUA_Generator
+
+EXPOSE 3000
+CMD ["npm", "start"]

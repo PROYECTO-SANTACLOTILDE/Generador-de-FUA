@@ -2,9 +2,7 @@
 require('dotenv').config();
 import express, { Request, Response } from 'express';
 const path = require('path');
-import fs from "fs";
-const crypto = require('crypto');
-const { PDFDocument, PDFName, PDFString, PDFDict } = require('pdf-lib');
+
 
 import { pdfMetadataAccess } from './utils/PDF_HASH_Signature';
 import { pdfMetadataHashSignature } from './utils/PDF_HASH_Signature';
@@ -13,9 +11,7 @@ import * as utils from './utils/utils';
 
 // PDF Generation
 import puppeteer, { Browser } from "puppeteer";
-// import { plainAddPlaceholder } from '@signpdf/placeholder-plain';
-// import { P12Signer } from '@signpdf/signer-p12';
-// import signpdf from '@signpdf/signpdf';
+
 
 
 
@@ -29,7 +25,6 @@ import { getPatient } from './services/fhirService';
 import globalRouter from './routes/indexRoutes';
 import { createDemoFormat } from './utils/utils';
 import { Logger, loggerInstance } from './middleware/logger/models/typescript/Logger';
-import { Logger_EnvironmentType } from './middleware/logger/models/typescript/EnvironmentType';
 import { Log } from './middleware/logger/models/typescript/Log';
 import { Logger_LogLevel } from './utils/LegLevelEnum';
 import { Logger_SecurityLevel } from './middleware/logger/models/typescript/SecurityLevel';
