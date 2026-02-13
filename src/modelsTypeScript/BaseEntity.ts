@@ -1,40 +1,63 @@
-interface BaseEntityInterface {
+import {z} from "zod";
+
+export interface BaseEntityInterface {
     id: number;
     uuid: string;
     createdAt: Date;
     createdBy: string;
-    updatedAt: Date;
-    updatedby?: Date;
+    updatedAt?: Date;
+    updatedBy?: string;
     active: boolean;
     inactiveBy?: string;
     inactiveAt?: Date;
     inactiveReason?: string;
 };
 
+export const BaseEntitySchema = z.object({
+  id: z.number().default(-1), // If the object was generated outsie of the DB, is going to have -1 as id
+  uuid: z.string().default('---'),
+  createdAt: z.date().default(new Date()),
+  createdBy: z.string().default('system'),
+  updatedAt: z.date().optional(),
+  updatedBy: z.string().nullish(),
+  active: z.boolean().default(true),
+  inactiveBy: z.string().nullish(),
+  inactiveAt: z.date().nullish(),
+  inactiveReason: z.string().nullish(),
+});
+
+
 class BaseEntity {
-    id: number;
-    uuid: string;
+    id?: number;
+    uuid?: string;
     createdAt: Date;
     createdBy: string;
     updatedAt?: Date;
-    updatedby?: Date;
+    updatedBy?: string;
     active: boolean;
     inactiveBy?: string;
     inactiveAt?: Date;
     inactiveReason?: string;
 
     constructor(aux: BaseEntityInterface){
+        const result = BaseEntitySchema.safeParse(aux);
+        if (!result.success) {
+            const newError = new Error('Error in FUA Format (object) - Invalid FUAFormatInterface - constructor');
+            (newError as any).details = result.error;
+            throw newError;
+        }
         this.id = aux.id;
         this.uuid = aux.uuid;
         this.createdAt = new Date(aux.createdAt);
         this.createdBy = aux.createdBy;
         this.updatedAt = aux.updatedAt ? new Date(aux.updatedAt) : undefined;
-        this.updatedby = aux.updatedby ? new Date(aux.updatedby) : undefined;
+        this.updatedBy = aux.updatedBy;
         this.active = aux.active;
         this.inactiveBy = aux.inactiveBy;
         this.inactiveAt = aux.inactiveAt ? new Date(aux.inactiveAt) : undefined;
         this.inactiveReason = aux.inactiveReason;
     }
+
 
     get getId() { return this.id; }
     //set setId(value: number) { this.id = value; }
@@ -45,8 +68,8 @@ class BaseEntity {
     get getCreatedBy() { return this.createdBy; }
     //set setCreatedBy(value: string) { this.createdBy = value; }
 
-    get getUpdatedby() { return this.updatedby; }
-    set setUpdatedby(value: Date | undefined) { this.updatedby = value; }
+    get getUpdatedBy() { return this.updatedBy; }
+    set setUpdatedBy(value: string | undefined) { this.updatedBy = value; }
 
     get getActive() { return this.active; }
     set setActive(value: boolean) { this.active = value; }
@@ -67,7 +90,5 @@ class BaseEntity {
     //set setUpdatedAt(value: Date) { this.updatedAt = value; }
 };
 
-export {
-    BaseEntityInterface,
-};
+
 export default BaseEntity;

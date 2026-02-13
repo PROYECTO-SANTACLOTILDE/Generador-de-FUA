@@ -14,7 +14,12 @@ import FUAFieldColumn from './FUAFieldColumn';
 import FUAFieldRow from './FUAFieldRow';
 import FUAFieldCell from './FUAFieldCell';
 
-import FUAFromVisit from './FUAFromVisit.js';
+import FUAFromVisitModel from './FUAFromVisitModel';
+import FUAFromVisitPDFModel from './FUAFromVisitPDFModel';
+
+import BaseEntityVersionModel from "./BaseEntityVersionModel.js";
+import BaseEntityVersion_MiddleTableModel from './BaseEntityVersion_MiddleTableModel.js';
+import FUAFormatFromSchemaModel from './FUAFormatFromSchemaModel';
 
 
 // Foreign keys
@@ -77,6 +82,41 @@ FUAFieldCell.hasMany(FUAField, {
 });
 FUAField.belongsTo(FUAFieldCell);
 
+// FK of FUAFromVisit with FUAFormatFromSchema
+FUAFormatFromSchemaModel.hasMany( FUAFromVisitModel,{
+    foreignKey: {
+        name: 'FUAFormatFromSchemaId',
+        allowNull: false,
+    }
+});
+FUAFromVisitModel.belongsTo( FUAFormatFromSchemaModel );
+
+BaseEntityVersionModel.belongsToMany(BaseEntityVersionModel, { 
+    as: 'VersioningRelation',    
+    through: BaseEntityVersion_MiddleTableModel,
+    foreignKey: 'mainEntity',
+    otherKey: 'relatedEntity', // FK in the join table pointing to the related model
+    allowNull: true,
+});
+
+FUAFromVisitModel.hasMany( FUAFromVisitPDFModel, {
+    foreignKey: {
+        name: 'FUAFromVisitModelId',
+        allowNull: false,
+    }   
+});
+//FUAFromVisitPDFModel.belongsTo( FUAFromVisitModel );
+
+
+BaseEntityVersionModel.hasOne( FUAFromVisitPDFModel, {
+    foreignKey: {
+        name: 'BaseEntityVersionModelId',
+        allowNull: false
+    }
+});
+//FUAFromVisitPDFModel.belongsTo( BaseEntityVersionModel );
+
+
 //Exports
 export {    
     User,
@@ -88,5 +128,8 @@ export {
     FUAFieldColumn,
     FUAFieldRow,
     FUAFieldCell,
-    FUAFromVisit,
+    FUAFromVisitModel,
+    FUAFromVisitPDFModel,
+    BaseEntityVersionModel,
+    BaseEntityVersion_MiddleTableModel
 };

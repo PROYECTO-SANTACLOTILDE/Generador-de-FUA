@@ -35,8 +35,8 @@ class FUAPageService {
         // Object validation
         const result = newFUAPageFormatSchema.safeParse(data);
         if( !result.success ){
-            console.error('Error in FUAPAge Service - createFUAPage: ZOD validation. \n', result.error);
-            const newError = new Error('Error in FUAPAge Service - createFUAPage: ZOD validation. ');
+            console.error('Error in FUAFromVisit Service - createFUAPage: ZOD validation. \n', result.error);
+            const newError = new Error('Error in FUAFromVisit Service - create: ZOD validation. ');
             (newError as any).details = result.error;
             throw newError;
         }
