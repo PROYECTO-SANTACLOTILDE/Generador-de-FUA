@@ -3,13 +3,13 @@
   "name": "Ficha Única de Atención",
   // Base Field Form Attribute
   "codeName": "FUA test",
-  "versionTag": "1.0",
+  "versionTag": "1.1",
   // Format pages
   "pages":[
     {
       // Base Field Form Attribute
       "codeName": "pagina_1",
-      "versionTag": 1.0,
+      "versionTag": "1.2",
       // Page Attributes
       "pageNumber": 1,
       "height": 297.0,
@@ -22,7 +22,7 @@
         {
           // Base Field Form Attribute
           "codeName": "content table",
-          "versionTag": "1.0",
+          "versionTag": "1.3",
           // Section Atributes
           "title": "",
           "showTitle": false,

@@ -1,0 +1,614 @@
+{
+    "uuid": "e05d68c6-722f-443e-b9d1-b73addbce782",
+    "display": "Group Session @ Site 8 - 11/12/2025 08:52 AM",
+    "patient": {
+        "uuid": "67b21837-107c-4d04-9116-767fa290923a",
+        "display": "100030V - Helen Roberts",
+        "links": [
+            {
+                "rel": "self",
+                "uri": "http://localhost:8080/openmrs/ws/rest/v1/patient/67b21837-107c-4d04-9116-767fa290923a",
+                "resourceAlias": "patient"
+            }
+        ]
+    },
+    "visitType": {
+        "uuid": "78370d15-38ad-48a1-825f-f0e9ff60d5a1",
+        "display": "Group Session",
+        "links": [
+            {
+                "rel": "self",
+                "uri": "http://localhost:8080/openmrs/ws/rest/v1/visittype/78370d15-38ad-48a1-825f-f0e9ff60d5a1",
+                "resourceAlias": "visittype"
+            }
+        ]
+    },
+    "indication": null,
+    "location": {
+        "uuid": "50cfb6ca-a360-41f2-b3a0-7c5a19f4aa98",
+        "display": "Site 8",
+        "links": [
+            {
+                "rel": "self",
+                "uri": "http://localhost:8080/openmrs/ws/rest/v1/location/50cfb6ca-a360-41f2-b3a0-7c5a19f4aa98",
+                "resourceAlias": "location"
+            }
+        ]
+    },
+    "startDatetime": "2025-11-12T08:52:42.000-0500",
+    "stopDatetime": "2025-11-12T09:46:42.000-0500",
+    "encounters": [
+        {
+            "uuid": "3baecb75-5b05-424f-972a-30298f7fcbc3",
+            "display": "Lab Results 11/12/2025",
+            "encounterDatetime": "2025-11-12T09:27:42.000-0500",
+            "patient": {
+                "uuid": "67b21837-107c-4d04-9116-767fa290923a",
+                "display": "100030V - Helen Roberts",
+                "links": [
+                    {
+                        "rel": "self",
+                        "uri": "http://localhost:8080/openmrs/ws/rest/v1/patient/67b21837-107c-4d04-9116-767fa290923a",
+                        "resourceAlias": "patient"
+                    }
+                ]
+            },
+            "location": {
+                "uuid": "50cfb6ca-a360-41f2-b3a0-7c5a19f4aa98",
+                "display": "Site 8",
+                "links": [
+                    {
+                        "rel": "self",
+                        "uri": "http://localhost:8080/openmrs/ws/rest/v1/location/50cfb6ca-a360-41f2-b3a0-7c5a19f4aa98",
+                        "resourceAlias": "location"
+                    }
+                ]
+            },
+            "form": null,
+            "encounterType": {
+                "uuid": "3596fafb-6f6f-4396-8c87-6e63a0f1bd71",
+                "display": "Lab Results",
+                "links": [
+                    {
+                        "rel": "self",
+                        "uri": "http://localhost:8080/openmrs/ws/rest/v1/encountertype/3596fafb-6f6f-4396-8c87-6e63a0f1bd71",
+                        "resourceAlias": "encountertype"
+                    }
+                ]
+            },
+            "obs": [
+                {
+                    "uuid": "d7ac1505-17ac-4eaa-8df7-05e88774277c",
+                    "display": "Complete blood count with manual count and manual differential: 9.8, 60, 4.6, 60, 44.0, 3.0, 21, 35, 67",
+                    "links": [
+                        {
+                            "rel": "self",
+                            "uri": "http://localhost:8080/openmrs/ws/rest/v1/obs/d7ac1505-17ac-4eaa-8df7-05e88774277c",
+                            "resourceAlias": "obs"
+                        }
+                    ]
+                },
+                {
+                    "uuid": "405ebbb5-d67c-406a-ba26-2552027f32e6",
+                    "display": "Tuberculosis culture construct: results, tuberculosis culture, Appearance of bright red deposits against a blue background., 121, Mycobacterium culture method, 27, Type of organism, tuberculosis, Specimen source",
+                    "links": [
+                        {
+                            "rel": "self",
+                            "uri": "http://localhost:8080/openmrs/ws/rest/v1/obs/405ebbb5-d67c-406a-ba26-2552027f32e6",
+                            "resourceAlias": "obs"
+                        }
+                    ]
+                }
+            ],
+            "orders": [],
+            "voided": false,
+            "visit": {
+                "uuid": "e05d68c6-722f-443e-b9d1-b73addbce782",
+                "display": "Group Session @ Site 8 - 11/12/2025 08:52 AM",
+                "links": [
+                    {
+                        "rel": "self",
+                        "uri": "http://localhost:8080/openmrs/ws/rest/v1/visit/e05d68c6-722f-443e-b9d1-b73addbce782",
+                        "resourceAlias": "visit"
+                    }
+                ]
+            },
+            "encounterProviders": [
+                {
+                    "uuid": "6f514443-8feb-438d-8b58-ac91d2a8b073",
+                    "display": "June Technician: Clinician",
+                    "links": [
+                        {
+                            "rel": "self",
+                            "uri": "http://localhost:8080/openmrs/ws/rest/v1/encounter/3baecb75-5b05-424f-972a-30298f7fcbc3/encounterprovider/6f514443-8feb-438d-8b58-ac91d2a8b073",
+                            "resourceAlias": "encounterprovider"
+                        }
+                    ]
+                }
+            ],
+            "diagnoses": [],
+            "links": [
+                {
+                    "rel": "self",
+                    "uri": "http://localhost:8080/openmrs/ws/rest/v1/encounter/3baecb75-5b05-424f-972a-30298f7fcbc3",
+                    "resourceAlias": "encounter"
+                },
+                {
+                    "rel": "full",
+                    "uri": "http://localhost:8080/openmrs/ws/rest/v1/encounter/3baecb75-5b05-424f-972a-30298f7fcbc3?v=full",
+                    "resourceAlias": "encounter"
+                }
+            ],
+            "resourceVersion": "2.2"
+        },
+        {
+            "uuid": "3e645ba7-a245-4454-b5cc-b5f1f1964f81",
+            "display": "Consultation 11/12/2025",
+            "encounterDatetime": "2025-11-12T09:24:42.000-0500",
+            "patient": {
+                "uuid": "67b21837-107c-4d04-9116-767fa290923a",
+                "display": "100030V - Helen Roberts",
+                "links": [
+                    {
+                        "rel": "self",
+                        "uri": "http://localhost:8080/openmrs/ws/rest/v1/patient/67b21837-107c-4d04-9116-767fa290923a",
+                        "resourceAlias": "patient"
+                    }
+                ]
+            },
+            "location": {
+                "uuid": "50cfb6ca-a360-41f2-b3a0-7c5a19f4aa98",
+                "display": "Site 8",
+                "links": [
+                    {
+                        "rel": "self",
+                        "uri": "http://localhost:8080/openmrs/ws/rest/v1/location/50cfb6ca-a360-41f2-b3a0-7c5a19f4aa98",
+                        "resourceAlias": "location"
+                    }
+                ]
+            },
+            "form": {
+                "uuid": "9e1a0c68-ca19-3482-9ffb-0a6b4e591c2a",
+                "display": "Covid 19",
+                "links": [
+                    {
+                        "rel": "self",
+                        "uri": "http://localhost:8080/openmrs/ws/rest/v1/form/9e1a0c68-ca19-3482-9ffb-0a6b4e591c2a",
+                        "resourceAlias": "form"
+                    }
+                ]
+            },
+            "encounterType": {
+                "uuid": "dd528487-82a5-4082-9c72-ed246bd49591",
+                "display": "Consultation",
+                "links": [
+                    {
+                        "rel": "self",
+                        "uri": "http://localhost:8080/openmrs/ws/rest/v1/encountertype/dd528487-82a5-4082-9c72-ed246bd49591",
+                        "resourceAlias": "encountertype"
+                    }
+                ]
+            },
+            "obs": [],
+            "orders": [],
+            "voided": false,
+            "visit": {
+                "uuid": "e05d68c6-722f-443e-b9d1-b73addbce782",
+                "display": "Group Session @ Site 8 - 11/12/2025 08:52 AM",
+                "links": [
+                    {
+                        "rel": "self",
+                        "uri": "http://localhost:8080/openmrs/ws/rest/v1/visit/e05d68c6-722f-443e-b9d1-b73addbce782",
+                        "resourceAlias": "visit"
+                    }
+                ]
+            },
+            "encounterProviders": [
+                {
+                    "uuid": "dc2133f1-db41-410e-b29f-b25936915dde",
+                    "display": "Jane Nurse: Clinician",
+                    "links": [
+                        {
+                            "rel": "self",
+                            "uri": "http://localhost:8080/openmrs/ws/rest/v1/encounter/3e645ba7-a245-4454-b5cc-b5f1f1964f81/encounterprovider/dc2133f1-db41-410e-b29f-b25936915dde",
+                            "resourceAlias": "encounterprovider"
+                        }
+                    ]
+                }
+            ],
+            "diagnoses": [],
+            "links": [
+                {
+                    "rel": "self",
+                    "uri": "http://localhost:8080/openmrs/ws/rest/v1/encounter/3e645ba7-a245-4454-b5cc-b5f1f1964f81",
+                    "resourceAlias": "encounter"
+                },
+                {
+                    "rel": "full",
+                    "uri": "http://localhost:8080/openmrs/ws/rest/v1/encounter/3e645ba7-a245-4454-b5cc-b5f1f1964f81?v=full",
+                    "resourceAlias": "encounter"
+                }
+            ],
+            "resourceVersion": "2.2"
+        },
+        {
+            "uuid": "847679a6-059f-46b7-8c61-6b52fd721cc1",
+            "display": "Visit Note 11/12/2025",
+            "encounterDatetime": "2025-11-12T09:12:42.000-0500",
+            "patient": {
+                "uuid": "67b21837-107c-4d04-9116-767fa290923a",
+                "display": "100030V - Helen Roberts",
+                "links": [
+                    {
+                        "rel": "self",
+                        "uri": "http://localhost:8080/openmrs/ws/rest/v1/patient/67b21837-107c-4d04-9116-767fa290923a",
+                        "resourceAlias": "patient"
+                    }
+                ]
+            },
+            "location": {
+                "uuid": "50cfb6ca-a360-41f2-b3a0-7c5a19f4aa98",
+                "display": "Site 8",
+                "links": [
+                    {
+                        "rel": "self",
+                        "uri": "http://localhost:8080/openmrs/ws/rest/v1/location/50cfb6ca-a360-41f2-b3a0-7c5a19f4aa98",
+                        "resourceAlias": "location"
+                    }
+                ]
+            },
+            "form": null,
+            "encounterType": {
+                "uuid": "d7151f82-c1f3-4152-a605-2f9ea7414a79",
+                "display": "Visit Note",
+                "links": [
+                    {
+                        "rel": "self",
+                        "uri": "http://localhost:8080/openmrs/ws/rest/v1/encountertype/d7151f82-c1f3-4152-a605-2f9ea7414a79",
+                        "resourceAlias": "encountertype"
+                    }
+                ]
+            },
+            "obs": [
+                {
+                    "uuid": "b353ef63-ac09-4665-8871-bc7f40171afb",
+                    "display": "Text of encounter note: Massa massa ultricies mi quis hendrerit. Consectetur libero id faucibus nisl tincidunt. Sed faucibus turpis in eu mi. Lobortis scelerisque fermentum dui faucibus in ornare. Scelerisque felis imperdiet proin fermentum. Faucibus vitae aliquet nec ullamcorper sit. Placerat in egestas erat imperdiet sed euismod nisi porta. Arcu felis bibendum ut tristique et egestas. Amet commodo nulla facilisi nullam vehicula ipsum a arcu. Viverra vitae congue eu consequat ac. Convallis a cras semper auctor neque vitae. Mauris a diam maecenas sed enim ut sem. Phasellus faucibus scelerisque eleifend donec. Quisque sagittis purus sit amet volutpat. Lorem dolor sed viverra ipsum nunc aliquet bibendum. Vitae congue eu consequat ac felis donec et. Purus sit amet volutpat consequat mauris nunc congue nisi vitae. Non quam lacus suspendisse faucibus. Tellus mauris a diam maecenas sed enim ut sem. Euismod in pellentesque massa placerat duis ultricies lacus.",
+                    "links": [
+                        {
+                            "rel": "self",
+                            "uri": "http://localhost:8080/openmrs/ws/rest/v1/obs/b353ef63-ac09-4665-8871-bc7f40171afb",
+                            "resourceAlias": "obs"
+                        }
+                    ]
+                }
+            ],
+            "orders": [],
+            "voided": false,
+            "visit": {
+                "uuid": "e05d68c6-722f-443e-b9d1-b73addbce782",
+                "display": "Group Session @ Site 8 - 11/12/2025 08:52 AM",
+                "links": [
+                    {
+                        "rel": "self",
+                        "uri": "http://localhost:8080/openmrs/ws/rest/v1/visit/e05d68c6-722f-443e-b9d1-b73addbce782",
+                        "resourceAlias": "visit"
+                    }
+                ]
+            },
+            "encounterProviders": [
+                {
+                    "uuid": "a1730530-03bf-4205-85d1-e4fb4ea296cc",
+                    "display": "Jane Nurse: Clinician",
+                    "links": [
+                        {
+                            "rel": "self",
+                            "uri": "http://localhost:8080/openmrs/ws/rest/v1/encounter/847679a6-059f-46b7-8c61-6b52fd721cc1/encounterprovider/a1730530-03bf-4205-85d1-e4fb4ea296cc",
+                            "resourceAlias": "encounterprovider"
+                        }
+                    ]
+                }
+            ],
+            "diagnoses": [
+                {
+                    "uuid": "23ae231d-3ca7-4b97-af17-8b8aa7c2ef69",
+                    "diagnosis": {
+                        "specificName": {
+                            "uuid": "39772BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+                            "display": "Food Allergy",
+                            "links": [
+                                {
+                                    "rel": "self",
+                                    "uri": "http://localhost:8080/openmrs/ws/rest/v1/concept/139994AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/name/39772BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+                                    "resourceAlias": "name"
+                                }
+                            ]
+                        },
+                        "coded": {
+                            "uuid": "139994AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                            "display": "Food Allergy",
+                            "links": [
+                                {
+                                    "rel": "self",
+                                    "uri": "http://localhost:8080/openmrs/ws/rest/v1/concept/139994AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                                    "resourceAlias": "concept"
+                                }
+                            ]
+                        },
+                        "nonCoded": "Some non-coded condition"
+                    },
+                    "condition": {
+                        "uuid": "f8a119d0-a3da-48b2-aa78-81eeccfcd2ac",
+                        "display": "Food Allergy",
+                        "links": [
+                            {
+                                "rel": "self",
+                                "uri": "http://localhost:8080/openmrs/ws/rest/v1/condition/f8a119d0-a3da-48b2-aa78-81eeccfcd2ac",
+                                "resourceAlias": "condition"
+                            }
+                        ]
+                    },
+                    "encounter": {
+                        "uuid": "847679a6-059f-46b7-8c61-6b52fd721cc1",
+                        "display": "Visit Note 11/12/2025",
+                        "links": [
+                            {
+                                "rel": "self",
+                                "uri": "http://localhost:8080/openmrs/ws/rest/v1/encounter/847679a6-059f-46b7-8c61-6b52fd721cc1",
+                                "resourceAlias": "encounter"
+                            }
+                        ]
+                    },
+                    "certainty": "PROVISIONAL",
+                    "rank": 1,
+                    "voided": false,
+                    "display": "Food Allergy",
+                    "patient": {
+                        "uuid": "67b21837-107c-4d04-9116-767fa290923a",
+                        "display": "100030V - Helen Roberts",
+                        "links": [
+                            {
+                                "rel": "self",
+                                "uri": "http://localhost:8080/openmrs/ws/rest/v1/patient/67b21837-107c-4d04-9116-767fa290923a",
+                                "resourceAlias": "patient"
+                            }
+                        ]
+                    },
+                    "formFieldNamespace": null,
+                    "formFieldPath": null,
+                    "links": [
+                        {
+                            "rel": "full",
+                            "uri": "http://localhost:8080/openmrs/ws/rest/v1/patientdiagnoses/23ae231d-3ca7-4b97-af17-8b8aa7c2ef69?v=full",
+                            "resourceAlias": "patientdiagnoses"
+                        },
+                        {
+                            "rel": "self",
+                            "uri": "http://localhost:8080/openmrs/ws/rest/v1/patientdiagnoses/23ae231d-3ca7-4b97-af17-8b8aa7c2ef69",
+                            "resourceAlias": "patientdiagnoses"
+                        }
+                    ],
+                    "resourceVersion": "1.8"
+                }
+            ],
+            "links": [
+                {
+                    "rel": "self",
+                    "uri": "http://localhost:8080/openmrs/ws/rest/v1/encounter/847679a6-059f-46b7-8c61-6b52fd721cc1",
+                    "resourceAlias": "encounter"
+                },
+                {
+                    "rel": "full",
+                    "uri": "http://localhost:8080/openmrs/ws/rest/v1/encounter/847679a6-059f-46b7-8c61-6b52fd721cc1?v=full",
+                    "resourceAlias": "encounter"
+                }
+            ],
+            "resourceVersion": "2.2"
+        },
+        {
+            "uuid": "5e125e3d-697b-474b-92be-0668b31aae21",
+            "display": "Vitals 11/12/2025",
+            "encounterDatetime": "2025-11-12T08:59:42.000-0500",
+            "patient": {
+                "uuid": "67b21837-107c-4d04-9116-767fa290923a",
+                "display": "100030V - Helen Roberts",
+                "links": [
+                    {
+                        "rel": "self",
+                        "uri": "http://localhost:8080/openmrs/ws/rest/v1/patient/67b21837-107c-4d04-9116-767fa290923a",
+                        "resourceAlias": "patient"
+                    }
+                ]
+            },
+            "location": {
+                "uuid": "44c3efb0-2583-4c80-a79e-1f756a03c0a1",
+                "display": "Outpatient Clinic",
+                "links": [
+                    {
+                        "rel": "self",
+                        "uri": "http://localhost:8080/openmrs/ws/rest/v1/location/44c3efb0-2583-4c80-a79e-1f756a03c0a1",
+                        "resourceAlias": "location"
+                    }
+                ]
+            },
+            "form": null,
+            "encounterType": {
+                "uuid": "67a71486-1a54-468f-ac3e-7091a9a79584",
+                "display": "Vitals",
+                "links": [
+                    {
+                        "rel": "self",
+                        "uri": "http://localhost:8080/openmrs/ws/rest/v1/encountertype/67a71486-1a54-468f-ac3e-7091a9a79584",
+                        "resourceAlias": "encountertype"
+                    }
+                ]
+            },
+            "obs": [
+                {
+                    "uuid": "a2abb5e5-5cbd-442e-9795-d797b1c1b9ec",
+                    "display": "Temperature (c): 36.0",
+                    "links": [
+                        {
+                            "rel": "self",
+                            "uri": "http://localhost:8080/openmrs/ws/rest/v1/obs/a2abb5e5-5cbd-442e-9795-d797b1c1b9ec",
+                            "resourceAlias": "obs"
+                        }
+                    ]
+                },
+                {
+                    "uuid": "f83a3adb-dae9-4d99-bdbd-18ccb963509a",
+                    "display": "Weight (kg): 53.0",
+                    "links": [
+                        {
+                            "rel": "self",
+                            "uri": "http://localhost:8080/openmrs/ws/rest/v1/obs/f83a3adb-dae9-4d99-bdbd-18ccb963509a",
+                            "resourceAlias": "obs"
+                        }
+                    ]
+                },
+                {
+                    "uuid": "9dfc3049-d61f-4eb9-b5c2-94e88f1ec1e4",
+                    "display": "Systolic blood pressure: 108",
+                    "links": [
+                        {
+                            "rel": "self",
+                            "uri": "http://localhost:8080/openmrs/ws/rest/v1/obs/9dfc3049-d61f-4eb9-b5c2-94e88f1ec1e4",
+                            "resourceAlias": "obs"
+                        }
+                    ]
+                },
+                {
+                    "uuid": "60b73de8-d089-447c-bda6-7877de364710",
+                    "display": "Height (cm): 146.0",
+                    "links": [
+                        {
+                            "rel": "self",
+                            "uri": "http://localhost:8080/openmrs/ws/rest/v1/obs/60b73de8-d089-447c-bda6-7877de364710",
+                            "resourceAlias": "obs"
+                        }
+                    ]
+                },
+                {
+                    "uuid": "b8348ac9-b922-4af0-91e4-e91f9818c8ce",
+                    "display": "Respiratory rate: 20",
+                    "links": [
+                        {
+                            "rel": "self",
+                            "uri": "http://localhost:8080/openmrs/ws/rest/v1/obs/b8348ac9-b922-4af0-91e4-e91f9818c8ce",
+                            "resourceAlias": "obs"
+                        }
+                    ]
+                },
+                {
+                    "uuid": "2609a2ac-be1e-44ee-97f6-a8e4f83aef97",
+                    "display": "Arterial blood oxygen saturation (pulse oximeter): 91.0",
+                    "links": [
+                        {
+                            "rel": "self",
+                            "uri": "http://localhost:8080/openmrs/ws/rest/v1/obs/2609a2ac-be1e-44ee-97f6-a8e4f83aef97",
+                            "resourceAlias": "obs"
+                        }
+                    ]
+                },
+                {
+                    "uuid": "b5418dea-0aea-423a-aeff-44638cf05e7a",
+                    "display": "Diastolic blood pressure: 45",
+                    "links": [
+                        {
+                            "rel": "self",
+                            "uri": "http://localhost:8080/openmrs/ws/rest/v1/obs/b5418dea-0aea-423a-aeff-44638cf05e7a",
+                            "resourceAlias": "obs"
+                        }
+                    ]
+                },
+                {
+                    "uuid": "ebf32f35-be52-4837-8820-88dd69a2b2c1",
+                    "display": "Pulse: 80",
+                    "links": [
+                        {
+                            "rel": "self",
+                            "uri": "http://localhost:8080/openmrs/ws/rest/v1/obs/ebf32f35-be52-4837-8820-88dd69a2b2c1",
+                            "resourceAlias": "obs"
+                        }
+                    ]
+                }
+            ],
+            "orders": [],
+            "voided": false,
+            "visit": {
+                "uuid": "e05d68c6-722f-443e-b9d1-b73addbce782",
+                "display": "Group Session @ Site 8 - 11/12/2025 08:52 AM",
+                "links": [
+                    {
+                        "rel": "self",
+                        "uri": "http://localhost:8080/openmrs/ws/rest/v1/visit/e05d68c6-722f-443e-b9d1-b73addbce782",
+                        "resourceAlias": "visit"
+                    }
+                ]
+            },
+            "encounterProviders": [
+                {
+                    "uuid": "fb6ec4bc-88c6-4ad9-8e0f-7e2aba80eed3",
+                    "display": "Jane Nurse: Clinician",
+                    "links": [
+                        {
+                            "rel": "self",
+                            "uri": "http://localhost:8080/openmrs/ws/rest/v1/encounter/5e125e3d-697b-474b-92be-0668b31aae21/encounterprovider/fb6ec4bc-88c6-4ad9-8e0f-7e2aba80eed3",
+                            "resourceAlias": "encounterprovider"
+                        }
+                    ]
+                }
+            ],
+            "diagnoses": [],
+            "links": [
+                {
+                    "rel": "self",
+                    "uri": "http://localhost:8080/openmrs/ws/rest/v1/encounter/5e125e3d-697b-474b-92be-0668b31aae21",
+                    "resourceAlias": "encounter"
+                },
+                {
+                    "rel": "full",
+                    "uri": "http://localhost:8080/openmrs/ws/rest/v1/encounter/5e125e3d-697b-474b-92be-0668b31aae21?v=full",
+                    "resourceAlias": "encounter"
+                }
+            ],
+            "resourceVersion": "2.2"
+        }
+    ],
+    "attributes": [],
+    "voided": false,
+    "auditInfo": {
+        "creator": {
+            "uuid": "A4F30A1B-5EB9-11DF-A648-37A07F9C90FB",
+            "display": "daemon",
+            "links": [
+                {
+                    "rel": "self",
+                    "uri": "http://localhost:8080/openmrs/ws/rest/v1/user/A4F30A1B-5EB9-11DF-A648-37A07F9C90FB",
+                    "resourceAlias": "user"
+                }
+            ]
+        },
+        "dateCreated": "2025-11-12T14:03:43.000-0500",
+        "changedBy": {
+            "uuid": "A4F30A1B-5EB9-11DF-A648-37A07F9C90FB",
+            "display": "daemon",
+            "links": [
+                {
+                    "rel": "self",
+                    "uri": "http://localhost:8080/openmrs/ws/rest/v1/user/A4F30A1B-5EB9-11DF-A648-37A07F9C90FB",
+                    "resourceAlias": "user"
+                }
+            ]
+        },
+        "dateChanged": "2025-11-12T14:03:46.000-0500"
+    },
+    "links": [
+        {
+            "rel": "self",
+            "uri": "http://localhost:8080/openmrs/ws/rest/v1/visit/e05d68c6-722f-443e-b9d1-b73addbce782",
+            "resourceAlias": "visit"
+        }
+    ],
+    "resourceVersion": "1.9"
+}
+

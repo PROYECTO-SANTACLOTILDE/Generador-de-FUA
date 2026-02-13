@@ -11,7 +11,7 @@ const BaseEntity = require('./BaseEntityModel');
   Fua From Visit entity derived from the Base Entity for audit purpouses.
 */
 
-const FUAFromVisit = sequelize.define(
+const FUAFromVisitModel = sequelize.define(
     "FUAFromVisit",
     {
         //Extending BaseEntity
@@ -19,32 +19,27 @@ const FUAFromVisit = sequelize.define(
         
         // Define FuaFormat atributes
         payload: {        // OpenMRS API payload
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: false
         },
         schemaType: {        // Shows what type of scheme whas use (HL7, API, Etc)
             type: DataTypes.STRING,
             allowNull: false
-        }, 
-        checksum: {
+        },
+        outputType: {
             type: DataTypes.STRING,
             allowNull: false
-        }        
+        },
+        output: {
+            type: DataTypes.BLOB,
+            allowNull: false
+        }
+        
     },
     {
         sequelize,                  // We need to pass the connection instance,
-        timestamps: true,           // Adds createdAt/updatedAt
-        indexes: [
-            {
-                unique: true,
-                fields: ['uuid']
-            },            
-        ],
+        timestamps: true            // Adds createdAt/updatedAt       
     },
 );
 
-FUAFromVisit.addHook('beforeCreate', (auxFUA, option) => {
-    auxFUA.checksum = generateHMAC(auxFUA);
-});
-
-export default FUAFromVisit;
+export default FUAFromVisitModel;

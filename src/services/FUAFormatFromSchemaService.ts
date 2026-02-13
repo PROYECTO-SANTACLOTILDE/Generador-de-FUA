@@ -6,6 +6,11 @@ import { isValidUUIDv4 } from "../utils/utils";
 import FUARenderingUtils from "../utils/FUARendering";
 import FUAFormatFromSchemaImplementation from "../implementation/sequelize/FUAFormatFromSchemaImplementation";
 import { inspect } from "util";
+import BaseEntityVersionService from "./BaseEntityVersionService";
+import FUAFormat, { FUAFormatSchema } from "../modelsTypeScript/FUAFormat";
+import { off } from "process";
+import { ParsedQs } from "qs";
+import { Version_Actions } from "../utils/VersionConstants";
 
 // Schemas
 
@@ -30,11 +35,23 @@ const editFUAFormatFromSchemaZod = z.object({
     codeName: z.string(),    
     versionTag: z.string(),
     versionNumber: z.number().int().positive(), // must be a positive integer
-    // Audit Data
-    createdBy: z.string(),
+    updatedBy: z.string()
+});
+
+
+const deleteFUAFormatFromSchemaZod = z.object({
+    // Format Data
+    uuid: z.string(),
+    // Delete Data
+    active : z.boolean(),
+    inactiveBy: z.string(),
+    inactiveReason: z.string()
 });
 
 class FUAFormatFromSchemaService {
+    /* paginateSimple(paginationParams: { page: string | ParsedQs | (string | ParsedQs)[] | undefined; pageSize: string | ParsedQs | (string | ParsedQs)[] | undefined; }, baseEntityPaginationParams: { id: string | ParsedQs | (string | ParsedQs)[] | undefined; uuid: string | ParsedQs | (string | ParsedQs)[] | undefined; createdBy: string | ParsedQs | (string | ParsedQs)[] | undefined; updatedBy: string | ParsedQs | (string | ParsedQs)[] | undefined; active: string | ParsedQs | (string | ParsedQs)[] | undefined; includeInactive: string | ParsedQs | (string | ParsedQs)[] | undefined; inactiveBy: string | ParsedQs | (string | ParsedQs)[] | undefined; inactiveAt: string | ParsedQs | (string | ParsedQs)[] | undefined; beforeInactiveAt: string | ParsedQs | (string | ParsedQs)[] | undefined; afterInactiveAt: string | ParsedQs | (string | ParsedQs)[] | undefined; inactiveReason: string | ParsedQs | (string | ParsedQs)[] | undefined; }) {
+        throw new Error('Method not implemented.');
+    } */
 
     // Creation of FUA Format
     async create(data: {
@@ -75,6 +92,19 @@ class FUAFormatFromSchemaService {
             throw err;
         }
 
+        // Insert version
+        try{
+            let newVersion = await BaseEntityVersionService.create(
+                new FUAFormat(returnedFUAFormat.dataValues),
+                "FUAFormatFromSchema",
+                Version_Actions.CREATE,
+                undefined
+            );
+        }catch(error: any){
+            (error as Error).message =  'Error in FUA Format From Schema Service:  ' + (error as Error).message;
+            throw error;
+        }
+
         return {
             uuid: returnedFUAFormat.uuid
         };
@@ -82,10 +112,78 @@ class FUAFormatFromSchemaService {
 
     // List FUA Formats
     // Pending to paginate results
-    async listAll( ) {
-        let returnedFUAFormats = [];
+
+    /*
+    string ->
+        string
+        boolean
+        integerNumber
+
+        let f = new QueryFactory();
+
+        includeInactive ("true")
+
+        {
+            {"id", "integer"}
+            {"includeInactive", "boolean"}
+        }
+
+        foreach(){
+            includeInactive = f.build("boolean",includeInactive)
+            catch ...
+
+            includeInactive = f.build("integer",includeInactive)
+            catch ...
+        }
+
+        Controller -> Query Parameters (pagination, baseEntity, specific query parameters) -> service
+    */
+    // (query param)  
+    //Controller -> (Wrapper only query parameters) (pagination,serachParameters) ->  (funtion to porcess query) Service -> Implementation -> Wrapper
+
+    /*
+    x -> serviceOfWthatever()
+
+    return
+
+
+    ||||
+
+    QueryWrapper(params, service to call)
+
+    function Wrapper(params, service FUAFormarmatDFromSchemaService.listAll / FUAService.listAll){
+    
+        let sanitizedParams = ..(params)
+        let answer = service(sanitizedParams (paginationParams, baseEntityParams,entitityParams) )
+        let finalAnswer = paginationWrapper(answer)
+        return finalAnswer    
+    }
+
+    //Controller -> Wrapper (query, and database return) -> Service -> Implementation    
+
+    */
+
+    /*
+    array of something
+
+    {
+        results: array
+        count: length(array)
+    }
+
+    */
+        
+        
+    async listAll(findOptions : {
+        where: any,
+        limit: any,
+        offset: any,
+        order: any
+    }) {
+        
+        let returnedFUAFormats = null;
         try {
-            returnedFUAFormats = await FUAFormatFromSchemaImplementation.listAllSequelize();
+            returnedFUAFormats = await FUAFormatFromSchemaImplementation.listAllSequelize(findOptions);
 
         } catch (err: any){
             (err as Error).message =  'Error in FUA Format From Schema Service: ' + (err as Error).message;
@@ -108,8 +206,8 @@ class FUAFormatFromSchemaService {
             try {
                 returnedFUAFormat = await FUAFormatFromSchemaImplementation.getByIdSequelize(id);
 
-            } catch (err: unknown){
-                (err as Error).message =  'Error in FUA Format From SchemaFUA Format From Schema Service: ' + (err as Error).message;
+            } catch (err: any){
+                (err as Error).message =  'Error in FUA Format From SchemaFUA Format From Schema Service: ' + (err as Error).message;   
                 throw err;
             }     
         }else{
@@ -155,7 +253,7 @@ class FUAFormatFromSchemaService {
     }
 
     // Render FUA Format by Id
-    async renderById( visitPayload: Object, idReceived: string ) {
+    async renderById( idReceived: string ) {
         // Get Format by Id or UUID
         let auxFuaFormat = null;
         try {
@@ -176,7 +274,8 @@ class FUAFormatFromSchemaService {
         let parsedContent = parse(auxFuaFormat.content);
 
         try{
-            htmlContent = await FUARenderingUtils.renderFUAFormatFromSchema(parsedContent, false);
+            let auxFormat = await new FUAFormat(parsedContent);
+            htmlContent = await auxFormat.renderHtmlContent(false, null);
         } catch(error: any){
             (error as Error).message =  'Error in FUA Format Service - renderById: ' + (error as Error).message;
             const line = inspect(error, { depth: 100, colors: false });
@@ -194,13 +293,13 @@ class FUAFormatFromSchemaService {
         // Format Data
         uuid: string;
         name: string;
-        content: string;
+        content?: string;
         // Version Data
         codeName: string;
         versionTag: string; 
         versionNumber: number;
         // Audit Data
-        createdBy: string;
+        updatedBy: string;
     }) {
         // Object Validation
         const result = editFUAFormatFromSchemaZod.safeParse(data);
@@ -222,8 +321,65 @@ class FUAFormatFromSchemaService {
                 codeName: data.codeName,
                 versionTag: data.versionTag , 
                 versionNumber: data.versionNumber,
-                // Audit Data
-                createdBy: data.createdBy,
+                updatedBy: data.updatedBy
+            });
+        } catch (err: unknown){
+            (err as Error).message =  'Error in FUA Format From Schema Service: \n' + (err as Error).message;
+            throw err;
+        }
+        
+        if (returnedFUAFormat == null){
+            return null;
+        }
+
+        // Insert version
+        try{
+            let newVersion = await BaseEntityVersionService.create(
+                new FUAFormat(returnedFUAFormat.dataValues),
+                "FUAFormatFromSchema",
+                Version_Actions.EDIT,
+                undefined
+            );
+        }catch(error: any){
+            (error as Error).message = 'Error in FUA Format From Schema Service:  ' + (error as Error).message;
+            const long = inspect(error, { depth: 10, colors: false });
+            (error as any).details = (error as any).details ?? long;
+            throw error;
+        }
+
+    
+        return {
+            uuid: returnedFUAFormat.uuid
+        };
+    };
+
+    // Delete of FUA format
+    async delete(data: {
+        // Format Data
+         uuid: string;
+        active: boolean;
+        inactiveBy: string;
+        inactiveReason: string;
+    }) {
+        // Object Validation
+        const result = deleteFUAFormatFromSchemaZod.safeParse(data);
+        if( !result.success ){
+            const newError = new Error('Error in FUA Format From Schema Service - deleteFUAFormat: ZOD validation. ');
+            (newError as any).details = result.error;
+            throw newError;
+        }
+        
+        // FUAFormat delete (edit of the delete related attributs)
+        let returnedFUAFormat = null;
+        try {
+            returnedFUAFormat = await FUAFormatFromSchemaImplementation.editDeleteVersionSequelize({
+                // Format Data
+                uuid: data.uuid,
+                // Delete Data
+                active: data.active,
+                inactiveBy: data.inactiveBy,
+                inactiveReason: data.inactiveReason,
+
             });
         } catch (err: unknown){
             (err as Error).message =  'Error in FUA Format From Schema Service: \n' + (err as Error).message;
@@ -232,7 +388,22 @@ class FUAFormatFromSchemaService {
         if (returnedFUAFormat == null){
             return null;
         }
-    
+
+         // Insert version
+        try{
+            let newVersion = await BaseEntityVersionService.create(
+                new FUAFormat(returnedFUAFormat.dataValues),
+                "FUAFormatFromSchema",
+                Version_Actions.DELETE,
+                undefined
+            );
+        }catch(error: any){
+            (error as Error).message = 'Error in FUA Format From Schema Service:  ' + (error as Error).message;
+            const long = inspect(error, { depth: 10, colors: false });
+            (error as any).details = (error as any).details ?? long;
+            throw error;
+        }
+
         return {
             uuid: returnedFUAFormat.uuid
         };

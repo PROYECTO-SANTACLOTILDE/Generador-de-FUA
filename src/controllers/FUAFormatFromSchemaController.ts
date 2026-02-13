@@ -5,6 +5,7 @@ const path = require('path');
 import { parse } from 'jsonc-parser';
 import FUAFormatFromSchemaService from '../services/FUAFormatFromSchemaService';
 import { inspect } from "util";
+import { pdfMetadataHashSignatureVerification } from '../utils/PDF_HASH_Signature';
 
 // Other imports
 import {Log} from '../middleware/logger/models/typescript/Log';
@@ -12,6 +13,12 @@ import { loggerInstance } from '../middleware/logger/models/typescript/Logger';
 import { Logger_LogLevel } from '../middleware/logger/models/typescript/LogLevel';
 import { Logger_SecurityLevel } from '../middleware/logger/models/typescript/SecurityLevel';
 import { Logger_LogType } from '../middleware/logger/models/typescript/LogType';
+import { transactionInst } from '../middleware/globalTransaction';
+import { UUID } from 'sequelize';
+import { paginationWrapper } from '../utils/newPaginationWrapper';
+import dotenv from "dotenv";
+import { log } from 'console';
+dotenv.config();
 
 
 class FUAFormatFromSchemaController {
@@ -94,8 +101,32 @@ class FUAFormatFromSchemaController {
     // Pending pagination
     listAll = async (req: Request, res: Response): Promise<void> => {
         try {
-            
-            const listFUAFormats = await FUAFormatFromSchemaService.listAll();
+
+            // pagination object (passed through listAll)
+            const paginationParams = {
+                page: req.query.page,
+                pageSize: req.query.pageSize,
+            };
+
+            const baseEntityPaginationParams = {
+                id: req.query.id,
+                uuid: req.query.uuid,
+                createdBy: req.query.createdBy,
+                updatedBy: req.query.updatedBy,
+                active: req.query.active,
+                includeInactive : req.query.includeInactive,
+                inactiveBy: req.query.inactiveBy,
+                inactiveAt: req.query.inactiveAt,
+                beforeInactiveAt: req.query.beforeInactiveAt,
+                afterInactiveAt: req.query.afterInactiveAt,
+                inactiveReason: req.query.inactiveReason,
+                beforeCreatedAt: req.query.beforeCreatedAt,
+                afterCreatedAt: req.query.afterCreatedAt,
+                beforeUpdatedAt: req.query.beforeUpdatedAt,
+                afterUpdatedAt: req.query.afterUpdatedAt
+            };
+
+            const listFUAFormats = await paginationWrapper(paginationParams, baseEntityPaginationParams);
             let auxLog = new Log({
                 timeStamp: new Date(),
                 logLevel: Logger_LogLevel.INFO,
@@ -104,7 +135,7 @@ class FUAFormatFromSchemaController {
                 environmentType: loggerInstance.enviroment.toString(),
                 content: {
                     objectName: this.entityName,
-                    object: listFUAFormats.map( (auxFuaFormat : any) => ({
+                    object: listFUAFormats.rows.map( (auxFuaFormat : any) => ({
                         uuid:  auxFuaFormat.uuid
                     }))
                 },
@@ -116,7 +147,13 @@ class FUAFormatFromSchemaController {
                 { name: "database" }
             ]);   
 
-            res.status(200).json(listFUAFormats);
+            res.status(200).json({
+                results: listFUAFormats.rows,
+                page: paginationParams.page,
+                pageSize: paginationParams.pageSize,
+                totalPages: listFUAFormats.pages,
+                totalResults: listFUAFormats.total
+            });
         } catch (err: any) {
             res.status(500).json({
                 error: 'Failed to list FUA Formats From Schema. (Controller)', 
@@ -141,6 +178,7 @@ class FUAFormatFromSchemaController {
 
     getById = async (req: Request, res: Response): Promise<void> => {
         const payload = req.params.id;
+        
 
         let searchedFUAFormat = null;
 
@@ -183,12 +221,12 @@ class FUAFormatFromSchemaController {
                 logType: Logger_LogType.READ,
                 environmentType: loggerInstance.enviroment.toString(),
                 description: ("Getting FUA Format by Id or UUID Successful")
-            });
-            loggerInstance.printLog(auxLog, [
-                { name: "terminal" },
-                { name: "file", file: "logs/auxLog.log"},
-                { name: "database" }
-            ]);
+        });
+        loggerInstance.printLog(auxLog, [
+            { name: "terminal" },
+            { name: "file", file: "logs/auxLog.log"},
+            { name: "database" }
+        ]);
             
     };
 
@@ -200,7 +238,7 @@ class FUAFormatFromSchemaController {
         let htmlContent = null;
 
         try {
-            htmlContent = await FUAFormatFromSchemaService.renderById(visitpayload, formatidentifier);
+            htmlContent = await FUAFormatFromSchemaService.renderById(formatidentifier);
             if(htmlContent === null){
                 res.status(404).json({
                     error: `FUA Format by Id or UUID '${formatidentifier}' couldnt be found. `, 
@@ -248,6 +286,7 @@ class FUAFormatFromSchemaController {
         const files = req.files as { [fieldname: string]: Express.Multer.File[] };
 
         const file = files['formatPayload']?.[0];
+
          
         const jsoncContent = file.buffer.toString('utf-8');
         const parsed = parse(jsoncContent);
@@ -256,6 +295,7 @@ class FUAFormatFromSchemaController {
 
         let editFUAFormat = null;
         try {
+            transactionInst.renewTransaction()
             editFUAFormat = await FUAFormatFromSchemaService.edit({
                 uuid: req.params.id,
                 name: controllerBody.name,
@@ -263,7 +303,7 @@ class FUAFormatFromSchemaController {
                 codeName: controllerBody.name  ?? controllerBody.name.toString(),
                 versionTag: controllerBody.versionTag ?? controllerBody.name.toString() + '_1',
                 versionNumber: controllerBody.versionNumber ?? 1,
-                createdBy: controllerBody.createdBy,
+                updatedBy: controllerBody.updatedBy
             });
             if (editFUAFormat == null){
                 res.status(304).json({
@@ -271,7 +311,7 @@ class FUAFormatFromSchemaController {
                 });
                 return;
             }
-            res.status(200).json(editFUAFormat);  
+              
             let auxLog = new Log({
                 timeStamp: new Date(),
                 logLevel: Logger_LogLevel.ERROR,
@@ -285,7 +325,10 @@ class FUAFormatFromSchemaController {
                 { name: "file", file: "logs/auxLog.log"},
                 { name: "database" }
             ]);  
+            transactionInst.confirmTransaction();
+            res.status(200).json(editFUAFormat);
         } catch (err: any) {
+            transactionInst.unconfirmTransaction();
             res.status(500).json({
                 error: 'Failed to edit FUA Format From Schema. (Controller)', 
                 message: (err as (Error)).message,
@@ -307,6 +350,104 @@ class FUAFormatFromSchemaController {
         }
             
     };
+
+    delete = async (req: Request, res: Response): Promise<void> => {
+        const controllerBody = req.body;
+        //const files = req.files as { [fieldname: string]: Express.Multer.File[] };
+
+        //const file = files['formatPayload']?.[0];
+         
+        //const jsoncContent = file.buffer.toString('utf-8');
+        //const parsed = parse(jsoncContent);
+
+        // Validation parsing validation pending needed
+
+        let deleteFUAFormat = null;
+        try {
+            transactionInst.renewTransaction()
+            deleteFUAFormat = await FUAFormatFromSchemaService.delete({
+                uuid: req.params.id,
+                active: false,
+                inactiveBy: controllerBody.inactiveBy,
+                inactiveReason: controllerBody.inactiveReason
+            });
+
+            if (deleteFUAFormat == null){
+                res.status(304).json({
+                    error: `FUA Field by UUID '${controllerBody.uuid}' couldnt be found. `,
+                });
+                return;
+            }
+              
+            let auxLog = new Log({
+                timeStamp: new Date(),
+                logLevel: Logger_LogLevel.ERROR,
+                securityLevel: Logger_SecurityLevel.Admin,
+                logType: Logger_LogType.DELETE,
+                environmentType: loggerInstance.enviroment.toString(),
+                description: ("Deleting FUA Format From Schema Successful")
+            });
+            loggerInstance.printLog(auxLog, [
+                { name: "terminal" },
+                { name: "file", file: "logs/auxLog.log"},
+                { name: "database" }
+            ]);  
+            transactionInst.confirmTransaction();
+            res.status(200).json(deleteFUAFormat);
+        } catch (err: any) {
+            transactionInst.unconfirmTransaction();
+            res.status(500).json({
+                error: 'Failed to delete FUA Format From Schema. (Controller)', 
+                message: (err as (Error)).message,
+                details: (err as any).details ?? null, 
+            });
+            let auxLog = new Log({
+                timeStamp: new Date(),
+                logLevel: Logger_LogLevel.ERROR,
+                securityLevel: Logger_SecurityLevel.Admin,
+                logType: Logger_LogType.DELETE,
+                environmentType: loggerInstance.enviroment.toString(),
+                description: (err.message ? (err.message+'\n') : '') + (err.details ?? '')
+            });
+            loggerInstance.printLog(auxLog, [
+                { name: "terminal" },
+                { name: "file", file: "logs/auxLog.log"},
+                { name: "database" }
+            ]);
+        }
+            
+    };
+
+    async hashSignatureVerificationControllerTemporary (req: Request, res: Response): Promise<void>  {
+        try {
+            const files = req.files as { [fieldname: string]: Express.Multer.File[] } | undefined;
+            const file = files?.['pdf']?.[0]; 
+            
+            if (!process.env.SECRET_KEY) {
+                throw new Error("Missing SECRET_KEY environment variable");
+                }
+            const secretKey: string = process.env.SECRET_KEY;
+            console.log(secretKey);
+
+            if (!file) {
+            res.status(400).json({ error: "No PDF provided (field 'pdf')." });
+            return;
+            }
+
+            const result = await pdfMetadataHashSignatureVerification(file.buffer, secretKey);
+            res.status(200).json(result);
+
+        } catch (err: any) {
+            console.error("Error in FUAFormatFromSchema Controller - pdfMetadataHashSignatureVerification:", err);
+            res.status(500).json({
+            error: "Failed to verify PDF signature. (Controller)",
+            message: (err as Error).message,
+            details: (err as any).details ?? null,
+            });
+        }
+    };
+
+
 }
 
 export default new FUAFormatFromSchemaController();

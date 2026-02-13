@@ -9,7 +9,7 @@
     "build": "tsc",
     "migrate": "sequelize-cli db:migrate",
     "seed": "sequelize-cli db:seed:all",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -25,13 +25,9 @@
   },
   "homepage": "https://github.com/PROYECTO-SANTACLOTILDE/Generador-de-FUA#readme",
   "dependencies": {
-    "@signpdf/placeholder-plain": "^3.2.5",
-    "@signpdf/signer-p12": "^3.2.4",
-    "@signpdf/signpdf": "^3.2.5",
-    "@signpdf/utils": "^3.2.4",
     "@types/fhir": "^0.0.41",
+    "archiver": "^7.0.1",
     "body-parser": "^2.2.0",
-    "c": "^1.1.1",
     "clean": "^4.0.2",
     "cors": "^2.8.5",
     "dedent": "^1.6.0",
@@ -41,7 +37,7 @@
     "fhir-kit-client": "^1.9.2",
     "jsonc-parser": "^3.3.1",
     "multer": "^2.0.1",
-    "node-signpdf": "^3.0.0",
+    "pdf-lib": "^1.17.1",
     "pg": "^8.15.5",
     "pg-hstore": "^2.3.4",
     "puppeteer": "^24.17.0",
@@ -49,11 +45,14 @@
     "zod": "^3.25.17"
   },
   "devDependencies": {
+    "@jest/globals": "^30.2.0",
     "@types/express": "^5.0.1",
     "@types/multer": "^2.0.0",
     "@types/node": "^22.15.0",
+    "jest": "^30.2.0",
     "nodemon": "^3.1.10",
     "sequelize-cli": "^6.3.0",
+    "ts-jest": "^29.4.6",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
   }

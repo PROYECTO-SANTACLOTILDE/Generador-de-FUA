@@ -11,7 +11,7 @@ const BaseEntity = require('./BaseEntityModel');
 const FUAFieldRow = sequelize.define(
     "FUAFieldRow",
     {
-        //Extending BaseEntity
+        // Extending BaseEntity
         ...BaseEntity.commonAttributes(),
         
         // Define FuaFormat atributes
